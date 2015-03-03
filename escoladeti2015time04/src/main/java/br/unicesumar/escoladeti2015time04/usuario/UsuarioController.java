@@ -1,6 +1,6 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
-import br.unicesumar.escoladeti2015time04.utils.ResultadoListagem;
+import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
 import br.unicesumar.escoladeti2015time04.utils.listagem.PaginadorPostgreSQL;
 import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
@@ -25,7 +25,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/listar", method = RequestMethod.POST)
-    public ResultadoListagem<Usuario> listarUsuariosFiltro(@RequestBody RequisicaoListagem requisicaoListagem) {
+    public ResultadoListagem<Usuario> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
         return this.service.listar(requisicaoListagem);
     }
     

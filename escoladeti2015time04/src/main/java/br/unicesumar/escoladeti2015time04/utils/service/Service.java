@@ -3,7 +3,7 @@ package br.unicesumar.escoladeti2015time04.utils.service;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Paginador;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
-import br.unicesumar.escoladeti2015time04.utils.ResultadoListagem;
+import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
 import java.io.Serializable;

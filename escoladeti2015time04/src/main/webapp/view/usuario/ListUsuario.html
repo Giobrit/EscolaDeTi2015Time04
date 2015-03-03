@@ -24,16 +24,16 @@
                         <table class="table table-hover table-condensed">
                             <thead>
                                 <tr>
-                                    <th class="col-md-5">Nome</th>
-                                    <th class="col-md-2">Login</th>
-                                    <th class="col-md-3">Email</th>
-                                    <th class="col-md-1">Ação</th>
+                                    <th ng-click="alterarOrdenacao('nome')" class="col-md-5">Nome</th>
+                                    <th ng-click="alterarOrdenacao('login')" class="col-md-2">Login</th>
+                                    <th ng-click="alterarOrdenacao('email')" class="col-md-3">Email</th>
+                                    <th ng-click="alterarOrdenacao('status')" class="col-md-1">Ação</th>
                                     <th class="col-md-1">Opção</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="u in usuarios">
-                                    <td ng-click="alterarOrdenacao('nome')">{{u.nome}}</td>
+                                    <td>{{u.nome}}</td>
                                     <td>{{u.login}}</td>
                                     <td>{{u.email}}</td>
                                     <td>

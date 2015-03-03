@@ -3,5 +3,6 @@ function RequisicaoListagem() {
     var paginaAtual;
     var colunasVisiveis;
     var colunaOrdenacao;
+    var ordenacaoCrescente;
     var valorFiltragem; 
 }
