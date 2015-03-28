@@ -1,6 +1,5 @@
 package br.unicesumar.escoladeti2015time04;
 
-import com.sun.org.apache.xerces.internal.dom.PSVIAttrNSImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
