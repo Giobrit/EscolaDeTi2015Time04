@@ -40,4 +40,11 @@ public class Email {
             return false;
         }        
     }
+
+    @Override
+    public String toString() {
+        return email;
+    }
+    
+    
 }

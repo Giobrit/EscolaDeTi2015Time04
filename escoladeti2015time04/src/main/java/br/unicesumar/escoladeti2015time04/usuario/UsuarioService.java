@@ -13,7 +13,7 @@ public class UsuarioService {
     private UsuarioRepository repoUsuario;
     
     public void salvar(Usuario usuario){ 
-        usuario.setStatus(Status.ATIVO);
+        usuario.setStatus(true);
         repoUsuario.save(usuario); 
     }
     
@@ -27,13 +27,7 @@ public class UsuarioService {
     
     public void inativar(Long id , boolean status){
         Usuario usuario = repoUsuario.getOne(id);
-        
-        if(status){
-            usuario.setStatus(Status.ATIVO);
-        }else{
-            usuario.setStatus(Status.INATIVO);
-        }
-        
+        usuario.setStatus(status);
         repoUsuario.save(usuario);            
     }
     

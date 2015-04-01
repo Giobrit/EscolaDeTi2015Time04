@@ -25,6 +25,7 @@ public class Usuario implements Serializable{
     private String senha;
     @Column(nullable=false)
     @Embedded
+    
     private Email email;
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -83,6 +84,14 @@ public class Usuario implements Serializable{
         this.status = status;
     }
     
+    void setStatus(boolean status) {
+        if(status){
+            this.setStatus(Status.ATIVO);
+        }else{
+            this.setStatus(Status.INATIVO);
+        }
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -109,6 +118,7 @@ public class Usuario implements Serializable{
     public String toString() {
         return "Usuario{" + "id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", email=" + '}';
     }
+
     
     
 }
