@@ -1,6 +1,7 @@
 package br.unicesumar.escoladeti2015time04.perfilacesso;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,10 @@ public class PerfilAcessoService {
         perfilRepository.delete(id);
     }
     
-    public List listarPerfilAcesso(){
-        //return jdbcTemplate.query('select a.id, a.nome from PerfilAcesso');
+    public List<Map<String,Object>> listarPerfilAcesso(){
+        /*List<Map<String,Object>> perfis;
+        perfis = jdbcTemplate.query("select p.id, p.nome from perfilacesso p", null, new MapRowMapper());
+        return perfis;*/
         return null;
     }
 }

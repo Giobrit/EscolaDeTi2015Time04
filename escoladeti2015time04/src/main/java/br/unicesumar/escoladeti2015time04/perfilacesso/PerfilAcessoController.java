@@ -1,6 +1,7 @@
 package br.unicesumar.escoladeti2015time04.perfilacesso;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ public class PerfilAcessoController {
     private PerfilAcessoService service;
     
     @RequestMapping(method = RequestMethod.GET)
-    public List<PerfilAcesso> getPerfilAcesso(){
+    public List<Map<String,Object>> getPerfilAcesso(){
         return service.listarPerfilAcesso();
     }
     
