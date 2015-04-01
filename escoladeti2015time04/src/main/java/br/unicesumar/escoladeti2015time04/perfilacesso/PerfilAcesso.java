@@ -2,6 +2,7 @@ package br.unicesumar.escoladeti2015time04.perfilacesso;
 
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,13 +14,16 @@ public class PerfilAcesso {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @Column(nullable = true)//Nome do perfil é obrigatorio
     private String nome;
     //Falta colocar um Set de itens de acesso aqui  
     //private Set<ItensAcesso> itensAcesso = new Set<>();
+    
     public PerfilAcesso() {
     }
-
+    //Não sei se há necessidade de um construtor alternativo
     public PerfilAcesso(String nome) {
+        /*Não pode existir perfil com nomes duplicados*/
         this.nome = nome;
     }
 
@@ -32,6 +36,7 @@ public class PerfilAcesso {
     }
 
     public void setNome(String nome) {
+        /*Não pode existir perfil com nomes duplicados, deve ser implementado verificação*/
         this.nome = nome;
     }
 

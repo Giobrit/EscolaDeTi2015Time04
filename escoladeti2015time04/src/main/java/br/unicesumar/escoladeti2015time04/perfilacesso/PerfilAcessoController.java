@@ -16,7 +16,7 @@ public class PerfilAcessoController {
     
     @RequestMapping(method = RequestMethod.GET)
     public List<PerfilAcesso> getPerfilAcesso(){
-        return service.listar();
+        return service.listarPerfilAcesso();
     }
     
     @RequestMapping(method = RequestMethod.POST)

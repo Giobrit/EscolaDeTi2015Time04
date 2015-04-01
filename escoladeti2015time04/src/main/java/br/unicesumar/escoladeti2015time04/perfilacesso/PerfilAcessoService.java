@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,20 +12,25 @@ import org.springframework.stereotype.Component;
 public class PerfilAcessoService {
     @Autowired
     private PerfilAcessoRepository perfilRepository;
+    @Autowired
+    private NamedParameterJdbcTemplate jdbcTemplate;
     
     public void salvar(PerfilAcesso perfilAcesso){
         perfilRepository.save(perfilAcesso);
     }
     
     public void editar(PerfilAcesso perfilAcesso){
-        //Implementar modo editar
+        perfilRepository.save(perfilAcesso);
     }
     
     public void remover(Long id){
-        //Implementar modo remover
+        /*Precisa verificar se existe este perfil em algum usuario, caso "sim" dar a mensagem que possui 
+        cadastro com este perfil*/        
+        perfilRepository.delete(id);
     }
-    //Verificar como retornar um Set atraves do findAll() do repositorio JPA
-    public List listar(){
-        return perfilRepository.findAll();
+    
+    public List listarPerfilAcesso(){
+        //return jdbcTemplate.query('select a.id, a.nome from PerfilAcesso');
+        return null;
     }
 }
