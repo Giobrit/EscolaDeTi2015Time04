@@ -1,5 +1,6 @@
 package br.unicesumar.escoladeti2015time04.perfilacesso;
 
+import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,14 +27,22 @@ public class PerfilAcessoService {
     
     public void remover(Long id){
         /*Precisa verificar se existe este perfil em algum usuario, caso "sim" dar a mensagem que possui 
-        cadastro com este perfil*/        
+        cadastro com este perfil*/
+        
         perfilRepository.delete(id);
     }
     
     public List<Map<String,Object>> listarPerfilAcesso(){
-        /*List<Map<String,Object>> perfis;
-        perfis = jdbcTemplate.query("select p.id, p.nome from perfilacesso p", null, new MapRowMapper());
-        return perfis;*/
-        return null;
+        List<Map<String,Object>> listaDePerfil;
+        listaDePerfil = jdbcTemplate.query("select p.nome, p.id from perfil_acesso p", new MapRowMapper());
+        
+        return listaDePerfil;
+    }
+    
+    public List<Map<String,Object>> listarItemAcesso(){
+        List<Map<String,Object>> listaDeItens;
+        listaDeItens = jdbcTemplate.query("select p.nome, p.id from perfil_acesso p", new MapRowMapper());
+        
+        return listaDeItens;
     }
 }

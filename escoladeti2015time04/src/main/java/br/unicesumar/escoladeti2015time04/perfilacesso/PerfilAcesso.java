@@ -1,5 +1,7 @@
 package br.unicesumar.escoladeti2015time04.perfilacesso;
 
+import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
@@ -14,10 +16,10 @@ public class PerfilAcesso {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column(nullable = true)//Nome do perfil é obrigatorio
+    @Column(nullable = true)
     private String nome;
-    //Falta colocar um Set de itens de acesso aqui  
-    //private Set<ItensAcesso> itensAcesso = new Set<>();
+    @Column(unique = true)
+    private Set<ItemAcesso> itensAcesso = new HashSet<ItemAcesso>();
     
     public PerfilAcesso() {
     }
@@ -38,6 +40,14 @@ public class PerfilAcesso {
     public void setNome(String nome) {
         /*Não pode existir perfil com nomes duplicados, deve ser implementado verificação*/
         this.nome = nome;
+    }
+
+    public Set<ItemAcesso> getItensAcesso() {
+        return itensAcesso;
+    }
+
+    public void setItensAcesso(Set<ItemAcesso> itensAcesso) {
+        this.itensAcesso = itensAcesso;
     }
 
     @Override

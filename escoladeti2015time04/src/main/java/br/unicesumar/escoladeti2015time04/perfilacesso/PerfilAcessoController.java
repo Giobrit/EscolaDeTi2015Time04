@@ -16,8 +16,13 @@ public class PerfilAcessoController {
     private PerfilAcessoService service;
     
     @RequestMapping(method = RequestMethod.GET)
-    public List<Map<String,Object>> getPerfilAcesso(){
+    public List<Map<String,Object>> getPerfisAcesso(){
         return service.listarPerfilAcesso();
+    }
+    
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Map<String,Object>> getItensAcesso(){
+        return service.listarItemAcesso();
     }
     
     @RequestMapping(method = RequestMethod.POST)
