@@ -1,4 +1,4 @@
-package br.unicesumar.escoladeti2015time04.usuario;
+package br.unicesumar.escoladeti2015time04.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

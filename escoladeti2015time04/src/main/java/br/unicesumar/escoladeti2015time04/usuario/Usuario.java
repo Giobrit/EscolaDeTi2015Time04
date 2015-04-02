@@ -1,5 +1,6 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
+import br.unicesumar.escoladeti2015time04.utils.Email;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -23,9 +24,10 @@ public class Usuario implements Serializable{
     private String login;
     @Column(nullable=false)
     private String senha;
-    @Column(nullable=false)
+    
     @Embedded
     
+    @Column(nullable=false, columnDefinition = "varchar(100)")
     private Email email;
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -84,13 +86,7 @@ public class Usuario implements Serializable{
         this.status = status;
     }
     
-    void setStatus(boolean status) {
-        if(status){
-            this.setStatus(Status.ATIVO);
-        }else{
-            this.setStatus(Status.INATIVO);
-        }
-    }
+
     
     @Override
     public int hashCode() {
