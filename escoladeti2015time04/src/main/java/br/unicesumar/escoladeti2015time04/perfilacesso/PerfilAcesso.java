@@ -9,8 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "perfilacesso")
 public class PerfilAcesso {
 
     @Id
@@ -18,17 +20,22 @@ public class PerfilAcesso {
     private Long id;
     @Column(nullable = true)
     private String nome;
-    @Column(unique = true)
-    private Set<ItemAcesso> itensAcesso = new HashSet<ItemAcesso>();
-    
+    /*@Column(nullable = true, unique = true)
+     private Set<ItemAcesso> listaItensAcesso = new HashSet<ItemAcesso>();;
+     */
+
     public PerfilAcesso() {
     }
-    //Não sei se há necessidade de um construtor alternativo
+
     public PerfilAcesso(String nome) {
-        /*Não pode existir perfil com nomes duplicados*/
         this.nome = nome;
     }
 
+    public PerfilAcesso(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -38,17 +45,17 @@ public class PerfilAcesso {
     }
 
     public void setNome(String nome) {
-        /*Não pode existir perfil com nomes duplicados, deve ser implementado verificação*/
         this.nome = nome;
     }
+    /*
+     public Set<ItemAcesso> getListaItensAcesso() {
+     return listaItensAcesso;
+     }
 
-    public Set<ItemAcesso> getItensAcesso() {
-        return itensAcesso;
-    }
-
-    public void setItensAcesso(Set<ItemAcesso> itensAcesso) {
-        this.itensAcesso = itensAcesso;
-    }
+     public void setListaItensAcesso(Set<ItemAcesso> itensAcesso) {
+     this.listaItensAcesso = itensAcesso;
+     }
+     */
 
     @Override
     public int hashCode() {
