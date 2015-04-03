@@ -22,13 +22,15 @@ public class Usuario implements Serializable{
     private String nome;
     @Column(unique=true, nullable=false)
     private String login;
-    @Column(nullable=false)
-    private String senha;
     
     @Embedded
+    @Column(nullable=false, columnDefinition = "varchar(10)")
+    private Senha senha;
     
+    @Embedded    
     @Column(nullable=false, columnDefinition = "varchar(100)")
     private Email email;
+    
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -38,7 +40,7 @@ public class Usuario implements Serializable{
     public Usuario(String nome, String login, String senha, String email) {
         this.nome = nome;
         this.login = login;
-        this.senha = senha;
+        this.senha = new Senha(senha);
         this.email = new Email(email);
     }
 
@@ -62,12 +64,12 @@ public class Usuario implements Serializable{
         this.login = login;
     }
 
-    public String getSenha() {
+    public Senha getSenha() {
         return senha;
     }
 
     public void setSenha(String senha) {
-        this.senha = senha;
+        this.senha = new Senha(senha);
     }
 
     public Email getEmail() {

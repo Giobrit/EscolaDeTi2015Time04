@@ -25,13 +25,10 @@ public class UsuarioService {
         return repoUsuario.findAll();
     }
     
-    public void inativar(Long id ,boolean status){
+    public void inativar(Long id , Status status){
         Usuario usuario = repoUsuario.getOne(id);
-        
-        if(status){
-            usuario.setStatus(Status.ATIVO);         
-        } 
-        usuario.setStatus(Status.INATIVO);   
+                
+        usuario.setStatus(status);  
         repoUsuario.save(usuario);            
     }
     

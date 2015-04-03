@@ -19,12 +19,14 @@ public class UsuarioController {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
     
+    private final static int NUMERO_REGISTROS = 3;
+    
     @Autowired
     private UsuarioService service;
     
     @RequestMapping(method = RequestMethod.GET)
     public List<Map<String, Object>> listarUsuarios() {
-        return jdbcTemplate.query("select * from usuario", new MapSqlParameterSource(), new MapRowMapper());
+        return jdbcTemplate.query("select nome, login, email from usuario limit "+ NUMERO_REGISTROS, new MapSqlParameterSource(), new MapRowMapper());
     }
     
     
@@ -38,15 +40,10 @@ public class UsuarioController {
     public void editarUsuario(@RequestBody Usuario usuario){
         this.service.editar(usuario);
     }
-    
-//    @RequestMapping(method = RequestMethod.GET)
-//    public List<Usuario> listarUsuarios(){
-//        return this.service.listar();
-//                
-//    }
-    
-@RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
-    public void alterarStatus(@PathVariable Long id, @PathVariable boolean status){
+      
+
+    @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
+    public void alterarStatus(@PathVariable Long id, @PathVariable Status status){
         this.service.inativar(id,status);
         
     }
