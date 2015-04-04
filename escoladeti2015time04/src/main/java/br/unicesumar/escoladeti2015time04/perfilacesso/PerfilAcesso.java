@@ -4,11 +4,16 @@ import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,9 +25,15 @@ public class PerfilAcesso {
     private Long id;
     @Column(nullable = true)
     private String nome;
-    /*@Column(nullable = true, unique = true)
-     private Set<ItemAcesso> listaItensAcesso = new HashSet<ItemAcesso>();;
-     */
+    @Column(nullable = true, unique = true)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(                        
+            name = "itemacesso_perfilacesso",
+            joinColumns = {
+        @JoinColumn(name = "perfilacesso_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+        @JoinColumn(name = "itemacesso_id", referencedColumnName = "id")})
+    private Set<ItemAcesso> listaItensAcesso = new HashSet<ItemAcesso>();
 
     public PerfilAcesso() {
     }
@@ -35,7 +46,7 @@ public class PerfilAcesso {
         this.id = id;
         this.nome = nome;
     }
-    
+
     public Long getId() {
         return id;
     }

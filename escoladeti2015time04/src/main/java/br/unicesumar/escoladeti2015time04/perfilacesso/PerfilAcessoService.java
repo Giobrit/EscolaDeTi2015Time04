@@ -19,15 +19,11 @@ public class PerfilAcessoService {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public void salvar(PerfilAcesso perfilAcesso) {
-        if (existePerfil(perfilAcesso.getNome()) == false) {
-            perfilRepository.save(perfilAcesso);
-        }
+        perfilRepository.save(perfilAcesso);
     }
 
     public void editar(PerfilAcesso perfilAcesso) {
-        if (existePerfil(perfilAcesso.getNome()) == false) {
-            perfilRepository.save(perfilAcesso);
-        }
+        perfilRepository.save(perfilAcesso);
     }
 
     public void remover(Long id) {
@@ -68,7 +64,7 @@ public class PerfilAcessoService {
                 + "select "
                 + "p.id,"
                 + "p.nome "
-                + "from perfilacesso "
+                + "from perfilacesso p "
                 + "where p.nome = :nome", params, new MapRowMapper());
         if (perfil.size() > 0) {
             return true;
