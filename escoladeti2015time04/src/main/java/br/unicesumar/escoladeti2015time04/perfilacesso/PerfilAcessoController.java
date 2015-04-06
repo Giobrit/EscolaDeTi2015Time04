@@ -1,15 +1,12 @@
 package br.unicesumar.escoladeti2015time04.perfilacesso;
 
-import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,7 +17,7 @@ public class PerfilAcessoController {
     private PerfilAcessoService service;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Map<String, Object>> getPerfisAcesso() {
+    public List<Map<String, Object>> getPerfilAcesso() {
         return service.listarPerfilAcesso();
     }
 
@@ -35,21 +32,16 @@ public class PerfilAcessoController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Boolean criarPerfilAcesso(@RequestBody PerfilAcesso perfilAcesso) {
-        if (service.existePerfil(perfilAcesso.getNome()) == false) {
-            service.salvar(perfilAcesso);
-            return true;
+    public void criarPerfilAcesso(@RequestBody PerfilAcesso perfilAcesso) {
+        if (service.existePerfil(perfilAcesso.getNome())) {
+            throw new RuntimeException("Já existe Perfil de acesso com o mesmo nome.");
         }
-        return false;
+        service.salvar(perfilAcesso);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Boolean editarPerfilAcesso(@RequestBody PerfilAcesso perfilAcesso) {
-        if (service.existePerfil(perfilAcesso.getNome()) == false) {
-            service.editar(perfilAcesso);
-            return true;
-        }
-        return false;
+    public void editarPerfilAcesso(@RequestBody PerfilAcesso perfilAcesso) {
+        service.editar(perfilAcesso);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

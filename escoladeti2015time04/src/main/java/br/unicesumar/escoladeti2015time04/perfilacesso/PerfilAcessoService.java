@@ -28,7 +28,7 @@ public class PerfilAcessoService {
 
     public void remover(Long id) {
         /*Precisa verificar se existe este perfil em algum usuario, caso "sim" dar a mensagem que possui 
-         cadastro com este perfil*/
+         cadastro com este perfil(Aguardando vinculo com perfil-usuario)*/
 
         perfilRepository.delete(id);
     }

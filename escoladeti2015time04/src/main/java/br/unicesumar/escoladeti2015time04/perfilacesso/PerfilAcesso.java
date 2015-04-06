@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,7 +26,7 @@ public class PerfilAcesso {
     private String nome;
     @Column(nullable = true, unique = true)
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(                        
+    @JoinTable(
             name = "itemacesso_perfilacesso",
             joinColumns = {
         @JoinColumn(name = "perfilacesso_id", referencedColumnName = "id")},
@@ -58,15 +57,14 @@ public class PerfilAcesso {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    /*
-     public Set<ItemAcesso> getListaItensAcesso() {
-     return listaItensAcesso;
-     }
 
-     public void setListaItensAcesso(Set<ItemAcesso> itensAcesso) {
-     this.listaItensAcesso = itensAcesso;
-     }
-     */
+    public Set<ItemAcesso> getListaItensAcesso() {
+        return listaItensAcesso;
+    }
+
+    public void setListaItensAcesso(Set<ItemAcesso> itensAcesso) {
+        this.listaItensAcesso = itensAcesso;
+    }
 
     @Override
     public int hashCode() {
@@ -94,5 +92,4 @@ public class PerfilAcesso {
     public String toString() {
         return "PerfilAcesso{" + "id=" + id + ", nome=" + nome + '}';
     }
-
 }
