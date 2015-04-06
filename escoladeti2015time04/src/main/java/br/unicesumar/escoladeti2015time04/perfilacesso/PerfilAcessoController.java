@@ -29,6 +29,11 @@ public class PerfilAcessoController {
         return service.findById(id);
     }
 
+    @RequestMapping(value = "/verificar-se-existe-perfil/{nome}", method = RequestMethod.GET)
+    public Boolean verificarSeExistePerfilAcesso(@PathVariable String nome) {
+        return service.existePerfil(nome);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public Boolean criarPerfilAcesso(@RequestBody PerfilAcesso perfilAcesso) {
         if (service.existePerfil(perfilAcesso.getNome()) == false) {
@@ -37,15 +42,14 @@ public class PerfilAcessoController {
         }
         return false;
     }
-/* verificar com o giovani como vai ser a validação no campo especifico
-    @RequestMapping(method = RequestMethod.POST)
-    public Boolean verificarSeExistePerfilAcesso(@RequestParam String nome) {
-        return service.existePerfil(nome);
-    }
-*/
+
     @RequestMapping(method = RequestMethod.PUT)
-    public void editarPerfilAcesso(@RequestBody PerfilAcesso perfilAcesso) {
-        service.editar(perfilAcesso);
+    public Boolean editarPerfilAcesso(@RequestBody PerfilAcesso perfilAcesso) {
+        if (service.existePerfil(perfilAcesso.getNome()) == false) {
+            service.editar(perfilAcesso);
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

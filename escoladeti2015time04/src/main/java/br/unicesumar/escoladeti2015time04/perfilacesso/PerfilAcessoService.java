@@ -65,7 +65,7 @@ public class PerfilAcessoService {
                 + "p.id,"
                 + "p.nome "
                 + "from perfilacesso p "
-                + "where p.nome = :nome", params, new MapRowMapper());
+                + "where lower(p.nome) = lower(:nome)", params, new MapRowMapper());
         if (perfil.size() > 0) {
             return true;
         }
