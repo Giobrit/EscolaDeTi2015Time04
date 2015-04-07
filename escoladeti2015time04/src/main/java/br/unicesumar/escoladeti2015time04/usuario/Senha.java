@@ -10,6 +10,8 @@ import javax.persistence.Embeddable;
 public class Senha implements Serializable{
     
     private String senha;
+    private final Integer TAMANHO_MINIMO_SENHA = 6;
+    private final Integer TAMANHO_MAXIMO_SENHA = 10;
 
     public Senha() {
     }
@@ -29,11 +31,40 @@ public class Senha implements Serializable{
        
     }
     
-    private void validarSenha(String senha){
-        
-        Pattern minusculas = Pattern.compile("[a-z]");  
-        if ( !minusculas.matcher(senha).find()) 
-            System.out.println("senha inválida");
+    private Boolean validarSenha(String senha){        
+        if((!temMinuscula(senha) || !temMaiuscula(senha) || !temNumero(senha) || 
+            !temEspecial(senha)) && comprimentoDaSenha(senha)){
+             return false;
+        }
+        return true;
+    }
+
+    private Boolean temMinuscula(String senha) {
+        Pattern padrao = Pattern.compile("[a-z]");  
+        Matcher minuscula = padrao.matcher(senha);
+        return minuscula.find();
+    }
+
+    private Boolean temMaiuscula(String senha) {
+        Pattern padrao = Pattern.compile("[A-Z]");
+        Matcher maiuscula = padrao.matcher(senha);
+        return maiuscula.find();
+    }
+
+    private Boolean temNumero(String senha) {
+        Pattern padrao = Pattern.compile("[0-9]");
+        Matcher numero = padrao.matcher(senha);     
+        return numero.find();
+    }
+
+    private Boolean temEspecial(String senha) {
+        Pattern padrao = Pattern.compile("[^a-zA-Z0-9]");
+        Matcher caracterEspecial = padrao.matcher(senha);
+        return caracterEspecial.find();
+    }
+
+    private boolean comprimentoDaSenha(String senha) {
+        return senha.length() >= TAMANHO_MINIMO_SENHA && senha.length() <= TAMANHO_MAXIMO_SENHA;
     }
     
 }
