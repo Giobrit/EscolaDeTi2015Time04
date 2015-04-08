@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class PerfilAcesso {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     @Column(nullable = true)
     private String nome;
