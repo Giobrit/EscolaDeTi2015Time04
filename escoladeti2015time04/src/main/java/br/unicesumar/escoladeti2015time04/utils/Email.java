@@ -14,6 +14,8 @@ public class Email implements Serializable{
     }
 
     public Email(String email) {
+        if(!validarEmail(email))
+            throw new IllegalArgumentException("Email inválido!");
         this.email = email;
     }
     
@@ -22,13 +24,9 @@ public class Email implements Serializable{
     }
 
     public void setEmail(String email) {
-        try{
-            if(validarEmail(email)){
-                this.email = email;
-            }
-        }catch(IllegalArgumentException e){
-            e.printStackTrace();
-        }
+        if(!validarEmail(email))
+            throw new IllegalArgumentException("Email inválido!");
+        this.email = email;
     }
 
     private boolean validarEmail(String email) {
@@ -36,10 +34,9 @@ public class Email implements Serializable{
         Pattern p = Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$");
         Matcher m = p.matcher(email);
         if(!m.find()) {
-            return true;
-        } else {
             return false;
-        }        
+        } 
+        return true;                
     }
 
     @Override

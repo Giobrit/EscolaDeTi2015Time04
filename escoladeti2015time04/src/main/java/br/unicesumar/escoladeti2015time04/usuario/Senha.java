@@ -5,38 +5,39 @@ import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 @Embeddable
 public class Senha implements Serializable{
     
     private String senha;
+    @Transient
     private final Integer TAMANHO_MINIMO_SENHA = 6;
+    @Transient
     private final Integer TAMANHO_MAXIMO_SENHA = 10;
 
     public Senha() {
     }
 
     public Senha(String senha) {
-        validarSenha(senha);
+        if(!validarSenha(senha))
+            throw new IllegalArgumentException("Senha não atende aos requisitos de segurança!");
         this.senha = senha;
     }
 
     public String getSenha() {
-        return senha;
+       return senha;
     }
 
     public void setSenha(String senha) {
-        validarSenha(senha);
+        if(!validarSenha(senha))
+            throw new IllegalArgumentException("Senha não atende aos requisitos de segurança!");
         this.senha = senha;
-       
     }
     
-    private Boolean validarSenha(String senha){        
-        if((!temMinuscula(senha) || !temMaiuscula(senha) || !temNumero(senha) || 
-            !temEspecial(senha)) && comprimentoDaSenha(senha)){
-             return false;
-        }
-        return true;
+    private Boolean validarSenha(String senha){
+        return temMinuscula(senha) && temMaiuscula(senha) && temNumero(senha) &&
+               temEspecial(senha) && comprimentoDaSenha(senha);
     }
 
     private Boolean temMinuscula(String senha) {

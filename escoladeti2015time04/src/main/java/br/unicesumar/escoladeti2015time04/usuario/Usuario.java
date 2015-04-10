@@ -37,11 +37,11 @@ public class Usuario implements Serializable{
     public Usuario() {
     }
 
-    public Usuario(String nome, String login, String senha, String email) {
+    public Usuario(String nome, String login, Senha senha, Email email) {
         this.nome = nome;
         this.login = login;
-        this.senha = new Senha(senha);
-        this.email = new Email(email);
+        this.senha = senha;
+        this.email = email;
     }
 
     public Long getId() {
@@ -68,16 +68,16 @@ public class Usuario implements Serializable{
         return senha;
     }
 
-    public void setSenha(String senha) {
-        this.senha = new Senha(senha);
+    public void setSenha(Senha senha) {
+        this.senha = senha;
     }
 
     public Email getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = new Email(email);
+    public void setEmail(Email email) {
+        this.email = email;
     }
 
     public Status getStatus() {
@@ -87,8 +87,6 @@ public class Usuario implements Serializable{
     public void setStatus(Status status) {
         this.status = status;
     }
-    
-
     
     @Override
     public int hashCode() {
