@@ -41,7 +41,7 @@ public class ItemAcessoService {
         List<Map<String, Object>> itensAcesso = repositorio.query("select ia.id, "
                 + "ia.descricao, "
                 + "ia.rota, "
-                + "ia.superior from itemAcesso ia whre ia.id = :id", params, new MapRowMapper());
+                + "ia.superior from itemAcesso ia where ia.id = :id", params, new MapRowMapper());
 
         return itensAcesso;
     }
@@ -53,7 +53,7 @@ public class ItemAcessoService {
         List<Map<String, Object>> itensAcesso = repositorio.query("select ia.id, "
                 + "ia.descricao, "
                 + "ia.rota, "
-                + "ia.superior from itemAcesso ia whre ia.superior = :idSuperior", params, new MapRowMapper());
+                + "ia.superior from itemAcesso ia where ia.superior = :idSuperior", params, new MapRowMapper());
 
         return itensAcesso;
     }
