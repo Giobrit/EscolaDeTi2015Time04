@@ -37,7 +37,7 @@ public class PerfilAcessoController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void editarPerfilAcesso(@RequestBody CriarPerfilAcessoCommand command) {
+    public void editarPerfilAcesso(@RequestBody EditarPerfilAcessoCommand command) {
         service.editar(command);
     }
 

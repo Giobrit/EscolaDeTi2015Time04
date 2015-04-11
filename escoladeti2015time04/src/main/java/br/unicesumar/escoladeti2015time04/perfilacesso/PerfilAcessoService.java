@@ -28,10 +28,13 @@ public class PerfilAcessoService {
         if (existePerfil(command.getNome())) {
             throw new IllegalArgumentException("Já existe Perfil de acesso com o mesmo nome.");
         }
+        if (command.getNome().isEmpty()) {
+            throw new IllegalArgumentException("É obrigatório informar um nome para o perfil.");
+        }
 
-//        if (command.getConjuntoItemAcessoIds().isEmpty()) {
-//            throw new RuntimeException("O perfil deve possuir ao menos um item de acesso.");
-//        }
+        if (command.getConjuntoItemAcessoIds().size() == 0) {
+            throw new IllegalArgumentException("O perfil deve possuir ao menos um item de acesso.");
+        }
 
         Set<ItemAcesso> lista = new HashSet<>();
         lista.addAll(itemAcessoService.findByIdList(command.getConjuntoItemAcessoIds()));
@@ -42,11 +45,19 @@ public class PerfilAcessoService {
         perfilRepository.save(perfil);
     }
 
-    public void editar(CriarPerfilAcessoCommand command) {
+    public void editar(EditarPerfilAcessoCommand command) {
+        if (command.getNome().isEmpty()) {
+            throw new IllegalArgumentException("É obrigatório informar um nome para o perfil.");
+        }
+
+        if (command.getConjuntoItemAcessoIds().size() == 0) {
+            throw new IllegalArgumentException("O perfil deve possuir ao menos um item de acesso.");
+        }
+        
         Set<ItemAcesso> lista = new HashSet<>();
         lista.addAll(itemAcessoService.findByIdList(command.getConjuntoItemAcessoIds()));
 
-        PerfilAcesso perfil = new PerfilAcesso(command.getNome());
+        PerfilAcesso perfil = new PerfilAcesso(command.getId(), command.getNome());
         perfil.setConjuntoItemAcesso(lista);
         perfilRepository.save(perfil);
     }
@@ -96,4 +107,5 @@ public class PerfilAcessoService {
         }
         return false;
     }
+
 }
