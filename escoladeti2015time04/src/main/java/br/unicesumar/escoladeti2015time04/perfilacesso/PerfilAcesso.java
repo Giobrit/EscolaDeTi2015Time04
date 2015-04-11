@@ -22,9 +22,9 @@ public class PerfilAcesso {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String nome;
-    @Column(nullable = true, unique = true)
+    @Column(nullable = false, unique = true)
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "itemacesso_perfilacesso",
