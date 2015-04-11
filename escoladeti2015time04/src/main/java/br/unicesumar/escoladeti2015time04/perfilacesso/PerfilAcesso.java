@@ -4,7 +4,6 @@ import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,17 +21,19 @@ public class PerfilAcesso {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+
     @Column(nullable = false)
     private String nome;
-    @Column(nullable = false, unique = true)
-    @OneToMany(cascade = CascadeType.ALL)
+
+    @JoinColumn(nullable = false)
+    @OneToMany
     @JoinTable(
             name = "itemacesso_perfilacesso",
             joinColumns = {
-        @JoinColumn(name = "perfilacesso_id", referencedColumnName = "id")},
+                @JoinColumn(name = "perfilacesso_id", referencedColumnName = "id")},
             inverseJoinColumns = {
-        @JoinColumn(name = "itemacesso_id", referencedColumnName = "id")})
-    private Set<ItemAcesso> listaItensAcesso = new HashSet<ItemAcesso>();
+                @JoinColumn(name = "itemacesso_id", referencedColumnName = "id")})
+    private Set<ItemAcesso> conjuntoItemAcesso = new HashSet<>();
 
     public PerfilAcesso() {
     }
@@ -44,6 +45,11 @@ public class PerfilAcesso {
     public PerfilAcesso(Long id, String nome) {
         this.id = id;
         this.nome = nome;
+    }
+
+    public PerfilAcesso(String nome, Set<ItemAcesso> lista) {
+        this.nome = nome;
+        this.conjuntoItemAcesso = lista;
     }
 
     public Long getId() {
@@ -58,12 +64,12 @@ public class PerfilAcesso {
         this.nome = nome;
     }
 
-    public Set<ItemAcesso> getListaItensAcesso() {
-        return listaItensAcesso;
+    public Set<ItemAcesso> getConjuntoItemAcesso() {
+        return conjuntoItemAcesso;
     }
 
-    public void setListaItensAcesso(Set<ItemAcesso> itensAcesso) {
-        this.listaItensAcesso = itensAcesso;
+    public void setConjuntoItemAcesso(Set<ItemAcesso> conjunto) {
+        this.conjuntoItemAcesso = conjunto;
     }
 
     @Override

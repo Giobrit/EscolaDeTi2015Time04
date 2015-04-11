@@ -1,23 +1,26 @@
 package br.unicesumar.escoladeti2015time04.itemAcesso;
 
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+
 @Component
 @Transactional
 public class ItemAcessoService {
 
     @Autowired
     private NamedParameterJdbcTemplate repositorio;
-    
+
     @Autowired
     private ItemAcessoRepository itemAcessoRepository;
-    
+
     public boolean existemItensAcesso() {
         final List<Map<String, Object>> ItensAcesso = findAll();
         if (ItensAcesso.size() < 1) {
@@ -62,4 +65,11 @@ public class ItemAcessoService {
         itemAcessoRepository.save(itemAcesso);
     }
 
+    public Set<ItemAcesso> findByIdList(Set<Long> pLista) {
+        Set<ItemAcesso> conjunto = new HashSet<>();
+            
+        conjunto.addAll(itemAcessoRepository.findAll(pLista));
+
+        return conjunto;
+    }
 }

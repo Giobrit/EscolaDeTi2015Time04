@@ -32,16 +32,13 @@ public class PerfilAcessoController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void criarPerfilAcesso(@RequestBody PerfilAcesso perfilAcesso) {
-        if (service.existePerfil(perfilAcesso.getNome())) {
-            throw new RuntimeException("Já existe Perfil de acesso com o mesmo nome.");
-        }
-        service.salvar(perfilAcesso);
+    public void criarPerfilAcesso(@RequestBody CriarPerfilAcessoCommand command) {
+        service.salvar(command);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void editarPerfilAcesso(@RequestBody PerfilAcesso perfilAcesso) {
-        service.editar(perfilAcesso);
+    public void editarPerfilAcesso(@RequestBody CriarPerfilAcessoCommand command) {
+        service.editar(command);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

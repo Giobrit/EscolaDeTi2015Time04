@@ -1,8 +1,12 @@
 package br.unicesumar.escoladeti2015time04.perfilacesso;
 
+import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
+import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcessoService;
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -16,14 +20,35 @@ public class PerfilAcessoService {
     @Autowired
     private PerfilAcessoRepository perfilRepository;
     @Autowired
+    private ItemAcessoService itemAcessoService;
+    @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public void salvar(PerfilAcesso perfilAcesso) {
-        perfilRepository.save(perfilAcesso);
+    public void salvar(CriarPerfilAcessoCommand command) {
+        if (existePerfil(command.getNome())) {
+            throw new IllegalArgumentException("Já existe Perfil de acesso com o mesmo nome.");
+        }
+
+//        if (command.getConjuntoItemAcessoIds().isEmpty()) {
+//            throw new RuntimeException("O perfil deve possuir ao menos um item de acesso.");
+//        }
+
+        Set<ItemAcesso> lista = new HashSet<>();
+        lista.addAll(itemAcessoService.findByIdList(command.getConjuntoItemAcessoIds()));
+
+        PerfilAcesso perfil = new PerfilAcesso(command.getNome());
+        perfil.setConjuntoItemAcesso(lista);
+
+        perfilRepository.save(perfil);
     }
 
-    public void editar(PerfilAcesso perfilAcesso) {
-        perfilRepository.save(perfilAcesso);
+    public void editar(CriarPerfilAcessoCommand command) {
+        Set<ItemAcesso> lista = new HashSet<>();
+        lista.addAll(itemAcessoService.findByIdList(command.getConjuntoItemAcessoIds()));
+
+        PerfilAcesso perfil = new PerfilAcesso(command.getNome());
+        perfil.setConjuntoItemAcesso(lista);
+        perfilRepository.save(perfil);
     }
 
     public void remover(Long id) {
