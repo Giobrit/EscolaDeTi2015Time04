@@ -37,7 +37,7 @@ public class PerfilAcessoService {
         }
 
         Set<ItemAcesso> lista = new HashSet<>();
-        lista.addAll(itemAcessoService.findByIdList(command.getConjuntoItemAcessoIds()));
+        lista.addAll(itemAcessoService.findAllSet(command.getConjuntoItemAcessoIds()));
 
         PerfilAcesso perfil = new PerfilAcesso(command.getNome());
         perfil.setConjuntoItemAcesso(lista);
@@ -53,9 +53,9 @@ public class PerfilAcessoService {
         if (command.getConjuntoItemAcessoIds().size() == 0) {
             throw new IllegalArgumentException("O perfil deve possuir ao menos um item de acesso.");
         }
-        
+
         Set<ItemAcesso> lista = new HashSet<>();
-        lista.addAll(itemAcessoService.findByIdList(command.getConjuntoItemAcessoIds()));
+        lista.addAll(itemAcessoService.findAllSet(command.getConjuntoItemAcessoIds()));
 
         PerfilAcesso perfil = new PerfilAcesso(command.getId(), command.getNome());
         perfil.setConjuntoItemAcesso(lista);
@@ -80,15 +80,28 @@ public class PerfilAcessoService {
         return listaDePerfil;
     }
 
-    public List<Map<String, Object>> findById(Long id) {
+    public Map<String, Object> findById(Long id) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
-        List<Map<String, Object>> perfil;
-        perfil = jdbcTemplate.query(""
+
+        List<Map<String, Object>> perfis = jdbcTemplate.query(""
                 + "select p.id,"
                 + "p.nome "
                 + "from perfilacesso p "
                 + "where p.id = :id", params, new MapRowMapper());
+
+        if (perfis.isEmpty()) {
+            throw new IllegalArgumentException("Perfil não existe!");
+        }
+
+        Map<String, Object> perfil = perfis.get(0);
+
+        List<Map<String, Object>> itensAcessoIds = jdbcTemplate.query("select ip.itemacesso_id as id "
+                + "from itemacesso_perfilacesso ip "
+                + "where perfilacesso_id = :id", params, new MapRowMapper());
+
+        perfil.put("itemAcesso", itemAcessoService.findAll(itensAcessoIds));
+
         return perfil;
     }
 

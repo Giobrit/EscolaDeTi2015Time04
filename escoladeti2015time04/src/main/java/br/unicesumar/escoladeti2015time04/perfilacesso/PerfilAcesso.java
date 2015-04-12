@@ -1,6 +1,8 @@
 package br.unicesumar.escoladeti2015time04.perfilacesso;
 
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "perfilacesso")
-public class PerfilAcesso {
+public class PerfilAcesso{
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -25,7 +27,7 @@ public class PerfilAcesso {
 
     @Column(nullable = false)
     private String nome;
-
+    
     @JoinColumn(nullable = false)
     @ManyToMany
     @JoinTable(
