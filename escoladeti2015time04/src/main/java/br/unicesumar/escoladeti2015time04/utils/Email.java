@@ -3,11 +3,13 @@ package br.unicesumar.escoladeti2015time04.utils;
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class Email implements Serializable{
     
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     public Email() {

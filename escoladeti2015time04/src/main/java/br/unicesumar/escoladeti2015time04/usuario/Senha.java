@@ -1,15 +1,16 @@
-
 package br.unicesumar.escoladeti2015time04.usuario;
 
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
 @Embeddable
-public class Senha implements Serializable{
-    
+public class Senha implements Serializable {
+
+    @Column(name = "senha", nullable = false)
     private String senha;
     @Transient
     private final Integer TAMANHO_MINIMO_SENHA = 6;
@@ -20,28 +21,30 @@ public class Senha implements Serializable{
     }
 
     public Senha(String senha) {
-        if(!validarSenha(senha))
+        if (!validarSenha(senha)) {
             throw new IllegalArgumentException("Senha não atende aos requisitos de segurança!");
+        }
         this.senha = senha;
     }
 
     public String getSenha() {
-       return senha;
+        return senha;
     }
 
     public void setSenha(String senha) {
-        if(!validarSenha(senha))
+        if (!validarSenha(senha)) {
             throw new IllegalArgumentException("Senha não atende aos requisitos de segurança!");
+        }
         this.senha = senha;
     }
-    
-    private Boolean validarSenha(String senha){
-        return temMinuscula(senha) && temMaiuscula(senha) && temNumero(senha) &&
-               temEspecial(senha) && comprimentoDaSenha(senha);
+
+    private Boolean validarSenha(String senha) {
+        return temMinuscula(senha) && temMaiuscula(senha) && temNumero(senha)
+                && temEspecial(senha) && comprimentoDaSenha(senha);
     }
 
     private Boolean temMinuscula(String senha) {
-        Pattern padrao = Pattern.compile("[a-z]");  
+        Pattern padrao = Pattern.compile("[a-z]");
         Matcher minuscula = padrao.matcher(senha);
         return minuscula.find();
     }
@@ -54,7 +57,7 @@ public class Senha implements Serializable{
 
     private Boolean temNumero(String senha) {
         Pattern padrao = Pattern.compile("[0-9]");
-        Matcher numero = padrao.matcher(senha);     
+        Matcher numero = padrao.matcher(senha);
         return numero.find();
     }
 
@@ -67,5 +70,5 @@ public class Senha implements Serializable{
     private boolean comprimentoDaSenha(String senha) {
         return senha.length() >= TAMANHO_MINIMO_SENHA && senha.length() <= TAMANHO_MAXIMO_SENHA;
     }
-    
+
 }

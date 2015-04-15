@@ -11,24 +11,24 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Usuario implements Serializable{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE)    
     private Long id;
+
     @Column(nullable=false)
     private String nome;
     @Column(unique=true, nullable=false)
     private String login;
     
-    @Embedded
-    @Column(nullable=false, columnDefinition = "varchar(10)")
+    @Embedded    
     private Senha senha;
     
-    @Embedded    
-    @Column(nullable=false, columnDefinition = "varchar(100)")
+    @Embedded        
     private Email email;
     
     @Enumerated(EnumType.STRING)
