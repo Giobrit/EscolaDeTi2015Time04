@@ -8,11 +8,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "br.unicesumar.escoladeti2015time04")
 public class Application {
-
     private static SpringApplication app;
 
     private static ApplicationContext appRunning;
-
+    
     public static void main(String[] args) {
         app = new SpringApplication(Application.class);
 
@@ -21,3 +20,4 @@ public class Application {
         appRunning = app.run(args);
     }
 }
+    
