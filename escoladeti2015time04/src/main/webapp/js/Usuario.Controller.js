@@ -13,5 +13,13 @@ AppModule.controller("UsuarioFormController", ["$scope", "$routeParams", functio
             //alert("Executou Init");
             alert("Parametro Id:" + $routeParams.id);
         };
+         $scope.submitForm = function () {
+
+                // verifica se o formulÃ¡rio Ã© vÃ¡lido
+                if ($scope.usuario.$valid) {
+                    alert('our form is amazing');
+                }
+
+            };
 
     }]);

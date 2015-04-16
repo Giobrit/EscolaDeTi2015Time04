@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html ng-app="NomeDaAplicacao">
+<html ng-app="Cadastros">
     <head>
-        <title> Nome da Aplicação </title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title> Cadastros </title>
+        <meta http-equiv="Content-Type" content="text/html;">
+        <meta charset="UTF-8">
 
+
+
+        
+        <link rel="stylesheet" href="./css/style_cadastroUsuario.css">
+        <link href="./css/menu.css" rel="stylesheet">
+        <link href="./css/normalize.css" rel="stylesheet">
+        <link href="./css/bootstrap.min.css" rel="stylesheet" >
         <link href="./css/bootstrap.min.css" rel="stylesheet">
-
         <script src="./js/jquery.min.js"></script>
         <script src="./js/bootstrap.min.js"></script>
         <script src="./js/angular.min.js"></script>
         <script src="./js/angular-route.min.js"></script>
-
         <script src="./js/start.js"></script>
         <script src="./js/router.js"></script>
         
-        <script src="./js/Usuario.Controller.js"></script>
-
+        <script src="./js/permissaoAcessoController.js"></script>
+        <script src="./js/jquery.sidr.min.js"></script>
+        <link href="./css/jquery.sidr.dark.css" rel="stylesheet">
+        <script src="./js/cadastroUsuario.js" type="text/javascript"></script>        
+        <script src="./js/Usuario.Controller.js" type="text/javascript"></script>        
+        
+        
+        
+        
     </head>
     <body>
-
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -28,22 +40,27 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Nome da Aplicação</a>
+                    <a class="navbar-brand" href="#">Cadastro</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
+                        <li class="active"><a href="#/">Home</a></li>
                         <li class="dropdown">
                             <a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cadastros <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#/Usuario/list">Usuário</a></li>
-                                <li><a href="#/Perfil/list">Perfil</a></li>
+                                <li><a href="#/Usuario/novo">Usuário</a></li>
+                                <li><a href="#/Perfil/list">Perfil de Usuario</a></li>
+                                <li><a href="#/PerfilAcesso/novo">Perfil de Acesso</a></li>
+                                <li><a href="#/PerfilAcesso/lista">Lista de Perfis</a></li>
+                                
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        
+                
         <br><br><br>
 
         <div class="container">
