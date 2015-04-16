@@ -72,7 +72,7 @@
             <div class="col-md-9">
                 <div class="col-md-offset-4">
                      <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine}">
-                        <input type="password" name="name" placeholder="Nome" class="form-control" aria-describedby="basic-addon2" ng-model="user.name" ng-minlength="2" ng-maxlength="30" />                        
+                        <input type="text" name="name" placeholder="Nome" class="form-control" aria-describedby="basic-addon2" ng-model="user.name" ng-minlength="2" ng-maxlength="30" />                        
                         <p ng-show="userForm.name.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
                         <p ng-show="userForm.name.$error.maxlength" class="help-block">Nome no máximo 30 caracteres.</p>
                     </div>
