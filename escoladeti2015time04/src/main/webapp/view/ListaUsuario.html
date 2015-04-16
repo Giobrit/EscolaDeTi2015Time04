@@ -1,0 +1,38 @@
+<!--Listagem de nomes do perfil de acesso-->
+<h2>Lista de Usuarios</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="col-md-offset-4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">Usuario</th>
+                            <th class="col-md-3">Nome</th>
+                            <th class="col-md-2">Email</th>
+                            <th class="col-md-3">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="u in user">
+                            <td>{{u.username}}</td>
+                            <td>{{u.name}}</td>
+                            <td>{{u.email}}</td>
+                            <td>
+                                <a class="btn btn-danger" ng-click="remove()">Excluir</a>
+                                <a class="btn btn-warning" href="#/" ng-click="edit()">Editar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>    
+<div class="row">
+    <div class="col-md-9">
+        <div class="col-md-offset-4">
+            <label>Total de Cadastros: {{(nomes| filter:busca).length}}</label>
+        </div>
+    </div>
+</div> 

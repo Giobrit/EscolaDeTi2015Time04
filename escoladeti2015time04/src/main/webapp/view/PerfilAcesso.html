@@ -1,0 +1,78 @@
+<form name="formPerfilAcesso" ng-submit="submitForm()" novalidate ng-init="init()">
+    <h2>Cadastro de Perfil de Acesso</h2>
+
+    <div class="row">
+        <div class="col-md-9">
+            <h4 for="basic-addon2" class="col-md-offset-4">Nome do Perfil</h4>
+        </div>
+    </div>
+
+    <!--Input Nome do Perfil de Acesso-->
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group has-default col-md-offset-4" ng-class="{ 'has-error' : formPerfilAcesso.nome.$invalid && !formPerfilAcesso.nome.$pristine }">
+                <input type="text" name="nome" ng-model="nome.nome" ng-minlength="3" ng-maxlength="50" id="nome" class="form-control" placeholder="Nome do Perfil de Acesso" class="form-control" aria-describedby="basic-addon2" required>
+                <p ng-show="formPerfilAcesso.nome.$error.minlength" class="help-block">O Nome deve ter no mínimo 3 caracteres.</p>
+                <p ng-show="formPerfilAcesso.nome.$error.maxlength" class="help-block">O Nome deve ter no máximo 50 caracteres.</p>    
+            </div>
+        </div>  
+    </div>
+    <!-- Botão do Modal -->
+    <div class="row">
+        <div class="col-md-9">
+            <div class="col-md-offset-7 pull-right">
+                <button type="button" class="btn btn-default btn-lg permissao" data-toggle="modal" data-target="#myModal">
+                    Permissões de Acesso
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Escolha as Permissões de Acesso</h4>
+                            </div>
+                            <div class="modal-body">
+
+
+                                <div ng-repeat="p in permissoes">
+                                    <div class="row">
+                                        <label><h4>{{p.modulo}}:</h4></label>
+                                    </div>
+                                    <div class="row opcoes">
+                                        <label ng-repeat="op in p.permissao">
+                                            <input type="checkbox" ng-model="op.checked" >
+                                            {{op.nome}}
+                                        </label>
+                                    </div>
+
+                                    <div class="linha"></div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+                                <button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- classe dos botões Cancelar e Salvar-->
+    <div class="row">
+        <div class="col-md-9">
+            <div class="col-md-offset-7 pull-right operacoes">
+                <a type="button" href="#/PerfilAcesso/lista" class="btn btn-danger"  data-toggle="tooltip" data-placement="bottom" title="Cancela as alterações">Cancelar</a>
+                <button type="submit" ng-click="salvar()" ng-disabled="formPerfilAcesso.$invalid" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salva as Alterações">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+

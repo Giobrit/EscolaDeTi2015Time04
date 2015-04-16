@@ -15,6 +15,9 @@ AppModule.config(function($routeProvider, $locationProvider) {
     }).when('/Usuario/novo', {
         templateUrl: 'view/cadastroUsuario.html',
         controller: 'cadastroUsuarioController'      
+    }).when('/Usuario/lista',{
+        templateUrl: 'view/ListaUsuario.html',
+        controller: ''
     });
 
     //verificar se é possível separar as rotas em módulos
