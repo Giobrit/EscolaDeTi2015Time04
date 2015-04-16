@@ -1,0 +1,1 @@
+AppModule = angular.module("NomeDaAplicacao",['ngRoute']);

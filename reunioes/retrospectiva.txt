@@ -1,0 +1,16 @@
+* O que foi bom
+
+  - o Entrosamento legal da equipe;
+  - As  votações terminam bem;
+  - Empenho dos participantes;
+  - Nao ter ninguem considerado sme solução; 
+
+
+* O que pode melhorar
+
+  - Faltou foco por parte da equipe;
+  - Comprometimento com as entregas;
+  - Falta de planejamento;
+  - Faltou comumunicação entre os entegrantes;
+  - A equipe utilizou pouco o repositorio, suvbindo pouco para sua respectiva branch;
+  - A equipe de cada feature se reunira para discutir o projeto, e so começará a desenvolver sem que tenha concluido;
