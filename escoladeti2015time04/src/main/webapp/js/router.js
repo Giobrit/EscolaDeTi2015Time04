@@ -13,10 +13,13 @@ AppModule.config(function($routeProvider, $locationProvider) {
     }).when('/', {
         templateUrl: 'view/Home.html'
     }).when('/Usuario/novo', {
-        templateUrl: 'view/cadastroUsuario.html',
+        templateUrl: 'view/usuario/cadastroUsuario.html',
         controller: 'cadastroUsuarioController'      
     }).when('/Usuario/lista',{
-        templateUrl: 'view/ListaUsuario.html',
+        templateUrl: 'view/usuario/ListaUsuario.html',
+        controller: 'UsuarioList'
+    }).when('/Usuario/listaTeste',{
+        templateUrl: 'view/usuario/listUsuario.html',
         controller: 'UsuarioList'
     });
 
