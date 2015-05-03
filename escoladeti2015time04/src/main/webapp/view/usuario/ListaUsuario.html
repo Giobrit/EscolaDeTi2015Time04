@@ -7,7 +7,7 @@
     <div>
         <div>
             <div>
-                <a href="#" type="button" class="">Adicionar Novo</a>
+                <a href="#/Usuario/novo" type="button" class="">Adicionar Novo</a>
             </div>
         </div>
     </div>
@@ -28,51 +28,19 @@
                         <td>Nome</td>
                         <td>Login</td>
                         <td>Email</td>
-                        <td><a href="#" >Ativo/Inativo</a></td>
-                        <td><a href="#" >Editar</a></td>
+                        <td><a href="#/Usuario/lista" type="button" class="">Ativo/Inativo</a></td>
+                        <td><a href="#/Usuario/lista" type="button" class="" >Editar</a></td>
                     </tr>
                 </tbody>
             </table>
         </div> 
     </div>
-</div>
-
-
-<!--Listagem de Usuario
-<h2>Lista de Usuarios</h2>
-<div class="container">
-    <div class="row">
-        <div class="col-md-9">
-            <div class="col-md-offset-4">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="col-md-1">Usuario</th>
-                            <th class="col-md-3">Nome</th>
-                            <th class="col-md-2">Email</th>
-                            <th class="col-md-3">Opções</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="u in user">
-                            <td>{{u.login}}</td>
-                            <td>{{u.name}}</td>
-                            <td>{{u.email}}</td>
-                            <td>
-                                <a class="btn btn-danger" ng-click="remove()">Excluir</a>
-                                <a class="btn btn-info" href="#/" ng-click="edit()">Editar</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div>
+        <div>
+            <div>
+                <a href="#/Usuario/lista" type="button" class="">Cancelar</a>
+                <a href="#/Usuario/lista" type="submit" class="">Salvar</a>
             </div>
         </div>
     </div>
-</div>    
-<div class="row">
-    <div class="col-md-9">
-        <div class="col-md-offset-4">
-            <label>Total de Cadastros: {{(user | filter:busca).length}}</label>
-        </div>
-    </div>
-</div>-->
+</div>
