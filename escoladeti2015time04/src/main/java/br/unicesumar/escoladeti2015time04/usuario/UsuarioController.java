@@ -20,6 +20,11 @@ public class UsuarioController {
     public List<Map<String, Object>> listarTodosUsuarios() {
         return this.service.listar();
     }
+    
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public Map<String, Object> localizar(@PathVariable Long id) {
+        return this.service.localizar(id);
+    }
 
     @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}/filtro/{filtro}/valor/{valor}", method = RequestMethod.GET)
     public List<Map<String, Object>> listarUsuariosFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String filtro, @PathVariable String valor) {
@@ -44,7 +49,6 @@ public class UsuarioController {
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
     public void alterarStatus(@PathVariable Long id, @PathVariable Status status) {
         this.service.inativar(id, status);
-
     }
 
 }

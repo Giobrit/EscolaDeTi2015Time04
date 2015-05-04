@@ -34,20 +34,20 @@ public class UsuarioService {
 
     public List<Map<String, Object>> listar(Long numeroItens, Long paginaAtual) {
         String paginacao = "limit " + numeroItens + " offset " + (paginaAtual - 1) * numeroItens;
-        
+
         return listar("", paginacao);
     }
 
     public List<Map<String, Object>> listar(Long numeroItens, Long paginaAtual, String filtro, String valor) {
-        String filtros = "where " + filtro + " like '%" + valor + "%'";
+        String filtros = "where lower(" + filtro + ") like '%" + valor.toLowerCase() + "%'";
         String paginacao = "limit " + numeroItens + " offset " + (paginaAtual - 1) * numeroItens;
         return listar(filtros, paginacao);
     }
 
     public List<Map<String, Object>> listar(String filtros, String paginacao) {
-        String listarUsuario = "select nome, login, email from usuario ";
+        String listarUsuario = "select id, nome, login, email, status from usuario ";
 
-        listarUsuario += filtros + " " + paginacao;
+        listarUsuario += filtros + " order by nome " + paginacao;
         return jdbcTemplate.query(listarUsuario, new MapSqlParameterSource(), new MapRowMapper());
     }
 
@@ -55,6 +55,15 @@ public class UsuarioService {
         Usuario usuario = repoUsuario.getOne(id);
         usuario.setStatus(status);
         repoUsuario.save(usuario);
+    }
+
+    public Map<String, Object> localizar(Long id) {
+        String listarUsuario = "select id, email, login, nome, status from usuario where id = :id";
+        
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
+
+        return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
     }
 
 }

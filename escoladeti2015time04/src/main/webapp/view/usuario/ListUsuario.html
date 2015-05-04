@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-init="init()">
     <div>
         <div class="row col-md-12">
             <h2>Lista de Usuário</h2>
@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-9">
             <div class="col-md-offset-7 pull-right">
-                <a href="#/Usuario/novo" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo usuário">Adicionar Novo</a>
+                <a href="#/Usuario/form" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo usuário">Adicionar Novo</a>
             </div>
         </div>
     </div>
@@ -15,18 +15,18 @@
         <div class="col-md-9">
             <div class="col-md-offset-4">
                 <div class="form-group">
-                    <input type="text" name="nome" placeholder="Informe o dado a ser pesquisado" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.nome" ng-minlength="2" ng-maxlength="30" />                        
+                    <input type="text" name="nome" ng-change="listar()" placeholder="Informe o dado a ser pesquisado" class="form-control" ng-model="pesquisa" ng-maxlength="100" />                        
                 </div>
             </div>	
         </div>
     </div>
     <div class="row">
-        <div class="col-md-9">
-            <div class="col-md-offset-4">
-                <table class="table table-striped">
+        <div class="col-md-12">
+            <div class="col-md-offset-2 pull-left">
+                <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
-                            <th class="col-md-6">Nome</th>
+                            <th class="col-md-10">Nome</th>
                             <th class="col-md-4">Login</th>
                             <th class="col-md-6">Email</th>
                             <th class="col-md-1">Status</th>
@@ -39,10 +39,10 @@
                             <td>{{u.login}}</td>
                             <td>{{u.email}}</td>
                             <td>
-                                <button type="button" class="btn btn-success btn-block" ng-show="!u.ativo" ng-click="alterarStatus(u)">Ativar</button>
-                                <button type="button" class="btn btn-danger" ng-show="u.ativo" ng-click="alterarStatus(u)">Inativar</button>
+                                <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status==='INATIVO'" ng-click="alterarStatus(u)">Ativar</button>
+                                <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="u.status==='ATIVO'" ng-click="alterarStatus(u)">Inativar</button>
                             </td>
-                            <td><a href="#/Usuario/lista" type="button" class="btn btn-warning">Editar</a></td>
+                            <td><a href="#/Usuario/form/{{u.id}}" type="button" class="btn btn-warning botaoEditar">Editar</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -59,13 +59,13 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
+                        <li><a href="">1</a></li>
+                        <li><a href="">2</a></li>
+                        <li><a href="">3</a></li>
+                        <li><a href="">4</a></li>
+                        <li><a href="">5</a></li>
                         <li>
-                            <a href="#" aria-label="Next">
+                            <a href="" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

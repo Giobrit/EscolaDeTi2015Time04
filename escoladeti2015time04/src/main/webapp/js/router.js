@@ -1,10 +1,10 @@
-AppModule.config(function($routeProvider, $locationProvider) {
+AppModule.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider
-     .when('/PerfilAcesso/novo', {
-        templateUrl: 'view/PerfilAcesso.html',
-        controller: 'PerfilAcessoFormController'
-    }).when('/PerfilAcesso/edit/:id', {
+            .when('/PerfilAcesso/novo', {
+                templateUrl: 'view/PerfilAcesso.html',
+                controller: 'PerfilAcessoFormController'
+            }).when('/PerfilAcesso/edit/:id', {
         templateUrl: 'view/PerfilAcesso.html',
         controller: 'PerfilAcessoFormController'
     }).when('/PerfilAcesso/lista', {
@@ -12,15 +12,15 @@ AppModule.config(function($routeProvider, $locationProvider) {
         controller: 'PerfilAcessoFormController'
     }).when('/', {
         templateUrl: 'view/Home.html'
-    }).when('/Usuario/novo', {
+    }).when('/Usuario/form', {
         templateUrl: 'view/usuario/cadastroUsuario.html',
-        controller: 'cadastroUsuarioController'      
-    }).when('/Usuario/lista',{
-        templateUrl: 'view/usuario/ListaUsuario.html',
-        controller: 'UsuarioList'
-    }).when('/Usuario/listaTeste',{
-        templateUrl: 'view/usuario/listUsuario.html',
-        controller: 'UsuarioList'
+        controller: 'controllerFormUsuario'
+    }).when('/Usuario/form/:id', {
+        templateUrl: 'view/usuario/cadastroUsuario.html',
+        controller: 'controllerFormUsuario'
+    }).when('/Usuario/list', {
+        templateUrl: 'view/usuario/ListUsuario.html',
+        controller: 'controllerListUsuario'
     });
 
     //verificar se é possível separar as rotas em módulos
