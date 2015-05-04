@@ -71,7 +71,7 @@
             <div class="col-md-9">
                 <div class="col-md-offset-4">
                     <div class="form-group" ng-class="{ 'has-error' : formUsuario.senha.$invalid && !formUsuario.senha.$pristine}">
-                        <input type="senha" name="senha" placeholder="Informe a Senha" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.senha" ng-minlength="6" ng-maxlength="10" />                        
+                        <input type="password" name="senha" placeholder="Informe a Senha" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.senha" ng-minlength="6" ng-maxlength="10" />                        
                         <p ng-show="formUsuario.senha.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
                         <p ng-show="formUsuario.senha.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
                     </div>
@@ -89,7 +89,7 @@
             <div class="col-md-9">
                 <div class="col-md-offset-4">
                     <div class="form-group" ng-class="{ 'has-error' : formUsuario.confirmar.$invalid && !formUsuario.confirmar.$pristine}">
-                        <input type="senha" name="confirmar" placeholder="Informe a Senha Novamente" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.confirmar" ng-minlength="6" ng-maxlength="10" />                        
+                        <input type="password" name="confirmar" placeholder="Informe a Senha Novamente" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.confirmar" ng-minlength="6" ng-maxlength="10" />                        
                         <p ng-show="formUsuario.confirmar.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
                         <p ng-show="formUsuario.confirmar.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
                         <p ng-show="usuario.confirmar !== usuario.senha" class="help-block">Senhas devem ser iguais.</p>
