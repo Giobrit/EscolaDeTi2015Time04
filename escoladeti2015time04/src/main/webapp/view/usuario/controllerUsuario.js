@@ -106,5 +106,6 @@ function controllerListagemFilho($scope, $http) {
     function onError(data) {
         alert(JSON.stringify(data));
     }
+
 }
 
