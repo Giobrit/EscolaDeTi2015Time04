@@ -35,7 +35,7 @@ public class Initializer {
     }
 
     private void inicializarAdministrador() {
-        final Senha senha = new Senha("admin");
+        final Senha senha = new Senha("Adm123@");
         final Email email = new Email("administrador@naac.com");
         final Usuario usuario = new Usuario("Administrador", "admin", senha, email);
         
