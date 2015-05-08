@@ -49,6 +49,7 @@ public class UsuarioService {
     public List<Map<String, Object>> listar(Long numeroItens, Long paginaAtual, String valor) {
         MapSqlParameterSource parans = new MapSqlParameterSource();
         parans.addValue("valorFiltro", "%" + valor.toLowerCase().trim() + "%");
+        parans.addValue("status", valor.toLowerCase().trim());
         parans.addValue("limite", numeroItens);
         parans.addValue("inicio", (paginaAtual - 1) * numeroItens);
 
@@ -56,7 +57,7 @@ public class UsuarioService {
         filtros += "lower(nome) like :valorFiltro or ";
         filtros += "lower(login) like :valorFiltro or ";
         filtros += "lower(email) like :valorFiltro or ";
-        filtros += "lower(status) like :valorFiltro";
+        filtros += "lower(status) = :status";
 
         String paginacao = "limit :limite offset :inicio";
         return listar(filtros, paginacao, parans);
