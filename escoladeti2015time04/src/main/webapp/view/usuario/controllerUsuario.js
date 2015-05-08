@@ -61,7 +61,7 @@ function controllerListagemFilho($scope, $http) {
         } else {
             rotaBack = "/usuario/";
         }
-        
+
         $http.get(rotaBack).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.usuarios = data;
@@ -71,5 +71,6 @@ function controllerListagemFilho($scope, $http) {
     function onError(data) {
         alert(JSON.stringify(data));
     }
+
 }
 
