@@ -1,19 +1,21 @@
 <div class="container" ng-init="init()">
-    <div>
-        <div class="row col-md-12">
+    <div class="row ">
+        <div class="col-md-11">
+            <div class="col-md-offset-5">
             <h2>Lista de Usuário</h2>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-10">
-            <div class="col-md-offset-7 pull-right">
+            <div class="col-md-offset-2 pull-right">
                 <a href="#/Usuario/form" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo usuário">Adicionar Novo</a>
             </div>
         </div>
     </div>
     <div class="row Pesquisa">
         <div class="col-md-10">
-            <div class="col-md-offset-4">
+            <div class="col-md-offset-2">
                 <div class="form-group">
                     <input type="text" name="nome" ng-change="listar()" placeholder="Informe o dado a ser pesquisado" class="form-control" ng-model="pesquisa" ng-maxlength="100" />                        
                 </div>
@@ -21,8 +23,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-11">
-            <div class="col-md-offset-3">
+        <div class="col-md-10">
+            <div class="col-md-offset-2">
                 <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
@@ -50,8 +52,8 @@
         </div> 
     </div>
     <div class="row">
-        <div class="col-md-11">
-            <div class="col-md-offset-6">
+        <div class="col-md-10">
+            <div class="col-md-offset-5">
                 <nav>
                    <ul class="pagination"  ng-click="alterarPagina(2)" id="paginacao">
                                                 <li>
@@ -63,7 +65,7 @@
                                                 <li><a href="">2</a></li>
                                                 <li><a href="">3</a></li>
                                                 <li><a href="">4</a></li>
-                                                <li><button ng-click='alterarPagina(1)'>...</button></li>
+                                                <li><a ng-click='alterarPagina(1)'>...</a></li>
                                                 <li><a href="">15</a></li>
                                                 <li>
                                                     <a href="" aria-label="Next">
