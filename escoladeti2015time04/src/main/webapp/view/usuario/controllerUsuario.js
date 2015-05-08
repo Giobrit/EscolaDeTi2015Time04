@@ -2,7 +2,7 @@ AppModule.controller("controllerFormUsuario", controllerFormularioFilho);
 
 AppModule.controller("controllerListUsuario", controllerListagemFilho);
 
-function controllerFormularioFilho($scope, $http, $routeParams, $location) {
+function controllerFormularioFilho($scope, $http, $routeParams) {
 
     $scope.init = function () {
         limparTela();
@@ -22,7 +22,6 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location) {
         }
 
         function onSuccess() {
-            $location.path("#/Usuario/list");
             //limparTela();
             alert("Usuario salvo com sucesso");
         }
@@ -42,7 +41,6 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location) {
     }
 
     function onError(data) {
-        $location.path("#");
         alert(JSON.stringify(data));
     }
 }
@@ -67,7 +65,7 @@ function controllerListagemFilho($scope, $http) {
         rotaBack = "/usuario/numeroItens/" + 5 + "/paginaAtual/" + paginaAtual;
 
         if ($scope.pesquisa) {
-            rotaBack += "/filtro/" + "nome" + "/valor/" + $scope.pesquisa;
+            rotaBack += "/valorFiltro/" + $scope.pesquisa;
         }
 
         $http.get(rotaBack).success(onSuccess).error(onError);

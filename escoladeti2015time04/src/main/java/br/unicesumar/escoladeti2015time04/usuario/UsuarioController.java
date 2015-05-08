@@ -26,9 +26,9 @@ public class UsuarioController {
         return this.service.localizar(id);
     }
 
-    @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}/filtro/{filtro}/valor/{valor}", method = RequestMethod.GET)
-    public List<Map<String, Object>> listarUsuariosFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String filtro, @PathVariable String valor) {
-        return this.service.listar(numeroItens, paginaAtual, filtro, valor);
+    @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}/valorFiltro/{valor}", method = RequestMethod.GET)
+    public List<Map<String, Object>> listarUsuariosFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String valor) {
+        return this.service.listar(numeroItens, paginaAtual, valor);
     }
 
     @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}", method = RequestMethod.GET)
