@@ -39,8 +39,8 @@
                             <td>{{u.login}}</td>
                             <td>{{u.email}}</td>
                             <td>
-                                <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status==='INATIVO'" ng-click="alterarStatus(u)">Ativar</button>
-                                <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="u.status==='ATIVO'" ng-click="alterarStatus(u)">Inativar</button>
+                                <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status === 'INATIVO'" ng-click="alterarStatus(u)">Ativar</button>
+                                <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="u.status === 'ATIVO'" ng-click="alterarStatus(u)">Inativar</button>
                             </td>
                             <td><a href="#/Usuario/form/{{u.id}}" type="button" class="btn btn-warning botaoEditar">Editar</a></td>
                         </tr>
@@ -53,22 +53,23 @@
         <div class="col-md-11">
             <div class="col-md-offset-6">
                 <nav>
-                    <ul class="pagination">
-                        <li>
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">4</a></li>
-                        <li><a href="">5</a></li>
-                        <li>
-                            <a href="" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
+                   <ul class="pagination"  ng-click="alterarPagina(2)" id="paginacao">
+                                                <li>
+                                                    <a href="#" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <li><a href="">1</a></li>
+                                                <li><a href="">2</a></li>
+                                                <li><a href="">3</a></li>
+                                                <li><a href="">4</a></li>
+                                                <li><button ng-click='alterarPagina(1)'>...</button></li>
+                                                <li><a href="">15</a></li>
+                                                <li>
+                                                    <a href="" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
                     </ul>
                 </nav>
             </div>

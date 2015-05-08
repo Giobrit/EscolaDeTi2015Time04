@@ -42,7 +42,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void editarUsuario(@RequestBody Usuario usuario) {
+    public void editarUsuario(@RequestBody UsuarioCommandEditar usuario) {
         this.service.editar(usuario);
     }
 

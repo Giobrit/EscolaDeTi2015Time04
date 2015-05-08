@@ -2,7 +2,8 @@ AppModule.controller("controllerFormUsuario", controllerFormularioFilho);
 
 AppModule.controller("controllerListUsuario", controllerListagemFilho);
 
-function controllerFormularioFilho($scope, $http, $routeParams) {
+function controllerFormularioFilho($scope, $http, $routeParams, $location) {
+
     $scope.init = function () {
         limparTela();
 
@@ -14,10 +15,15 @@ function controllerFormularioFilho($scope, $http, $routeParams) {
     };
 
     $scope.salvar = function () {
-        $http.post("/usuario", $scope.usuario).success(onSuccess).error(onError);
+        if ($scope.editando) {
+            $http.put("/usuario", $scope.usuario).success(onSuccess).error(onError);
+        } else {
+            $http.post("/usuario", $scope.usuario).success(onSuccess).error(onError);
+        }
 
         function onSuccess() {
-            limparTela();
+            $location.path("#/Usuario/list");
+            //limparTela();
             alert("Usuario salvo com sucesso");
         }
     };
@@ -36,11 +42,13 @@ function controllerFormularioFilho($scope, $http, $routeParams) {
     }
 
     function onError(data) {
+        $location.path("#");
         alert(JSON.stringify(data));
     }
 }
 
 function controllerListagemFilho($scope, $http) {
+    paginaAtual = 1;
 
     $scope.init = function () {
         $scope.listar();
@@ -56,16 +64,43 @@ function controllerListagemFilho($scope, $http) {
     };
 
     $scope.listar = function () {
+        rotaBack = "/usuario/numeroItens/" + 5 + "/paginaAtual/" + paginaAtual;
+
         if ($scope.pesquisa) {
-            rotaBack = "/usuario/numeroItens/" + 10 + "/paginaAtual/" + 1 + "/filtro/" + "nome" + "/valor/" + $scope.pesquisa;
-        } else {
-            rotaBack = "/usuario/";
+            rotaBack += "/filtro/" + "nome" + "/valor/" + $scope.pesquisa;
         }
-        
+
         $http.get(rotaBack).success(onSuccess).error(onError);
         function onSuccess(data) {
+            data.numeroPaginas = 10;
+
+            //paginar(data);
             $scope.usuarios = data;
         }
+    };
+
+    $scope.alterarPagina = function (pagina) {
+        paginaAtual = pagina;
+        alert(pagina);
+        $scope.listar();
+    };
+
+    function paginar(data) {
+        anterior = "<li><a href='#' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+        proximo = "<li><a href='' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+        botoes = "";
+
+        for (i = 1; i <= data.numeroPaginas; i++) {
+            botoes += "<li><a>" + i + "</a></li>";
+        }
+
+        barraDePaginacao = document.getElementById("paginacao");
+
+        barraDePaginacao.innerHTML = anterior + botoes + proximo;
+    }
+
+    $scope.pageChangeHandler = function (num) {
+        console.log('meals page changed to ' + num);
     };
 
     function onError(data) {

@@ -24,7 +24,12 @@ public class UsuarioService {
         repoUsuario.save(usuario);
     }
 
-    public void editar(Usuario usuario) {
+    public void editar(UsuarioCommandEditar usuarioCommand) {
+        Usuario usuario = repoUsuario.findOne(usuarioCommand.getId());
+        usuario.setNome(usuarioCommand.getNome());
+        usuario.setLogin(usuarioCommand.getLogin());
+        usuario.setEmail(usuarioCommand.getEmail());
+        usuario.setStatus(usuarioCommand.getStatus());
         repoUsuario.save(usuario);
     }
 
