@@ -1,34 +1,42 @@
-<!--Listagem de nomes do perfil de acesso-->
-<h2>Lista de Perfil de Acesso</h2>
-<div class="row">
-    <div class="col-md-9">
-        <div class="col-md-offset-4">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="col-md-1">Código</th>
-                        <th class="col-md-5">Nome</th>
-                        <th class="col-md-3">Opções</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="n in nomes">
-                        <td>{{n.codigo}}</td>
-                        <td>{{n.nome}}</td>
-                        <td>
-                            <a class="btn btn-danger" ng-click="remove(10)">Excluir</a>
-                            <a class="btn btn-info" href="#/PerfilAcesso/edit/:id" ng-click="edit(10)">Editar</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <!--Listagem de nomes do perfil de acesso-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-offset-4">
+                <h2>Lista de Perfil de Acesso</h2>
+            </div>
+        </div>    
+    </div>        
+    <div class="row">
+        <div class="col-md-9">
+            <div class="col-md-offset-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">Código</th>
+                            <th class="col-md-5">Nome</th>
+                            <th class="col-md-3">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="n in nomes">
+                            <td>{{n.codigo}}</td>
+                            <td>{{n.nome}}</td>
+                            <td>
+                                <a class="btn btn-danger" ng-click="remove(10)">Excluir</a>
+                                <a class="btn btn-info" href="#/PerfilAcesso/edit/:id" ng-click="edit(10)">Editar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-9">
-        <div class="col-md-offset-4">
-            <label>Total de Cadastros: {{(nomes| filter:busca).length}}</label>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="col-md-offset-4">
+                <label>Total de Cadastros: {{(nomes| filter:busca).length}}</label>
+            </div>
         </div>
     </div>
-</div> 
+</div>    

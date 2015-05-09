@@ -22,8 +22,7 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location) {
         }
 
         function onSuccess() {
-            $location.path("#/Usuario/list");
-            //limparTela();
+            $location.path("/Usuario/list");
             alert("Usuario salvo com sucesso");
         }
     };
@@ -42,13 +41,12 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location) {
     }
 
     function onError(data) {
-        $location.path("#");
         alert(JSON.stringify(data));
     }
 }
 
 function controllerListagemFilho($scope, $http) {
-    paginaAtual = 1;
+    $scope.paginaAtual = 1;
 
     $scope.init = function () {
         $scope.listar();
@@ -64,40 +62,26 @@ function controllerListagemFilho($scope, $http) {
     };
 
     $scope.listar = function () {
-        rotaBack = "/usuario/numeroItens/" + 5 + "/paginaAtual/" + paginaAtual;
+        rotaBack = "/usuario/numeroItens/" + 5 + "/paginaAtual/" + $scope.paginaAtual;
 
         if ($scope.pesquisa) {
-            rotaBack += "/filtro/" + "nome" + "/valor/" + $scope.pesquisa;
+            rotaBack += "/valorFiltro/" + $scope.pesquisa;
         }
 
         $http.get(rotaBack).success(onSuccess).error(onError);
         function onSuccess(data) {
-            data.numeroPaginas = 10;
-
-            //paginar(data);
             $scope.usuarios = data;
         }
     };
 
     $scope.alterarPagina = function (pagina) {
-        paginaAtual = pagina;
-        alert(pagina);
-        $scope.listar();
-    };
-
-    function paginar(data) {
-        anterior = "<li><a href='#' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
-        proximo = "<li><a href='' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
-        botoes = "";
-
-        for (i = 1; i <= data.numeroPaginas; i++) {
-            botoes += "<li><a>" + i + "</a></li>";
+        if (pagina < 1) {
+            return;
         }
 
-        barraDePaginacao = document.getElementById("paginacao");
-
-        barraDePaginacao.innerHTML = anterior + botoes + proximo;
-    }
+        $scope.paginaAtual = pagina;
+        $scope.listar();
+    };
 
     $scope.pageChangeHandler = function (num) {
         console.log('meals page changed to ' + num);

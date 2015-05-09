@@ -34,26 +34,40 @@ public class UsuarioService {
     }
 
     public List<Map<String, Object>> listar() {
-        return listar("", "");
+        return listar("", "", new MapSqlParameterSource());
     }
 
     public List<Map<String, Object>> listar(Long numeroItens, Long paginaAtual) {
-        String paginacao = "limit " + numeroItens + " offset " + (paginaAtual - 1) * numeroItens;
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+        parans.addValue("limite", numeroItens);
+        parans.addValue("inicio", (paginaAtual - 1) * numeroItens);
+        String paginacao = "limit :limite offset :inicio";
 
-        return listar("", paginacao);
+        return listar("", paginacao, parans);
     }
 
-    public List<Map<String, Object>> listar(Long numeroItens, Long paginaAtual, String filtro, String valor) {
-        String filtros = "where lower(" + filtro + ") like '%" + valor.toLowerCase() + "%'";
-        String paginacao = "limit " + numeroItens + " offset " + (paginaAtual - 1) * numeroItens;
-        return listar(filtros, paginacao);
+    public List<Map<String, Object>> listar(Long numeroItens, Long paginaAtual, String valor) {
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+        parans.addValue("valorFiltro", "%" + valor.toLowerCase().trim() + "%");
+        parans.addValue("status", valor.toLowerCase().trim());
+        parans.addValue("limite", numeroItens);
+        parans.addValue("inicio", (paginaAtual - 1) * numeroItens);
+
+        String filtros = "where ";
+        filtros += "lower(nome) like :valorFiltro or ";
+        filtros += "lower(login) like :valorFiltro or ";
+        filtros += "lower(email) like :valorFiltro or ";
+        filtros += "lower(status) = :status";
+
+        String paginacao = "limit :limite offset :inicio";
+        return listar(filtros, paginacao, parans);
     }
 
-    public List<Map<String, Object>> listar(String filtros, String paginacao) {
+    public List<Map<String, Object>> listar(String filtros, String paginacao, MapSqlParameterSource parans) {
         String listarUsuario = "select id, nome, login, email, status from usuario ";
 
         listarUsuario += filtros + " order by nome " + paginacao;
-        return jdbcTemplate.query(listarUsuario, new MapSqlParameterSource(), new MapRowMapper());
+        return jdbcTemplate.query(listarUsuario, parans, new MapRowMapper());
     }
 
     public void inativar(Long id, Status status) {
@@ -64,7 +78,7 @@ public class UsuarioService {
 
     public Map<String, Object> localizar(Long id) {
         String listarUsuario = "select id, email, login, nome, status from usuario where id = :id";
-        
+
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
 

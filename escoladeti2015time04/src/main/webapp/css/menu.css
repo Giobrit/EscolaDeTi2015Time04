@@ -73,19 +73,7 @@ a.show-sidebar:hover {
   -o-transition: 0.2s;
   transition: 0.2s;
 }
-#content {
-  position: relative;
-  z-index: 10;
-  background: #ebebeb;
-  box-shadow: 0 0 6px #131313;
-  padding-bottom: 3000px !important;
-  margin-bottom: -2980px !important;
-  overflow: hidden;
-  -webkit-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -o-transition: 0.2s;
-  transition: 0.2s;
-}
+
 .full-content {
   overflow: hidden;
   padding: 0;
@@ -742,7 +730,6 @@ td.beauty-hover {
   border-style: solid;
   border-width: 1px;
   text-decoration: none;
-  border-color: rgba(0, 0, 0, 0.3);
   cursor: pointer;
   outline: none;
   font-family: "Lucida Grande","Lucida Sans","Lucida Sans Unicode","Segoe UI",Verdana,sans-serif;
@@ -752,9 +739,6 @@ td.beauty-hover {
   font-size: 12px;
   font-weight: bold;
   text-align: center;
-  background-color: #a2a2a2;
-  background: #a2a2a2 -moz-linear-gradient(top, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  background: #a2a2a2 -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)));
   line-height: 24px;
   margin: 0 0 10px 0;
   padding: 0 10px;
