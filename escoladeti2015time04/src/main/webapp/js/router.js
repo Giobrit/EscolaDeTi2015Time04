@@ -9,8 +9,6 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/PerfilAcesso/lista', {
         templateUrl: 'view/ListaPerfilAcesso.html',
         controller: 'PerfilAcessoFormController'
-    }).when('/', {
-        templateUrl: 'view/Home.html'
     }).when('/Usuario/form', {
         templateUrl: 'view/usuario/cadastroUsuario.html',
         controller: 'controllerFormUsuario'
@@ -20,6 +18,8 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/Usuario/list', {
         templateUrl: 'view/usuario/ListUsuario.html',
         controller: 'controllerListUsuario'
+    }).otherwise('/', {
+        templateUrl: 'view/Home.html'
     });
 
     //verificar se é possível separar as rotas em módulos
