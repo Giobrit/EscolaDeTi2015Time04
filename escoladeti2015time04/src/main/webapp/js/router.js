@@ -21,6 +21,9 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/Usuario/login', {
         templateUrl: 'view/login/login.html',
         controller: ''});
+    }).when('/Usuario/form/alterarSenha/:id', {
+        templateUrl: 'view/usuario/alterarSenhaUsuario.html',
+        controller: 'controllerFormUsuario'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });
