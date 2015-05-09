@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="col-md-offset-4">
-                    <div class="form-group" ng-class="{ 'has : formUsuario.nome.$invalid && !formUsuario.nome.$pristine}">
+                    <div class="form-group" ng-class="{ 'has-error' : formUsuario.nome.$invalid && !formUsuario.nome.$pristine}">
                         <input type="text" name="nome" placeholder="Informe o Nome" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.nome" ng-minlength="2" ng-maxlength="60" required/>                        
                         <p ng-show="formUsuario.nome.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
                         <p ng-show="formUsuario.nome.$error.maxlength" class="help-block">Nome no máximo 60 caracteres.</p>
