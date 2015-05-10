@@ -73,4 +73,8 @@ public class Senha implements Serializable {
         return senha.length() >= TAMANHO_MINIMO_SENHA && senha.length() <= TAMANHO_MAXIMO_SENHA;
     }
 
+    @Override
+    public String toString() {
+        return senha;
+    }
 }
