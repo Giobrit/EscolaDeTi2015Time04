@@ -85,4 +85,21 @@ public class UsuarioService {
         return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
     }
 
+    public Boolean logar(UsuarioCommandLogar usuarioLogar) {
+        String queryVerificaSeLogou = "select id from usuario where status = 'ATIVO' and (login = :loginOuEmail or email = :loginOuEmail) and senha = :senha";
+
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+        parans.addValue("loginOuEmail", usuarioLogar.getLoginOuEmail());
+        parans.addValue("senha", usuarioLogar.getSenha().getSenha());
+
+        Boolean logou;
+        try {
+            jdbcTemplate.queryForObject(queryVerificaSeLogou, parans, new MapRowMapper());
+            logou = true;
+        } catch (Exception e) {
+            logou = false;
+        }
+        return logou;
+    }
+
 }

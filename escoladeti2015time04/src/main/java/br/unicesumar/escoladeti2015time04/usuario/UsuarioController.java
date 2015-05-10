@@ -20,8 +20,8 @@ public class UsuarioController {
     public List<Map<String, Object>> listarTodosUsuarios() {
         return this.service.listar();
     }
-    
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Map<String, Object> localizar(@PathVariable Long id) {
         return this.service.localizar(id);
     }
@@ -39,6 +39,11 @@ public class UsuarioController {
     @RequestMapping(method = RequestMethod.POST)
     public void criarUsuario(@RequestBody Usuario usuario) {
         this.service.salvar(usuario);
+    }   
+    
+    @RequestMapping(value = "/logar", method = RequestMethod.POST)
+    public Boolean logar(@RequestBody UsuarioCommandLogar usuarioLogar) {
+        return this.service.logar(usuarioLogar);
     }
 
     @RequestMapping(method = RequestMethod.PUT)

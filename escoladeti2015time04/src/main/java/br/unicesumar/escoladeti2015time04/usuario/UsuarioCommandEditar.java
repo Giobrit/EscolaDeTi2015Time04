@@ -8,6 +8,7 @@ import javax.persistence.Column;
 public class UsuarioCommandEditar {
 
     private final Long id;
+
     @Column(nullable = false)
     private final String nome;
 
