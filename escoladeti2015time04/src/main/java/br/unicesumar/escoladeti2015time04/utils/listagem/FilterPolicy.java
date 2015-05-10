@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ListPolicy {
+public @interface FilterPolicy {
 
     public Policy policy() default Policy.RELATIVE;
 }

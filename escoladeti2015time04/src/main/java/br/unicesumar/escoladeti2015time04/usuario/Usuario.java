@@ -1,7 +1,7 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
 import br.unicesumar.escoladeti2015time04.utils.Email;
-import br.unicesumar.escoladeti2015time04.utils.listagem.ListPolicy;
+import br.unicesumar.escoladeti2015time04.utils.listagem.FilterPolicy;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Listable;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Policy;
 import java.io.Serializable;
@@ -24,22 +24,22 @@ public class Usuario implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    @ListPolicy(policy = Policy.RELATIVE)
+    @FilterPolicy(policy = Policy.RELATIVE)
     private String nome;
 
     @Column(unique = true, nullable = false)
-    @ListPolicy(policy = Policy.RELATIVE)
+    @FilterPolicy(policy = Policy.RELATIVE)
     private String login;
 
     @Embedded
     private Senha senha;
 
     @Embedded
-    @ListPolicy(policy = Policy.RELATIVE)
+    @FilterPolicy(policy = Policy.RELATIVE)
     private Email email;
 
     @Enumerated(EnumType.STRING)
-    @ListPolicy(policy = Policy.FULL_NAME)
+    @FilterPolicy(policy = Policy.FULL_NAME)
     private Status status;
 
     public Usuario() {
