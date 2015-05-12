@@ -2,7 +2,8 @@ AppModule.controller("controllerFormUsuario", controllerFormularioFilho);
 
 AppModule.controller("controllerListUsuario", controllerListagemFilho);
 
-function controllerFormularioFilho($scope, $http, $routeParams) {
+function controllerFormularioFilho($scope, $http, $routeParams, $location) {
+
     $scope.init = function () {
         limparTela();
 
@@ -14,10 +15,14 @@ function controllerFormularioFilho($scope, $http, $routeParams) {
     };
 
     $scope.salvar = function () {
-        $http.post("/usuario", $scope.usuario).success(onSuccess).error(onError);
+        if ($scope.editando) {
+            $http.put("/usuario", $scope.usuario).success(onSuccess).error(onError);
+        } else {
+            $http.post("/usuario", $scope.usuario).success(onSuccess).error(onError);
+        }
 
         function onSuccess() {
-            limparTela();
+            $location.path("/Usuario/list");
             alert("Usuario salvo com sucesso");
         }
     };
@@ -41,6 +46,7 @@ function controllerFormularioFilho($scope, $http, $routeParams) {
 }
 
 function controllerListagemFilho($scope, $http) {
+    $scope.paginaAtual = 1;
 
     $scope.init = function () {
         $scope.listar();
@@ -56,16 +62,29 @@ function controllerListagemFilho($scope, $http) {
     };
 
     $scope.listar = function () {
+        rotaBack = "/usuario/numeroItens/" + 5 + "/paginaAtual/" + $scope.paginaAtual;
+
         if ($scope.pesquisa) {
-            rotaBack = "/usuario/numeroItens/" + 10 + "/paginaAtual/" + 1 + "/filtro/" + "nome" + "/valor/" + $scope.pesquisa;
-        } else {
-            rotaBack = "/usuario/";
+            rotaBack += "/valorFiltro/" + $scope.pesquisa;
         }
 
         $http.get(rotaBack).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.usuarios = data;
         }
+    };
+
+    $scope.alterarPagina = function (pagina) {
+        if (pagina < 1) {
+            return;
+        }
+
+        $scope.paginaAtual = pagina;
+        $scope.listar();
+    };
+
+    $scope.pageChangeHandler = function (num) {
+        console.log('meals page changed to ' + num);
     };
 
     function onError(data) {

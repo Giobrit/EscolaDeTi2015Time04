@@ -20,15 +20,15 @@ public class UsuarioController {
     public List<Map<String, Object>> listarTodosUsuarios() {
         return this.service.listar();
     }
-    
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Map<String, Object> localizar(@PathVariable Long id) {
         return this.service.localizar(id);
     }
 
-    @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}/filtro/{filtro}/valor/{valor}", method = RequestMethod.GET)
-    public List<Map<String, Object>> listarUsuariosFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String filtro, @PathVariable String valor) {
-        return this.service.listar(numeroItens, paginaAtual, filtro, valor);
+    @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}/valorFiltro/{valor}", method = RequestMethod.GET)
+    public List<Map<String, Object>> listarUsuariosFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String valor) {
+        return this.service.listar(numeroItens, paginaAtual, valor);
     }
 
     @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}", method = RequestMethod.GET)
@@ -39,10 +39,15 @@ public class UsuarioController {
     @RequestMapping(method = RequestMethod.POST)
     public void criarUsuario(@RequestBody Usuario usuario) {
         this.service.salvar(usuario);
+    }   
+    
+    @RequestMapping(value = "/logar", method = RequestMethod.POST)
+    public Boolean logar(@RequestBody UsuarioCommandLogar usuarioLogar) {
+        return this.service.logar(usuarioLogar);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void editarUsuario(@RequestBody Usuario usuario) {
+    public void editarUsuario(@RequestBody UsuarioCommandEditar usuario) {
         this.service.editar(usuario);
     }
 

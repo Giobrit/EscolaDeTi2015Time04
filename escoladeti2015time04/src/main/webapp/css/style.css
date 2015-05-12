@@ -1,4 +1,4 @@
-div{
+/*div{
     margin-top: 0px;
 }
 body{
@@ -11,15 +11,18 @@ h2{
 }
 .Pesquisa{
     margin-top: 15px;
-}
+}*/
 
 .botaoAlterarStatus{
     width: 65px;
-    max-height: 23px;
-    padding-top: 1px;
+/*    max-height: 23px;
+    padding-top: 1px;*/
 }
 
 .botaoEditar{
-    max-height: 23px;
-    padding-top: 1px;
+/*    max-height: 23px;
+    padding-top: 1px;*/
+}
+.container-fluid .formulario{
+    margin-top: 30px;
 }
