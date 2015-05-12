@@ -47,6 +47,7 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location) {
 
 function controllerListagemFilho($scope, $http) {
     $scope.paginaAtual = 1;
+    $scope.totalPaginas = 1;
 
     $scope.init = function () {
         $scope.listar();
@@ -70,12 +71,17 @@ function controllerListagemFilho($scope, $http) {
 
         $http.get(rotaBack).success(onSuccess).error(onError);
         function onSuccess(data) {
-            $scope.usuarios = data;
+            $scope.usuarios = data.itens;
+            $scope.totalPaginas = data.numeroTotalPaginas;
         }
     };
 
     $scope.alterarPagina = function (pagina) {
         if (pagina < 1) {
+            return;
+        }
+        
+        if ($scope.totalPaginas < pagina) {
             return;
         }
 

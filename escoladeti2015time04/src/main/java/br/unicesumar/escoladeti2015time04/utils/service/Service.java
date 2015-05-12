@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -29,9 +30,19 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     protected Class<E> tipoEntidade;
+    protected Field[] atributosEntidade;
+    protected Field idEntidade;
+    protected String selectComColunasListaveis;
+
+    protected abstract void setClassEntity();
 
     @PostConstruct
-    protected abstract void setClassEntity();
+    private void init() {
+        setClassEntity();
+        this.atributosEntidade = tipoEntidade.getDeclaredFields();
+        this.idEntidade = getIdEntidade();
+        this.selectComColunasListaveis  = montarSelect();
+    }
 
     public void salvar(E entidade) {
         repositorio.save(entidade);
@@ -77,10 +88,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     public ResultadoListagem<E> listar(Filtro filtro, Paginador paginador) {
         MapSqlParameterSource parans = new MapSqlParameterSource();
-
-        Field[] atributosEntidade = tipoEntidade.getDeclaredFields();
-
-        String select = montarSelect(atributosEntidade);
+        String select = selectComColunasListaveis;
 
         select += filtro.getFiltros(atributosEntidade, parans) + /* " order by nome " +*/ paginador.getPaginacao(parans);
         List<Map<String, Object>> resultado = jdbcTemplate.query(select, parans, new MapRowMapper());
@@ -89,8 +97,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     public Map<String, Object> localizar(Long id) {
-        Field[] atributosEntidade = tipoEntidade.getDeclaredFields();
-        String listarUsuario = montarSelect(atributosEntidade) + " where id = :id";
+        String listarUsuario = selectComColunasListaveis + " where " + idEntidade.getName() + " = :id";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
@@ -98,13 +105,13 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
     }
 
-    private String montarSelect(Field[] atributosEntidade) {
+    private String montarSelect() {
         String sql = "SELECT ";
-        for (Field atributoEntidade : atributosEntidade) {
-            ColunaListavel[] colunasListavel = atributoEntidade.getAnnotationsByType(ColunaListavel.class);
-            if (colunasListavel.length > 0) {
-                sql += atributoEntidade.getName() + ",";
-            }
+
+         sql += idEntidade.getName() + ", ";
+        
+        for (Field atributosColunaListavelEntidade : getFieldsByAnnotation(ColunaListavel.class)) {
+            sql += atributosColunaListavelEntidade.getName() + ",";
         }
 
         sql = sql.substring(0, sql.length() - 1);
@@ -113,6 +120,22 @@ public abstract class Service<E, R extends JpaRepository, C> {
         sql += tipoEntidade.getSimpleName();
 
         return sql + "  ";
+    }
+
+    protected <A extends Annotation> List<Field> getFieldsByAnnotation(Class<A> annotation) {
+        List<Field> fields = new ArrayList<>();
+        for (Field atributoEntidade : atributosEntidade) {
+            A[] annotacoesDoAtributo = atributoEntidade.getAnnotationsByType(annotation);
+            if (annotacoesDoAtributo.length > 0) {
+                fields.add(atributoEntidade);
+            }
+        }
+        return fields;
+    }
+    
+    protected Field getIdEntidade() {
+        List<Field> fieldId = getFieldsByAnnotation(Id.class);
+        return fieldId.get(0);
     }
 
 }
