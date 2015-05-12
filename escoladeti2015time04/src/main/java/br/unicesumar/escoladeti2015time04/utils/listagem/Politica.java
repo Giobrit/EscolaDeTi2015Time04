@@ -1,6 +1,6 @@
 package br.unicesumar.escoladeti2015time04.utils.listagem;
 
-public enum Policy {
+public enum Politica {
 
-    RELATIVE, FULL_NAME
+    RELATIVO, FULL_VALUE
 }
