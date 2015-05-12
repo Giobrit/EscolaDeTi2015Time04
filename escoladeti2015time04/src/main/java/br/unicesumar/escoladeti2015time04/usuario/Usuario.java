@@ -1,8 +1,8 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
 import br.unicesumar.escoladeti2015time04.utils.Email;
+import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.utils.listagem.PoliticaFiltragem;
-import br.unicesumar.escoladeti2015time04.utils.listagem.Listable;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Politica;
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Listable
 public class Usuario implements Serializable {
 
     @Id
@@ -25,10 +24,12 @@ public class Usuario implements Serializable {
 
     @Column(nullable = false)
     @PoliticaFiltragem(politica = Politica.RELATIVO)
+    @ColunaListavel
     private String nome;
 
     @Column(unique = true, nullable = false)
     @PoliticaFiltragem(politica = Politica.RELATIVO)
+    @ColunaListavel
     private String login;
 
     @Embedded
@@ -36,10 +37,12 @@ public class Usuario implements Serializable {
 
     @Embedded
     @PoliticaFiltragem(politica = Politica.RELATIVO)
+    @ColunaListavel
     private Email email;
 
     @Enumerated(EnumType.STRING)
-    @PoliticaFiltragem(politica = Politica.FULL_VALUE)
+    @PoliticaFiltragem(politica = Politica.VALOR_COMPLETO)
+    @ColunaListavel
     private Status status;
 
     public Usuario() {

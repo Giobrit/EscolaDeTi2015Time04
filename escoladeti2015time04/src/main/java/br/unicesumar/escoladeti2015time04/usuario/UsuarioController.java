@@ -1,6 +1,9 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
-import java.util.List;
+import br.unicesumar.escoladeti2015time04.utils.ResultadoListagem;
+import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
+import br.unicesumar.escoladeti2015time04.utils.listagem.Paginador;
+import br.unicesumar.escoladeti2015time04.utils.listagem.PaginadorPostgreSQL;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,25 +18,20 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService service;
-
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Map<String, Object>> listarTodosUsuarios() {
-        return this.service.listar();
-    }
     
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Map<String, Object> localizar(@PathVariable Long id) {
         return this.service.localizar(id);
     }
 
     @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}/valorFiltro/{valor}", method = RequestMethod.GET)
-    public List<Map<String, Object>> listarUsuariosFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String valor) {
-        return this.service.listar(numeroItens, paginaAtual, valor);
+    public ResultadoListagem<Usuario> listarUsuariosFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String valor) {
+        return this.service.listar(new Filtro<Usuario>(valor), new PaginadorPostgreSQL(numeroItens, paginaAtual));
     }
 
     @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}", method = RequestMethod.GET)
-    public List<Map<String, Object>> listarUsuariosSemFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual) {
-        return this.service.listar(numeroItens, paginaAtual);
+    public ResultadoListagem<Usuario> listarUsuariosSemFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual) {
+        return this.service.listar(new Filtro<Usuario>(), new PaginadorPostgreSQL(numeroItens, paginaAtual));
     }
 
     @RequestMapping(method = RequestMethod.POST)
