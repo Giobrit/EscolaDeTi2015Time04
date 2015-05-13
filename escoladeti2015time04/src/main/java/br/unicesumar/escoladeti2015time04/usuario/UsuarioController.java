@@ -6,6 +6,7 @@ import br.unicesumar.escoladeti2015time04.utils.listagem.Paginador;
 import br.unicesumar.escoladeti2015time04.utils.listagem.PaginadorPostgreSQL;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}/valorFiltro/{valor}", method = RequestMethod.GET)
-    public ResultadoListagem<Usuario> listarUsuariosFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String valor) {
+    public ResultadoListagem<Usuario> listarUsuariosFiltro(@RequestBody Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String valor) {
         return this.service.listar(new Filtro<Usuario>(valor), new PaginadorPostgreSQL(numeroItens, paginaAtual));
     }
 

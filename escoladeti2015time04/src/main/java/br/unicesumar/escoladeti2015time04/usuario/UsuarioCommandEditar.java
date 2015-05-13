@@ -11,7 +11,7 @@ import javax.persistence.Column;
 @CommandEditar
 public class UsuarioCommandEditar {
 
-    @AtributoCommand(tipoAtributo = TipoAtributoCommand.id)
+    @AtributoCommand()
     private final Long id;
 
     @AtributoCommand()

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -45,7 +46,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         this.idEntidade = getIdEntidade();
         this.selectComColunasListaveis = montarSelectListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
-        
+
     }
 
     public void salvar(E entidade) {
@@ -58,36 +59,55 @@ public abstract class Service<E, R extends JpaRepository, C> {
                 throw new IllegalArgumentException("O commando deve estar anotado com CommandEditar");
             }
 
-            Field atributoId = null;
+            Map<String, Field> atributosCommand = getMapAtributosCammand(command);
 
-            if (atributoId == null) {
-                throw new IllegalArgumentException("O deve possuir um unico!");
+            if (atributosCommand.isEmpty() || atributosCommand.get(idEntidade.getName()) == null) {
+                throw new IllegalArgumentException("O Command deve possuir ao menos um id!");
             }
 
-            atributoId.setAccessible(true);
-            E objetoEntidade = (E) repositorio.findOne((Serializable) atributoId.get(command));
+            Field idCommand = atributosCommand.get(idEntidade.getName());
+            idCommand.setAccessible(true);
+            E objetoEntidade = (E) repositorio.findOne((Serializable) idCommand.get(command));
 
-//        usuario.setNome(command.getNome());
-//        usuario.setLogin(command.getLogin());
-//        usuario.setEmail(command.getEmail());
-//        usuario.setStatus(command.getStatus());
-//        repoUsuario.save(usuario);
-        } catch (IllegalAccessException ex) {
+            for (Map.Entry<String, Field> atributoCommand : atributosCommand.entrySet()) {
+                String nomeAtributoEquivalente = atributoCommand.getKey();
+                Field atributoEquivalente = atributoCommand.getValue();
+
+                Field field = tipoEntidade.getDeclaredField(nomeAtributoEquivalente);
+                
+                atributoEquivalente.setAccessible(true);
+                field.setAccessible(true);
+                
+                field.set(objetoEntidade, atributoEquivalente.get(command));
+            }
+
+            repositorio.save(objetoEntidade);
+        } catch (NoSuchFieldException | IllegalAccessException ex) {
             throw new IllegalArgumentException("Ocorreu um erro ao editar o(a) " + this.tipoEntidade.getSimpleName());
         }
     }
 
-    private Field getAtributosCommand(C command) throws SecurityException {
+    private Map<String, Field> getMapAtributosCammand(C command) throws SecurityException {
         Class<? extends Object> commandClass = command.getClass();
         Field[] atributosDoCommand = commandClass.getDeclaredFields();
-        List<Field> atributosCommand = new ArrayList<>();
+        Map<String, Field> mapAtributos = new HashMap<>();
         for (Field atributoCommand : atributosDoCommand) {
-            Annotation[] annotationsDoAtributo = atributoCommand.getAnnotationsByType(AtributoCommand.class);
-            if (annotationsDoAtributo.length > 0) {
-                atributosCommand.add(atributoCommand);
+            AtributoCommand[] annotationsDoAtributo = atributoCommand.getAnnotationsByType(AtributoCommand.class);
+            if (annotationsDoAtributo.length == 1) {
+                adicionarAtributoCommandNoMap(annotationsDoAtributo, atributoCommand, mapAtributos);
             }
         }
-        return null;
+        return mapAtributos;
+    }
+
+    private void adicionarAtributoCommandNoMap(AtributoCommand[] annotationsDoAtributo, Field atributoCommand, Map<String, Field> mapAtributos) {
+        String equivalente;
+        if ("".equals(annotationsDoAtributo[0].equivalente())) {
+            equivalente = atributoCommand.getName();
+        } else {
+            equivalente = annotationsDoAtributo[0].equivalente();
+        }
+        mapAtributos.put(equivalente, atributoCommand);
     }
 
     private Boolean validarCommand(C command) {
@@ -106,8 +126,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         Long numeroDePaginas;
 
         try {
-
-            numeroDePaginas = (calcularNumeroTotalRegistros(filtro) / paginador.getNumeroItensPorPagina());
+            numeroDePaginas = (long) Math.ceil(calcularNumeroTotalRegistros(filtro) / paginador.getNumeroItensPorPagina());
         } catch (Exception e) {
             numeroDePaginas = new Long(1);
         }
@@ -175,7 +194,8 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
         Map<String, Object> resultado = this.jdbcTemplate.queryForObject(sql, parans, new MapRowMapper());
 
-        return (Long) resultado.get("numeroTotalRegistros");
+        Long numeroPaginas = (Long) resultado.get("numerototalregistros");
+        return numeroPaginas;
     }
 
 }

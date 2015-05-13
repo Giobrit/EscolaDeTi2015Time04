@@ -81,7 +81,7 @@ function controllerListagemFilho($scope, $http) {
             return;
         }
         
-        if ($scope.totalPaginas < pagina) {
+        if (pagina > $scope.totalPaginas) {
             return;
         }
 
