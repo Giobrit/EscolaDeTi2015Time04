@@ -37,7 +37,7 @@ public class UsuarioController {
 
     @RequestMapping(method = RequestMethod.POST)
     public void criarUsuario(@RequestBody Usuario usuario) {
-        this.service.salvar(usuario);
+        this.service.criar(usuario);
     }
 
     @RequestMapping(method = RequestMethod.PUT)

@@ -39,7 +39,7 @@ public class Initializer {
         final Email email = new Email("administrador@naac.com");
         final Usuario usuario = new Usuario("Administrador", "admin", senha, email);
         
-        usuarioService.salvar(usuario);
+        usuarioService.criar(usuario);
     }
 
 }

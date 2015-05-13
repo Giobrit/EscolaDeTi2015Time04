@@ -15,9 +15,9 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
     }
 
     @Override
-    public void salvar(Usuario usuario) {
+    public void criar(Usuario usuario) {
         usuario.setStatus(Status.ATIVO);
-        super.salvar(usuario);
+        super.criar(usuario);
     }
 
     @Override

@@ -30,24 +30,26 @@ public abstract class Service<E, R extends JpaRepository, C> {
     public void setRepository(R repositorio) {
         this.repositorio = repositorio;
     }
-    
+
     protected Field[] atributosEntidade;
     protected Field idEntidade;
     protected String selectComColunasListaveis;
     protected String selectNumeroRegistros;
+    protected Boolean permiteRemocao;
 
     protected abstract Class<E> getClassEntity();
 
     @PostConstruct
     private void init() {
-        this.atributosEntidade =  getClassEntity().getDeclaredFields();
+        this.atributosEntidade = getClassEntity().getDeclaredFields();
         this.idEntidade = getIdEntidade();
         this.selectComColunasListaveis = montarSelectListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
+        this.permiteRemocao = getPoliticaPodeRemover();
 
     }
 
-    public void salvar(E entidade) {
+    public void criar(E entidade) {
         repositorio.save(entidade);
     }
 
@@ -71,11 +73,11 @@ public abstract class Service<E, R extends JpaRepository, C> {
                 String nomeAtributoEquivalente = atributoCommand.getKey();
                 Field atributoEquivalente = atributoCommand.getValue();
 
-                Field field =  getClassEntity().getDeclaredField(nomeAtributoEquivalente);
-                
+                Field field = getClassEntity().getDeclaredField(nomeAtributoEquivalente);
+
                 atributoEquivalente.setAccessible(true);
                 field.setAccessible(true);
-                
+
                 field.set(objetoEntidade, atributoEquivalente.get(command));
             }
 
@@ -83,6 +85,41 @@ public abstract class Service<E, R extends JpaRepository, C> {
         } catch (NoSuchFieldException | IllegalAccessException ex) {
             throw new IllegalArgumentException("Ocorreu um erro ao editar o(a) " + this.getClassEntity().getSimpleName());
         }
+    }
+
+    public ResultadoListagem<E> listar(Filtro filtro, Paginador paginador) {
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+        String select = selectComColunasListaveis;
+
+        select += filtro.getFiltros(atributosEntidade, parans) + /* " order by nome " +*/ paginador.getPaginacao(parans);
+        List<Map<String, Object>> resultado = jdbcTemplate.query(select, parans, new MapRowMapper());
+
+        Long numeroDePaginas;
+
+        try {
+            numeroDePaginas = (long) Math.ceil(calcularNumeroTotalRegistros(filtro) / paginador.getNumeroItensPorPagina());
+        } catch (Exception e) {
+            numeroDePaginas = new Long(1);
+        }
+
+        return new ResultadoListagem(numeroDePaginas, resultado);
+    }
+
+    public Map<String, Object> localizar(Long id) {
+        String listarUsuario = selectComColunasListaveis + " where " + idEntidade.getName() + " = :id";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
+
+        return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
+    }
+    
+    public void remover(Long id) {
+        if (!permiteRemocao) {
+            throw new IllegalArgumentException(this.getClassEntity().getSimpleName() + " não permite remoção");
+        }
+        
+        repositorio.delete(id);
     }
 
     private Map<String, Field> getMapAtributosCammand(C command) throws SecurityException {
@@ -113,34 +150,12 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
         return anotacoesCommand.length > 0;
     }
-
-    public ResultadoListagem<E> listar(Filtro filtro, Paginador paginador) {
-        MapSqlParameterSource parans = new MapSqlParameterSource();
-        String select = selectComColunasListaveis;
-
-        select += filtro.getFiltros(atributosEntidade, parans) + /* " order by nome " +*/ paginador.getPaginacao(parans);
-        List<Map<String, Object>> resultado = jdbcTemplate.query(select, parans, new MapRowMapper());
-
-        Long numeroDePaginas;
-
-        try {
-            numeroDePaginas = (long) Math.ceil(calcularNumeroTotalRegistros(filtro) / paginador.getNumeroItensPorPagina());
-        } catch (Exception e) {
-            numeroDePaginas = new Long(1);
-        }
-
-        return new ResultadoListagem(numeroDePaginas, resultado);
+    
+    private Boolean getPoliticaPodeRemover() {
+        NaoRemovivel[] anotacoesRemoverEntidade = getClassEntity().getAnnotationsByType(NaoRemovivel.class);
+        return anotacoesRemoverEntidade.length > 0;
     }
-
-    public Map<String, Object> localizar(Long id) {
-        String listarUsuario = selectComColunasListaveis + " where " + idEntidade.getName() + " = :id";
-
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", id);
-
-        return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
-    }
-
+    
     private String montarSelectListar() {
         String sql = "SELECT ";
 

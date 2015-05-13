@@ -34,9 +34,9 @@ public class Filtro<E> {
                     continue;
                 }
 
-                if (politicasFiltragem[0].politicaFiltro()== Politica.RELATIVO) {
+                if (politicasFiltragem[0].politicaFiltro()== PoliticaFiltragem.RELATIVO) {
                     filtros += "lower(" + atributoEntidade.getName() + ") like :valorFiltroRelativo or ";
-                } else if (politicasFiltragem[0].politicaFiltro()== Politica.VALOR_COMPLETO) {
+                } else if (politicasFiltragem[0].politicaFiltro()== PoliticaFiltragem.VALOR_COMPLETO) {
                     filtros += "lower(" + atributoEntidade.getName() + ") = :valorFiltroExato ";
                 }
             }
