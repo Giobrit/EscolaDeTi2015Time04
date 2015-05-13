@@ -15,8 +15,8 @@ public class PaginadorPostgreSQL extends Paginador {
     public String getPaginacao(MapSqlParameterSource parans) {
         String paginacao;
         try {
-            parans.addValue("limite", numeroItens);
-            parans.addValue("inicio", (paginaAtual - 1) * numeroItens);
+            parans.addValue("limite", numeroItensPorPagina);
+            parans.addValue("inicio", (paginaAtual - 1) * numeroItensPorPagina);
             paginacao = "limit :limite offset :inicio";
         } catch (Exception e) {
             paginacao = "";

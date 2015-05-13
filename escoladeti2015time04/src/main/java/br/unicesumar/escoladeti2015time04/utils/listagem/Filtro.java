@@ -29,14 +29,14 @@ public class Filtro<E> {
             filtros += " AND (";
 
             for (Field atributoEntidade : atributosEntidade) {
-                PoliticaFiltragem[] politicasFiltragem = atributoEntidade.getAnnotationsByType(PoliticaFiltragem.class);
+                ColunaListavel[] politicasFiltragem = atributoEntidade.getAnnotationsByType(ColunaListavel.class);
                 if (politicasFiltragem.length == 0) {
                     continue;
                 }
 
-                if (politicasFiltragem[0].politica() == Politica.RELATIVO) {
+                if (politicasFiltragem[0].politicaFiltro()== Politica.RELATIVO) {
                     filtros += "lower(" + atributoEntidade.getName() + ") like :valorFiltroRelativo or ";
-                } else if (politicasFiltragem[0].politica() == Politica.VALOR_COMPLETO) {
+                } else if (politicasFiltragem[0].politicaFiltro()== Politica.VALOR_COMPLETO) {
                     filtros += "lower(" + atributoEntidade.getName() + ") = :valorFiltroExato ";
                 }
             }

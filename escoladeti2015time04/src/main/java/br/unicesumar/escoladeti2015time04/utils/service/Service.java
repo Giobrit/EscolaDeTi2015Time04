@@ -5,6 +5,7 @@ import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
 import br.unicesumar.escoladeti2015time04.utils.ResultadoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     protected Field[] atributosEntidade;
     protected Field idEntidade;
     protected String selectComColunasListaveis;
+    protected String selectNumeroRegistros;
 
     protected abstract void setClassEntity();
 
@@ -41,7 +43,9 @@ public abstract class Service<E, R extends JpaRepository, C> {
         setClassEntity();
         this.atributosEntidade = tipoEntidade.getDeclaredFields();
         this.idEntidade = getIdEntidade();
-        this.selectComColunasListaveis  = montarSelect();
+        this.selectComColunasListaveis = montarSelectListar();
+        this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
+        
     }
 
     public void salvar(E entidade) {
@@ -49,35 +53,41 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     public void editar(C command) {
-        if (!validarCommand(command)) {
-            throw new IllegalArgumentException("O commando deve estar anotado com CommandEditar");
-        }
+        try {
+            if (!validarCommand(command)) {
+                throw new IllegalArgumentException("O commando deve estar anotado com CommandEditar");
+            }
 
-        List<Field> fieldsId = getIdCommand(command);
+            Field atributoId = null;
 
-        if (fieldsId.size() > 1) {
-            throw new IllegalArgumentException("O comando só pode ter um unico id");
-        }
+            if (atributoId == null) {
+                throw new IllegalArgumentException("O deve possuir um unico!");
+            }
 
-//        usuario = repoUsuario.findOne(command.getId());
+            atributoId.setAccessible(true);
+            E objetoEntidade = (E) repositorio.findOne((Serializable) atributoId.get(command));
+
 //        usuario.setNome(command.getNome());
 //        usuario.setLogin(command.getLogin());
 //        usuario.setEmail(command.getEmail());
 //        usuario.setStatus(command.getStatus());
 //        repoUsuario.save(usuario);
+        } catch (IllegalAccessException ex) {
+            throw new IllegalArgumentException("Ocorreu um erro ao editar o(a) " + this.tipoEntidade.getSimpleName());
+        }
     }
 
-    private List<Field> getIdCommand(C command) throws SecurityException {
+    private Field getAtributosCommand(C command) throws SecurityException {
         Class<? extends Object> commandClass = command.getClass();
-        Field[] atributosCommand = commandClass.getDeclaredFields();
-        List<Field> fieldsAnotadosComoId = new ArrayList<>();
-        for (Field atributoCommand : atributosCommand) {
-            Annotation[] annotationsDoAtributo = atributoCommand.getAnnotationsByType(IdCommand.class);
+        Field[] atributosDoCommand = commandClass.getDeclaredFields();
+        List<Field> atributosCommand = new ArrayList<>();
+        for (Field atributoCommand : atributosDoCommand) {
+            Annotation[] annotationsDoAtributo = atributoCommand.getAnnotationsByType(AtributoCommand.class);
             if (annotationsDoAtributo.length > 0) {
-                fieldsAnotadosComoId.add(atributoCommand);
+                atributosCommand.add(atributoCommand);
             }
         }
-        return fieldsAnotadosComoId;
+        return null;
     }
 
     private Boolean validarCommand(C command) {
@@ -93,7 +103,16 @@ public abstract class Service<E, R extends JpaRepository, C> {
         select += filtro.getFiltros(atributosEntidade, parans) + /* " order by nome " +*/ paginador.getPaginacao(parans);
         List<Map<String, Object>> resultado = jdbcTemplate.query(select, parans, new MapRowMapper());
 
-        return new ResultadoListagem(repositorio.count(), resultado);
+        Long numeroDePaginas;
+
+        try {
+
+            numeroDePaginas = (calcularNumeroTotalRegistros(filtro) / paginador.getNumeroItensPorPagina());
+        } catch (Exception e) {
+            numeroDePaginas = new Long(1);
+        }
+
+        return new ResultadoListagem(numeroDePaginas, resultado);
     }
 
     public Map<String, Object> localizar(Long id) {
@@ -105,11 +124,11 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
     }
 
-    private String montarSelect() {
+    private String montarSelectListar() {
         String sql = "SELECT ";
 
-         sql += idEntidade.getName() + ", ";
-        
+        sql += idEntidade.getName() + ", ";
+
         for (Field atributosColunaListavelEntidade : getFieldsByAnnotation(ColunaListavel.class)) {
             sql += atributosColunaListavelEntidade.getName() + ",";
         }
@@ -117,6 +136,16 @@ public abstract class Service<E, R extends JpaRepository, C> {
         sql = sql.substring(0, sql.length() - 1);
 
         sql += " FROM ";
+        sql += tipoEntidade.getSimpleName();
+
+        return sql + "  ";
+    }
+
+    private String montarSelectNumeroTotalRegistros() {
+        String sql = "SELECT count(";
+
+        sql += idEntidade.getName();
+        sql += ") as numeroTotalRegistros FROM ";
         sql += tipoEntidade.getSimpleName();
 
         return sql + "  ";
@@ -132,10 +161,21 @@ public abstract class Service<E, R extends JpaRepository, C> {
         }
         return fields;
     }
-    
+
     protected Field getIdEntidade() {
         List<Field> fieldId = getFieldsByAnnotation(Id.class);
         return fieldId.get(0);
+    }
+
+    private Long calcularNumeroTotalRegistros(Filtro filtro) {
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+
+        String sql = selectNumeroRegistros;
+        sql += filtro.getFiltros(atributosEntidade, parans);
+
+        Map<String, Object> resultado = this.jdbcTemplate.queryForObject(sql, parans, new MapRowMapper());
+
+        return (Long) resultado.get("numeroTotalRegistros");
     }
 
 }

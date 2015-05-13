@@ -1,25 +1,31 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
 import br.unicesumar.escoladeti2015time04.utils.Email;
+import br.unicesumar.escoladeti2015time04.utils.service.AtributoCommand;
 import br.unicesumar.escoladeti2015time04.utils.service.CommandEditar;
-import br.unicesumar.escoladeti2015time04.utils.service.IdCommand;
+import br.unicesumar.escoladeti2015time04.utils.service.TipoAtributoCommand;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
 
 @CommandEditar
 public class UsuarioCommandEditar {
-    
-    @IdCommand
+
+    @AtributoCommand(tipoAtributo = TipoAtributoCommand.id)
     private final Long id;
+
+    @AtributoCommand()
     @Column(nullable = false)
     private final String nome;
-
-    @Column(unique = true, nullable = false)
+    
+    @AtributoCommand()
+    @Column( nullable = false)
     private String login;
 
+    @AtributoCommand()
     private Email email;
 
+    @AtributoCommand()
     private Status status;
 
     @JsonCreator

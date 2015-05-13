@@ -2,7 +2,6 @@ package br.unicesumar.escoladeti2015time04.usuario;
 
 import br.unicesumar.escoladeti2015time04.utils.Email;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
-import br.unicesumar.escoladeti2015time04.utils.listagem.PoliticaFiltragem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Politica;
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,12 +22,10 @@ public class Usuario implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    @PoliticaFiltragem(politica = Politica.RELATIVO)
     @ColunaListavel
     private String nome;
 
     @Column(unique = true, nullable = false)
-    @PoliticaFiltragem(politica = Politica.RELATIVO)
     @ColunaListavel
     private String login;
 
@@ -36,13 +33,11 @@ public class Usuario implements Serializable {
     private Senha senha;
 
     @Embedded
-    @PoliticaFiltragem(politica = Politica.RELATIVO)
     @ColunaListavel
     private Email email;
 
     @Enumerated(EnumType.STRING)
-    @PoliticaFiltragem(politica = Politica.VALOR_COMPLETO)
-    @ColunaListavel
+    @ColunaListavel(politicaFiltro = Politica.VALOR_COMPLETO)
     private Status status;
 
     public Usuario() {
