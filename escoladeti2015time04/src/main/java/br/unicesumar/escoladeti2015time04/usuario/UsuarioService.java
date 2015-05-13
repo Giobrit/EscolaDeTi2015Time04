@@ -20,10 +20,8 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
         super.salvar(usuario);
     }
 
-    
     @Override
-    protected void setClassEntity() {
-        super.tipoEntidade = Usuario.class;
+    protected Class<Usuario> getClassEntity() {
+       return Usuario.class;
     }
-
 }

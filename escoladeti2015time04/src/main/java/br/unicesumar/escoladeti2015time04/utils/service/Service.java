@@ -30,19 +30,17 @@ public abstract class Service<E, R extends JpaRepository, C> {
     public void setRepository(R repositorio) {
         this.repositorio = repositorio;
     }
-
-    protected Class<E> tipoEntidade;
+    
     protected Field[] atributosEntidade;
     protected Field idEntidade;
     protected String selectComColunasListaveis;
     protected String selectNumeroRegistros;
 
-    protected abstract void setClassEntity();
+    protected abstract Class<E> getClassEntity();
 
     @PostConstruct
     private void init() {
-        setClassEntity();
-        this.atributosEntidade = tipoEntidade.getDeclaredFields();
+        this.atributosEntidade =  getClassEntity().getDeclaredFields();
         this.idEntidade = getIdEntidade();
         this.selectComColunasListaveis = montarSelectListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
@@ -73,7 +71,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
                 String nomeAtributoEquivalente = atributoCommand.getKey();
                 Field atributoEquivalente = atributoCommand.getValue();
 
-                Field field = tipoEntidade.getDeclaredField(nomeAtributoEquivalente);
+                Field field =  getClassEntity().getDeclaredField(nomeAtributoEquivalente);
                 
                 atributoEquivalente.setAccessible(true);
                 field.setAccessible(true);
@@ -83,7 +81,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
             repositorio.save(objetoEntidade);
         } catch (NoSuchFieldException | IllegalAccessException ex) {
-            throw new IllegalArgumentException("Ocorreu um erro ao editar o(a) " + this.tipoEntidade.getSimpleName());
+            throw new IllegalArgumentException("Ocorreu um erro ao editar o(a) " + this.getClassEntity().getSimpleName());
         }
     }
 
@@ -155,7 +153,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         sql = sql.substring(0, sql.length() - 1);
 
         sql += " FROM ";
-        sql += tipoEntidade.getSimpleName();
+        sql += getClassEntity().getSimpleName();
 
         return sql + "  ";
     }
@@ -165,7 +163,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
         sql += idEntidade.getName();
         sql += ") as numeroTotalRegistros FROM ";
-        sql += tipoEntidade.getSimpleName();
+        sql += getClassEntity().getSimpleName();
 
         return sql + "  ";
     }
