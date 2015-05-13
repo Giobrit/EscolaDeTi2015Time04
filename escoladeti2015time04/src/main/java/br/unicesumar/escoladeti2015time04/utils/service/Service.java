@@ -146,7 +146,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     private String montarSelectListar() {
         String sql = "SELECT ";
 
-        sql += idEntidade.getName() + ", ";
+        sql += idEntidade.getName() + ",";
 
         for (Field atributosColunaListavelEntidade : getFieldsByAnnotation(ColunaListavel.class)) {
             sql += atributosColunaListavelEntidade.getName() + ",";
