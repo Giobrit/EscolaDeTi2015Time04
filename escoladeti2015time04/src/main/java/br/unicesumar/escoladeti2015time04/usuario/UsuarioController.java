@@ -24,7 +24,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}/valorFiltro/{valor}", method = RequestMethod.GET)
-    public ResultadoListagem<Usuario> listarUsuariosFiltro(@RequestBody Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String valor) {
+    public ResultadoListagem<Usuario> listarUsuariosFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String valor) {
         return this.service.listar(new Filtro<Usuario>(valor), new PaginadorPostgreSQL(numeroItens, paginaAtual));
     }
 
@@ -47,6 +47,12 @@ public class UsuarioController {
     public void editarUsuario(@RequestBody UsuarioCommandEditar usuario) {
         this.service.editar(usuario);
     }
+    
+    @RequestMapping(value = "/alterarSenha", method = RequestMethod.PUT)
+    public void editarUsuario(@RequestBody UsuarioCommandEditarSenha usuarioAlterarSenha) {
+        this.service.alterarSenha(usuarioAlterarSenha);
+    }
+
 
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
     public void alterarStatus(@PathVariable Long id, @PathVariable Status status) {

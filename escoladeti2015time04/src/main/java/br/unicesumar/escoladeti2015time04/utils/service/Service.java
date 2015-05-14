@@ -24,11 +24,11 @@ public abstract class Service<E, R extends JpaRepository, C> {
     @Autowired
     protected NamedParameterJdbcTemplate jdbcTemplate;
 
-    protected R repositorio;
+    protected R repository;
 
     @Autowired
     public void setRepository(R repositorio) {
-        this.repositorio = repositorio;
+        this.repository = repositorio;
     }
 
     protected Field[] atributosEntidade;
@@ -47,7 +47,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     public void criar(E entidade) {
-        repositorio.save(entidade);
+        repository.save(entidade);
     }
 
     public void editar(C command) {
@@ -64,7 +64,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
             Field idCommand = atributosCommand.get(idEntidade.getName());
             idCommand.setAccessible(true);
-            E objetoEntidade = (E) repositorio.findOne((Serializable) idCommand.get(command));
+            E objetoEntidade = (E) repository.findOne((Serializable) idCommand.get(command));
 
             for (Map.Entry<String, Field> atributoCommand : atributosCommand.entrySet()) {
                 String nomeAtributoEquivalente = atributoCommand.getKey();
@@ -78,7 +78,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
                 field.set(objetoEntidade, atributoEquivalente.get(command));
             }
 
-            repositorio.save(objetoEntidade);
+            repository.save(objetoEntidade);
         } catch (NoSuchFieldException | IllegalAccessException ex) {
             throw new IllegalArgumentException("Ocorreu um erro ao editar o(a) " + this.getClassEntity().getSimpleName());
         }
@@ -94,7 +94,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         Long numeroDePaginas;
 
         try {
-            numeroDePaginas = (long) Math.ceil(calcularNumeroTotalRegistros(filtro) / paginador.getNumeroItensPorPagina());
+            numeroDePaginas = (long) Math.ceil(Double.longBitsToDouble(calcularNumeroTotalRegistros(filtro)) / Double.longBitsToDouble(paginador.getNumeroItensPorPagina()));
         } catch (Exception e) {
             numeroDePaginas = new Long(1);
         }

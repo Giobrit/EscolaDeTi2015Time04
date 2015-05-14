@@ -4,6 +4,8 @@ AppModule.controller("controllerListUsuario", controllerListagemFilho);
 
 function controllerFormularioFilho($scope, $http, $routeParams, $location) {
 
+    $scope.usuarioCommandEditarSenha = {};
+
     $scope.init = function () {
         limparTela();
 
@@ -35,6 +37,20 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location) {
         }
     };
 
+    $scope.iniciarAlteracaoSenha = function () {
+        $scope.usuarioCommandEditarSenha = {};
+    };
+
+    $scope.alterarSenha = function () {
+        $scope.usuarioCommandEditarSenha.id = $scope.usuario.id;
+
+        $http.put("/usuario/alterarSenha", $scope.usuarioCommandEditarSenha).success(onSuccess).error(onError);
+
+        function onSuccess() {
+            alert("Senha do usuario [" + $scope.usuario.nome + "] alterada com sucesso!")
+        }
+    };
+
     function limparTela() {
         $scope.usuario = {};
         $scope.editando = false;
@@ -46,8 +62,11 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location) {
 }
 
 function controllerListagemFilho($scope, $http) {
+
     $scope.paginaAtual = 1;
     $scope.totalPaginas = 1;
+    $scope.usuarioAlterandoSenha = {};
+    $scope.usuarioCommandEditarSenha = {};
 
     $scope.init = function () {
         $scope.listar();
@@ -63,7 +82,7 @@ function controllerListagemFilho($scope, $http) {
     };
 
     $scope.listar = function () {
-        rotaBack = "/usuario/numeroItens/" + 5 + "/paginaAtual/" + $scope.paginaAtual;
+        rotaBack = "/usuario/numeroItens/" + 8 + "/paginaAtual/" + $scope.paginaAtual;
 
         if ($scope.pesquisa) {
             rotaBack += "/valorFiltro/" + $scope.pesquisa;
@@ -80,7 +99,7 @@ function controllerListagemFilho($scope, $http) {
         if (pagina < 1) {
             return;
         }
-        
+
         if (pagina > $scope.totalPaginas) {
             return;
         }
@@ -89,8 +108,19 @@ function controllerListagemFilho($scope, $http) {
         $scope.listar();
     };
 
-    $scope.pageChangeHandler = function (num) {
-        console.log('meals page changed to ' + num);
+    $scope.setUsuarioAlterandoSenha = function (usuario) {
+        $scope.usuarioAlterandoSenha = usuario;
+        $scope.usuarioCommandEditarSenha = {};
+    };
+
+    $scope.alterarSenha = function () {
+        $scope.usuarioCommandEditarSenha.id = $scope.usuarioAlterandoSenha.id;
+
+        $http.put("/usuario/alterarSenha", $scope.usuarioCommandEditarSenha).success(onSuccess).error(onError);
+
+        function onSuccess() {
+            alert("Senha do usuario [" + $scope.usuarioAlterandoSenha.nome + "] alterada com sucesso!")
+        }
     };
 
     function onError(data) {

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioCommandEditar> {
 
     public void inativar(Long id, Status status) {
-        Usuario usuario = repositorio.getOne(id);
+        Usuario usuario = repository.getOne(id);
         usuario.setStatus(status);
-        repositorio.save(usuario);
+        repository.save(usuario);
     }
 
     @Override
@@ -42,5 +42,12 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
             logou = false;
         }
         return logou;
+    }
+
+    public void alterarSenha(UsuarioCommandEditarSenha usuarioAlterarSenha) {
+        Usuario usuarioEditandoSenha = super.repository.findOne(usuarioAlterarSenha.getId());
+        usuarioEditandoSenha.setSenha(usuarioAlterarSenha.getSenha());
+        
+        super.repository.save(usuarioEditandoSenha);
     }
 }

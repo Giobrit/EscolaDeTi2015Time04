@@ -27,7 +27,7 @@
                                     <th class="col-md-5">Nome</th>
                                     <th class="col-md-2">Login</th>
                                     <th class="col-md-3">Email</th>
-                                    <th class="col-md-2">Ação</th>
+                                    <th class="col-md-1">Ação</th>
                                     <th class="col-md-1">Opção</th>
                                 </tr>
                             </thead>
@@ -40,71 +40,13 @@
                                         <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status === 'INATIVO'" ng-click="alterarStatus(u)">Ativar</button>
                                         <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="u.status === 'ATIVO'" ng-click="alterarStatus(u)">Inativar</button>
                                     </td>
-                                    <td><a data-toggle="modal" data-target="#myModal" type="button" class="tooltip, btn btn-primary botaoEditar" title="Alterar senha"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-
-                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Alterar Senha</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div ng-show="!editando">
-                                                <div class="row">
-                                                    <div class="col-md-9">
-                                                        <div class="col-md-offset-4">
-                                                            <h4>Senha</h4>
-                                                        </div>	
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-9">
-                                                        <div class="col-md-offset-4">
-                                                            <div class="form-group" ng-class="{ 'has-error' : formUsuario.senha.$invalid && !formUsuario.senha.$pristine && formUsuario.senha.$dirty }">
-                                                                <input type="password" name="senha" placeholder="Informe a Senha" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.senha" ng-minlength="6" ng-maxlength="10" ng-pattern="/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$_%])/" required/>                        
-                                                                <p ng-show="formUsuario.senha.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
-                                                                <p ng-show="formUsuario.senha.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
-                                                                <p ng-show="formUsuario.senha.$error.pattern" class="help-block">A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais (!@#$).</p>
-                                                            </div>
-                                                        </div>	
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-9">
-                                                        <div class="col-md-offset-4">
-                                                            <h4>Confirmar Senha</h4>
-                                                        </div>	
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-9">
-                                                        <div class="col-md-offset-4">
-                                                            <div class="form-group" ng-class="{ 'has-error' : formUsuario.confirmar.$invalid && !formUsuario.confirmar.$pristine}">
-                                                                <input type="password" name="confirmar" placeholder="Informe a Senha Novamente" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.confirmar" ng-minlength="6" ng-maxlength="10" />                        
-                                                                <p ng-show="formUsuario.confirmar.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
-                                                                <p ng-show="formUsuario.confirmar.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
-                                                                <p ng-show="usuario.confirmar != usuario.senha" class="help-block">Senhas devem ser iguais.</p>
-                                                            </div>
-                                                        </div>	
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
-                                            <button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                            <td><a href="#/Usuario/form/{{u.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
-                            </tr>
+                                    <td>
+                                        <span>
+                                            <a data-toggle="modal" data-target="#myModal" type="button" class="tooltip, btn btn-primary botaoEditar" title="Alterar senha" ng-click="setUsuarioAlterandoSenha(u)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                            <a href="#/Usuario/form/{{u.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                        </span>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div> 
@@ -128,6 +70,64 @@
                             </ul>
                         </nav>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Alterar Senha do(a) {{usuarioAlterandoSenha.nome}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-offset-4">
+                                    <h4>Senha</h4>
+                                </div>	
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-offset-4">
+                                    <div class="form-group" ng-class="{ 'has-error' : formUsuario.senha.$invalid && !formUsuario.senha.$pristine && formUsuario.senha.$dirty }">
+                                        <input type="password" name="senha" placeholder="Informe a Senha" class="form-control" aria-describedby="basic-addon2" ng-model="usuarioCommandEditarSenha.senha" ng-minlength="6" ng-maxlength="10" ng-pattern="/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$_%])/" required/>                        
+                                        <p ng-show="formUsuario.senha.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
+                                        <p ng-show="formUsuario.senha.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
+                                        <p ng-show="formUsuario.senha.$error.pattern" class="help-block">A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais (!@#$).</p>
+                                    </div>
+                                </div>	
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-offset-4">
+                                    <h4>Confirmar Senha</h4>
+                                </div>	
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-offset-4">
+                                    <div class="form-group" ng-class="{ 'has-error' : formUsuario.confirmar.$invalid && !formUsuario.confirmar.$pristine}">
+                                        <input type="password" name="confirmar" placeholder="Informe a Senha Novamente" class="form-control" aria-describedby="basic-addon2" ng-model="usuarioCommandEditarSenha.confirmar" ng-minlength="6" ng-maxlength="10" />                        
+                                        <p ng-show="formUsuario.confirmar.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
+                                        <p ng-show="formUsuario.confirmar.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
+                                        <p ng-show="usuarioCommandEditarSenha.confirmar != usuarioCommandEditarSenha.senha" class="help-block">Senhas devem ser iguais.</p>
+                                    </div>
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" ng-disabled="(formUsuario.$invalid)" ng-click="alterarSenha()">Salvar</button>
                 </div>
             </div>
         </div>
