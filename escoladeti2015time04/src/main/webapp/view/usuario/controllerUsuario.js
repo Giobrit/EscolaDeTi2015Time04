@@ -67,13 +67,14 @@ function controllerListagemFilho($scope, $http) {
     $scope.totalPaginas = 1;
     $scope.usuarioAlterandoSenha = {};
     $scope.usuarioCommandEditarSenha = {};
+    $scope.colunaOrdenacao = "nome";
 
     $scope.init = function () {
         $scope.listar();
     };
 
     $scope.alterarStatus = function (usuario) {
-        status = usuario.status === 'ATIVO' ? 'INATIVO' : 'ATIVO';
+        var status = usuario.status === 'ATIVO' ? 'INATIVO' : 'ATIVO';
         $http.put("/usuario/" + usuario.id + "/" + status).success(onSuccess).error(onError);
 
         function onSuccess() {
@@ -82,19 +83,23 @@ function controllerListagemFilho($scope, $http) {
     };
 
     $scope.listar = function () {
-        rotaBack = "/usuario/numeroItens/" + 8 + "/paginaAtual/" + $scope.paginaAtual;
-
-        if ($scope.pesquisa) {
-            rotaBack += "/valorFiltro/" + $scope.pesquisa;
-        }
-
-        $http.get(rotaBack).success(onSuccess).error(onError);
+        var requisicaoListagem = new RequisicaoListagem();
+        requisicaoListagem.numeroItens = 8;
+        requisicaoListagem.paginaAtual = $scope.paginaAtual;
+        requisicaoListagem.colunaOrdenacao = $scope.colunaOrdenacao;
+        requisicaoListagem.valorFiltragem = $scope.pesquisa;
+        
+        $http.post("/usuario/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.usuarios = data.itens;
             $scope.totalPaginas = data.numeroTotalPaginas;
         }
     };
 
+    $scope.alterarOrdenacao = function (coluna) {
+        $scope.colunaOrdenacao = coluna;
+    };
+    
     $scope.alterarPagina = function (pagina) {
         if (pagina < 1) {
             return;

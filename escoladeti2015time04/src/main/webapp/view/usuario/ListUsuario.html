@@ -33,7 +33,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="u in usuarios">
-                                    <td>{{u.nome}}</td>
+                                    <td ng-click="alterarOrdenacao('nome')">{{u.nome}}</td>
                                     <td>{{u.login}}</td>
                                     <td>{{u.email}}</td>
                                     <td>
