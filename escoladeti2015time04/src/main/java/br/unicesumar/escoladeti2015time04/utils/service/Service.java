@@ -35,7 +35,6 @@ public abstract class Service<E, R extends JpaRepository, C> {
     protected Field idEntidade;
     protected String selectComColunasListaveis;
     protected String selectNumeroRegistros;
-    protected Boolean permiteRemocao;
 
     protected abstract Class<E> getClassEntity();
 
@@ -45,8 +44,6 @@ public abstract class Service<E, R extends JpaRepository, C> {
         this.idEntidade = getIdEntidade();
         this.selectComColunasListaveis = montarSelectListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
-        this.permiteRemocao = getPoliticaPodeRemover();
-
     }
 
     public void criar(E entidade) {
@@ -113,14 +110,6 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
         return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
     }
-    
-    public void remover(Long id) {
-        if (!permiteRemocao) {
-            throw new IllegalArgumentException(this.getClassEntity().getSimpleName() + " não permite remoção");
-        }
-        
-        repositorio.delete(id);
-    }
 
     private Map<String, Field> getMapAtributosCammand(C command) throws SecurityException {
         Class<? extends Object> commandClass = command.getClass();
@@ -150,12 +139,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
         return anotacoesCommand.length > 0;
     }
-    
-    private Boolean getPoliticaPodeRemover() {
-        NaoRemovivel[] anotacoesRemoverEntidade = getClassEntity().getAnnotationsByType(NaoRemovivel.class);
-        return anotacoesRemoverEntidade.length > 0;
-    }
-    
+ 
     private String montarSelectListar() {
         String sql = "SELECT ";
 

@@ -2,11 +2,9 @@ package br.unicesumar.escoladeti2015time04.usuario;
 
 import br.unicesumar.escoladeti2015time04.utils.ResultadoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
-import br.unicesumar.escoladeti2015time04.utils.listagem.Paginador;
 import br.unicesumar.escoladeti2015time04.utils.listagem.PaginadorPostgreSQL;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
