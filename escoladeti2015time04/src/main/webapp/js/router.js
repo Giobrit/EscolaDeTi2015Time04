@@ -18,10 +18,16 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/Usuario/list', {
         templateUrl: 'view/usuario/ListUsuario.html',
         controller: 'controllerListUsuario'
+    }).when('/Usuario/login', {
+        templateUrl: 'view/login/login.html',
+        controller: ''
+    }).when('/Usuario/form/alterarSenha/:id', {
+        templateUrl: 'view/usuario/alterarSenhaUsuario.html',
+        controller: 'controllerFormUsuario'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });
-
+    
     //verificar se é possível separar as rotas em módulos
 
     $locationProvider.html5Mode(false);

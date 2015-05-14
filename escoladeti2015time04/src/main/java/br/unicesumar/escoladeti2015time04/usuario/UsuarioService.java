@@ -1,7 +1,9 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
+import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
 import br.unicesumar.escoladeti2015time04.utils.service.Service;
 import javax.transaction.Transactional;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,5 +25,22 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
     @Override
     protected Class<Usuario> getClassEntity() {
        return Usuario.class;
+    }
+    
+    public Boolean logar(UsuarioCommandLogar usuarioLogar) {
+        String queryVerificaSeLogou = "select id from usuario where status = 'ATIVO' and (login = :loginOuEmail or email = :loginOuEmail) and senha = :senha";
+
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+        parans.addValue("loginOuEmail", usuarioLogar.getLoginOuEmail());
+        parans.addValue("senha", usuarioLogar.getSenha().getSenha());
+
+        Boolean logou;
+        try {
+            jdbcTemplate.queryForObject(queryVerificaSeLogou, parans, new MapRowMapper());
+            logou = true;
+        } catch (Exception e) {
+            logou = false;
+        }
+        return logou;
     }
 }
