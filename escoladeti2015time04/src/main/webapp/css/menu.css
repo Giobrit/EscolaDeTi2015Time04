@@ -23,12 +23,12 @@ h1, .h1, h2, .h2, h3, .h3 {
   background: #ebebeb  0 0 repeat;
 }
 #logo a{
-  color: #fff;
+  color: #0064a2;
   font-family: 'Righteous', cursive;
   display: block;
-  font-size: 20px;
+  font-size: -10px;
   line-height: 50px;
-  background: url(../img/logo.png) no-repeat;
+  background: url(../img/unicesumar.png) no-repeat;
   background-position: left;
   text-decoration: none;
   margin-left: 05px; 
