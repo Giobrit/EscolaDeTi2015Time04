@@ -32,8 +32,8 @@
                                     <tr ng-repeat="o in objetivos">
                                         <td>{{o.descricao}}</td>                                        
                                         <td>
-                                            <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status === 'INATIVO'" ng-click="alterarStatus(u)">Ativar</button>
-                                            <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="u.status === 'ATIVO'" ng-click="alterarStatus(u)">Inativar</button>
+                                            <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="o.status === 'INATIVO'" ng-click="alterarStatus(o)">Ativar</button>
+                                            <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="o.status === 'ATIVO'" ng-click="alterarStatus(o)">Inativar</button>
                                         </td>
                                         <td>
                                             <span>                                                

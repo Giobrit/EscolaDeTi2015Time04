@@ -54,9 +54,11 @@ function controllerListObjetivoDeixarOCurso($scope, $http) {
 
     $scope.init = function () {
         $scope.objetivos = [{ "id" : 1,
-                              "descricao" : "trancamento"}, 
+                              "descricao" : "trancamento",
+                              "status": "ATIVO"}, 
                               { "id" : 2, 
-                                "descricao" : "renato viado"}
+                                "descricao" : "renato viado",
+                              "status": "ATIVO"},
                               ];
         $scope.listar();
     };
