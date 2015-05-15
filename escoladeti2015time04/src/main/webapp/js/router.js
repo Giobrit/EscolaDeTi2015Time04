@@ -24,10 +24,19 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/Usuario/form/alterarSenha/:id', {
         templateUrl: 'view/usuario/alterarSenhaUsuario.html',
         controller: 'controllerFormUsuario'
+    }).when('/ObjetivoDeixarOCurso‏/form', {
+        templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
+        controller: 'controllerFormObjetivoDeixarOCurso'
+    }).when('/ObjetivoDeixarOCurso‏/form/:id', {
+        templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
+        controller: 'controllerFormObjetivoDeixarOCurso'
+    }).when('/ObjetivoDeixarOCurso‏/list', {
+        templateUrl: 'view/atendimentoDeixarOCurso/objetivo/listagemObjetivo.html',
+        controller: 'controllerListObjetivoDeixarOCurso'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });
-    
+
     //verificar se é possível separar as rotas em módulos
 
     $locationProvider.html5Mode(false);
