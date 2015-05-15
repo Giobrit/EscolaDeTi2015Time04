@@ -1,8 +1,9 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
-import br.unicesumar.escoladeti2015time04.utils.ResultadoListagem;
+import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
 import br.unicesumar.escoladeti2015time04.utils.listagem.PaginadorPostgreSQL;
+import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,16 +24,11 @@ public class UsuarioController {
         return this.service.localizar(id);
     }
 
-    @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}/valorFiltro/{valor}", method = RequestMethod.GET)
-    public ResultadoListagem<Usuario> listarUsuariosFiltro(@RequestBody Long numeroItens, @PathVariable Long paginaAtual, @PathVariable String valor) {
-        return this.service.listar(new Filtro<Usuario>(valor), new PaginadorPostgreSQL(numeroItens, paginaAtual));
+    @RequestMapping(value = "/listar", method = RequestMethod.POST)
+    public ResultadoListagem<Usuario> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
+        return this.service.listar(requisicaoListagem);
     }
-
-    @RequestMapping(value = "/numeroItens/{numeroItens}/paginaAtual/{paginaAtual}", method = RequestMethod.GET)
-    public ResultadoListagem<Usuario> listarUsuariosSemFiltro(@PathVariable Long numeroItens, @PathVariable Long paginaAtual) {
-        return this.service.listar(new Filtro<Usuario>(), new PaginadorPostgreSQL(numeroItens, paginaAtual));
-    }
-
+    
     @RequestMapping(method = RequestMethod.POST)
     public void criarUsuario(@RequestBody Usuario usuario) {
         this.service.criar(usuario);
@@ -47,6 +43,12 @@ public class UsuarioController {
     public void editarUsuario(@RequestBody UsuarioCommandEditar usuario) {
         this.service.editar(usuario);
     }
+    
+    @RequestMapping(value = "/alterarSenha", method = RequestMethod.PUT)
+    public void editarUsuario(@RequestBody UsuarioCommandEditarSenha usuarioAlterarSenha) {
+        this.service.alterarSenha(usuarioAlterarSenha);
+    }
+
 
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
     public void alterarStatus(@PathVariable Long id, @PathVariable Status status) {
