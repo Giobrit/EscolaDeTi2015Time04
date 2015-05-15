@@ -27,10 +27,10 @@ public class ObjetivoController {
         return service.listar();
     }
     
-    @RequestMapping (value= "/{id}", method = RequestMethod.GET)
-    public Objetivo localizar(@PathVariable Long id) { 
-        Objetivo objetivo = service.localizar(id);
-        return objetivo;
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Objetivo localizar(@PathVariable Long id) {
+        return this.service.localizar(id);
     }
     
     @RequestMapping (value= "/{id}/{status}", method = RequestMethod.PUT)
