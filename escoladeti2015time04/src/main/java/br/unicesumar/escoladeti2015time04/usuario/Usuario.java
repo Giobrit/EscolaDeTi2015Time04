@@ -1,6 +1,8 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
 import br.unicesumar.escoladeti2015time04.utils.Email;
+import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.listagem.PoliticaFiltragem;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -11,27 +13,31 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Usuario implements Serializable{
-    
+public class Usuario implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)    
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
+    @ColunaListavel
     private String nome;
-    @Column(unique=true, nullable=false)
+
+    @Column(unique = true, nullable = false)
+    @ColunaListavel
     private String login;
-    
-    @Embedded    
+
+    @Embedded
     private Senha senha;
-    
-    @Embedded        
+
+    @Embedded
+    @ColunaListavel
     private Email email;
-    
+
     @Enumerated(EnumType.STRING)
+    @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
     private Status status;
 
     public Usuario() {
@@ -87,7 +93,7 @@ public class Usuario implements Serializable{
     public void setStatus(Status status) {
         this.status = status;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -115,6 +121,4 @@ public class Usuario implements Serializable{
         return "Usuario{" + "id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", email=" + '}';
     }
 
-    
-    
 }

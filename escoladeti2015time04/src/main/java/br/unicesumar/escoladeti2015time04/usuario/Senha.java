@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
+import org.springframework.util.DigestUtils;
 
 @Embeddable
 public class Senha implements Serializable {
@@ -24,7 +25,8 @@ public class Senha implements Serializable {
         if (!validarSenha(senha)) {
             throw new IllegalArgumentException("Senha não atende aos requisitos de segurança!");
         }
-        this.senha = senha;
+        
+        this.senha = DigestUtils.md5DigestAsHex(senha.getBytes());
     }
 
     public String getSenha() {
@@ -35,7 +37,7 @@ public class Senha implements Serializable {
         if (!validarSenha(senha)) {
             throw new IllegalArgumentException("Senha não atende aos requisitos de segurança!");
         }
-        this.senha = senha;
+        this.senha = DigestUtils.md5DigestAsHex(senha.getBytes());
     }
 
     private Boolean validarSenha(String senha) {
@@ -71,4 +73,8 @@ public class Senha implements Serializable {
         return senha.length() >= TAMANHO_MINIMO_SENHA && senha.length() <= TAMANHO_MAXIMO_SENHA;
     }
 
+    @Override
+    public String toString() {
+        return senha;
+    }
 }

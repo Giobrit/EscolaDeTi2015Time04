@@ -1,1 +1,1 @@
-AppModule = angular.module("NomeDaAplicacao",['ngRoute']);
+AppModule = angular.module("Cadastros",['ngRoute']);
