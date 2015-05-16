@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,6 +22,7 @@ public class ItemAcesso {
     @Column(nullable = false, unique = true)
     private String rota;
     @ManyToOne(optional = false)
+    @JoinColumn(name = "superior")
     private ItemAcesso superior;
 
     public ItemAcesso() {

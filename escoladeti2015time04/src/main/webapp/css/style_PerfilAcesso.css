@@ -1,0 +1,31 @@
+div{
+	margin-top: 0px;
+}
+
+body{
+	margin: 15px;
+}
+h2{
+	text-align: center;
+	background-position: center;
+}
+button{
+	margin-top: 15px;
+}
+
+h4{
+    margin-left: 15px;
+}
+.opcoes input{
+    margin-left: 20px;
+}
+.linha{
+    margin-top: 15px;
+    border: 1px solid #e5e5e5;
+    text-align: center
+}
+
+.operacoes{
+    margin-top: 10px
+   
+}
