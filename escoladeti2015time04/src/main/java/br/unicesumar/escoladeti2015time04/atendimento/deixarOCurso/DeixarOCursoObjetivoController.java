@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/objetivo")
-public class ObjetivoController {
+public class DeixarOCursoObjetivoController {
     
     @Autowired
-    private ObjetivoService service;
+    private DeixarOCursoObjetivoService service;
     
     @RequestMapping (method = RequestMethod.POST)
-    public void criar(@RequestBody Objetivo objetivo){
+    public void criar(@RequestBody DeixarOCursoObjetivo objetivo){
         service.criar(objetivo);
     }
     
@@ -29,12 +29,12 @@ public class ObjetivoController {
     
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Objetivo localizar(@PathVariable Long id) {
+    public DeixarOCursoObjetivo localizar(@PathVariable Long id) {
         return this.service.localizar(id);
     }
     
     @RequestMapping (value= "/{id}/{status}", method = RequestMethod.PUT)
-        public void alterarStatus(@PathVariable Long id, @PathVariable Status status) { 
+        public void alterarStatus(@PathVariable Long id, @PathVariable DeixarOCursoObjetivoStatus status) { 
         this.service.inativar(id, status);
     }
     

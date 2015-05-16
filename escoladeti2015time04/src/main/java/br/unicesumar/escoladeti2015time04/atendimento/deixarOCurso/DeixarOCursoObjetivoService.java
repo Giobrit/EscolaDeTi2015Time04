@@ -12,18 +12,18 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 
-public class ObjetivoService {
+public class DeixarOCursoObjetivoService {
     
     @Autowired
-    private ObjetivoRepository repository;
+    private DeixarOCursoObjetivoRepository repository;
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    protected Class<Objetivo> getClassEntity() {
-       return Objetivo.class;
+    protected Class<DeixarOCursoObjetivo> getClassEntity() {
+       return DeixarOCursoObjetivo.class;
     }
     
-    public void criar(Objetivo objetivo) {
+    public void criar(DeixarOCursoObjetivo objetivo) {
         repository.save(objetivo);
     }
 
@@ -31,12 +31,12 @@ public class ObjetivoService {
         return jdbcTemplate.query("select id, descricao from objetivo", new MapSqlParameterSource(), new MapRowMapper());
     }
 
-    public Objetivo localizar(Long id) {
+    public DeixarOCursoObjetivo localizar(Long id) {
         return repository.findOne(id);
     }
 
-    public void inativar(Long id, Status status) {
-        Objetivo objetivo = repository.getOne(id);
+    public void inativar(Long id, DeixarOCursoObjetivoStatus status) {
+        DeixarOCursoObjetivo objetivo = repository.getOne(id);
         objetivo.setStatus(status);
         repository.save(objetivo);
     }

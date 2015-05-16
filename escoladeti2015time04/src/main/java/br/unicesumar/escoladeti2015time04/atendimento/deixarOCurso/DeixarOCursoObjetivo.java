@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Objetivo {
+public class DeixarOCursoObjetivo {
     
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -18,20 +18,20 @@ public class Objetivo {
     @Column(nullable=false, unique=true)    
     private String descricao;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private DeixarOCursoObjetivoStatus status;
     
-    public Objetivo() {
+    public DeixarOCursoObjetivo() {
     }
 
-    public Status getStatus() {
+    public DeixarOCursoObjetivoStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(DeixarOCursoObjetivoStatus status) {
         this.status = status;
     }
     
-    public Objetivo(Long id, String descricao) {
+    public DeixarOCursoObjetivo(Long id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
@@ -69,7 +69,7 @@ public class Objetivo {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Objetivo other = (Objetivo) obj;
+        final DeixarOCursoObjetivo other = (DeixarOCursoObjetivo) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
