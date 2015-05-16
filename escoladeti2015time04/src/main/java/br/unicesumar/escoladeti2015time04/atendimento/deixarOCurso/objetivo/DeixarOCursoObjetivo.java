@@ -29,6 +29,13 @@ public class DeixarOCursoObjetivo implements Serializable {
     @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
     private DeixarOCursoObjetivoStatus status;
 
+    public DeixarOCursoObjetivo() {
+    }
+
+    public DeixarOCursoObjetivo(String descricao) {
+        this.descricao = descricao;
+    }
+
     public DeixarOCursoObjetivo(String descricao, DeixarOCursoObjetivoStatus status) {
         this.descricao = descricao;
         this.status = status;

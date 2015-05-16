@@ -32,11 +32,6 @@ public class DeixarOCursoObjetivoController {
         return this.service.localizar(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void criarObjetivo(@RequestBody DeixarOCursoObjetivo objetivo) {
-        this.service.criar(objetivo);
-    }
-
     @RequestMapping(method = RequestMethod.PUT)
     public void editarObjetivo(@RequestBody DeixarOCursoObjetivoCommandEditar objetivo) {
         this.service.editar(objetivo);
