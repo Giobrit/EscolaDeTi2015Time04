@@ -1,16 +1,20 @@
 package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo;
 
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.listagem.PoliticaFiltragem;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "deixarocursomotivo")
 public class DeixarOCursoMotivo implements Serializable {
 
     @Id
@@ -22,8 +26,8 @@ public class DeixarOCursoMotivo implements Serializable {
     private String descricao;
 
     @Column(nullable = false)
-    @ColunaListavel
-    @Enumerated
+    @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
+    @Enumerated(EnumType.STRING)
     private DeixarOCursoMotivoStatus status;
 
     public DeixarOCursoMotivo() {

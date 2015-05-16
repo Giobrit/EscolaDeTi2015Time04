@@ -43,7 +43,7 @@ public class Initializer {
         final Senha senha = new Senha("Adm123@");
         final Email email = new Email("administrador@naac.com");
         final Usuario usuario = new Usuario("Administrador", "admin", senha, email);
-        
+
         usuarioService.criar(usuario);
     }
 
