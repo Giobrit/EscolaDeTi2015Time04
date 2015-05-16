@@ -1,5 +1,8 @@
-package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso;
+package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo;
 
+import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.listagem.PoliticaFiltragem;
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,19 +11,45 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class DeixarOCursoObjetivo {
-    
+@Table(name = "deixarocursoobjetivo")
+public class DeixarOCursoObjetivo implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-    @Column(nullable=false, unique=true)    
+
+    @Column(nullable = false, unique = true)
+    @ColunaListavel
     private String descricao;
+
     @Enumerated(EnumType.STRING)
+    @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
     private DeixarOCursoObjetivoStatus status;
-    
-    public DeixarOCursoObjetivo() {
+
+    public DeixarOCursoObjetivo(String descricao, DeixarOCursoObjetivoStatus status) {
+        this.descricao = descricao;
+        this.status = status;
+    }
+
+    public DeixarOCursoObjetivo(Long id, String descricao, DeixarOCursoObjetivoStatus status) {
+        this.id = id;
+        this.descricao = descricao;
+        this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public DeixarOCursoObjetivoStatus getStatus() {
@@ -29,24 +58,6 @@ public class DeixarOCursoObjetivo {
 
     public void setStatus(DeixarOCursoObjetivoStatus status) {
         this.status = status;
-    }
-    
-    public DeixarOCursoObjetivo(Long id, String descricao) {
-        this.id = id;
-        this.descricao = descricao;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     @Override
@@ -75,10 +86,5 @@ public class DeixarOCursoObjetivo {
         }
         return true;
     }
-    
-    
 
-    
-    
-    
 }

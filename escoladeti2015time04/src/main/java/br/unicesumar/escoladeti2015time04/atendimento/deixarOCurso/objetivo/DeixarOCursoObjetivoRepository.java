@@ -1,7 +1,6 @@
 
-package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso;
+package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo;
 
-import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
