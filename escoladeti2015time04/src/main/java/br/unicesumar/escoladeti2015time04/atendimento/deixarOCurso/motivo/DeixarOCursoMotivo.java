@@ -4,10 +4,13 @@ import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class DeixarOCursoMotivo implements Serializable {
 
     @Id
@@ -17,6 +20,11 @@ public class DeixarOCursoMotivo implements Serializable {
     @Column(nullable = false, unique = true)
     @ColunaListavel
     private String descricao;
+
+    @Column(nullable = false)
+    @ColunaListavel
+    @Enumerated
+    private DeixarOCursoMotivoStatus status;
 
     public DeixarOCursoMotivo() {
     }
@@ -38,8 +46,16 @@ public class DeixarOCursoMotivo implements Serializable {
         return descricao;
     }
 
+    public DeixarOCursoMotivoStatus getStatus() {
+        return status;
+    }
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public void setStatus(DeixarOCursoMotivoStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -67,10 +83,6 @@ public class DeixarOCursoMotivo implements Serializable {
     @Override
     public String toString() {
         return "Motivo{" + "id=" + id + ", descricao=" + descricao + '}';
-    }
-
-    void setStatus(DeixarOCursoMotivoStatus status) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
