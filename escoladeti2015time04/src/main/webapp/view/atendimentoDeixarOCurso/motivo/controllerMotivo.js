@@ -7,8 +7,8 @@ function controllerFormMotivoAtendimentoDeixarOCurso($scope, $http, $routeParams
     $scope.init = function () {
         limparTela();
 
-        idMotivoEditado = $routeParams.id;
-        if (idMotivooEditado) {
+        var idMotivoEditado = $routeParams.id;
+        if (idMotivoEditado) {
             $scope.editando = true;
             $scope.editar(idMotivoEditado);
         }
@@ -75,8 +75,6 @@ function controllerListMotivoAtendimentoDeixarOCurso($scope, $http) {
         requisicaoListagem.ordenacaoCrescente = ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
         
-        $scope.motivos = [{"id":1,"descricao":"ola","status":"ATIVO"},{"id":2,"descricao":"tchau","status":"ATIVO"}, {"id":3,"descricao":"oidenovo","status":"INATIVO"}];
-        return;
         
         $http.post("/atendimento/deixarOCurso/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
