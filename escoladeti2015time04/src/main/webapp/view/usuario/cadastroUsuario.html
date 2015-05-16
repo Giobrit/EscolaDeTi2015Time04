@@ -107,66 +107,7 @@
                 <div class="col-md-9">
                     <div class="col-md-offset-7 pull-right">
                         <a type="button" href="#/Usuario/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
-
                         <button data-toggle="modal" data-target="#myModal" type="submit" ng-click="iniciarAlteracaoSenha()" ng-show="editando" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Alterar senha do usuário" >Alterar Senha</button>
-
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Alterar Senha</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div>
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <div class="col-md-offset-4">
-                                                        <h4>Senha</h4>
-                                                    </div>	
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <div class="col-md-offset-4">
-                                                        <div class="form-group" ng-class="{ 'has-error' : formUsuario.senha.$invalid && !formUsuario.senha.$pristine && formUsuario.senha.$dirty }">
-                                                            <input type="password" name="senha" placeholder="Informe a Senha" class="form-control" aria-describedby="basic-addon2" ng-model="usuarioCommandEditarSenha.senha" ng-minlength="6" ng-maxlength="10" ng-pattern="/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$_%])/" required/>                        
-                                                            <p ng-show="formUsuario.senha.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
-                                                            <p ng-show="formUsuario.senha.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
-                                                            <p ng-show="formUsuario.senha.$error.pattern" class="help-block">A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais (!@#$).</p>
-                                                        </div>
-                                                    </div>	
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <div class="col-md-offset-4">
-                                                        <h4>Confirmar Senha</h4>
-                                                    </div>	
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <div class="col-md-offset-4">
-                                                        <div class="form-group" ng-class="{ 'has-error' : formUsuario.confirmar.$invalid && !formUsuario.confirmar.$pristine}">
-                                                            <input type="password" name="confirmar" placeholder="Informe a Senha Novamente" class="form-control" aria-describedby="basic-addon2" ng-model="usuarioCommandEditarSenha.confirmar" ng-minlength="6" ng-maxlength="10" />                        
-                                                            <p ng-show="formUsuario.confirmar.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
-                                                            <p ng-show="formUsuario.confirmar.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
-                                                            <p ng-show="usuarioCommandEditarSenha.confirmar != usuarioCommandEditarSenha.senha" class="help-block">Senhas devem ser iguais.</p>
-                                                        </div>
-                                                    </div>	
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-success" ng-click="alterarSenha()">Salvar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <button type="submit" ng-click="salvar()" ng-disabled="(formUsuario.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
                     </div>
                 </div>	
@@ -175,4 +116,62 @@
     </div>
 </form>
 
+<form name="modalUsuario" novalidate ng-init="init()">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Alterar Senha do(a) {{usuarioAlterandoSenha.nome}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-offset-4">
+                                    <h4>Senha</h4>
+                                </div>	
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-offset-4">
+                                    <div class="form-group" ng-class="{ 'has-error' : modalUsuario.senha.$invalid && !modalUsuario.senha.$pristine && modalUsuario.senha.$dirty }">
+                                        <input type="password" name="senha" placeholder="Informe a Senha" class="form-control" aria-describedby="basic-addon2" ng-model="usuarioCommandEditarSenha.senha" ng-minlength="6" ng-maxlength="10" ng-pattern="/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$_%])/" required/>                        
+                                        <p ng-show="modalUsuario.senha.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
+                                        <p ng-show="modalUsuario.senha.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
+                                        <p ng-show="modalUsuario.senha.$error.pattern" class="help-block">A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais (!@#$).</p>
+                                    </div>
+                                </div>	
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-offset-4">
+                                    <h4>Confirmar Senha</h4>
+                                </div>	
+                            </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-offset-4">
+                                    <div class="form-group" ng-class="{ 'has-error' : modalUsuario.confirmar.$invalid && !modalUsuario.confirmar.$pristine}">
+                                        <input type="password" name="confirmar" placeholder="Informe a Senha Novamente" class="form-control" aria-describedby="basic-addon2" ng-model="usuarioCommandEditarSenha.confirmar" ng-minlength="6" ng-maxlength="10" />                        
+                                        <p ng-show="modalUsuario.confirmar.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
+                                        <p ng-show="modalUsuario.confirmar.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
+                                        <p ng-show="usuarioCommandEditarSenha.confirmar != usuarioCommandEditarSenha.senha" class="help-block">Senhas devem ser iguais.</p>
+                                    </div>
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="(modalUsuario.$invalid)" ng-click="alterarSenha()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
