@@ -88,6 +88,8 @@ class AlunoService {
             aluno.matriculado = "Sim";
             aluno.bolsa = "100% FIES";
             aluno.reprovacao = "0";
+        } else {
+            throw new IllegalArgumentException("Aluno não encontrado!");
         }
         return aluno;
     }
