@@ -1,6 +1,5 @@
-package br.unicesumar.escoladeti2015time04.deixarOCurso.motivo;
+package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo;
 
-import br.unicesumar.escoladeti2015time04.usuario.Status;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import java.io.Serializable;
 import java.util.Objects;
@@ -9,20 +8,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-public class Motivo implements Serializable {
+public class DeixarOCursoMotivo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @ColunaListavel
     private String descricao;
 
-    public Motivo() {
+    public DeixarOCursoMotivo() {
     }
 
-    public Motivo(Long id, String descricao) {
+    public DeixarOCursoMotivo(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public DeixarOCursoMotivo(Long id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
@@ -54,7 +57,7 @@ public class Motivo implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Motivo other = (Motivo) obj;
+        final DeixarOCursoMotivo other = (DeixarOCursoMotivo) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -66,7 +69,7 @@ public class Motivo implements Serializable {
         return "Motivo{" + "id=" + id + ", descricao=" + descricao + '}';
     }
 
-    void setStatus(Status status) {
+    void setStatus(DeixarOCursoMotivoStatus status) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
