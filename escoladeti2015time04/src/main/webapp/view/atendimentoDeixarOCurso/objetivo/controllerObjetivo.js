@@ -16,9 +16,9 @@ function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $locati
 
     $scope.salvar = function () {        
         if ($scope.editando) {
-            $http.put("atendimento/deixarOCurso/objetivo‏", $scope.objetivo).success(onSuccess).error(onError);
+            $http.put("atendimento/deixarOCurso/objetivo", $scope.objetivo).success(onSuccess).error(onError);
         } else {
-            $http.post("atendimento/deixarOCurso/objetivo‏", $scope.objetivo).success(onSuccess).error(onError);
+            $http.post("atendimento/deixarOCurso/objetivo", $scope.objetivo).success(onSuccess).error(onError);
         }
         
         function onSuccess() {
@@ -28,7 +28,7 @@ function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $locati
     };
 
     $scope.editar = function (id) {
-        $http.get("atendimento/deixarOCurso/objetivo‏/" + id).success(onSuccess).error(onError);
+        $http.get("atendimento/deixarOCurso/objetivo/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.objetivo = data;
@@ -72,7 +72,7 @@ function controllerListObjetivoDeixarOCurso($scope, $http) {
         requisicaoListagem.ordenacaoCrescente = ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;               
 //        alert(JSON.stringify(requisicaoListagem));
-        $http.post("atendimento/deixarOCurso/objetivo‏/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.post("atendimento/deixarOCurso/objetivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.objetivos = data.itens;
             $scope.totalPaginas = data.numeroTotalPaginas;
