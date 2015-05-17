@@ -1,12 +1,12 @@
-<form name="formObjetivo" novalidate ng-init="init()" >
+<form name="formMotivo" novalidate ng-init="init()" >
     <div class="container-fluid formulario" ng-init="init()">
         <div class="panel panel-info">
-            <div class="panel-heading"><h3>Lista de Objetivo<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
+            <div class="panel-heading"><h3>Lista de Motivo<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <a href="#/AtendimentoDeixarOCurso/Objetivo/form" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo objetivo">Adicionar Novo</a>
+                            <a href="#/AtendimentoDeixarOCurso/Motivo/form/" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo usuário">Adicionar Novo</a>
                         </div>
                     </div>
                 </div>
@@ -23,21 +23,21 @@
                             <table class="table table-hover table-condensed">
                                 <thead>
                                     <tr>
-                                        <th ng-click="alterarOrdenacao('descricao')" class="col-md-5">Descrição</th>                                        
+                                        <th ng-click="alterarOrdenacao('descricao')" class="col-md-10">Descrição</th>
                                         <th ng-click="alterarOrdenacao('status')" class="col-md-1">Ação</th>
                                         <th class="col-md-1">Opção</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="o in objetivos">
-                                        <td>{{o.descricao}}</td>                                        
+                                    <tr ng-repeat="m in motivos">
+                                        <td>{{m.descricao}}</td>
                                         <td>
-                                            <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="o.status === 'INATIVO'" ng-click="alterarStatus(o)">Ativar</button>
-                                            <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="o.status === 'ATIVO'" ng-click="alterarStatus(o)">Inativar</button>
+                                            <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="m.status === 'INATIVO'" ng-click="alterarStatus(m)">Ativar</button>
+                                            <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="m.status === 'ATIVO'" ng-click="alterarStatus(m)">Inativar</button>
                                         </td>
                                         <td>
-                                            <span>                                                
-                                                <a href="#/AtendimentoDeixarOCurso/Objetivo/form/{{o.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                            <span>
+                                                <a href="#/AtendimentoDeixarOCurso/Motivo/form/{{m.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                                             </span>
                                         </td>
                                     </tr>
@@ -67,6 +67,6 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
-</form>
+</form>    

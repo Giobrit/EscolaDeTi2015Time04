@@ -24,15 +24,24 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/Usuario/form/alterarSenha/:id', {
         templateUrl: 'view/usuario/alterarSenhaUsuario.html',
         controller: 'controllerFormUsuario'
-    }).when('/ObjetivoDeixarOCurso‏/form', {
+    }).when('/AtendimentoDeixarOCurso/Objetivo/form', {
         templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
         controller: 'controllerFormObjetivoDeixarOCurso'
-    }).when('/ObjetivoDeixarOCurso‏/form/:id', {
+    }).when('/AtendimentoDeixarOCurso/Objetivo/form/:id', {
         templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
         controller: 'controllerFormObjetivoDeixarOCurso'
-    }).when('/ObjetivoDeixarOCurso‏/list', {
+    }).when('/AtendimentoDeixarOCurso/Objetivo/list', {
         templateUrl: 'view/atendimentoDeixarOCurso/objetivo/listagemObjetivo.html',
         controller: 'controllerListObjetivoDeixarOCurso'
+    }).when('/AtendimentoDeixarOCurso/Motivo/form', {
+        templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
+        controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
+    }).when('/AtendimentoDeixarOCurso/Motivo/list', {
+        templateUrl: 'view/atendimentoDeixarOCurso/motivo/listagemMotivo.html',
+        controller: 'controllerListMotivoAtendimentoDeixarOCurso'
+    }).when('/AtendimentoDeixarOCurso/Motivo/form/:id', {
+        templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
+        controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });

@@ -14,22 +14,21 @@ function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $locati
         }
     };
 
-    $scope.salvar = function () {
-        alert(JSON.stringify($scope.objetivo));
+    $scope.salvar = function () {        
         if ($scope.editando) {
-            $http.put("/atendimento/deixarOCurso/objetivo‏", $scope.objetivo).success(onSuccess).error(onError);
+            $http.put("atendimento/deixarOCurso/objetivo‏", $scope.objetivo).success(onSuccess).error(onError);
         } else {
-            $http.post("/atendimento/deixarOCurso/objetivo‏", $scope.objetivo).success(onSuccess).error(onError);
+            $http.post("atendimento/deixarOCurso/objetivo‏", $scope.objetivo).success(onSuccess).error(onError);
         }
         
         function onSuccess() {
-            $location.path("/ObjetivoDeixarOCurso‏/list");
+            $location.path("AtendimentoDeixarOCurso/Objetivo/list");
             alert("Objetivo salvo com sucesso");
         }
     };
 
     $scope.editar = function (id) {
-        $http.get("/atendimento/deixarOCurso/objetivo‏/" + id).success(onSuccess).error(onError);
+        $http.get("atendimento/deixarOCurso/objetivo‏/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.objetivo = data;
@@ -52,20 +51,13 @@ function controllerListObjetivoDeixarOCurso($scope, $http) {
     $scope.colunaOrdenacao = "descricao";
     var ordenacaoCrescente = true;
 
-    $scope.init = function () {
-        $scope.objetivos = [{ "id" : 1,
-                              "descricao" : "trancamento",
-                              "status": "ATIVO"}, 
-                              { "id" : 2, 
-                                "descricao" : "renato viado",
-                              "status": "ATIVO"},
-                              ];
+    $scope.init = function () {        
         $scope.listar();
     };
 
     $scope.alterarStatus = function (objetivo) {
         var status = objetivo.status === 'ATIVO' ? 'INATIVO' : 'ATIVO';
-        $http.put("/atendimento/deixarOCurso/objetivo‏/" + objetivo.id + "/" + status).success(onSuccess).error(onError);
+        $http.put("atendimento/deixarOCurso/objetivo/" + objetivo.id + "/" + status).success(onSuccess).error(onError);
 
         function onSuccess() {
             objetivo.status = status;
@@ -79,8 +71,8 @@ function controllerListObjetivoDeixarOCurso($scope, $http) {
         requisicaoListagem.colunaOrdenacao = $scope.colunaOrdenacao;
         requisicaoListagem.ordenacaoCrescente = ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;               
-        
-        $http.post("/atendimento/deixarOCurso/objetivo‏/listar", requisicaoListagem).success(onSuccess).error(onError);
+//        alert(JSON.stringify(requisicaoListagem));
+        $http.post("atendimento/deixarOCurso/objetivo‏/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.objetivos = data.itens;
             $scope.totalPaginas = data.numeroTotalPaginas;
