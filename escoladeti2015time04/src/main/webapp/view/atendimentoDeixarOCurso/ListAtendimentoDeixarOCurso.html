@@ -1,0 +1,85 @@
+<div class="container" ng-init="init()">
+    <div class="row">
+        <br>
+        <br>
+    </div>
+    <div class="row ">
+        <div class="col-md-11">
+            <div class="col-md-offset-5">
+                <h2>Lista de Usuário</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="col-md-offset-2 pull-right">
+                <a href="" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo usuário">Adicionar Novo</a>
+            </div>
+        </div>
+    </div>
+    <div class="row Pesquisa">
+        <div class="col-md-9">
+            <div class="col-md-offset-2">
+                <div class="form-group">
+                    <input type="text" name="nome" ng-change="listar()" placeholder="Informe o dado a ser pesquisado" class="form-control" ng-model="pesquisa" ng-maxlength="100" />                        
+                </div>
+            </div>	
+        </div>
+        <div class="col-md-1">
+            <div class="col-md-offset-6">
+                <a href="" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+            </div>    
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="col-md-offset-2">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">Data</th>
+                            <th class="col-md-1">RA</th>
+                            <th class="col-md-3">Aluno</th>
+                            <th class="col-md-2">Curso</th>
+                            <th class="col-md-1">Série</th>
+                            <th class="col-md-1">Turno</th>
+                            <th class="col-md-1">Matriculado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="u in usuarios">
+                            <td>{{u.nome}}</td>
+                            <td>{{u.login}}</td>
+                            <td>{{u.email}}</td>
+                            <td>
+                                <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status === 'INATIVO'" ng-click="alterarStatus(u)">Ativar</button>
+                                <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="u.status === 'ATIVO'" ng-click="alterarStatus(u)">Inativar</button>
+                            </td>
+                            <td><a href="#/Usuario/form/{{u.id}}" type="button" class="btn btn-warning botaoEditar">Editar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="col-md-offset-5">
+                <nav>
+                    <ul class="pagination" id="paginacao">
+                        <li>
+                            <a href="" ng-click="alterarPagina(paginaAtual - 1)" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" ng-click="alterarPagina(paginaAtual + 1)" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

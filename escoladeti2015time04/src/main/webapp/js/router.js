@@ -18,6 +18,9 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/Usuario/list', {
         templateUrl: 'view/usuario/ListUsuario.html',
         controller: 'controllerListUsuario'
+    }).when('/Atendimento/list', {
+        templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
+        controller: ''    
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });
