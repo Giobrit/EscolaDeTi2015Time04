@@ -2,6 +2,7 @@ package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo;
 
 import br.unicesumar.escoladeti2015time04.utils.service.AtributoCommand;
 import br.unicesumar.escoladeti2015time04.utils.service.CommandEditar;
+import br.unicesumar.escoladeti2015time04.utils.service.TipoAtributoCommand;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
@@ -9,7 +10,7 @@ import javax.persistence.Column;
 @CommandEditar
 public class DeixarOCursoMotivoCommandEditar {
 
-    @AtributoCommand()
+    @AtributoCommand(tipoAtributo = TipoAtributoCommand.id)
     private final Long id;
 
     @AtributoCommand()

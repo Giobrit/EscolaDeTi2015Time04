@@ -24,6 +24,16 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/Usuario/form/alterarSenha/:id', {
         templateUrl: 'view/usuario/alterarSenhaUsuario.html',
         controller: 'controllerFormUsuario'
+    }).when('/AtendimentoDeixarOCurso/Motivo/form', {
+        templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
+        controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
+    }).when('/AtendimentoDeixarOCurso/Motivo/list', {
+        templateUrl: 'view/atendimentoDeixarOCurso/motivo/listagemMotivo.html',
+        controller : 'controllerListMotivoAtendimentoDeixarOCurso'
+    }).when('/AtendimentoDeixarOCurso/Motivo/form/:id', {
+        templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
+        controller: 'controllerFormMotivoAtendimentoDeixarOCurso'   
+        
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });
