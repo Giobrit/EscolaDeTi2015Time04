@@ -1,4 +1,3 @@
-
 package br.unicesumar.escoladeti2015time04.atendimento;
 
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
@@ -22,66 +21,53 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "atendimento")
-public class Atendimento implements Serializable{
-    
+public class Atendimento implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-
-
     @ColunaListavel
     @Column(unique = true, nullable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date data;
-    
     @Column(nullable = false)
     @OneToOne
     private Usuario usuarioLogado;
-            
     @ColunaListavel
     @NotNull
     @Column(unique = true, nullable = false)
     private String ra;
-    
     @ColunaListavel
     @Column(nullable = false)
     private String centro;
-    
     @ColunaListavel
     @Column(nullable = false)
     private String nomeAluno;
-    
     @ColunaListavel
     @Column(nullable = false)
     private String curso;
-    
     @ColunaListavel
     @Column(nullable = false)
     private int serieSemestre;
-    
     @ColunaListavel
     @Column(nullable = false)
     private String turno;
-    
     @ColunaListavel
     @Column(nullable = false)
     private Boolean matriculado;
-    
     @ColunaListavel
     @Column(nullable = false)
     private String bolsaFinanciamento;
-    
     @ColunaListavel
     @Column(nullable = false)
     private String descricaoPublica;
-    
     @ColunaListavel
     @Column(nullable = false)
-    private String descricaoPrivada;    
+    private String descricaoPrivada;
 
-        public Atendimento(Long id, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
-        
-        this.id = id;     
+    public Atendimento(Long id, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
+
+        this.id = id;
         this.data = data;
         this.usuarioLogado = usuarioLogado;
         this.ra = ra;
@@ -97,8 +83,8 @@ public class Atendimento implements Serializable{
     }
 
     public Atendimento() {
-    }    
-    
+    }
+
     public Long getId() {
         return id;
     }
@@ -229,6 +215,4 @@ public class Atendimento implements Serializable{
     public String toString() {
         return "Atendimento{" + "id=" + id + ", data=" + data + ", usuarioLogado=" + usuarioLogado + ", ra=" + ra + ", centro=" + centro + ", nomeAluno=" + nomeAluno + ", curso=" + curso + ", serieSemestre=" + serieSemestre + ", turno=" + turno + ", matriculado=" + matriculado + ", bolsaFinanciamento=" + bolsaFinanciamento + ", descricaoPublica=" + descricaoPublica + ", descricaoPrivada=" + descricaoPrivada + '}';
     }
-    
-    
 }
