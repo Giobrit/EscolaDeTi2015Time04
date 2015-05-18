@@ -1,0 +1,6 @@
+
+#horizontal{
+overflow-x: scroll;
+overflow-y: scroll;
+white-space: nowrap;
+}

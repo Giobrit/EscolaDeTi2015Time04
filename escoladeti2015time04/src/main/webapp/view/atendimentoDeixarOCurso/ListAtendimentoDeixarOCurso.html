@@ -27,14 +27,14 @@
         </div>
         <div class="col-md-1">
             <div class="col-md-offset-6">
-                <a href="" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                <a href="" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
             </div>    
         </div>
     </div>
     <div class="row">
         <div class="col-md-10">
             <div class="col-md-offset-2">
-                <table class="table table-hover table-condensed">
+                <table class="table table-hover table-condensed" id="horizontal">
                     <thead>
                         <tr>
                             <th class="col-md-1">Data</th>
@@ -47,15 +47,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="u in usuarios">
-                            <td>{{u.nome}}</td>
-                            <td>{{u.login}}</td>
-                            <td>{{u.email}}</td>
+                        <tr ng-repeat="a in alunos">
+                            <td>{{a.data}}</td>
+                            <td>{{a.ra}}</td>
+                            <td>{{a.aluno}}</td>
+                            <td>{{a.curso}}</td>
+                            <td>{{a.serie}}</td>
+                            <td>{{a.turno}}</td>
+                            <td>{{a.matriculado}}</td>
                             <td>
-                                <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status === 'INATIVO'" ng-click="alterarStatus(u)">Ativar</button>
-                                <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="u.status === 'ATIVO'" ng-click="alterarStatus(u)">Inativar</button>
+                                <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="a.status === 'INATIVO'" ng-click="alterarStatus(a)">Ativar</button>
+                                <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="a.status === 'ATIVO'" ng-click="alterarStatus(a)">Inativar</button>
                             </td>
-                            <td><a href="#/Usuario/form/{{u.id}}" type="button" class="btn btn-warning botaoEditar">Editar</a></td>
+                            <td><a href="#/Usuario/form/{{a.id}}" type="button" class="btn btn-warning botaoEditar">Editar</a></td>
                         </tr>
                     </tbody>
                 </table>
