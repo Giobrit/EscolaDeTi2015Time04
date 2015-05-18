@@ -32,7 +32,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         this.repository = repositorio;
     }
 
-    protected Field[] atributosEntidade;
+    protected Map<Field, ColunaListavel> colunasListaveisEntidade;
     protected Field idEntidade;
     protected String selectComColunasListaveis;
     protected String selectNumeroRegistros;
@@ -41,7 +41,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     @PostConstruct
     private void init() {
-        this.atributosEntidade = getClassEntity().getDeclaredFields();
+        this.colunasListaveisEntidade = getMapFieldColunaListavel();
         this.idEntidade = getIdEntidade();
         this.selectComColunasListaveis = montarSelectListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
@@ -86,13 +86,13 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     public ResultadoListagem<E> listar(RequisicaoListagem requisicaoListagem) {
-        Filtro<E> filtro = requisicaoListagem.getFiltro();
+        Filtro filtro = requisicaoListagem.getFiltro();
         Paginador paginador = requisicaoListagem.getPaginador();
         
         MapSqlParameterSource parans = new MapSqlParameterSource();
         String select = selectComColunasListaveis;
 
-        select += filtro.getFiltros(atributosEntidade, parans) + requisicaoListagem.getOrdenacao() + paginador.getPaginacao(parans);
+        select += filtro.getFiltros(colunasListaveisEntidade, parans) + requisicaoListagem.getOrdenacao() + paginador.getPaginacao(parans);
         List<Map<String, Object>> resultado = jdbcTemplate.query(select, parans, new MapRowMapper());
 
         Long numeroDePaginas;
@@ -115,7 +115,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
     }
 
-    private Map<String, Field> getMapAtributosCammand(C command) throws SecurityException {
+    private Map<String, Field> getMapAtributosCammand(C command) {
         Class<? extends Object> commandClass = command.getClass();
         Field[] atributosDoCommand = commandClass.getDeclaredFields();
         Map<String, Field> mapAtributos = new HashMap<>();
@@ -173,7 +173,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     protected <A extends Annotation> List<Field> getFieldsByAnnotation(Class<A> annotation) {
         List<Field> fields = new ArrayList<>();
-        for (Field atributoEntidade : atributosEntidade) {
+        for (Field atributoEntidade : getClassEntity().getDeclaredFields()) {
             A[] annotacoesDoAtributo = atributoEntidade.getAnnotationsByType(annotation);
             if (annotacoesDoAtributo.length > 0) {
                 fields.add(atributoEntidade);
@@ -182,7 +182,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return fields;
     }
 
-    protected Field getIdEntidade() {
+    private Field getIdEntidade() {
         List<Field> fieldId = getFieldsByAnnotation(Id.class);
         return fieldId.get(0);
     }
@@ -191,12 +191,23 @@ public abstract class Service<E, R extends JpaRepository, C> {
         MapSqlParameterSource parans = new MapSqlParameterSource();
 
         String sql = selectNumeroRegistros;
-        sql += filtro.getFiltros(atributosEntidade, parans);
+        sql += filtro.getFiltros(colunasListaveisEntidade, parans);
 
         Map<String, Object> resultado = this.jdbcTemplate.queryForObject(sql, parans, new MapRowMapper());
 
         Long numeroPaginas = (Long) resultado.get("numerototalregistros");
         return numeroPaginas;
+    }
+
+    private Map<Field, ColunaListavel> getMapFieldColunaListavel() {
+        Map<Field, ColunaListavel> mapFieldColunaListavel = new HashMap<>();
+        for (Field atributoEntidade : getClassEntity().getDeclaredFields()) {
+            ColunaListavel[] annotacoesDoAtributo = atributoEntidade.getAnnotationsByType(ColunaListavel.class);
+            if (annotacoesDoAtributo.length > 0) {
+                mapFieldColunaListavel.put(atributoEntidade, annotacoesDoAtributo[0]);
+            }
+        }
+        return mapFieldColunaListavel;
     }
 
 }
