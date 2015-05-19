@@ -30,14 +30,7 @@ public class RequisicaoListagem {
         return new PaginadorPostgreSQL(numeroItensPorPagina, paginaAtual);
     }
 
-    public String getOrdenacao() {
-        String ordenacao;
-        if (ordenacaoCrescente) {
-            ordenacao = "asc";
-        } else {
-            ordenacao = "desc";
-        }
-
-        return " order by " + colunaOrdenacao + " " + ordenacao + " ";
+    public Ordenador getOrdenador() {
+        return new Ordenador(colunaOrdenacao, ordenacaoCrescente);
     }
 }
