@@ -88,7 +88,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     public ResultadoListagem<E> listar(RequisicaoListagem requisicaoListagem) {
         Filtro filtro = requisicaoListagem.getFiltro();
         Paginador paginador = requisicaoListagem.getPaginador();
-        
+
         MapSqlParameterSource parans = new MapSqlParameterSource();
         String select = selectComColunasListaveis;
 
@@ -120,30 +120,30 @@ public abstract class Service<E, R extends JpaRepository, C> {
         Field[] atributosDoCommand = commandClass.getDeclaredFields();
         Map<String, Field> mapAtributos = new HashMap<>();
         for (Field atributoCommand : atributosDoCommand) {
-            AtributoCommand[] annotationsDoAtributo = atributoCommand.getAnnotationsByType(AtributoCommand.class);
-            if (annotationsDoAtributo.length == 1) {
-                adicionarAtributoCommandNoMap(annotationsDoAtributo, atributoCommand, mapAtributos);
+            AtributoCommand anotacaoDoAtributo = atributoCommand.getAnnotation(AtributoCommand.class);
+            if (anotacaoDoAtributo != null) {
+                adicionarAtributoCommandNoMap(anotacaoDoAtributo, atributoCommand, mapAtributos);
             }
         }
         return mapAtributos;
     }
 
-    private void adicionarAtributoCommandNoMap(AtributoCommand[] annotationsDoAtributo, Field atributoCommand, Map<String, Field> mapAtributos) {
+    private void adicionarAtributoCommandNoMap(AtributoCommand anotacaoDoAtributo, Field atributoCommand, Map<String, Field> mapAtributos) {
         String equivalente;
-        if ("".equals(annotationsDoAtributo[0].equivalente())) {
+        if ("".equals(anotacaoDoAtributo.equivalente())) {
             equivalente = atributoCommand.getName();
         } else {
-            equivalente = annotationsDoAtributo[0].equivalente();
+            equivalente = anotacaoDoAtributo.equivalente();
         }
         mapAtributos.put(equivalente, atributoCommand);
     }
 
     private Boolean validarCommand(C command) {
-        CommandEditar[] anotacoesCommand = command.getClass().getAnnotationsByType(CommandEditar.class);
+        CommandEditar anotacaoCommand = command.getClass().getAnnotation(CommandEditar.class);
 
-        return anotacoesCommand.length > 0;
+        return anotacaoCommand != null;
     }
- 
+
     private String montarSelectListar() {
         String sql = "SELECT ";
 
@@ -174,8 +174,8 @@ public abstract class Service<E, R extends JpaRepository, C> {
     protected <A extends Annotation> List<Field> getFieldsByAnnotation(Class<A> annotation) {
         List<Field> fields = new ArrayList<>();
         for (Field atributoEntidade : getClassEntity().getDeclaredFields()) {
-            A[] annotacoesDoAtributo = atributoEntidade.getAnnotationsByType(annotation);
-            if (annotacoesDoAtributo.length > 0) {
+            A annotacaoDoAtributo = atributoEntidade.getAnnotation(annotation);
+            if (annotacaoDoAtributo != null) {
                 fields.add(atributoEntidade);
             }
         }
@@ -202,12 +202,21 @@ public abstract class Service<E, R extends JpaRepository, C> {
     private Map<Field, ColunaListavel> getMapFieldColunaListavel() {
         Map<Field, ColunaListavel> mapFieldColunaListavel = new HashMap<>();
         for (Field atributoEntidade : getClassEntity().getDeclaredFields()) {
-            ColunaListavel[] annotacoesDoAtributo = atributoEntidade.getAnnotationsByType(ColunaListavel.class);
-            if (annotacoesDoAtributo.length > 0) {
-                mapFieldColunaListavel.put(atributoEntidade, annotacoesDoAtributo[0]);
+            ColunaListavel annotacaoDoAtributo = atributoEntidade.getAnnotation(ColunaListavel.class);//getAnnotationByType(atributoEntidade, ColunaListavel.class);
+            if (annotacaoDoAtributo != null) {
+                mapFieldColunaListavel.put(atributoEntidade, annotacaoDoAtributo);
             }
         }
         return mapFieldColunaListavel;
     }
+
+//    /*
+//     * getAnnotationByType era originalmente implementado na classe Field a
+//     * partir do java 8. Este simula o original de forma estrutural.
+//     */
+//    private <A extends Annotation> A getAnnotationByType(Field atributo, Class<A> anotacao) {
+//        return atributo.getAnnotation(anotacao);
+//        
+//    }
 
 }
