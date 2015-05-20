@@ -1,9 +1,12 @@
 package br.unicesumar.escoladeti2015time04.utils.listagem;
 
 import java.lang.reflect.Field;
+import java.util.Map;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
-public class Filtro<E> {
+public class Filtro {
+
+    private static final String AND = " AND (";
 
     protected String valorFiltro;
     protected String condicaoPadrao = "true";
@@ -19,33 +22,37 @@ public class Filtro<E> {
         this.condicaoPadrao = condicao;
     }
 
-    public String getFiltros(Field[] atributosEntidade, MapSqlParameterSource parans) {
-        String filtros = "where ";
-        filtros += condicaoPadrao;
+    public String getFiltros(Map<Field, ColunaListavel> atributosEntidade, MapSqlParameterSource parans) {
+        String filtroPadrao = " where ";
+        filtroPadrao += condicaoPadrao;
+
         try {
             parans.addValue("valorFiltroRelativo", "%" + valorFiltro.toLowerCase().trim() + "%");
             parans.addValue("valorFiltroExato", valorFiltro.toLowerCase().trim());
-
-            filtros += " AND (";
-
-            for (Field atributoEntidade : atributosEntidade) {
-                ColunaListavel[] politicasFiltragem = atributoEntidade.getAnnotationsByType(ColunaListavel.class);
-                if (politicasFiltragem.length == 0) {
-                    continue;
-                }
-
-                if (politicasFiltragem[0].politicaFiltro()== PoliticaFiltragem.RELATIVO) {
-                    filtros += "lower(" + atributoEntidade.getName() + ") like :valorFiltroRelativo or ";
-                } else if (politicasFiltragem[0].politicaFiltro()== PoliticaFiltragem.VALOR_COMPLETO) {
-                    filtros += "lower(" + atributoEntidade.getName() + ") = :valorFiltroExato ";
-                }
-            }
-
-            filtros += ")   ";
-        } catch (Exception e) {
-            filtros = "  ";
+        } catch (NullPointerException ex) {
+            return filtroPadrao;
         }
 
-        return filtros;
+        return filtroPadrao + getDemaisFiltros(atributosEntidade);
+    }
+
+    private String getDemaisFiltros(Map<Field, ColunaListavel> atributosEntidade) {
+        String demaisFiltros = AND;
+        for (Map.Entry<Field, ColunaListavel> entrySet : atributosEntidade.entrySet()) {
+            Field atributo = entrySet.getKey();
+            ColunaListavel colunaListavel = entrySet.getValue();
+
+            if (!AND.equals(demaisFiltros)) {
+                demaisFiltros += " or ";
+            }
+
+            if (colunaListavel.politicaFiltro() == PoliticaFiltragem.VALOR_RELATIVO) {
+                demaisFiltros += " lower(" + atributo.getName() + ") like :valorFiltroRelativo ";
+            } else if (colunaListavel.politicaFiltro() == PoliticaFiltragem.VALOR_COMPLETO) {
+                demaisFiltros += " lower(" + atributo.getName() + ") = :valorFiltroExato ";
+            }
+        }
+        demaisFiltros += ")   ";
+        return demaisFiltros;
     }
 }
