@@ -46,7 +46,7 @@ public class Filtro {
                 demaisFiltros += " or ";
             }
 
-            if (colunaListavel.politicaFiltro() == PoliticaFiltragem.RELATIVO) {
+            if (colunaListavel.politicaFiltro() == PoliticaFiltragem.VALOR_RELATIVO) {
                 demaisFiltros += " lower(" + atributo.getName() + ") like :valorFiltroRelativo ";
             } else if (colunaListavel.politicaFiltro() == PoliticaFiltragem.VALOR_COMPLETO) {
                 demaisFiltros += " lower(" + atributo.getName() + ") = :valorFiltroExato ";
