@@ -21,7 +21,7 @@
         <div class="col-md-9">
             <div class="col-md-offset-2">
                 <div class="form-group">
-                    <input type="text" name="nome" ng-change="listar()" placeholder="Informe o dado a ser pesquisado" class="form-control" ng-model="pesquisa" ng-maxlength="100" />                        
+                    <input type="text" id="buscar" name="buscar" ng-change="listar()" placeholder="Informe o dado a ser pesquisado" class="form-control" ng-model="pesquisa" ng-maxlength="100" />                        
                 </div>
             </div>	
         </div>
@@ -32,29 +32,51 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-10">
-            <div class="col-md-offset-2">
-                <table class="table table-hover table-condensed" id="horizontal">
+        <div class="col-md-10" style="overflow-x: auto;">
+            <div class="col-md-offset-2" style="overflow-x: auto;">
+                <table class="table table-hover table-condensed table-bordered" style="width: auto; white-space: nowrap;">
                     <thead>
                         <tr>
-                            <th class="col-md-1">Data</th>
-                            <th class="col-md-1">RA</th>
-                            <th class="col-md-3">Aluno</th>
-                            <th class="col-md-2">Curso</th>
-                            <th class="col-md-1">Série</th>
-                            <th class="col-md-1">Turno</th>
-                            <th class="col-md-1">Matriculado</th>
+                            <th>Protocolo</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Ra</th>
+                            <th>Aluno</th>
+                            <th>Curso</th>
+                            <th>Centro</th>
+                            <th>Serie</th>
+                            <th>Turno</th>
+                            <th>Bolsa</th>
+                            <th>Reprovações</th>
+                            <th>Matriculado</th>
+                            <th>Instituição de Transferencia</th>
+                            <th>Coordenador</th>
+                            <th>Objetivo</th>
+                            <th>Motivo</th>
+                            <th>Descrição Resumida</th>
+                            <th>Descrição Detalhada</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="a in alunos">
+                            <td>{{a.protocolo}}</td>
                             <td>{{a.data}}</td>
+                            <td>{{a.hora}}</td>
                             <td>{{a.ra}}</td>
                             <td>{{a.aluno}}</td>
                             <td>{{a.curso}}</td>
+                            <td>{{a.centro}}</td>
                             <td>{{a.serie}}</td>
                             <td>{{a.turno}}</td>
+                            <td>{{a.bolsa}}</td>
+                            <td>{{a.reprovações}}</td>
                             <td>{{a.matriculado}}</td>
+                            <td>{{a.instituição}}</td>
+                            <td>{{a.coordenador}}</td>
+                            <td>{{a.objetivo}}</td>
+                            <td>{{a.motivo}}</td>
+                            <td>{{a.descricaoResumida}}</td>
+                            <td>{{a.descricaoDetalhada}}</td>
                             <td>
                                 <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="a.status === 'INATIVO'" ng-click="alterarStatus(a)">Ativar</button>
                                 <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="a.status === 'ATIVO'" ng-click="alterarStatus(a)">Inativar</button>
@@ -67,8 +89,8 @@
         </div> 
     </div>
     <div class="row">
-        <div class="col-md-10">
-            <div class="col-md-offset-5">
+        <div class="col-md-11">
+            <div class="col-md-offset-6">
                 <nav>
                     <ul class="pagination" id="paginacao">
                         <li>
