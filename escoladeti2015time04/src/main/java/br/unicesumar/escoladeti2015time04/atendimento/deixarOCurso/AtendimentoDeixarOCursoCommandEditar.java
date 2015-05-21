@@ -12,7 +12,7 @@ import javax.persistence.Column;
 
 
 @CommandEditar
-public class AtendimentoDeixarOCursoCommand {
+public class AtendimentoDeixarOCursoCommandEditar {
     
     @AtributoCommand(tipoAtributo = TipoAtributoCommand.id)
     @Column(nullable = false)
@@ -40,7 +40,7 @@ public class AtendimentoDeixarOCursoCommand {
     private final DeixarOCursoObjetivo objetivo;
 
     @JsonCreator    
-    public AtendimentoDeixarOCursoCommand(@JsonProperty("id") Long id, @JsonProperty("protocolo") Long protocolo, 
+    public AtendimentoDeixarOCursoCommandEditar(@JsonProperty("id") Long id, @JsonProperty("protocolo") Long protocolo, 
                           @JsonProperty("coordenadordiretor") String coordenadorDiretor, @JsonProperty("transferencia") String transferencia, 
                           @JsonProperty("numeroreprovacoes") int numeroReprovacoes, @JsonProperty("motivo") DeixarOCursoMotivo motivo, 
                           @JsonProperty("objetivo") DeixarOCursoObjetivo objetivo) {
