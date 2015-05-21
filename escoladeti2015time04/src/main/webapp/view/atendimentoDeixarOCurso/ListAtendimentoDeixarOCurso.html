@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-10">
             <div class="col-md-offset-2 pull-right">
-                <a href="" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo usuário">Adicionar Novo</a>
+                <a href="#/Atendimento/form" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo usuário">Adicionar Novo</a>
             </div>
         </div>
     </div>
@@ -24,12 +24,63 @@
                     <input type="text" id="buscar" name="buscar" ng-change="listar()" placeholder="Informe o dado a ser pesquisado" class="form-control" ng-model="pesquisa" ng-maxlength="100" />                        
                 </div>
             </div>	
-        </div>
-        <div class="col-md-1">
+        </div>       
+        <div class="col-md-1 ">
             <div class="col-md-offset-6">
-                <a href="" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-            </div>    
+                <button type="button" class="btn btn-warning btn-lg permissao" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+            </div>
+            <!----------------->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Itens da tabela</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-condensed table-bordered">
+                                <tr>
+                                    <td><input type="checkbox" name="lista" value="protocolo" checked/><label>Protocolo</label></td>                                    
+                                    <td><input type="checkbox" name="lista" value="data" checked/><label>Data</label></td>
+                                    <td><input type="checkbox" name="lista" value="hora" checked/><label>Hora</label></td>
+                                    <td><input type="checkbox" name="lista" value="ra" checked/><label>Ra</label></td>
+                                    <td><input type="checkbox" name="lista" value="aluno" checked/><label>Aluno</label></td>
+                                   
+                                </tr>
+                                <tr>
+                                     <td><input type="checkbox" name="lista" value="curso" checked/><label>Curso</label></td>
+                                    <td><input type="checkbox" name="lista" value="serie" checked/><label>Série</label></td>                                    
+                                    <td><input type="checkbox" name="lista" value="turno" checked/><label>Turno</label></td>
+                                    <td><input type="checkbox" name="lista" value="bolsa" checked/><label>Bolsa</label></td>
+                                    <td><input type="checkbox" name="lista" value="reprovacoes" checked/><label>Reprovações</label></td>
+                                     
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="lista" value="matriculado" checked/><label>Matriculado</label></td>
+                                    <td><input type="checkbox" name="lista" value="instituicao" checked /><label>Instituição</label></td> 
+                                    <td><input type="checkbox" name="lista" value="transferencia" checked/><label>Transferencia</label></td>                                    
+                                    <td><input type="checkbox" name="lista" value="coordenador" checked/><label>Coordenador</label></td>
+                                    <td><input type="checkbox" name="lista" value="objetivo" checked/><label>Objetivo</label></td>
+                              
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="lista" value="motivo" checked/><label>Motivo</label></td>
+                                    <td><input type="checkbox" name="lista" value="descricaoResumida" checked /><label>Descrição R.</label></td>
+                                    <td><input type="checkbox" name="lista" value="descricaoDetalhada" checked/><label>Descrição D.</label></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+                            <button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
+
     </div>
     <div class="row">
         <div class="col-md-10" style="overflow-x: auto;">
