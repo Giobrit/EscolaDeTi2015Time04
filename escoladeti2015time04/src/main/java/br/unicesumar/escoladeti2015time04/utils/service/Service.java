@@ -3,8 +3,9 @@ package br.unicesumar.escoladeti2015time04.utils.service;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Paginador;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
-import br.unicesumar.escoladeti2015time04.utils.ResultadoListagem;
+import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -24,18 +25,17 @@ public abstract class Service<E, R extends JpaRepository, C> {
     @Autowired
     protected NamedParameterJdbcTemplate jdbcTemplate;
 
-    protected R repositorio;
+    protected R repository;
 
     @Autowired
     public void setRepository(R repositorio) {
-        this.repositorio = repositorio;
+        this.repository = repositorio;
     }
 
     protected Field[] atributosEntidade;
     protected Field idEntidade;
     protected String selectComColunasListaveis;
     protected String selectNumeroRegistros;
-    protected Boolean permiteRemocao;
 
     protected abstract Class<E> getClassEntity();
 
@@ -45,12 +45,10 @@ public abstract class Service<E, R extends JpaRepository, C> {
         this.idEntidade = getIdEntidade();
         this.selectComColunasListaveis = montarSelectListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
-        this.permiteRemocao = getPoliticaPodeRemover();
-
     }
 
     public void criar(E entidade) {
-        repositorio.save(entidade);
+        repository.save(entidade);
     }
 
     public void editar(C command) {
@@ -67,7 +65,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
             Field idCommand = atributosCommand.get(idEntidade.getName());
             idCommand.setAccessible(true);
-            E objetoEntidade = (E) repositorio.findOne((Serializable) idCommand.get(command));
+            E objetoEntidade = (E) repository.findOne((Serializable) idCommand.get(command));
 
             for (Map.Entry<String, Field> atributoCommand : atributosCommand.entrySet()) {
                 String nomeAtributoEquivalente = atributoCommand.getKey();
@@ -81,23 +79,26 @@ public abstract class Service<E, R extends JpaRepository, C> {
                 field.set(objetoEntidade, atributoEquivalente.get(command));
             }
 
-            repositorio.save(objetoEntidade);
+            repository.save(objetoEntidade);
         } catch (NoSuchFieldException | IllegalAccessException ex) {
             throw new IllegalArgumentException("Ocorreu um erro ao editar o(a) " + this.getClassEntity().getSimpleName());
         }
     }
 
-    public ResultadoListagem<E> listar(Filtro filtro, Paginador paginador) {
+    public ResultadoListagem<E> listar(RequisicaoListagem requisicaoListagem) {
+        Filtro<E> filtro = requisicaoListagem.getFiltro();
+        Paginador paginador = requisicaoListagem.getPaginador();
+        
         MapSqlParameterSource parans = new MapSqlParameterSource();
         String select = selectComColunasListaveis;
 
-        select += filtro.getFiltros(atributosEntidade, parans) + /* " order by nome " +*/ paginador.getPaginacao(parans);
+        select += filtro.getFiltros(atributosEntidade, parans) + requisicaoListagem.getOrdenacao() + paginador.getPaginacao(parans);
         List<Map<String, Object>> resultado = jdbcTemplate.query(select, parans, new MapRowMapper());
 
         Long numeroDePaginas;
 
         try {
-            numeroDePaginas = (long) Math.ceil(calcularNumeroTotalRegistros(filtro) / paginador.getNumeroItensPorPagina());
+            numeroDePaginas = (long) Math.ceil(Double.longBitsToDouble(calcularNumeroTotalRegistros(filtro)) / Double.longBitsToDouble(paginador.getNumeroItensPorPagina()));
         } catch (Exception e) {
             numeroDePaginas = new Long(1);
         }
@@ -112,14 +113,6 @@ public abstract class Service<E, R extends JpaRepository, C> {
         params.addValue("id", id);
 
         return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
-    }
-    
-    public void remover(Long id) {
-        if (!permiteRemocao) {
-            throw new IllegalArgumentException(this.getClassEntity().getSimpleName() + " não permite remoção");
-        }
-        
-        repositorio.delete(id);
     }
 
     private Map<String, Field> getMapAtributosCammand(C command) throws SecurityException {
@@ -150,12 +143,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
         return anotacoesCommand.length > 0;
     }
-    
-    private Boolean getPoliticaPodeRemover() {
-        NaoRemovivel[] anotacoesRemoverEntidade = getClassEntity().getAnnotationsByType(NaoRemovivel.class);
-        return anotacoesRemoverEntidade.length > 0;
-    }
-    
+ 
     private String montarSelectListar() {
         String sql = "SELECT ";
 

@@ -1,4 +1,4 @@
-package br.unicesumar.escoladeti2015time04.utils;
+package br.unicesumar.escoladeti2015time04.utils.listagem;
 
 import java.util.List;
 
