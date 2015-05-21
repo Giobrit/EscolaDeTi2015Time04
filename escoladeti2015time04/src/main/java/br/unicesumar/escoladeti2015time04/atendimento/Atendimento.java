@@ -12,11 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -26,41 +26,52 @@ public class Atendimento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+    
     @ColunaListavel
     @Column(unique = true, nullable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date data;
-    @Column(nullable = false)
-    @OneToOne
+    
+    @JoinColumn(nullable = false)
+    @ManyToOne
     private Usuario usuarioLogado;
-    @ColunaListavel
-    @NotNull
+    
+    @ColunaListavel    
     @Column(unique = true, nullable = false)
     private String ra;
+    
     @ColunaListavel
     @Column(nullable = false)
     private String centro;
+    
     @ColunaListavel
     @Column(nullable = false)
     private String nomeAluno;
+    
     @ColunaListavel
     @Column(nullable = false)
     private String curso;
+    
     @ColunaListavel
     @Column(nullable = false)
     private int serieSemestre;
+    
     @ColunaListavel
     @Column(nullable = false)
     private String turno;
+    
     @ColunaListavel
     @Column(nullable = false)
     private Boolean matriculado;
+    
     @ColunaListavel
     @Column(nullable = false)
     private String bolsaFinanciamento;
+    
     @ColunaListavel
     @Column(nullable = false)
     private String descricaoPublica;
+    
     @ColunaListavel
     @Column(nullable = false)
     private String descricaoPrivada;
