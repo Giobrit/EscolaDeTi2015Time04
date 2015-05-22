@@ -5,6 +5,7 @@ import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.listagem.Ordenador;
 import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -87,12 +88,13 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     public ResultadoListagem<E> listar(RequisicaoListagem requisicaoListagem) {
         Filtro filtro = requisicaoListagem.getFiltro();
+        Ordenador ordenador = requisicaoListagem.getOrdenador();
         Paginador paginador = requisicaoListagem.getPaginador();
 
         MapSqlParameterSource parans = new MapSqlParameterSource();
         String select = selectComColunasListaveis;
 
-        select += filtro.getFiltros(colunasListaveisEntidade, parans) + requisicaoListagem.getOrdenacao() + paginador.getPaginacao(parans);
+        select += filtro.getFiltros(colunasListaveisEntidade, parans) + ordenador.getOrdenacao() + paginador.getPaginacao(parans);
         List<Map<String, Object>> resultado = jdbcTemplate.query(select, parans, new MapRowMapper());
 
         Long numeroDePaginas;
@@ -218,5 +220,4 @@ public abstract class Service<E, R extends JpaRepository, C> {
 //        return atributo.getAnnotation(anotacao);
 //        
 //    }
-
 }
