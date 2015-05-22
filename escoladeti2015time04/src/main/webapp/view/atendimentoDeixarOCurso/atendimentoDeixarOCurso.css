@@ -2,3 +2,6 @@
     margin-bottom: 20px;
     margin-left: 10px;
 }
+select .selectpicker{
+    height: 80px;
+}
