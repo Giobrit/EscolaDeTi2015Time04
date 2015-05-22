@@ -3,6 +3,7 @@ package br.unicesumar.escoladeti2015time04.atendimento;
 
 import br.unicesumar.escoladeti2015time04.utils.service.AtributoCommand;
 import br.unicesumar.escoladeti2015time04.utils.service.CommandEditar;
+import br.unicesumar.escoladeti2015time04.utils.service.TipoAtributoCommand;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import javax.persistence.Column;
@@ -11,7 +12,7 @@ import javax.persistence.Column;
 @CommandEditar
 public class AtendimentoCommandEditar {
  
-    @AtributoCommand
+    @AtributoCommand(tipoAtributo = TipoAtributoCommand.id)
     @Column(nullable = false)
     private final Long id;
 
