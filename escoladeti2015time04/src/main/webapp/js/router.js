@@ -18,7 +18,7 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/Usuario/list', {
         templateUrl: 'view/usuario/ListUsuario.html',
         controller: 'controllerListUsuario'
-    }).when('/Atendimento/list', {
+    }).when('/AtendimentoDeixarOCurso/list', {
         templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
         controller: ''    
     }).when('/Usuario/login', {
@@ -27,6 +27,9 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/Usuario/form/alterarSenha/:id', {
         templateUrl: 'view/usuario/alterarSenhaUsuario.html',
         controller: 'controllerFormUsuario'
+    }).when('/AtendimentoDeixarOCurso/form', {
+        templateUrl: 'view/atendimentoDeixarOCurso/cadastroAtendimentoDeixarOCurso.html',
+        controller: 'controllerFormAtendimentoDeixarOCurso'
     }).when('/AtendimentoDeixarOCurso/Objetivo/form', {
         templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
         controller: 'controllerFormObjetivoDeixarOCurso'
