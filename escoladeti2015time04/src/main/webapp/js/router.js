@@ -34,10 +34,10 @@ AppModule.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
         controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
     }).when('/AtendimentoDeixarOCurso/form', {
-        templateUrl: 'view/atendimentoDeixarOCurso/cadastroAtendimentoDeixarOCurso.html',
+        templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
         controller: 'controllerFormAtendimentoDeixarOCurso'
     }).when('/AtendimentoDeixarOCurso/form/:id', {
-        templateUrl: 'view/atendimentoDeixarOCurso/cadastroAtendimentoDeixarOCurso.html',
+        templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
         controller: 'controllerFormAtendimentoDeixarOCurso'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
