@@ -26,7 +26,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         }
 
         function onSuccess() {
-//            alert(JSON.stringify($scope.atendimentoDeixarOCurso));
+            alert(JSON.stringify($scope.atendimentoDeixarOCurso));
             $location.path("/atendimento/deixarOCurso/list");
             alert("Atendimento salvo com sucesso");
         }
