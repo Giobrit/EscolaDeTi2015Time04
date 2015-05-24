@@ -11,19 +11,19 @@
                         <label>
                             <h4>Protocolo</h4>
                         </label>
-                        <input type="text" class="form-control" ng-model="atendimentoDeixarOCurso.protocolo">
+                        <input type="text" name="protocolo" class="form-control" ng-model="atendimentoDeixarOCurso.protocolo">
                     </div>
                     <div class="col-md-3">
                         <label>
                             <h4>Data</h4>
-                        </label>
-                        <input type="date" class="form-control" ng-model="atendimentoDeixarOCurso.data">
+                        </label>                        
+                        <input type="date" name="data" class="form-control" ng-model="atendimentoDeixarOCurso.data" >
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Hora</h4>
                         </label>
-                        <input type="time" class="form-control" ng-model="atendimentoDeixarOCurso.hora">
+                        <input type="time" name="hora" class="form-control" ng-model="atendimentoDeixarOCurso.hora">
                     </div>
                 </div>
             </div>
@@ -35,15 +35,19 @@
                         <label>
                             <h4>Ra</h4>
                         </label>
-                        <input type="text" class="form-control" ng-model="atendimentoDeixarOCurso.ra">
+                        <input type="text" name="ra" class="form-control" ng-model="atendimentoDeixarOCurso.ra">
                     </div>
                 </div>
                 <div class="row form-group">
-                    <div class="col-md-12">
+                    <div class="col-md-12" >
                         <label>
                             <h4>Aluno</h4>
                         </label>
-                        <input type="text" placeholder="Informe o nome do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.nomeAluno">
+                        <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.nomeAluno.$invalid && !formAtendimentoDeixarOCurso.nomeAluno.$pristine}">
+                            <input type="text" name="nomeAluno" placeholder="Informe o nome do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.nomeAluno" ng-minlength="2" ng-maxlength="80" required>
+                            <p ng-show="formAtendimentoDeixarOCurso.nomeAluno.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
+                            <p ng-show="formAtendimentoDeixarOCurso.nomeAluno.$error.maxlength" class="help-block">Nome no máximo 80 caracteres.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -51,24 +55,25 @@
                         <label>
                             <h4>Curso</h4>
                         </label>
-                        <input type="text" placeholder="Informe o curso do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.curso">
+                        <input type="text" name="curso" placeholder="Informe o curso do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.curso">
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Centro</h4>
                         </label>
-                        <input type="text" placeholder="Informe o centro" class="form-control" ng-model="atendimentoDeixarOCurso.centro">
+                        <input type="text" name="centro" placeholder="Informe o centro" class="form-control" ng-model="atendimentoDeixarOCurso.centro">
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Série</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" id="sel1">
+                            <select class="form-control" name="serieSemestre" id="sel1"  ng-model="atendimentoDeixarOCurso.serieSemestre">                                
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
+                                <option>5</option>
                             </select>
                         </div>
                     </div>
@@ -77,7 +82,7 @@
                             <h4>Turno</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" id="sel1">
+                            <select class="form-control" name="turno" id="sel1" ng-model="atendimentoDeixarOCurso.turno">
                                 <option>Matutino</option>
                                 <option>Noturno</option>
                             </select>
@@ -89,14 +94,14 @@
                         <label>
                             <h4>Bolsa</h4>
                         </label>
-                        <input type="text" placeholder="Informe se o aluno possui bolsa" class="form-control" ng-model="atendimentoDeixarOCurso.bolsa">
+                        <input type="text" name="bolsaFinanciamento" placeholder="Informe se o aluno possui bolsa" class="form-control" ng-model="atendimentoDeixarOCurso.bolsaFinanciamento">
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Reprovações</h4>
                         </label>
                         <div class="form-group">
-                            <input type="text" placeholder="Informe o número" class="form-control" ng-model="atendimentoDeixarOCurso.reprovacoes">
+                            <input type="text" name="numeroReprovacoes" placeholder="Informe o número" class="form-control" ng-model="atendimentoDeixarOCurso.numeroReprovacoes">
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -104,7 +109,7 @@
                             <h4>Matriculado</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" id="sel1">
+                            <select class="form-control" name="matriculado" id="sel1" ng-model="atendimentoDeixarOCurso.matriculado">
                                 <option>Sim</option>
                                 <option>Não</option>
                             </select>
@@ -116,13 +121,17 @@
                         <label>
                             <h4>Instituição de Transferência</h4>
                         </label>
-                        <input type="text" placeholder="Informe a instituição de transferência" class="form-control" ng-model="atendimentoDeixarOCurso.instituicaoDeTransferencia">
+                        <input type="text" name="transferencia" placeholder="Informe a instituição de transferência" class="form-control" ng-model="atendimentoDeixarOCurso.transferencia">
                     </div>
                     <div class="col-md-6">
                         <label>
                             <h4>Coordenador / Diretor</h4>
                         </label>
-                        <input type="text" placeholder="Informe o Coordenador / Diretor"class="form-control" ng-model="atendimentoDeixarOCurso.CoordenadorDiretor">
+                        <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.coordenadorDiretor.$invalid && !formAtendimentoDeixarOCurso.coordenadorDiretor.$pristine}">
+                            <input type="text" name="coordenadorDiretor" placeholder="Informe o Coordenador / Diretor"class="form-control" ng-model="atendimentoDeixarOCurso.coordenadorDiretor" ng-minlength="2" ng-maxlength="50" required>
+                            <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
+                            <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.maxlength" class="help-block">Nome no máximo 50 caracteres.</p>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -135,12 +144,8 @@
                             <h4>Objetivo</h4>
                         </label>
                         <div class="form-group opcao">
-                            <select class="form-control" id="sel1">
-                                <option>Cancelamento</option>
-                                <option>Permanência</option>
-                                <option>Trancamento</option>
-                                <option>Transferência</option>
-                                <option>Transferência EAD</option>
+                            <select class="form-control" id="sel1" name="objetivo" ng-model="atendimentoDeixarOCurso.objetivo">
+                                <option ng-repeat="o in objetivos">{{o.descricao}}</option>
                             </select>
                         </div>
                     </div>
@@ -149,19 +154,8 @@
                             <h4>Motivo</h4>
                         </label>
                         <div class="form-group opcao">
-                            <select class="form-control" id="sel1">
-                                <option>Distância</option>
-                                <option>Doença</option>
-                                <option>Financeiro</option>
-                                <option>Frequência</option>
-                                <option>Gravidez</option>
-                                <option>Mudança de cidade</option>
-                                <option>Não identificação com o curso</option>
-                                <option>Notas baixas</option>
-                                <option>Outros</option>
-                                <option>Trabalho</option>
-                                <option>Transferência para outras IES</option>
-
+                            <select class="form-control" name="motivo" id="sel1" ng-model="atendimentoDeixarOCurso.motivo">
+                                <option ng-repeat="m in motivos">{{m.descricao}}</option>
                             </select>
                         </div>
                     </div>
@@ -171,7 +165,7 @@
                         <label>
                             <h4>Descrição resumida</h4>
                         </label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control" name="descricaoPublica" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPublica"></textarea>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -179,7 +173,7 @@
                         <label>
                             <h4>Descrição detalhada</h4>
                         </label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada"></textarea>
                     </div>
                 </div>
 
@@ -187,7 +181,7 @@
                     <div class="col-md-12">
                         <div class="col-md-offset-7 pull-right">
                             <a type="button" href="#/AtendimentoDeixarOCurso/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
-                            <button type="submit" ng-click="salvar()" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
+                            <button type="submit" ng-click="salvar()" ng-disabled="(formAtendimentoDeixarOCurso.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
                         </div>
                     </div>	
                 </div>	
