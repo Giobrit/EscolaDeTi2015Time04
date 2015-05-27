@@ -1,14 +1,11 @@
 AppModule.controller("controllerFormAtendimentoDeixarOCurso",controllerFormAtendimentoDeixarOCurso);
-
+itensMotivo;
 function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location){
     
     $scope.init = function(){
-        limparTela();
-        preencherListDeObjetivo();
-        preencherListDeMotivo();
-        
-        alert(JSON.stringify($scope.objetivos));
-        alert(JSON.stringify($scope.motivos));
+        $scope.limparTela();
+        $scope.preencherListDeObjetivo();
+        $scope.preencherListDeMotivo();
         
         idEditando = $routeParams.id;
         
@@ -51,7 +48,9 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $http.post("atendimento/deixarOCurso/objetivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         
         function onSuccess(data) {
-            $scope.objetivos = data.itens;            
+            alert(JSON.stringify($scope.objetivos));        
+            $scope.objetivos = data.itens;      
+            itensMotivo = data.itens;
         }
     };
     
@@ -60,6 +59,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $http.post("/atendimento/deixarOCurso/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         
         function onSuccess(data) {
+            alert(JSON.stringify($scope.motivos));
             $scope.motivos = data.itens;       
         }
     };

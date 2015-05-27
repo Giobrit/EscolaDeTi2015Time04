@@ -144,8 +144,8 @@
                             <h4>Objetivo</h4>
                         </label>
                         <div class="form-group opcao">
-                            <select class="form-control" id="sel1" name="objetivo" ng-model="atendimentoDeixarOCurso.objetivo">
-                                <option ng-repeat="o in objetivos">{{o.descricao}}</option>
+                            <select class="form-control" id="sel1" name="objetivo" ng-model="atendimentoDeixarOCurso.objetivos" ng-options="o.descricao for o in objetivos">
+                                <!--<option ng-repeat="o in objetivos">{{o.descricao}}</option>-->
                             </select>
                         </div>
                     </div>
@@ -154,8 +154,8 @@
                             <h4>Motivo</h4>
                         </label>
                         <div class="form-group opcao">
-                            <select class="form-control" name="motivo" id="sel1" ng-model="atendimentoDeixarOCurso.motivo">
-                                <option ng-repeat="m in motivos">{{m.descricao}}</option>
+                            <select class="form-control" id="sel1" name="motivo"  ng-model="atendimentoDeixarOCurso.motivos" ng-options="m.descricao for m in motivos">
+                                <!--<option ng-repeat="m in motivos">{{m.descricao}}</option>-->
                             </select>
                         </div>
                     </div>
