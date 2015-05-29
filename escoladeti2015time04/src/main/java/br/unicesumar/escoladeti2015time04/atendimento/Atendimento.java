@@ -25,56 +25,56 @@ public class Atendimento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
-    
+    protected Long id;
+
     @ColunaListavel
     @Column(unique = true, nullable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
-    private Date data;
-    
-    @JoinColumn(nullable = false)
+    protected Date data;
+
     @ManyToOne
-    private Usuario usuarioLogado;
-    
-    @ColunaListavel    
+    @JoinColumn(name = "usuariologado", nullable = false)
+    protected Usuario usuarioLogado;
+
+    @ColunaListavel
     @Column(unique = true, nullable = false)
-    private String ra;
-    
+    protected String ra;
+
     @ColunaListavel
     @Column(nullable = false)
-    private String centro;
-    
+    protected String centro;
+
+    @ColunaListavel
+    @Column(name = "nomealuno", nullable = false)
+    protected String nomeAluno;
+
     @ColunaListavel
     @Column(nullable = false)
-    private String nomeAluno;
-    
+    protected String curso;
+
+    @ColunaListavel
+    @Column(name = "seriesemestre", nullable = false)
+    protected int serieSemestre;
+
     @ColunaListavel
     @Column(nullable = false)
-    private String curso;
-    
+    protected String turno;
+
     @ColunaListavel
     @Column(nullable = false)
-    private int serieSemestre;
-    
+    protected Boolean matriculado;
+
     @ColunaListavel
-    @Column(nullable = false)
-    private String turno;
-    
+    @Column(name = "bolsafinanciamento", nullable = false)
+    protected String bolsaFinanciamento;
+
     @ColunaListavel
-    @Column(nullable = false)
-    private Boolean matriculado;
-    
+    @Column(name = "descricaopublica", nullable = false)
+    protected String descricaoPublica;
+
     @ColunaListavel
-    @Column(nullable = false)
-    private String bolsaFinanciamento;
-    
-    @ColunaListavel
-    @Column(nullable = false)
-    private String descricaoPublica;
-    
-    @ColunaListavel
-    @Column(nullable = false)
-    private String descricaoPrivada;
+    @Column(name = "descricaoprivada", nullable = false)
+    protected String descricaoPrivada;
 
     public Atendimento(Long id, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
 

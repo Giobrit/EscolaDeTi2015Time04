@@ -34,7 +34,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         this.repository = repositorio;
     }
 
-    protected Map<Field, ColunaListavel> colunasListaveisEntidade;
+    protected Map<Field, ColunaListavel> colunasListaveisEntidade = new HashMap<>();
     protected Field idEntidade;
     protected String selectComColunasListaveis;
     protected String selectNumeroRegistros;
@@ -42,9 +42,9 @@ public abstract class Service<E, R extends JpaRepository, C> {
     protected abstract Class<E> getClassEntity();
 
     @PostConstruct
-    private void init() {
-        this.colunasListaveisEntidade = getMapFieldColunaListavel();
-        this.idEntidade = getIdEntidade();
+    protected void init() {
+        this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel());
+        this.idEntidade = getIdEntidade(getClassEntity());
         this.selectComColunasListaveis = montarSelectListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
     }
@@ -55,11 +55,14 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     public void editar(C command) {
         try {
-            if (!validarCommand(command)) {
+
+            Class classCommand = command.getClass();
+
+            if (!validarCommand(classCommand)) {
                 throw new IllegalArgumentException("O commando deve estar anotado com CommandEditar");
             }
 
-            Map<String, Field> atributosCommand = getMapAtributosCammand(command);
+            Map<String, Field> atributosCommand = getMapAtributosCammand(classCommand);
 
             if (atributosCommand.isEmpty() || atributosCommand.get(idEntidade.getName()) == null) {
                 throw new IllegalArgumentException("O Command deve possuir ao menos um id!");
@@ -92,7 +95,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         Ordenador ordenador = requisicaoListagem.getOrdenador();
         Paginador paginador = requisicaoListagem.getPaginador();
         Set<String> colunasRetornadas = requisicaoListagem.getColunasVisiveis();
-        
+
         MapSqlParameterSource parans = new MapSqlParameterSource();
         String select = getRaizQuery(colunasRetornadas);
 
@@ -119,8 +122,12 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
     }
 
-    private Map<String, Field> getMapAtributosCammand(C command) {
-        Class<? extends Object> commandClass = command.getClass();
+    private Map<String, Field> getMapAtributosCammand(Class classCommand) {
+        if (!validarCommand(classCommand)) {
+            return new HashMap<>();
+        }
+
+        Class<? extends Object> commandClass = classCommand;
         Field[] atributosDoCommand = commandClass.getDeclaredFields();
         Map<String, Field> mapAtributos = new HashMap<>();
         for (Field atributoCommand : atributosDoCommand) {
@@ -129,6 +136,9 @@ public abstract class Service<E, R extends JpaRepository, C> {
                 adicionarAtributoCommandNoMap(anotacaoDoAtributo, atributoCommand, mapAtributos);
             }
         }
+
+        mapAtributos.putAll(getMapAtributosCammand(classCommand.getSuperclass()));
+
         return mapAtributos;
     }
 
@@ -142,19 +152,21 @@ public abstract class Service<E, R extends JpaRepository, C> {
         mapAtributos.put(equivalente, atributoCommand);
     }
 
-    private Boolean validarCommand(C command) {
-        CommandEditar anotacaoCommand = command.getClass().getAnnotation(CommandEditar.class);
+    private Boolean validarCommand(Class classCommand) {
+        Annotation anotacaoCommand = classCommand.getDeclaredAnnotation(CommandEditar.class);
 
         return anotacaoCommand != null;
     }
 
-    private String montarSelectListar() {
+    protected String montarSelectListar() {
         String sql = "SELECT ";
 
-        sql += idEntidade.getName() + ",";
+        sql += getClassEntity().getSimpleName() + "." + idEntidade.getName() + ",";
 
-        for (Field atributosColunaListavelEntidade : getFieldsByAnnotation(ColunaListavel.class)) {
-            sql += atributosColunaListavelEntidade.getName() + ",";
+        for (Map.Entry<Field, ColunaListavel> colunasListaveis : colunasListaveisEntidade.entrySet()) {
+            Field key = colunasListaveis.getKey();
+            ColunaListavel value = colunasListaveis.getValue();
+            sql += key.getName() + ",";
         }
 
         sql = sql.substring(0, sql.length() - 1);
@@ -165,19 +177,27 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return sql + "  ";
     }
 
-    private String montarSelectNumeroTotalRegistros() {
+    protected String montarSelectNumeroTotalRegistros() {
+        return montarSelectNumeroTotalRegistros(getClassEntity());
+    }
+
+    protected String montarSelectNumeroTotalRegistros(Class entidade) {
         String sql = "SELECT count(";
 
         sql += idEntidade.getName();
         sql += ") as numeroTotalRegistros FROM ";
-        sql += getClassEntity().getSimpleName();
+        sql += entidade.getSimpleName();
 
         return sql + "  ";
     }
 
     protected <A extends Annotation> List<Field> getFieldsByAnnotation(Class<A> annotation) {
+        return getFieldsByAnnotation(getClassEntity(), annotation);
+    }
+
+    protected <A extends Annotation> List<Field> getFieldsByAnnotation(Class entidade, Class<A> annotation) {
         List<Field> fields = new ArrayList<>();
-        for (Field atributoEntidade : getClassEntity().getDeclaredFields()) {
+        for (Field atributoEntidade : entidade.getDeclaredFields()) {
             A annotacaoDoAtributo = atributoEntidade.getAnnotation(annotation);
             if (annotacaoDoAtributo != null) {
                 fields.add(atributoEntidade);
@@ -186,9 +206,16 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return fields;
     }
 
-    private Field getIdEntidade() {
-        List<Field> fieldId = getFieldsByAnnotation(Id.class);
-        return fieldId.get(0);
+    protected Field getIdEntidade(Class entidade) {
+        Field id;
+        try {
+            List<Field> fieldId = getFieldsByAnnotation(entidade, Id.class);
+            id = fieldId.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            id = null;
+        }
+
+        return id;
     }
 
     private Long calcularNumeroTotalRegistros(Filtro filtro) {
@@ -203,9 +230,13 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return numeroPaginas;
     }
 
-    private Map<Field, ColunaListavel> getMapFieldColunaListavel() {
+    protected Map<Field, ColunaListavel> getMapFieldColunaListavel() {
+        return getMapFieldColunaListavel(getClassEntity());
+    }
+
+    protected Map<Field, ColunaListavel> getMapFieldColunaListavel(Class entidade) {
         Map<Field, ColunaListavel> mapFieldColunaListavel = new HashMap<>();
-        for (Field atributoEntidade : getClassEntity().getDeclaredFields()) {
+        for (Field atributoEntidade : entidade.getDeclaredFields()) {
             ColunaListavel annotacaoDoAtributo = atributoEntidade.getAnnotation(ColunaListavel.class);//getAnnotationByType(atributoEntidade, ColunaListavel.class);
             if (annotacaoDoAtributo != null) {
                 mapFieldColunaListavel.put(atributoEntidade, annotacaoDoAtributo);
@@ -214,16 +245,8 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return mapFieldColunaListavel;
     }
 
-//    /*
-//     * getAnnotationByType era originalmente implementado na classe Field a
-//     * partir do java 8. Este simula o original de forma estrutural.
-//     */
-//    private <A extends Annotation> A getAnnotationByType(Field atributo, Class<A> anotacao) {
-//        return atributo.getAnnotation(anotacao);
-//        
-//    }
-
     private String getRaizQuery(Set<String> colunasRetornadas) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

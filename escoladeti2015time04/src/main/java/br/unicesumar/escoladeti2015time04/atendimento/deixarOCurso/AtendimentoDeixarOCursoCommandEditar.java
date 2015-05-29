@@ -1,49 +1,46 @@
-
 package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso;
 
+import br.unicesumar.escoladeti2015time04.atendimento.AtendimentoCommandEditar;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivo;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivo;
 import br.unicesumar.escoladeti2015time04.utils.service.AtributoCommand;
 import br.unicesumar.escoladeti2015time04.utils.service.CommandEditar;
-import br.unicesumar.escoladeti2015time04.utils.service.TipoAtributoCommand;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
 import javax.persistence.Column;
 
-
 @CommandEditar
-public class AtendimentoDeixarOCursoCommandEditar {
-    
-    @AtributoCommand(tipoAtributo = TipoAtributoCommand.id)
-    @Column(nullable = false)
-    private final Long id;
-    
-    @AtributoCommand
-    private final Long  protocolo;
-    
-    @AtributoCommand
-    private final String coordenadorDiretor;
-    
-    @AtributoCommand
-    private final String transferencia;
-    
-    @AtributoCommand
-    @Column(nullable = false)
-    private final int numeroReprovacoes;
-    
-    @AtributoCommand
-    @Column(nullable = false)
-    private final DeixarOCursoMotivo motivo;
-    
-    @AtributoCommand
-    @Column(nullable = false)
-    private final DeixarOCursoObjetivo objetivo;
+public class AtendimentoDeixarOCursoCommandEditar extends AtendimentoCommandEditar {
 
-    @JsonCreator    
-    public AtendimentoDeixarOCursoCommandEditar(@JsonProperty("id") Long id, @JsonProperty("protocolo") Long protocolo, 
-                          @JsonProperty("coordenadordiretor") String coordenadorDiretor, @JsonProperty("transferencia") String transferencia, 
-                          @JsonProperty("numeroreprovacoes") int numeroReprovacoes, @JsonProperty("motivo") DeixarOCursoMotivo motivo, 
-                          @JsonProperty("objetivo") DeixarOCursoObjetivo objetivo) {
+    @AtributoCommand
+    private Long protocolo;
+
+    @AtributoCommand
+    private String coordenadorDiretor;
+
+    @AtributoCommand
+    private String transferencia;
+
+    @AtributoCommand
+    @Column(nullable = false)
+    private int numeroReprovacoes;
+
+    @AtributoCommand
+    @Column(nullable = false)
+    private DeixarOCursoMotivo motivo;
+
+    @AtributoCommand
+    @Column(nullable = false)
+    private DeixarOCursoObjetivo objetivo;
+
+    public AtendimentoDeixarOCursoCommandEditar(@JsonProperty("id") Long id, @JsonProperty("protocolo") Long protocolo,
+            @JsonProperty("coordenadordiretor") String coordenadorDiretor, @JsonProperty("transferencia") String transferencia,
+            @JsonProperty("numeroreprovacoes") int numeroReprovacoes, @JsonProperty("motivo") DeixarOCursoMotivo motivo,
+            @JsonProperty("objetivo") DeixarOCursoObjetivo objetivo, @JsonProperty("data") Date data, @JsonProperty("ra") String ra,
+            @JsonProperty("centro") String centro, @JsonProperty("nomealuno") String nomeAluno, @JsonProperty("curso") String curso,
+            @JsonProperty("seriesemestre") int serieSemestre, @JsonProperty("turno") String turno,
+            @JsonProperty("matriculado") Boolean matriculado, @JsonProperty("bolsafinanciamento") String bolsaFinanciamento,
+            @JsonProperty("descricaopublica") String descricaoPublica, @JsonProperty("descricaoprivada") String descricaoPrivada) {
         this.id = id;
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
@@ -51,6 +48,17 @@ public class AtendimentoDeixarOCursoCommandEditar {
         this.numeroReprovacoes = numeroReprovacoes;
         this.motivo = motivo;
         this.objetivo = objetivo;
+        this.data = data;
+        this.ra = ra;
+        this.centro = centro;
+        this.nomeAluno = nomeAluno;
+        this.curso = curso;
+        this.serieSemestre = serieSemestre;
+        this.turno = turno;
+        this.matriculado = matriculado;
+        this.bolsaFinanciamento = bolsaFinanciamento;
+        this.descricaoPublica = descricaoPublica;
+        this.descricaoPrivada = descricaoPrivada;
     }
 
     public Long getId() {
@@ -80,6 +88,5 @@ public class AtendimentoDeixarOCursoCommandEditar {
     public DeixarOCursoObjetivo getObjetivo() {
         return objetivo;
     }
-    
-    
+
 }
