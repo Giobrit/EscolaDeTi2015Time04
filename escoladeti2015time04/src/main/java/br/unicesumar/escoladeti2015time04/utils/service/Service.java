@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,9 +91,10 @@ public abstract class Service<E, R extends JpaRepository, C> {
         Filtro filtro = requisicaoListagem.getFiltro();
         Ordenador ordenador = requisicaoListagem.getOrdenador();
         Paginador paginador = requisicaoListagem.getPaginador();
-
+        Set<String> colunasRetornadas = requisicaoListagem.getColunasVisiveis();
+        
         MapSqlParameterSource parans = new MapSqlParameterSource();
-        String select = selectComColunasListaveis;
+        String select = getRaizQuery(colunasRetornadas);
 
         select += filtro.getFiltros(colunasListaveisEntidade, parans) + ordenador.getOrdenacao() + paginador.getPaginacao(parans);
         List<Map<String, Object>> resultado = jdbcTemplate.query(select, parans, new MapRowMapper());
@@ -220,4 +222,8 @@ public abstract class Service<E, R extends JpaRepository, C> {
 //        return atributo.getAnnotation(anotacao);
 //        
 //    }
+
+    private String getRaizQuery(Set<String> colunasRetornadas) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
