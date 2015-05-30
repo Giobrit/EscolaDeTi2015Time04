@@ -63,10 +63,11 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     
     $scope.carregarAluno = function (ra) {        
         alert("R.A: "+ ra);       
-        $http.get("/lyceum/aluno/"+ ra).success(onSuccess).error();
+        $http.get("/lyceumClient/aluno/"+ ra).success(onSuccess).error();
         
         function onSuccess(data) {            
             alert("Deu certo!!!");
+            alert(JSON.stringify(data));
             $scope.ra = data.ra;
             $scope.nomeAluno = data.nome;
             $scope.curso = data.curso;
