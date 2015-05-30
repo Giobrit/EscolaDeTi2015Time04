@@ -17,13 +17,13 @@
                         <label>
                             <h4>Data</h4>
                         </label>                        
-                        <input type="date" name="data" class="form-control" ng-model="atendimentoDeixarOCurso.data" >
+                        <input type="date" name="data" class="form-control" ng-model="atendimentoDeixarOCurso.data" required>
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Hora</h4>
                         </label>
-                        <input type="time" name="hora" class="form-control" ng-model="atendimentoDeixarOCurso.hora">
+                        <input type="time" name="hora" class="form-control" ng-model="atendimentoDeixarOCurso.hora" required>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                         <label>
                             <h4>Ra</h4>
                         </label>
-                        <input type="text" name="ra" class="form-control" ng-model="atendimentoDeixarOCurso.ra" ng-blur="carregarAluno(atendimentoDeixarOCurso.ra)">
+                        <input type="text" name="ra" class="form-control" ng-model="atendimentoDeixarOCurso.ra" ng-keyup="carregarAluno(atendimentoDeixarOCurso.ra)" maxlength="8" required>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -44,7 +44,7 @@
                             <h4>Aluno</h4>
                         </label>
                         <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.nomeAluno.$invalid && !formAtendimentoDeixarOCurso.nomeAluno.$pristine}">
-                            <input type="text" name="nomeAluno" placeholder="Informe o nome do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.nomeAluno" ng-minlength="2" ng-maxlength="80" required>
+                            <input type="text" name="nomeAluno" placeholder="Informe o nome do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.nomeAluno" ng-minlength="2" ng-maxlength="79"  maxlength="80" required>
                             <p ng-show="formAtendimentoDeixarOCurso.nomeAluno.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
                             <p ng-show="formAtendimentoDeixarOCurso.nomeAluno.$error.maxlength" class="help-block">Nome no máximo 80 caracteres.</p>
                         </div>
@@ -55,20 +55,20 @@
                         <label>
                             <h4>Curso</h4>
                         </label>
-                        <input type="text" name="curso" placeholder="Informe o curso do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.curso">
+                        <input type="text" name="curso" placeholder="Informe o curso do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.curso" required>
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Centro</h4>
                         </label>
-                        <input type="text" name="centro" placeholder="Informe o centro" class="form-control" ng-model="atendimentoDeixarOCurso.centro">
+                        <input type="text" name="centro" placeholder="Informe o centro" class="form-control" ng-model="atendimentoDeixarOCurso.centro" required>
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Série</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="serieSemestre" id="sel1"  ng-model="atendimentoDeixarOCurso.serieSemestre">                                
+                            <select class="form-control" name="serieSemestre" id="sel1"  ng-model="atendimentoDeixarOCurso.serieSemestre" required> 
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -82,7 +82,7 @@
                             <h4>Turno</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="turno" id="sel1" ng-model="atendimentoDeixarOCurso.turno">
+                            <select class="form-control" name="turno" id="sel1" ng-model="atendimentoDeixarOCurso.turno" required>
                                 <option>Matutino</option>
                                 <option>Noturno</option>
                             </select>
@@ -94,14 +94,14 @@
                         <label>
                             <h4>Bolsa</h4>
                         </label>
-                        <input type="text" name="bolsaFinanciamento" placeholder="Informe se o aluno possui bolsa" class="form-control" ng-model="atendimentoDeixarOCurso.bolsaFinanciamento">
+                        <input type="text" name="bolsaFinanciamento" placeholder="Informe se o aluno possui bolsa" class="form-control" ng-model="atendimentoDeixarOCurso.bolsaFinanciamento" required>
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Reprovações</h4>
                         </label>
                         <div class="form-group">
-                            <input type="text" name="numeroReprovacoes" placeholder="Informe o número" class="form-control" ng-model="atendimentoDeixarOCurso.numeroReprovacoes">
+                            <input type="text" name="numeroReprovacoes" placeholder="Informe o número" class="form-control" ng-model="atendimentoDeixarOCurso.numeroReprovacoes" required>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -109,7 +109,7 @@
                             <h4>Matriculado</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="matriculado" id="sel1" ng-model="atendimentoDeixarOCurso.matriculado">
+                            <select class="form-control" name="matriculado" id="sel1" ng-model="atendimentoDeixarOCurso.matriculado" required>
                                 <option>Sim</option>
                                 <option>Não</option>
                             </select>
@@ -127,8 +127,8 @@
                         <label>
                             <h4>Coordenador / Diretor</h4>
                         </label>
-                        <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.coordenadorDiretor.$invalid && !formAtendimentoDeixarOCurso.coordenadorDiretor.$pristine}">
-                            <input type="text" name="coordenadorDiretor" placeholder="Informe o Coordenador / Diretor"class="form-control" ng-model="atendimentoDeixarOCurso.coordenadorDiretor" ng-minlength="2" ng-maxlength="50" required>
+                        <div class="form-group" >
+                            <input type="text" name="coordenadorDiretor" placeholder="Informe o Coordenador / Diretor"class="form-control" ng-model="atendimentoDeixarOCurso.coordenadorDiretor" ng-minlength="2" ng-maxlength="50" >
                             <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
                             <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.maxlength" class="help-block">Nome no máximo 50 caracteres.</p>
                         </div>                        
@@ -144,7 +144,7 @@
                             <h4>Objetivo</h4>
                         </label>
                         <div class="form-group opcao">
-                            <select class="form-control" id="sel1" name="objetivo" ng-model="atendimentoDeixarOCurso.objetivos" ng-options="o.descricao for o in objetivos">                            
+                            <select class="form-control" id="sel1" name="objetivo" ng-change="setObjetivo(objetivoSelecionado)" ng-model="objetivoSelecionado" ng-options="o.descricao for o in objetivos" required> 
                             </select>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                             <h4>Motivo</h4>
                         </label>
                         <div class="form-group opcao">
-                            <select class="form-control" id="sel1" name="motivo"  ng-model="atendimentoDeixarOCurso.motivos" ng-options="m.descricao for m in motivos">
+                            <select class="form-control" id="sel1" name="motivo" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
                             </select>
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                         <label>
                             <h4>Descrição resumida</h4>
                         </label>
-                        <textarea class="form-control" name="descricaoPublica" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPublica"></textarea>
+                        <textarea class="form-control" name="descricaoPublica" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPublica" required></textarea>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -171,7 +171,7 @@
                         <label>
                             <h4>Descrição detalhada</h4>
                         </label>
-                        <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada"></textarea>
+                        <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada" required></textarea>
                     </div>
                 </div>
 

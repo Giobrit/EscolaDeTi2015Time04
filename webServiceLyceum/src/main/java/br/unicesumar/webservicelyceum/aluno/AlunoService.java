@@ -13,7 +13,7 @@ class AlunoService {
             aluno.nome = "Giovanni De Ganello Dias";
             aluno.centro = "CETA";
             aluno.curso = "ADS";
-            aluno.serie = "3ª serie";
+            aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
             aluno.bolsa = "50% funcionário";
@@ -33,7 +33,7 @@ class AlunoService {
             aluno.nome = "Roney Cesar de Campos";
             aluno.centro = "CETA";
             aluno.curso = "ADS";
-            aluno.serie = "3ª serie";
+            aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
             aluno.bolsa = "10% sarandi/CREDIN";
@@ -43,7 +43,7 @@ class AlunoService {
             aluno.nome = "Luiz Gustavo Sabaine Fagundes";
             aluno.centro = "CETA";
             aluno.curso = "SISIN";
-            aluno.serie = "3ª serie";
+            aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
             aluno.bolsa = "NÃO";
@@ -53,7 +53,7 @@ class AlunoService {
             aluno.nome = "Willian Zanuto Oliveira";
             aluno.centro = "CETA";
             aluno.curso = "SISIN";
-            aluno.serie = "3ª serie";
+            aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
             aluno.bolsa = "50% PROMUBE";
@@ -63,7 +63,7 @@ class AlunoService {
             aluno.nome = "Filipe Martins Maldinado";
             aluno.centro = "CETA";
             aluno.curso = "ADS";
-            aluno.serie = "3ª serie";
+            aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
             aluno.bolsa = "100% PROMUBE";
@@ -73,7 +73,7 @@ class AlunoService {
             aluno.nome = "Liz Regina Okuzono";
             aluno.centro = "CETA";
             aluno.curso = "ADS";
-            aluno.serie = "3ª serie";
+            aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
             aluno.bolsa = "100% FIES";
@@ -83,7 +83,7 @@ class AlunoService {
             aluno.nome = "Rodrigo Ferreira de Souza";
             aluno.centro = "CETA";
             aluno.curso = "ADS";
-            aluno.serie = "3ª serie";
+            aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
             aluno.bolsa = "100% FIES";
