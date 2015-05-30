@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-class Aluno {
+class AlunoAtendimentoDeixarOCurso {
 
     @Id
     String ra;
@@ -18,10 +18,10 @@ class Aluno {
     String bolsa;
     String reprovacao;
 
-    public Aluno() {
+    public AlunoAtendimentoDeixarOCurso() {
     }
 
-    public Aluno(String ra, String nome, String centro, String curso, String serie, String turno, String matriculado, String bolsa, String reprovacao) {
+    public AlunoAtendimentoDeixarOCurso(String ra, String nome, String centro, String curso, String serie, String turno, String matriculado, String bolsa, String reprovacao) {
         this.ra = ra;
         this.nome = nome;
         this.centro = centro;
@@ -120,7 +120,7 @@ class Aluno {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Aluno other = (Aluno) obj;
+        final AlunoAtendimentoDeixarOCurso other = (AlunoAtendimentoDeixarOCurso) obj;
         if (!Objects.equals(this.ra, other.ra)) {
             return false;
         }

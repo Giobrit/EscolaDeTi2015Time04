@@ -13,8 +13,8 @@ public class WSLyceumClientController {
     private RestTemplate restTemplate = new RestTemplate();
 
     @RequestMapping(value = "/{ra}", method = RequestMethod.GET)
-    public Aluno findByAluno(@PathVariable Long ra) {
-        Aluno aluno = restTemplate.getForObject("http://localhost:9097/lyceum/aluno/" + ra, Aluno.class);
+    public AlunoAtendimentoDeixarOCurso findByAluno(@PathVariable Long ra) {
+        AlunoAtendimentoDeixarOCurso aluno = restTemplate.getForObject("http://localhost:9097/lyceum/aluno/" + ra, AlunoAtendimentoDeixarOCurso.class);
         return aluno;
     }
 }
