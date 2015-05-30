@@ -28,7 +28,7 @@ h1, .h1, h2, .h2, h3, .h3 {
   display: block;
   font-size: -10px;
   line-height: 50px;
-  background: url(../img/unicesumar.png) no-repeat;
+  background: url(../bibliotecas/img/unicesumar.png) no-repeat;
   background-position: left;
   text-decoration: none;
   margin-left: 05px; 
