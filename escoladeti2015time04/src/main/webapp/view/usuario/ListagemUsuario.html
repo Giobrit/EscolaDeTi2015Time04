@@ -23,15 +23,27 @@
                             <table class="table table-hover table-condensed table-responsive">
                                 <thead>
                                     <tr>
-                                        <th ng-click="alterarOrdenacao('nome')" class="col-md-5">Nome<span class="glyphicon glyphicon-menu-down pull-right" aria-hidden="true"></span></th>
-                                        <th ng-click="alterarOrdenacao('login')" class="col-md-2">Login<span class="glyphicon glyphicon-menu-down pull-right" aria-hidden="true"></span></th>
-                                        <th ng-click="alterarOrdenacao('email')" class="col-md-2">Email<span class="glyphicon glyphicon-menu-down pull-right" aria-hidden="true"></span></th>
+                                        <th ng-click="alterarOrdenacao('nome')" class="col-md-5">
+                                            Nome
+                                            <span class="glyphicon glyphicon-menu-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'nome'"></span>
+                                            <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'nome'"></span>
+                                        </th>
+                                        <th ng-click="alterarOrdenacao('login')" class="col-md-2">
+                                            Login
+                                            <span class="glyphicon glyphicon-menu-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'login'"></span>
+                                            <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'login'"></span>
+                                        </th>
+                                        <th ng-click="alterarOrdenacao('email')" class="col-md-2">
+                                            Email
+                                            <span class="glyphicon glyphicon-menu-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'email'"></span>
+                                            <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'email'"></span>
+                                        </th>
                                         <th ng-click="alterarOrdenacao('status')" class="col-md-1">Ação</th>
                                         <th class="col-md-1">Opção</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr dir-paginate="u in usuarios | itemsPerPage: numeroItensPorPagina" total-items="35" current-page="paginaAtual">
+                                    <tr dir-paginate="u in usuarios | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
                                         <td>{{u.nome}}</td>
                                         <td>{{u.login}}</td>
                                         <td>{{u.email}}</td>

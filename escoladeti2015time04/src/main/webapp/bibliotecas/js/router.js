@@ -16,7 +16,7 @@ AppModule.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'view/usuario/cadastroUsuario.html',
         controller: 'controllerFormUsuario'
     }).when('/Usuario/list', {
-        templateUrl: 'view/usuario/ListUsuario.html',
+        templateUrl: 'view/usuario/ListagemUsuario.html',
         controller: 'controllerListUsuario'
     }).when('/AtendimentoDeixarOCurso/list', {
         templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',

@@ -68,7 +68,7 @@ function controllerListagemFilho($scope, $http) {
     $scope.usuarioAlterandoSenha = {};
     $scope.usuarioCommandEditarSenha = {};
     $scope.colunaOrdenacao = "nome";
-    var ordenacaoCrescente = true;
+    $scope.ordenacaoCrescente = true;
 
     $scope.init = function () {
         $scope.listar();
@@ -88,19 +88,21 @@ function controllerListagemFilho($scope, $http) {
         requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
         requisicaoListagem.paginaAtual = $scope.paginaAtual;
         requisicaoListagem.colunaOrdenacao = $scope.colunaOrdenacao;
-        requisicaoListagem.ordenacaoCrescente = ordenacaoCrescente;
+        requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
 
         $http.post("/usuario/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.usuarios = data.itens;
-            $scope.totalPaginas = data.numeroTotalPaginas;
+            $scope.totalRegistros = data.numeroTotalRegistros;
         }
     };
 
     $scope.alterarOrdenacao = function (coluna) {
         if ($scope.colunaOrdenacao === coluna) {
-            ordenacaoCrescente = !ordenacaoCrescente;
+            $scope.ordenacaoCrescente = !$scope.ordenacaoCrescente;
+        } else {
+            $scope.ordenacaoCrescente = true;
         }
 
         $scope.colunaOrdenacao = coluna;
