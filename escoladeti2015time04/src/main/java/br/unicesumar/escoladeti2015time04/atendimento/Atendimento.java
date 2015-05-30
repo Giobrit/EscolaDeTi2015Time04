@@ -37,7 +37,7 @@ public class Atendimento implements Serializable {
     protected Usuario usuarioLogado;
 
     @ColunaListavel
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     protected String ra;
 
     @ColunaListavel
