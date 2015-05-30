@@ -23,7 +23,7 @@ class AlunoService {
             aluno.nome = "Renato Kenji Nakamura";
             aluno.centro = "CETA";
             aluno.curso = "ADS";
-            aluno.serie = "3ª serie";
+            aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
             aluno.bolsa = "50% prouni";
