@@ -6,7 +6,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.limparTela();
         $scope.preencherListDeObjetivo();
         $scope.preencherListDeMotivo();
-
+            
         idEditando = $routeParams.id;
 
         if (idEditando) {
@@ -62,26 +62,19 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.carregarAluno = function (ra) {
-//        alert("R.A: "+ ra);       
         $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error();
 
         function onSuccess(data) {
-            if (data.ra !== $scope.ra) {
-                alert(JSON.stringify(data));
-                
-                $scope.ra = data.ra;
-                $scope.nomeAluno = data.nome;
-                $scope.curso = data.curso;
-                $scope.centro = data.centro;
-                $scope.serieSemestre = data.serie;
-                $scope.turno = data.turno;
-                $scope.bolsaFinanciamento = data.bolsa;
-                $scope.numeroReprovacoes = data.reprovacao;
-                $scope.matriculado = data.matriculado;
-                //            alert(JSON.stringify($scope.ra));
-                //            alert(JSON.stringify($scope.nomeAluno));
-                //            alert(JSON.stringify($scope.serieSemestre));                                                        
-                aluno = $scope;
+            if (data.ra !== $scope.ra) {                                
+                $scope.atendimentoDeixarOCurso.ra = data.ra;
+                $scope.atendimentoDeixarOCurso.nomeAluno = data.nome;
+                $scope.atendimentoDeixarOCurso.curso = data.curso;
+                $scope.atendimentoDeixarOCurso.centro = data.centro;
+                $scope.atendimentoDeixarOCurso.serieSemestre = data.serie;
+                $scope.atendimentoDeixarOCurso.turno = data.turno;
+                $scope.atendimentoDeixarOCurso.bolsaFinanciamento = data.bolsa;
+                $scope.atendimentoDeixarOCurso.numeroReprovacoes = data.reprovacao;
+                $scope.atendimentoDeixarOCurso.matriculado = data.matriculado;                
             }
         }
     };
