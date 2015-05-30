@@ -1,5 +1,5 @@
 AppModule.controller("controllerFormAtendimentoDeixarOCurso",controllerFormAtendimentoDeixarOCurso);
-itensMotivo;
+
 function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location){
     
     $scope.init = function(){
@@ -36,7 +36,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
     
     $scope.editar = function (id){
-        $http.get("/atendimento/deixarOCurso/"+ id).success(onSuccess).error(onError());
+        $http.get("/atendimento/deixarOCurso/"+ id).success(onSuccess).error(onError);
         
         function onSuccess(data){            
             $scope.atendimentoDeixarOCurso = data;
@@ -48,9 +48,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $http.post("atendimento/deixarOCurso/objetivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         
         function onSuccess(data) {
-            alert(JSON.stringify($scope.objetivos));        
-            $scope.objetivos = data.itens;      
-            itensMotivo = data.itens;
+            $scope.objetivos = data.itens;                  
         }
     };
     
@@ -58,10 +56,27 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         var requisicaoListagem = new RequisicaoListagem();
         $http.post("/atendimento/deixarOCurso/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         
-        function onSuccess(data) {
-            alert(JSON.stringify($scope.motivos));
+        function onSuccess(data) {            
             $scope.motivos = data.itens;       
         }
+    };
+    
+    $scope.carregarAluno = function (ra) {        
+        alert("R.A: "+ ra);       
+        $http.get("/lyceum/aluno/"+ ra).success(onSuccess).error();
+        
+        function onSuccess(data) {            
+            alert("Deu certo!!!");
+            $scope.ra = data.ra;
+            $scope.nomeAluno = data.nome;
+            $scope.curso = data.curso;
+            $scope.centro = data.centro;
+            $scope.serieSemestre = data.serie;
+            $scope.turno = data.turno;
+            $scope.bolsaFinanciamento = data.bolsa;
+            $scope.numeroReprovacoes = data.reprovacao;
+            $scope.matriculado = data.matriculado;
+        }        
     };
     
     function onError(data) {
