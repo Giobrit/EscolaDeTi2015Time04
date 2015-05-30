@@ -36,7 +36,8 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     protected Map<Field, ColunaListavel> colunasListaveisEntidade = new HashMap<>();
     protected Field idEntidade;
-    protected String selectComColunasListaveis;
+    protected String select;
+    protected String from;
     protected String selectNumeroRegistros;
 
     protected abstract Class<E> getClassEntity();
@@ -45,7 +46,8 @@ public abstract class Service<E, R extends JpaRepository, C> {
     protected void init() {
         this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel());
         this.idEntidade = getIdEntidade(getClassEntity());
-        this.selectComColunasListaveis = montarSelectListar();
+        this.select = montarSelectListar();
+        this.from = montarFromListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
     }
 
@@ -97,10 +99,17 @@ public abstract class Service<E, R extends JpaRepository, C> {
         Set<String> colunasRetornadas = requisicaoListagem.getColunasVisiveis();
 
         MapSqlParameterSource parans = new MapSqlParameterSource();
-        String select = getRaizQuery(colunasRetornadas);
 
-        select += filtro.getFiltros(colunasListaveisEntidade, parans) + ordenador.getOrdenacao() + paginador.getPaginacao(parans);
-        List<Map<String, Object>> resultado = jdbcTemplate.query(select, parans, new MapRowMapper());
+        String camposQuery = getCamposQuery(colunasRetornadas);
+
+        if (camposQuery.length() > 1) {
+            camposQuery = "," + camposQuery;
+        }
+
+        String selectParaListagem = this.select + camposQuery + this.from;
+
+        selectParaListagem += filtro.getFiltros(colunasListaveisEntidade, parans) + ordenador.getOrdenacao() + paginador.getPaginacao(parans);
+        List<Map<String, Object>> resultado = jdbcTemplate.query(selectParaListagem, parans, new MapRowMapper());
 
         Long numeroDePaginas;
 
@@ -114,7 +123,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     public Map<String, Object> localizar(Long id) {
-        String listarUsuario = selectComColunasListaveis + " where " + idEntidade.getName() + " = :id";
+        String listarUsuario = select + " where " + idEntidade.getName() + " = :id";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
@@ -159,22 +168,55 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     protected String montarSelectListar() {
-        String sql = "SELECT ";
+        String select = "SELECT ";
 
-        sql += getClassEntity().getSimpleName() + "." + idEntidade.getName() + ",";
+        select += getClassEntity().getSimpleName() + "." + idEntidade.getName();
 
+        return select + "  ";
+    }
+
+    protected String montarFromListar() {
+        String from = " FROM ";
+
+        from += getClassEntity().getSimpleName();
+
+        return from + "  ";
+    }
+
+    protected String getCamposQuery() {
+        String campos = "";
         for (Map.Entry<Field, ColunaListavel> colunasListaveis : colunasListaveisEntidade.entrySet()) {
             Field key = colunasListaveis.getKey();
             ColunaListavel value = colunasListaveis.getValue();
-            sql += key.getName() + ",";
+
+            campos += key.getName() + ",";
         }
 
-        sql = sql.substring(0, sql.length() - 1);
+        campos = campos.substring(0, campos.length() - 1);
 
-        sql += " FROM ";
-        sql += getClassEntity().getSimpleName();
+        return campos + "  ";
+    }
 
-        return sql + "  ";
+    protected String getCamposQuery(Set<String> colunasRetornadas) {
+        if (colunasRetornadas == null) {
+            return getCamposQuery();
+        }
+
+        String campos = " ";
+        for (Map.Entry<Field, ColunaListavel> colunasListaveis : colunasListaveisEntidade.entrySet()) {
+            Field key = colunasListaveis.getKey();
+            ColunaListavel value = colunasListaveis.getValue();
+
+            if (!colunasRetornadas.contains(key.getName())) {
+                continue;
+            }
+
+            campos += key.getName() + ",";
+        }
+
+        campos = campos.substring(0, campos.length() - 1);
+
+        return campos + " ";
     }
 
     protected String montarSelectNumeroTotalRegistros() {
@@ -243,10 +285,6 @@ public abstract class Service<E, R extends JpaRepository, C> {
             }
         }
         return mapFieldColunaListavel;
-    }
-
-    private String getRaizQuery(Set<String> colunasRetornadas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

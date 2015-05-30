@@ -13,7 +13,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel());
         this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel(getClassEntity().getSuperclass()));
         this.idEntidade = getIdEntidade(getClassEntity().getSuperclass());
-        this.selectComColunasListaveis = montarSelectListar();
+        this.select = montarSelectListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros(getClassEntity().getSuperclass());
     }
 
