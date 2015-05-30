@@ -5,6 +5,7 @@ import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.listagem.Ordenador;
 import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -32,7 +33,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         this.repository = repositorio;
     }
 
-    protected Field[] atributosEntidade;
+    protected Map<Field, ColunaListavel> colunasListaveisEntidade;
     protected Field idEntidade;
     protected String selectComColunasListaveis;
     protected String selectNumeroRegistros;
@@ -41,7 +42,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     @PostConstruct
     private void init() {
-        this.atributosEntidade = getClassEntity().getDeclaredFields();
+        this.colunasListaveisEntidade = getMapFieldColunaListavel();
         this.idEntidade = getIdEntidade();
         this.selectComColunasListaveis = montarSelectListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
@@ -86,24 +87,17 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     public ResultadoListagem<E> listar(RequisicaoListagem requisicaoListagem) {
-        Filtro<E> filtro = requisicaoListagem.getFiltro();
+        Filtro filtro = requisicaoListagem.getFiltro();
+        Ordenador ordenador = requisicaoListagem.getOrdenador();
         Paginador paginador = requisicaoListagem.getPaginador();
-        
+
         MapSqlParameterSource parans = new MapSqlParameterSource();
         String select = selectComColunasListaveis;
 
-        select += filtro.getFiltros(atributosEntidade, parans) + requisicaoListagem.getOrdenacao() + paginador.getPaginacao(parans);
+        select += filtro.getFiltros(colunasListaveisEntidade, parans) + ordenador.getOrdenacao() + paginador.getPaginacao(parans);
         List<Map<String, Object>> resultado = jdbcTemplate.query(select, parans, new MapRowMapper());
 
-        Long numeroDePaginas;
-
-        try {
-            numeroDePaginas = (long) Math.ceil(Double.longBitsToDouble(calcularNumeroTotalRegistros(filtro)) / Double.longBitsToDouble(paginador.getNumeroItensPorPagina()));
-        } catch (Exception e) {
-            numeroDePaginas = new Long(1);
-        }
-
-        return new ResultadoListagem(numeroDePaginas, resultado);
+        return new ResultadoListagem(calcularNumeroTotalRegistros(filtro), resultado);
     }
 
     public Map<String, Object> localizar(Long id) {
@@ -115,35 +109,35 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
     }
 
-    private Map<String, Field> getMapAtributosCammand(C command) throws SecurityException {
+    private Map<String, Field> getMapAtributosCammand(C command) {
         Class<? extends Object> commandClass = command.getClass();
         Field[] atributosDoCommand = commandClass.getDeclaredFields();
         Map<String, Field> mapAtributos = new HashMap<>();
         for (Field atributoCommand : atributosDoCommand) {
-            AtributoCommand[] annotationsDoAtributo = atributoCommand.getAnnotationsByType(AtributoCommand.class);
-            if (annotationsDoAtributo.length == 1) {
-                adicionarAtributoCommandNoMap(annotationsDoAtributo, atributoCommand, mapAtributos);
+            AtributoCommand anotacaoDoAtributo = atributoCommand.getAnnotation(AtributoCommand.class);
+            if (anotacaoDoAtributo != null) {
+                adicionarAtributoCommandNoMap(anotacaoDoAtributo, atributoCommand, mapAtributos);
             }
         }
         return mapAtributos;
     }
 
-    private void adicionarAtributoCommandNoMap(AtributoCommand[] annotationsDoAtributo, Field atributoCommand, Map<String, Field> mapAtributos) {
+    private void adicionarAtributoCommandNoMap(AtributoCommand anotacaoDoAtributo, Field atributoCommand, Map<String, Field> mapAtributos) {
         String equivalente;
-        if ("".equals(annotationsDoAtributo[0].equivalente())) {
+        if ("".equals(anotacaoDoAtributo.equivalente())) {
             equivalente = atributoCommand.getName();
         } else {
-            equivalente = annotationsDoAtributo[0].equivalente();
+            equivalente = anotacaoDoAtributo.equivalente();
         }
         mapAtributos.put(equivalente, atributoCommand);
     }
 
     private Boolean validarCommand(C command) {
-        CommandEditar[] anotacoesCommand = command.getClass().getAnnotationsByType(CommandEditar.class);
+        CommandEditar anotacaoCommand = command.getClass().getAnnotation(CommandEditar.class);
 
-        return anotacoesCommand.length > 0;
+        return anotacaoCommand != null;
     }
- 
+
     private String montarSelectListar() {
         String sql = "SELECT ";
 
@@ -173,16 +167,16 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     protected <A extends Annotation> List<Field> getFieldsByAnnotation(Class<A> annotation) {
         List<Field> fields = new ArrayList<>();
-        for (Field atributoEntidade : atributosEntidade) {
-            A[] annotacoesDoAtributo = atributoEntidade.getAnnotationsByType(annotation);
-            if (annotacoesDoAtributo.length > 0) {
+        for (Field atributoEntidade : getClassEntity().getDeclaredFields()) {
+            A annotacaoDoAtributo = atributoEntidade.getAnnotation(annotation);
+            if (annotacaoDoAtributo != null) {
                 fields.add(atributoEntidade);
             }
         }
         return fields;
     }
 
-    protected Field getIdEntidade() {
+    private Field getIdEntidade() {
         List<Field> fieldId = getFieldsByAnnotation(Id.class);
         return fieldId.get(0);
     }
@@ -191,7 +185,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         MapSqlParameterSource parans = new MapSqlParameterSource();
 
         String sql = selectNumeroRegistros;
-        sql += filtro.getFiltros(atributosEntidade, parans);
+        sql += filtro.getFiltros(colunasListaveisEntidade, parans);
 
         Map<String, Object> resultado = this.jdbcTemplate.queryForObject(sql, parans, new MapRowMapper());
 
@@ -199,4 +193,23 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return numeroPaginas;
     }
 
+    private Map<Field, ColunaListavel> getMapFieldColunaListavel() {
+        Map<Field, ColunaListavel> mapFieldColunaListavel = new HashMap<>();
+        for (Field atributoEntidade : getClassEntity().getDeclaredFields()) {
+            ColunaListavel annotacaoDoAtributo = atributoEntidade.getAnnotation(ColunaListavel.class);//getAnnotationByType(atributoEntidade, ColunaListavel.class);
+            if (annotacaoDoAtributo != null) {
+                mapFieldColunaListavel.put(atributoEntidade, annotacaoDoAtributo);
+            }
+        }
+        return mapFieldColunaListavel;
+    }
+
+//    /*
+//     * getAnnotationByType era originalmente implementado na classe Field a
+//     * partir do java 8. Este simula o original de forma estrutural.
+//     */
+//    private <A extends Annotation> A getAnnotationByType(Field atributo, Class<A> anotacao) {
+//        return atributo.getAnnotation(anotacao);
+//        
+//    }
 }

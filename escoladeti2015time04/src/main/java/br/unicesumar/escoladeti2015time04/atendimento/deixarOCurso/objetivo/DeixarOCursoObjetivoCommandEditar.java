@@ -1,4 +1,4 @@
-package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo;
+package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo;
 
 import br.unicesumar.escoladeti2015time04.utils.service.AtributoCommand;
 import br.unicesumar.escoladeti2015time04.utils.service.CommandEditar;
@@ -8,18 +8,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
 
 @CommandEditar
-public class DeixarOCursoMotivoCommandEditar {
+public class DeixarOCursoObjetivoCommandEditar {
 
     @AtributoCommand(tipoAtributo = TipoAtributoCommand.id)
     private final Long id;
 
-    @AtributoCommand()
+    @AtributoCommand
     @Column(nullable = false)
     private final String descricao;
 
     @JsonCreator
-
-    public DeixarOCursoMotivoCommandEditar(@JsonProperty("id") Long id, @JsonProperty("descricao") String descricao) {
+    public DeixarOCursoObjetivoCommandEditar(@JsonProperty("id") Long id, @JsonProperty("descricao") String descricao) {
         this.id = id;
         this.descricao = descricao;
     }

@@ -2,6 +2,8 @@ package br.unicesumar.escoladeti2015time04.utils;
 
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivo;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivoService;
+import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivo;
+import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivoService;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcessoService;
 import br.unicesumar.escoladeti2015time04.usuario.Senha;
@@ -20,12 +22,15 @@ public class Initializer {
     private UsuarioService usuarioService;
     @Autowired
     private DeixarOCursoMotivoService deixarOCursoMotivoService;
+    @Autowired
+    private DeixarOCursoObjetivoService deixarOCursoObjetivoService;
 
     @PostConstruct
     public void initialize() {
         inicializarItensAcesso();
         inicializarAdministrador();
         inicializarAtendimentoDeixarOCursoMotivo();
+        inicializarAtendimentoDeixarOCursoObjetivo();
     }
 
     private void inicializarItensAcesso() {
@@ -59,6 +64,15 @@ public class Initializer {
         deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Trabalho"));
         deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Transferência para outra IES"));
         deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Outros"));
+    }
+
+    private void inicializarAtendimentoDeixarOCursoObjetivo() {
+        deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Trancamento"));
+        deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Transferência"));
+        deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Transferência EAD"));
+        deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Cancelamento"));
+        deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Permanência"));
+
     }
 
 }
