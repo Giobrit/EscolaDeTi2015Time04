@@ -23,15 +23,15 @@
                             <table class="table table-hover table-condensed table-responsive">
                                 <thead>
                                     <tr>
-                                        <th ng-click="alterarOrdenacao('nome')" class="col-md-5">Nome</th>
-                                        <th ng-click="alterarOrdenacao('login')" class="col-md-2">Login</th>
-                                        <th ng-click="alterarOrdenacao('email')" class="col-md-2">Email</th>
+                                        <th ng-click="alterarOrdenacao('nome')" class="col-md-5">Nome<span class="glyphicon glyphicon-menu-down pull-right" aria-hidden="true"></span></th>
+                                        <th ng-click="alterarOrdenacao('login')" class="col-md-2">Login<span class="glyphicon glyphicon-menu-down pull-right" aria-hidden="true"></span></th>
+                                        <th ng-click="alterarOrdenacao('email')" class="col-md-2">Email<span class="glyphicon glyphicon-menu-down pull-right" aria-hidden="true"></span></th>
                                         <th ng-click="alterarOrdenacao('status')" class="col-md-1">Ação</th>
                                         <th class="col-md-1">Opção</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="u in usuarios">
+                                    <tr dir-paginate="u in usuarios | itemsPerPage: numeroItensPorPagina" total-items="35" current-page="paginaAtual">
                                         <td>{{u.nome}}</td>
                                         <td>{{u.login}}</td>
                                         <td>{{u.email}}</td>
@@ -43,7 +43,6 @@
                                             <span>
                                                 <a data-toggle="modal" data-target="#myModal" type="button" class="tooltip, btn btn-primary botaoEditar" title="Alterar senha" ng-click="setUsuarioAlterandoSenha(u)"><span><img src="../../bibliotecas/img/password.png"></span></a>
                                                 <a href="#/Usuario/form/{{u.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-
                                             </span>
                                         </td>
                                     </tr>
@@ -53,22 +52,9 @@
                     </div> 
                 </div>
                 <div class="row">
-                    <div class="col-md-11">
-                        <div class="col-md-offset-6">
-                            <nav>
-                                <ul class="pagination" id="paginacao">
-                                    <li>
-                                        <a href="" ng-click="alterarPagina(paginaAtual - 1)" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="" ng-click="alterarPagina(paginaAtual + 1)" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/usuario/paginacao.html"></dir-pagination-controls>
                         </div>
                     </div>
                 </div>
@@ -76,7 +62,8 @@
         </div>
     </div>
 </form>
-<form name="modalUsuario" novalidate ng-init="init()">
+
+<form name="modalUsuario">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
