@@ -1,86 +1,53 @@
 package br.unicesumar.escoladeti2015time04.atendimento;
 
-import br.unicesumar.escoladeti2015time04.usuario.Usuario;
-import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "atendimento")
-public class Atendimento implements Serializable {
+public class AtendimentoCommandInserir {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(nullable = false)
     protected Long id;
 
-    @ColunaListavel
-    @Column(unique = true, nullable = false)
-    @Temporal(value = TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     protected Date data;
 
-    @ManyToOne
-    @JoinColumn(name = "usuariologado", nullable = false)
-    protected Usuario usuarioLogado;
-
-    @ColunaListavel
     @Column(nullable = false)
     protected String ra;
 
-    @ColunaListavel
     @Column(nullable = false)
     protected String centro;
 
-    @ColunaListavel
-    @Column(name = "nomealuno", nullable = false)
+    @Column(nullable = false)
     protected String nomeAluno;
 
-    @ColunaListavel
     @Column(nullable = false)
     protected String curso;
 
-    @ColunaListavel
-    @Column(name = "seriesemestre", nullable = false)
+    @Column(nullable = false)
     protected int serieSemestre;
 
-    @ColunaListavel
     @Column(nullable = false)
     protected String turno;
 
-    @ColunaListavel
     @Column(nullable = false)
     protected Boolean matriculado;
 
-    @ColunaListavel
-    @Column(name = "bolsafinanciamento", nullable = false)
+    @Column(nullable = false)
     protected String bolsaFinanciamento;
 
-    @ColunaListavel
-    @Column(name = "descricaopublica", nullable = false)
+    @Column(nullable = false)
     protected String descricaoPublica;
 
-    @ColunaListavel
-    @Column(name = "descricaoprivada", nullable = false)
+    @Column(nullable = false)
     protected String descricaoPrivada;
 
-    public Atendimento(Long id, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
+    public AtendimentoCommandInserir() {
+    }
 
+    public AtendimentoCommandInserir(Long id, Date data, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
         this.id = id;
         this.data = data;
-        this.usuarioLogado = usuarioLogado;
         this.ra = ra;
         this.centro = centro;
         this.nomeAluno = nomeAluno;
@@ -91,9 +58,6 @@ public class Atendimento implements Serializable {
         this.bolsaFinanciamento = bolsaFinanciamento;
         this.descricaoPublica = descricaoPublica;
         this.descricaoPrivada = descricaoPrivada;
-    }
-
-    public Atendimento() {
     }
 
     public Long getId() {
@@ -110,14 +74,6 @@ public class Atendimento implements Serializable {
 
     public void setData(Date data) {
         this.data = data;
-    }
-
-    public Usuario getUsuarioLogado() {
-        return usuarioLogado;
-    }
-
-    public void setUsuarioLogado(Usuario usuarioLogado) {
-        this.usuarioLogado = usuarioLogado;
     }
 
     public String getRa() {
@@ -215,7 +171,7 @@ public class Atendimento implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Atendimento other = (Atendimento) obj;
+        final AtendimentoCommandInserir other = (AtendimentoCommandInserir) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -224,6 +180,7 @@ public class Atendimento implements Serializable {
 
     @Override
     public String toString() {
-        return "Atendimento{" + "id=" + id + ", data=" + data + ", usuarioLogado=" + usuarioLogado + ", ra=" + ra + ", centro=" + centro + ", nomeAluno=" + nomeAluno + ", curso=" + curso + ", serieSemestre=" + serieSemestre + ", turno=" + turno + ", matriculado=" + matriculado + ", bolsaFinanciamento=" + bolsaFinanciamento + ", descricaoPublica=" + descricaoPublica + ", descricaoPrivada=" + descricaoPrivada + '}';
+        return "AtendimentoCommandInserir{" + "id=" + id + ", data=" + data + ", ra=" + ra + ", centro=" + centro + ", nomeAluno=" + nomeAluno + ", curso=" + curso + ", serieSemestre=" + serieSemestre + ", turno=" + turno + ", matriculado=" + matriculado + ", bolsaFinanciamento=" + bolsaFinanciamento + ", descricaoPublica=" + descricaoPublica + ", descricaoPrivada=" + descricaoPrivada + '}';
     }
+
 }
