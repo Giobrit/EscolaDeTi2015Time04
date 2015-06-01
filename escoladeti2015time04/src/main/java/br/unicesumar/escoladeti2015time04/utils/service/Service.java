@@ -115,8 +115,8 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     public Map<String, Object> localizar(Long id) {
-        String listarUsuario = this.select + this.from + " where " + getClassEntity().getSimpleName() + "." + idEntidade.getName() + " = :id";
-        
+        String listarUsuario = this.select + "," + getCamposQuery() + this.from + " where " + getClassEntity().getSimpleName() + "." + idEntidade.getName() + " = :id";
+
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
 
@@ -164,19 +164,19 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     protected String montarSelectListar() {
-        String select = "SELECT ";
+        String selectComId = "SELECT ";
 
-        select += getClassEntity().getSimpleName() + "." + idEntidade.getName();
+        selectComId += getClassEntity().getSimpleName() + "." + idEntidade.getName();
 
-        return select + "  ";
+        return selectComId + "  ";
     }
 
     protected String montarFromListar() {
-        String from = " FROM ";
+        String fromDoSelect = " FROM ";
 
-        from += getClassEntity().getSimpleName();
+        fromDoSelect += getClassEntity().getSimpleName();
 
-        return from + "  ";
+        return fromDoSelect + "  ";
     }
 
     protected String getCamposQuery() {
