@@ -2,7 +2,7 @@ AppModule.controller("controllerFormObjetivoDeixarOCurso", controllerFormObjetiv
 
 AppModule.controller("controllerListObjetivoDeixarOCurso", controllerListObjetivoDeixarOCurso);
 
-function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $location) {
+function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $location, growl, $timeout) {
 
     $scope.init = function () {
         limparTela();
@@ -22,8 +22,11 @@ function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $locati
         }
         
         function onSuccess() {
+            $timeout(success,100);
             $location.path("AtendimentoDeixarOCurso/Objetivo/list");
-            alert("Objetivo salvo com sucesso");
+        }
+        function success(){
+            growl.success("Objetivo salvo com sucesso");
         }
     };
 
@@ -40,11 +43,11 @@ function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $locati
     }
 
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 }
 
-function controllerListObjetivoDeixarOCurso($scope, $http) {
+function controllerListObjetivoDeixarOCurso($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
     $scope.totalPaginas = 1;
@@ -102,7 +105,7 @@ function controllerListObjetivoDeixarOCurso($scope, $http) {
     };
     
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 
 }
