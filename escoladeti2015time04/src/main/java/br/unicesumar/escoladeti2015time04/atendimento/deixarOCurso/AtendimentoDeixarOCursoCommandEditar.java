@@ -34,13 +34,13 @@ public class AtendimentoDeixarOCursoCommandEditar extends AtendimentoCommandEdit
     private DeixarOCursoObjetivo objetivo;
 
     public AtendimentoDeixarOCursoCommandEditar(@JsonProperty("id") Long id, @JsonProperty("protocolo") Long protocolo,
-            @JsonProperty("coordenadordiretor") String coordenadorDiretor, @JsonProperty("transferencia") String transferencia,
-            @JsonProperty("numeroreprovacoes") int numeroReprovacoes, @JsonProperty("motivo") DeixarOCursoMotivo motivo,
+            @JsonProperty("coordenadorDiretor") String coordenadorDiretor, @JsonProperty("transferencia") String transferencia,
+            @JsonProperty("numeroReprovacoes") int numeroReprovacoes, @JsonProperty("motivo") DeixarOCursoMotivo motivo,
             @JsonProperty("objetivo") DeixarOCursoObjetivo objetivo, @JsonProperty("data") Date data, @JsonProperty("ra") String ra,
-            @JsonProperty("centro") String centro, @JsonProperty("nomealuno") String nomeAluno, @JsonProperty("curso") String curso,
-            @JsonProperty("seriesemestre") int serieSemestre, @JsonProperty("turno") String turno,
-            @JsonProperty("matriculado") Boolean matriculado, @JsonProperty("bolsafinanciamento") String bolsaFinanciamento,
-            @JsonProperty("descricaopublica") String descricaoPublica, @JsonProperty("descricaoprivada") String descricaoPrivada) {
+            @JsonProperty("centro") String centro, @JsonProperty("nomeAluno") String nomeAluno, @JsonProperty("curso") String curso,
+            @JsonProperty("serieSemestre") int serieSemestre, @JsonProperty("turno") String turno,
+            @JsonProperty("matriculado") Boolean matriculado, @JsonProperty("bolsaFinanciamento") String bolsaFinanciamento,
+            @JsonProperty("descricaoPublica") String descricaoPublica, @JsonProperty("descricaoPrivada") String descricaoPrivada) {
         this.id = id;
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;

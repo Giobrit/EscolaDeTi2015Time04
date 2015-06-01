@@ -112,6 +112,10 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
     }
 
+    public E localizarObjeto(Long id) {
+        return (E) repository.getOne(id);
+    }
+
     private Map<String, Field> getMapAtributosCammand(Class classCommand) {
         if (!validarCommand(classCommand)) {
             return new HashMap<>();
