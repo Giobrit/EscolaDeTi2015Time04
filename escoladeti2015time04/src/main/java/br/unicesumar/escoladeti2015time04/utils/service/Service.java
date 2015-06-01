@@ -111,15 +111,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         selectParaListagem += filtro.getFiltros(colunasListaveisEntidade, parans) + ordenador.getOrdenacao() + paginador.getPaginacao(parans);
         List<Map<String, Object>> resultado = jdbcTemplate.query(selectParaListagem, parans, new MapRowMapper());
 
-        Long numeroDePaginas;
-
-        try {
-            numeroDePaginas = (long) Math.ceil(Double.longBitsToDouble(calcularNumeroTotalRegistros(filtro)) / Double.longBitsToDouble(paginador.getNumeroItensPorPagina()));
-        } catch (Exception e) {
-            numeroDePaginas = new Long(1);
-        }
-
-        return new ResultadoListagem(numeroDePaginas, resultado);
+        return new ResultadoListagem(calcularNumeroTotalRegistros(filtro), resultado);
     }
 
     public Map<String, Object> localizar(Long id) {
