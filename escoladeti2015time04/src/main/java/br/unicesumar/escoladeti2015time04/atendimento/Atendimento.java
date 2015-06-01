@@ -37,7 +37,7 @@ public class Atendimento implements Serializable {
     protected Usuario usuarioLogado;
 
     @ColunaListavel
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     protected String ra;
 
     @ColunaListavel
@@ -76,6 +76,25 @@ public class Atendimento implements Serializable {
     @Column(name = "descricaoprivada", nullable = false)
     protected String descricaoPrivada;
 
+    public Atendimento() {
+    }
+
+    public Atendimento(Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
+
+        this.data = data;
+        this.usuarioLogado = usuarioLogado;
+        this.ra = ra;
+        this.centro = centro;
+        this.nomeAluno = nomeAluno;
+        this.curso = curso;
+        this.serieSemestre = serieSemestre;
+        this.turno = turno;
+        this.matriculado = matriculado;
+        this.bolsaFinanciamento = bolsaFinanciamento;
+        this.descricaoPublica = descricaoPublica;
+        this.descricaoPrivada = descricaoPrivada;
+    }
+
     public Atendimento(Long id, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
 
         this.id = id;
@@ -91,9 +110,6 @@ public class Atendimento implements Serializable {
         this.bolsaFinanciamento = bolsaFinanciamento;
         this.descricaoPublica = descricaoPublica;
         this.descricaoPrivada = descricaoPrivada;
-    }
-
-    public Atendimento() {
     }
 
     public Long getId() {

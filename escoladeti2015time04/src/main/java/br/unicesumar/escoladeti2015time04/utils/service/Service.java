@@ -115,12 +115,16 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     public Map<String, Object> localizar(Long id) {
-        String listarUsuario = select + " where " + idEntidade.getName() + " = :id";
-
+        String listarUsuario = this.select + this.from + " where " + getClassEntity().getSimpleName() + "." + idEntidade.getName() + " = :id";
+        
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
 
         return jdbcTemplate.queryForObject(listarUsuario, params, new MapRowMapper());
+    }
+
+    public E localizarObjeto(Long id) {
+        return (E) repository.getOne(id);
     }
 
     private Map<String, Field> getMapAtributosCammand(Class classCommand) {
