@@ -39,7 +39,9 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         String select;
 
         select = super.montarSelectListar();
-        select += "inner join atendimento a on a.id = atendimentoDeixarOCurso.id";
+        select += " inner join atendimento a on a.id = atendimentoDeixarOCurso.id";
+        select += " inner join deixarocursomotivo m on m.id = atendimentoDeixarOCurso.motivo";
+        select += " inner join deixarocursoObjetivo o on o.id = atendimentoDeixarOCurso.objetivo";
 
         return select;
     }
@@ -52,7 +54,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
     public void criar(AtendimentoDeixarOCursoCommandInserir commandInserir) {
         final DeixarOCursoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(commandInserir.getIdMotivo());
         final DeixarOCursoObjetivo objetivo = deixarOCursoObjetivoService.localizarObjeto(commandInserir.getIdObjetivo());
-        final Usuario usuario = usuarioService.localizarObjeto(Long.MIN_VALUE + 1);
+        final Usuario usuario = usuarioService.localizarObjeto(new Long(1));
 
         AtendimentoDeixarOCurso atendimentoDeixarOCurso = new AtendimentoDeixarOCurso(
                 commandInserir.getProtocolo(),

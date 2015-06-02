@@ -27,16 +27,16 @@ public class AtendimentoDeixarOCursoCommandEditar extends AtendimentoCommandEdit
 
     @AtributoCommand
     @Column(nullable = false)
-    private DeixarOCursoMotivo motivo;
+    private Long idMotivo;
 
     @AtributoCommand
     @Column(nullable = false)
-    private DeixarOCursoObjetivo objetivo;
+    private Long idObjetivo;
 
     public AtendimentoDeixarOCursoCommandEditar(@JsonProperty("id") Long id, @JsonProperty("protocolo") Long protocolo,
             @JsonProperty("coordenadorDiretor") String coordenadorDiretor, @JsonProperty("transferencia") String transferencia,
-            @JsonProperty("numeroReprovacoes") int numeroReprovacoes, @JsonProperty("motivo") DeixarOCursoMotivo motivo,
-            @JsonProperty("objetivo") DeixarOCursoObjetivo objetivo, @JsonProperty("data") Date data, @JsonProperty("ra") String ra,
+            @JsonProperty("numeroReprovacoes") int numeroReprovacoes, @JsonProperty("motivo") Long idMotivo,
+            @JsonProperty("objetivo") Long idObjetivo, @JsonProperty("data") Date data, @JsonProperty("ra") String ra,
             @JsonProperty("centro") String centro, @JsonProperty("nomeAluno") String nomeAluno, @JsonProperty("curso") String curso,
             @JsonProperty("serieSemestre") int serieSemestre, @JsonProperty("turno") String turno,
             @JsonProperty("matriculado") Boolean matriculado, @JsonProperty("bolsaFinanciamento") String bolsaFinanciamento,
@@ -46,8 +46,8 @@ public class AtendimentoDeixarOCursoCommandEditar extends AtendimentoCommandEdit
         this.coordenadorDiretor = coordenadorDiretor;
         this.transferencia = transferencia;
         this.numeroReprovacoes = numeroReprovacoes;
-        this.motivo = motivo;
-        this.objetivo = objetivo;
+        this.idMotivo = idMotivo;
+        this.idObjetivo = idObjetivo;
         this.data = data;
         this.ra = ra;
         this.centro = centro;
@@ -81,12 +81,12 @@ public class AtendimentoDeixarOCursoCommandEditar extends AtendimentoCommandEdit
         return numeroReprovacoes;
     }
 
-    public DeixarOCursoMotivo getMotivo() {
-        return motivo;
+    public Long getIdMotivo() {
+        return idMotivo;
     }
 
-    public DeixarOCursoObjetivo getObjetivo() {
-        return objetivo;
+    public Long getIdObjetivo() {
+        return idObjetivo;
     }
 
 }

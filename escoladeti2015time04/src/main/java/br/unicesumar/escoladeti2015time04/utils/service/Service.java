@@ -158,9 +158,14 @@ public abstract class Service<E, R extends JpaRepository, C> {
         sql += getClassEntity().getSimpleName() + "." + idEntidade.getName() + ",";
 
         for (Map.Entry<Field, ColunaListavel> colunasListaveis : colunasListaveisEntidade.entrySet()) {
-            Field key = colunasListaveis.getKey();
-            ColunaListavel value = colunasListaveis.getValue();
-            sql += key.getName() + ",";
+            Field campo = colunasListaveis.getKey();
+            ColunaListavel colunaListavel = colunasListaveis.getValue();
+            
+            if ("".equals(colunaListavel.nomeNaQuery())) {
+                sql += campo.getName() + ",";
+            } else {
+                sql += colunaListavel.nomeNaQuery() +",";
+            }
         }
 
         sql = sql.substring(0, sql.length() - 1);
