@@ -7,6 +7,7 @@ import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.Deix
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.usuario.UsuarioService;
 import br.unicesumar.escoladeti2015time04.utils.service.Service;
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,19 +32,21 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel(getClassEntity().getSuperclass()));
         this.idEntidade = getIdEntidade(getClassEntity().getSuperclass());
         this.select = montarSelectListar();
+        this.from = montarFromListar();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros(getClassEntity().getSuperclass());
     }
 
     @Override
-    protected String montarSelectListar() {
-        String select;
+    protected String montarFromListar() {
+        String fromDoSelect;
 
-        select = super.montarSelectListar();
-        select += " inner join atendimento a on a.id = atendimentoDeixarOCurso.id";
-        select += " inner join deixarocursomotivo m on m.id = atendimentoDeixarOCurso.motivo";
-        select += " inner join deixarocursoObjetivo o on o.id = atendimentoDeixarOCurso.objetivo";
+        fromDoSelect = super.montarFromListar();
 
-        return select;
+        fromDoSelect += " inner join atendimento a on a.id = atendimentoDeixarOCurso.id";
+        fromDoSelect += " inner join deixarocursomotivo m on m.id = atendimentoDeixarOCurso.motivo";
+        fromDoSelect += " inner join deixarocursoObjetivo o on o.id = atendimentoDeixarOCurso.objetivo";
+
+        return fromDoSelect + "  ";
     }
 
     @Override
@@ -98,7 +101,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         atendimentoDeixarOCurso.setNumeroReprovacoes(command.getNumeroReprovacoes());
         atendimentoDeixarOCurso.setMotivo(motivo);
         atendimentoDeixarOCurso.setObjetivo(objetivo);
-        
+
         repository.save(atendimentoDeixarOCurso);
 
     }

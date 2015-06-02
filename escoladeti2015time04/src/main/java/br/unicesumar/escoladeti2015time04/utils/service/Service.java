@@ -207,7 +207,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
                 continue;
             }
 
-            campos = getCampoEmUmaQuery(colunaListavel, campo);
+            campos += getCampoEmUmaQuery(colunaListavel, campo);
         }
 
         campos = campos.substring(0, campos.length() - 1);
