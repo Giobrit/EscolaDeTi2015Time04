@@ -76,4 +76,8 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         super.criar(atendimentoDeixarOCurso);
     }
 
+    @Override
+    public void editar(AtendimentoDeixarOCursoCommandEditar command) {
+        super.editar(command); //To change body of generated methods, choose Tools | Templates.
+    }
 }
