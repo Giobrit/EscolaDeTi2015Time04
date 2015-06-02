@@ -78,6 +78,28 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
 
     @Override
     public void editar(AtendimentoDeixarOCursoCommandEditar command) {
-        super.editar(command); //To change body of generated methods, choose Tools | Templates.
+        repository.getOne(command.getId());
+        final DeixarOCursoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(command.getIdMotivo());
+        final DeixarOCursoObjetivo objetivo = deixarOCursoObjetivoService.localizarObjeto(command.getIdObjetivo());
+
+        AtendimentoDeixarOCurso atendimentoDeixarOCurso = repository.getOne(command.getId());
+        atendimentoDeixarOCurso.setData(command.getData());
+        atendimentoDeixarOCurso.setCentro(command.getCentro());
+        atendimentoDeixarOCurso.setNomeAluno(command.getNomeAluno());
+        atendimentoDeixarOCurso.setCurso(command.getCurso());
+        atendimentoDeixarOCurso.setSerieSemestre(command.getSerieSemestre());
+        atendimentoDeixarOCurso.setTurno(command.getTurno());
+        atendimentoDeixarOCurso.setMatriculado(command.getMatriculado());
+        atendimentoDeixarOCurso.setBolsaFinanciamento(command.getBolsaFinanciamento());
+        atendimentoDeixarOCurso.setDescricaoPublica(command.getDescricaoPublica());
+        atendimentoDeixarOCurso.setDescricaoPrivada(command.getDescricaoPrivada());
+        atendimentoDeixarOCurso.setProtocolo(command.getProtocolo());
+        atendimentoDeixarOCurso.setCoordenadorDiretor(command.getCoordenadorDiretor());
+        atendimentoDeixarOCurso.setNumeroReprovacoes(command.getNumeroReprovacoes());
+        atendimentoDeixarOCurso.setMotivo(motivo);
+        atendimentoDeixarOCurso.setObjetivo(objetivo);
+        
+        repository.save(atendimentoDeixarOCurso);
+
     }
 }
