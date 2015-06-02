@@ -39,7 +39,9 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         String select;
 
         select = super.montarSelectListar();
-        select += "inner join atendimento a on a.id = atendimentoDeixarOCurso.id";
+        select += " inner join atendimento a on a.id = atendimentoDeixarOCurso.id";
+        select += " inner join deixarocursomotivo m on m.id = atendimentoDeixarOCurso.motivo";
+        select += " inner join deixarocursoObjetivo o on o.id = atendimentoDeixarOCurso.objetivo";
 
         return select;
     }
@@ -52,7 +54,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
     public void criar(AtendimentoDeixarOCursoCommandInserir commandInserir) {
         final DeixarOCursoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(commandInserir.getIdMotivo());
         final DeixarOCursoObjetivo objetivo = deixarOCursoObjetivoService.localizarObjeto(commandInserir.getIdObjetivo());
-        final Usuario usuario = usuarioService.localizarObjeto(Long.MIN_VALUE + 1);
+        final Usuario usuario = usuarioService.localizarObjeto(new Long(1));
 
         AtendimentoDeixarOCurso atendimentoDeixarOCurso = new AtendimentoDeixarOCurso(
                 commandInserir.getProtocolo(),
@@ -74,4 +76,30 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         super.criar(atendimentoDeixarOCurso);
     }
 
+    @Override
+    public void editar(AtendimentoDeixarOCursoCommandEditar command) {
+        repository.getOne(command.getId());
+        final DeixarOCursoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(command.getIdMotivo());
+        final DeixarOCursoObjetivo objetivo = deixarOCursoObjetivoService.localizarObjeto(command.getIdObjetivo());
+
+        AtendimentoDeixarOCurso atendimentoDeixarOCurso = repository.getOne(command.getId());
+        atendimentoDeixarOCurso.setData(command.getData());
+        atendimentoDeixarOCurso.setCentro(command.getCentro());
+        atendimentoDeixarOCurso.setNomeAluno(command.getNomeAluno());
+        atendimentoDeixarOCurso.setCurso(command.getCurso());
+        atendimentoDeixarOCurso.setSerieSemestre(command.getSerieSemestre());
+        atendimentoDeixarOCurso.setTurno(command.getTurno());
+        atendimentoDeixarOCurso.setMatriculado(command.getMatriculado());
+        atendimentoDeixarOCurso.setBolsaFinanciamento(command.getBolsaFinanciamento());
+        atendimentoDeixarOCurso.setDescricaoPublica(command.getDescricaoPublica());
+        atendimentoDeixarOCurso.setDescricaoPrivada(command.getDescricaoPrivada());
+        atendimentoDeixarOCurso.setProtocolo(command.getProtocolo());
+        atendimentoDeixarOCurso.setCoordenadorDiretor(command.getCoordenadorDiretor());
+        atendimentoDeixarOCurso.setNumeroReprovacoes(command.getNumeroReprovacoes());
+        atendimentoDeixarOCurso.setMotivo(motivo);
+        atendimentoDeixarOCurso.setObjetivo(objetivo);
+        
+        repository.save(atendimentoDeixarOCurso);
+
+    }
 }

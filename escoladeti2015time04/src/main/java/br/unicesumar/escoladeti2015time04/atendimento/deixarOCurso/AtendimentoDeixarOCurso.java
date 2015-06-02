@@ -33,12 +33,12 @@ public class AtendimentoDeixarOCurso extends Atendimento implements Serializable
     private int numeroReprovacoes;
 
     @ManyToOne
-    @ColunaListavel
+    @ColunaListavel(nomeNaQuery = "m.descricao as motivo")
     @JoinColumn(name = "motivo", nullable = false)
     private DeixarOCursoMotivo motivo;
 
     @ManyToOne
-    @ColunaListavel
+    @ColunaListavel(nomeNaQuery = "o.descricao as objetivo")
     @JoinColumn(name = "objetivo", nullable = false)
     private DeixarOCursoObjetivo objetivo;
 
@@ -68,36 +68,44 @@ public class AtendimentoDeixarOCurso extends Atendimento implements Serializable
         return protocolo;
     }
 
+    public void setProtocolo(Long protocolo) {
+        this.protocolo = protocolo;
+    }
+
     public String getCoordenadorDiretor() {
         return coordenadorDiretor;
-    }
-
-    public String getTransferencia() {
-        return transferencia;
-    }
-
-    public int getNumeroReprovacoes() {
-        return numeroReprovacoes;
-    }
-
-    public DeixarOCursoMotivo getMotivo() {
-        return motivo;
-    }
-
-    public DeixarOCursoObjetivo getObjetivo() {
-        return objetivo;
     }
 
     public void setCoordenadorDiretor(String coordenadorDiretor) {
         this.coordenadorDiretor = coordenadorDiretor;
     }
 
+    public String getTransferencia() {
+        return transferencia;
+    }
+
     public void setTransferencia(String transferencia) {
         this.transferencia = transferencia;
     }
 
+    public int getNumeroReprovacoes() {
+        return numeroReprovacoes;
+    }
+
+    public void setNumeroReprovacoes(int numeroReprovacoes) {
+        this.numeroReprovacoes = numeroReprovacoes;
+    }
+
+    public DeixarOCursoMotivo getMotivo() {
+        return motivo;
+    }
+
     public void setMotivo(DeixarOCursoMotivo motivo) {
         this.motivo = motivo;
+    }
+
+    public DeixarOCursoObjetivo getObjetivo() {
+        return objetivo;
     }
 
     public void setObjetivo(DeixarOCursoObjetivo objetivo) {

@@ -182,10 +182,10 @@ public abstract class Service<E, R extends JpaRepository, C> {
     protected String getCamposQuery() {
         String campos = "";
         for (Map.Entry<Field, ColunaListavel> colunasListaveis : colunasListaveisEntidade.entrySet()) {
-            Field key = colunasListaveis.getKey();
-            ColunaListavel value = colunasListaveis.getValue();
+            Field campo = colunasListaveis.getKey();
+            ColunaListavel colunaListavel = colunasListaveis.getValue();
 
-            campos += key.getName() + ",";
+            campos += getCampoEmUmaQuery(colunaListavel, campo);
         }
 
         campos = campos.substring(0, campos.length() - 1);
@@ -200,19 +200,31 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
         String campos = " ";
         for (Map.Entry<Field, ColunaListavel> colunasListaveis : colunasListaveisEntidade.entrySet()) {
-            Field key = colunasListaveis.getKey();
-            ColunaListavel value = colunasListaveis.getValue();
+            Field campo = colunasListaveis.getKey();
+            ColunaListavel colunaListavel = colunasListaveis.getValue();
 
-            if (!colunasRetornadas.contains(key.getName())) {
+            if (!colunasRetornadas.contains(campo.getName())) {
                 continue;
             }
 
-            campos += key.getName() + ",";
+            campos = getCampoEmUmaQuery(colunaListavel, campo);
         }
 
         campos = campos.substring(0, campos.length() - 1);
 
         return campos + " ";
+    }
+
+    private String getCampoEmUmaQuery(ColunaListavel colunaListavel, Field campo) {
+        String campoString;
+
+        if ("".equals(colunaListavel.nomeNaQuery())) {
+            campoString = campo.getName();
+        } else {
+            campoString = colunaListavel.nomeNaQuery();
+        }
+
+        return campoString + ",";
     }
 
     protected String montarSelectNumeroTotalRegistros() {
