@@ -18,6 +18,7 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -98,6 +99,28 @@ public abstract class Service<E, R extends JpaRepository, C> {
         Paginador paginador = requisicaoListagem.getPaginador();
         Set<String> colunasRetornadas = requisicaoListagem.getColunasVisiveis();
 
+        return listar(colunasRetornadas, filtro, ordenador, paginador);
+    }
+
+    protected ResultadoListagem<E> listar(Set<String> colunasRetornadas) throws DataAccessException {
+        return listar(colunasRetornadas, new Filtro());
+    }
+
+    protected ResultadoListagem<E> listar(Set<String> colunasRetornadas, Filtro filtro) throws DataAccessException {
+        return listar(colunasRetornadas, filtro, new Ordenador(idEntidade.getName()));
+    }
+
+    protected ResultadoListagem<E> listar(Set<String> colunasRetornadas, Filtro filtro, Ordenador ordenador) throws DataAccessException {
+        return listar(colunasRetornadas, filtro, ordenador, new Paginador() {
+
+            @Override
+            public String getPaginacao(MapSqlParameterSource parans) {
+                return "";
+            }
+        });
+    }
+
+    protected ResultadoListagem<E> listar(Set<String> colunasRetornadas, Filtro filtro, Ordenador ordenador, Paginador paginador) throws DataAccessException {
         MapSqlParameterSource parans = new MapSqlParameterSource();
 
         String camposQuery = getCamposQuery(colunasRetornadas);
