@@ -20,10 +20,11 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.editando = false;
     };
 
-    $scope.salvar = function () {        
+    $scope.salvar = function () {
+        alert(JSON.stringify($scope.atendimentoDeixarOCurso));
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
-        } else {
+        } else {            
             $http.post("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         }
 
