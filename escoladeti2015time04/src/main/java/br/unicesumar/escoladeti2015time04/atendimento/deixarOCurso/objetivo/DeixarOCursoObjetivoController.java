@@ -22,6 +22,11 @@ public class DeixarOCursoObjetivoController {
         service.criar(objetivo);
     }
 
+    @RequestMapping(value = "/listarAtivos", method = RequestMethod.GET)
+    public ResultadoListagem<DeixarOCursoObjetivo> listarAtivos() {
+        return this.service.listarAtivos();
+    }
+
     @RequestMapping(value = "/listar", method = RequestMethod.POST)
     public ResultadoListagem<DeixarOCursoObjetivo> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
         return this.service.listar(requisicaoListagem);
