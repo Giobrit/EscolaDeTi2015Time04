@@ -181,7 +181,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     private Boolean validarCommand(Class classCommand) {
-        Annotation anotacaoCommand = classCommand.getDeclaredAnnotation(CommandEditar.class);
+        Annotation anotacaoCommand = classCommand.getAnnotation(CommandEditar.class);
 
         return anotacaoCommand != null;
     }
