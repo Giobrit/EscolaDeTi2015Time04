@@ -9,4 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ColunaListavel {
     public PoliticaFiltragem politicaFiltro() default PoliticaFiltragem.VALOR_RELATIVO;
+    public String nomeNaQuery() default "";
 }
