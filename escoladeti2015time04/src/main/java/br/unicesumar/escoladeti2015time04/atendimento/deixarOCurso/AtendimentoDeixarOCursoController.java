@@ -28,7 +28,7 @@ public class AtendimentoDeixarOCursoController {
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public void criarAtendimentoDeixarOCurso(@RequestBody AtendimentoDeixarOCurso atendimentoDeixarOCurso) {
+    public void criarAtendimentoDeixarOCurso(@RequestBody AtendimentoDeixarOCursoCommandInserir atendimentoDeixarOCurso) {
         this.service.criar(atendimentoDeixarOCurso);
     }
     

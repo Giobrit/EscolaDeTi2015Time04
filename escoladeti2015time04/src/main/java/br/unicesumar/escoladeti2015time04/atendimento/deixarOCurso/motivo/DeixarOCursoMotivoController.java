@@ -22,6 +22,11 @@ public class DeixarOCursoMotivoController {
         return this.service.localizar(id);
     }
 
+    @RequestMapping(value = "/listarAtivos", method = RequestMethod.GET)
+    public ResultadoListagem<DeixarOCursoMotivo> listarAtivos() {
+        return this.service.listarAtivos();
+    }
+
     @RequestMapping(value = "/listar", method = RequestMethod.POST)
     public ResultadoListagem<DeixarOCursoMotivo> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
         return this.service.listar(requisicaoListagem);
