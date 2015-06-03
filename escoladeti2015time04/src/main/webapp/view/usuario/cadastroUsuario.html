@@ -95,7 +95,7 @@
                                     <input type="password" name="confirmarCadastro" placeholder="Informe a Senha Novamente" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.confirmar" ng-minlength="6" ng-maxlength="10" />                        
                                     <p ng-show="formUsuario.confirmarCadastro.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
                                     <p ng-show="formUsuario.confirmarCadastro.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
-                                    <p ng-show="usuario.confirmarCadastro != usuario.senhaCadastro" class="help-block">Senhas devem ser iguais.</p>
+                                    <p ng-show="usuario.confirmar !== usuario.senha" class="help-block">Senhas devem ser iguais.</p>
                                 </div>
                             </div>	
                         </div>
@@ -160,7 +160,7 @@
                                         <input type="password" name="confirmar" placeholder="Informe a Senha Novamente" class="form-control" aria-describedby="basic-addon2" ng-model="usuarioCommandEditarSenha.confirmar" ng-minlength="6" ng-maxlength="10" />                        
                                         <p ng-show="modalUsuario.confirmar.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
                                         <p ng-show="modalUsuario.confirmar.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
-                                        <p ng-show="usuarioCommandEditarSenha.confirmar != usuarioCommandEditarSenha.senha" class="help-block">Senhas devem ser iguais.</p>
+                                        <p ng-show="usuarioCommandEditarSenha.confirmar !== usuarioCommandEditarSenha.senha" class="help-block">Senhas devem ser iguais.</p>
                                     </div>
                                 </div>	
                             </div>
