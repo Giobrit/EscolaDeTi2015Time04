@@ -1,5 +1,6 @@
 AppModule.controller("controllerFormAtendimentoDeixarOCurso", controllerFormAtendimentoDeixarOCurso);
-
+var dataFormatada;
+var horaFormatada;
 function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location) {
 
     $scope.init = function () {
@@ -20,14 +21,17 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.editando = false;
     };
 
-    $scope.salvar = function () {    
+    $scope.salvar = function () {
+        montarCampoData();
+        alert($scope.atendimentoDeixarOCurso.data);
+        alert(JSON.stringify($scope.atendimentoDeixarOCurso));
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         } else {
             $http.post("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         }
 
-        function onSuccess() {            
+        function onSuccess() {
             $location.path("/atendimento/deixarOCurso/list");
             alert("Atendimento salvo com sucesso");
         }
@@ -37,7 +41,19 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $http.get("/atendimento/deixarOCurso/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
-            $scope.atendimentoDeixarOCurso = data;
+            var dataAux = new Date(data.data);
+              
+            alert(JSON.stringify(data));
+            $scope.atendimentoDeixarOCurso.protocolo = data.protocolo;
+            $scope.dataDeixarOCurso = dataAux;
+            $scope.horaDeixarOCurso = dataAux;
+            $scope.atendimentoDeixarOCurso.ra = data.ra;
+            $scope.atendimentoDeixarOCurso.transferencia = data.transferencia;
+            $scope.atendimentoDeixarOCurso.coordenadorDiretor = data.coordenadordiretor;            
+            $scope.atendimentoDeixarOCurso.descricaoPrivada = data.descricaoprivada;
+            $scope.atendimentoDeixarOCurso.descricaoPublica = data.descricaopublica;
+            
+            $scope.carregarAluno(data.ra);
         }
     };
 
@@ -78,10 +94,10 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.atendimentoDeixarOCurso.idMotivo = data.id;
     };
 
-    $scope.setMatriculado = function (data) {        
-        if(data === "Sim"){
+    $scope.setMatriculado = function (data) {
+        if (data === "Sim") {
             $scope.atendimentoDeixarOCurso.matriculado = true;
-        }else{
+        } else {
             $scope.atendimentoDeixarOCurso.matriculado = false;
         }
     };
@@ -93,23 +109,44 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.atendimentoDeixarOCurso.serieSemestre = aluno.serie;
         $scope.atendimentoDeixarOCurso.turno = aluno.turno;
         $scope.atendimentoDeixarOCurso.bolsaFinanciamento = aluno.bolsa;
-        $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;                
+        $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;
         $scope.matriculadoSelecionado = aluno.matriculado;
         $scope.setMatriculado(aluno.matriculado);
     }
-    
-    $scope.montarData = function (data){
-        var dataFormatada = new Date(data);
-        $scope.atendimentoDeixarOCurso.data =  dataFormatada.getFullYear() +"-"+ (((dataFormatada.getMonth() + 1) < 10) ? "0" : "") + (dataFormatada.getMonth() + 1) +"-"+ ((dataFormatada.getDate() < 10) ? "0" : "") + dataFormatada.getDate();
-        
-        alert($scope.atendimentoDeixarOCurso.data);
-        alert(JSON.stringify(data));
+
+    $scope.setData = function (data) {
+        dataFormatada = "";
+        var dataParaFormatacao = new Date(data);
+
+//        dataFormatada = dataParaFormatacao.getFullYear() + "-" +
+//                (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1) + "-" +
+//                ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate();
+        dataFormatada = formatarData(dataParaFormatacao);
+    };
+
+    function formatarData(dataParaFormatacao) {
+        return dataParaFormatacao.getFullYear() + "-" +
+                (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1) + "-" +
+                ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate();
+    }
+
+    $scope.setHora = function (hora) {
+        horaFormatada = "";
+        var horaParaFormatacao = new Date(hora);
+//        horaFormatada = ((horaParaFormatacao.getHours() < 10) ? "0" : "") + horaParaFormatacao.getHours() + ":" +
+//                ((horaParaFormatacao.getMinutes() < 10) ? "0" : "") + horaParaFormatacao.getMinutes() + ":00";
+        horaFormatada = formatarHora(horaParaFormatacao);
     };
     
-    $scope.montarHora = function (hora){
-        alert(JSON.stringify(hora));    
-    };
+    function formatarHora(horaParaFormatacao){
+        return ((horaParaFormatacao.getHours() < 10) ? "0" : "") + horaParaFormatacao.getHours() + ":" +
+                ((horaParaFormatacao.getMinutes() < 10) ? "0" : "") + horaParaFormatacao.getMinutes() + ":00";
+    }
     
+    function montarCampoData() {
+        $scope.atendimentoDeixarOCurso.data = dataFormatada + "T" + horaFormatada;
+    }
+
     function onError(data) {
         alert(JSON.stringify(data));
     }
