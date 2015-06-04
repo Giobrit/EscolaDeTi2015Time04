@@ -6,6 +6,9 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/PerfilAcesso/list', {
         templateUrl: 'view/perfilAcesso/listPerfilAcesso.html',
         controller: 'controllerListPerfilAcesso'
+    }).when('/PerfilAcesso/formPerfilUsuario', {
+        templateUrl: 'view/perfilAcesso/formPerfilUsuario.html',
+        controller: 'controllerFormPerfilUsuario'
     }).when('/PerfilAcesso/edit/:id', {
         templateUrl: 'view/PerfilAcesso.html',
         controller: 'PerfilAcessoFormController'
