@@ -49,7 +49,7 @@ function controllerListObjetivoDeixarOCurso($scope, $http) {
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 5;
     $scope.colunaOrdenacao = "descricao";
-    var ordenacaoCrescente = true;
+    $scope.ordenacaoCrescente = true;
 
     $scope.init = function () {
         $scope.listar();
