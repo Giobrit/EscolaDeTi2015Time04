@@ -35,12 +35,8 @@
                     <div class="col-md-10">
                         <div class="col-md-offset-2">
                             <div class="form-group">
-                                <select class="form-control" id="itensAcesso">
-                                    <option>Item Acesso 1</option>
-                                    <option>Item Acesso 2</option>
-                                    <option>Item Acesso 3</option>
-                                    <option>Item Acesso 4</option>
-                                    <option>Item Acesso 5</option>
+                                <select class="form-control" >
+                                    <option></option>
                                 </select>
                             </div>                       
                         </div>                    
@@ -58,8 +54,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="i in itens">
-                                            <td>{{i.itemAcesso}}</td>
+                                        <tr ng-repeat="p in perfil">
+                                            <td>{{p.perfis}}</td>
                                             <td><button type="button" class="btn btn-danger">Remover</button></td>
                                         </tr>
                                     </tbody>

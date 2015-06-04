@@ -21,24 +21,20 @@
                 </div>
                 <div class="row col-md-6">
                     <div class="panel panel-info">
-                        <div class="panel-heading "><h4>Cadastro Perfil de Usuario</h4></div>
+                        <div class="panel-heading "><h4>Perfis de Acesso</h4></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-offset-0">
                                         <div class="form-group">
-                                            <select class="form-control" id="itensAcesso">
-                                                <option>Perfil 1</option>
-                                                <option>Perfil 2</option>
-                                                <option>Perfil 3</option>
-                                                <option>Perfil 4</option>
-                                                <option>Perfil 5</option>
+                                            <select class="form-control" >
+                                                <option>Perfil de Acesso 1</option>
+                                                <option>Perfil de Acesso 2</option>
                                             </select>
-                                        </div>                       
+                                        </div> 
                                     </div>                    
                                 </div>                
                             </div>
-                            
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-offset-0">
@@ -52,7 +48,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr ng-repeat="i in itens">
-                                                        <td>{{i.itemAcesso}}</td>
+                                                        <td>{{i.nome}}</td>
                                                         <td><button type="button" class="btn btn-danger">Remover</button></td>
                                                     </tr>
                                                 </tbody>
@@ -68,18 +64,15 @@
                 </div>
                 <div class="row col-md-6 teste">
                     <div class="panel panel-info">
-                        <div class="panel-heading "><h4>Cadastro Perfil de Usuario</h4></div>
+                        <div class="panel-heading "><h4>Itens Avulsos</h4></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-offset-0">
                                         <div class="form-group">
-                                            <select class="form-control" id="itensAcesso">
-                                                <option>Perfil 1</option>
-                                                <option>Perfil 2</option>
-                                                <option>Perfil 3</option>
-                                                <option>Perfil 4</option>
-                                                <option>Perfil 5</option>
+                                            <select class="form-control" id="itensAcesso"> 
+                                                <option>Item Avulso 1</option>
+                                                <option>Item Avulso 2</option>
                                             </select>
                                         </div>                       
                                     </div>                    
@@ -98,8 +91,8 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="i in itens">
-                                                        <td>{{i.itemAcesso}}</td>
+                                                    <tr ng-repeat="i in itensAvulsos">
+                                                        <td>{{i.itemAvulso}}</td>
                                                         <td><button type="button" class="btn btn-danger">Remover</button></td>
                                                     </tr>
                                                 </tbody>
