@@ -52,7 +52,7 @@ function controllerListMotivoAtendimentoDeixarOCurso($scope, $http) {
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 5;
     $scope.colunaOrdenacao = "descricao";
-    $scope.ordenacaoCrescente = true;
+    $scope.ordenacaoCrescente = true; 
 
     $scope.init = function () {
         $scope.listar();
