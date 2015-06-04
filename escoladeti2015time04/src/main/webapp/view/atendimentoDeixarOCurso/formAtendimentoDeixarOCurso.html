@@ -1,6 +1,5 @@
 <form name="" novalidate ng-init="init()" >
 
-
     <div class="container-fluid formulario">
         <div class="row titulo">
             <h2>Cadastro de Atendimento</h2>
@@ -19,13 +18,13 @@
                         <label>
                             <h4>Data</h4>
                         </label>
-                        <input type="date" class="form-control">
+                        <input type="text" class="form-control" data-uk-datepicker="{format:'DD/MM/YYYY'}">
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Hora</h4>
                         </label>
-                        <input type="time" class="form-control">
+                        <input type="text" class="form-control" data-uk-timepicker="{format:'24h'}">
                     </div>
                 </div>
             </div>
@@ -98,7 +97,7 @@
                             <h4>Reprovações</h4>
                         </label>
                         <div class="form-group">
-                              <input type="text" placeholder="Informe o número" class="form-control">
+                            <input type="text" placeholder="Informe o número" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-2">
