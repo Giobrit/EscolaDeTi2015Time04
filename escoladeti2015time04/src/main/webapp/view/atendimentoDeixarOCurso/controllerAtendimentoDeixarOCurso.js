@@ -20,16 +20,14 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.editando = false;
     };
 
-    $scope.salvar = function () {
-        alert(JSON.stringify($scope.atendimentoDeixarOCurso));
+    $scope.salvar = function () {    
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         } else {
             $http.post("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         }
 
-        function onSuccess() {
-            alert(JSON.stringify($scope.atendimentoDeixarOCurso));
+        function onSuccess() {            
             $location.path("/atendimento/deixarOCurso/list");
             alert("Atendimento salvo com sucesso");
         }
@@ -73,11 +71,11 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.setObjetivo = function (data) {
-        $scope.atendimentoDeixarOCurso.objetivo = data.id;
+        $scope.atendimentoDeixarOCurso.idObjetivo = data.id;
     };
 
     $scope.setMotivo = function (data) {
-        $scope.atendimentoDeixarOCurso.motivo = data.id;
+        $scope.atendimentoDeixarOCurso.idMotivo = data.id;
     };
 
     $scope.setMatriculado = function (data) {        
@@ -95,10 +93,23 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.atendimentoDeixarOCurso.serieSemestre = aluno.serie;
         $scope.atendimentoDeixarOCurso.turno = aluno.turno;
         $scope.atendimentoDeixarOCurso.bolsaFinanciamento = aluno.bolsa;
-        $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;
-        $scope.atendimentoDeixarOCurso.matriculado = aluno.matriculado;
+        $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;                
+        $scope.matriculadoSelecionado = aluno.matriculado;
+        $scope.setMatriculado(aluno.matriculado);
     }
-
+    
+    $scope.montarData = function (data){
+        var dataFormatada = new Date(data);
+        $scope.atendimentoDeixarOCurso.data =  dataFormatada.getFullYear() +"-"+ (((dataFormatada.getMonth() + 1) < 10) ? "0" : "") + (dataFormatada.getMonth() + 1) +"-"+ ((dataFormatada.getDate() < 10) ? "0" : "") + dataFormatada.getDate();
+        
+        alert($scope.atendimentoDeixarOCurso.data);
+        alert(JSON.stringify(data));
+    };
+    
+    $scope.montarHora = function (hora){
+        alert(JSON.stringify(hora));    
+    };
+    
     function onError(data) {
         alert(JSON.stringify(data));
     }

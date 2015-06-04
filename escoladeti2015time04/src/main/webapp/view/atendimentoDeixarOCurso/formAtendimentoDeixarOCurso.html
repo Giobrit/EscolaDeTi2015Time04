@@ -17,13 +17,13 @@
                         <label>
                             <h4>Data</h4>
                         </label>                        
-                        <input type="date" name="data" class="form-control" ng-model="atendimentoDeixarOCurso.data" required>
+                        <input type="date" name="data" class="form-control" ng-model="data" ng-change="montarData(data)" required>
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Hora</h4>
                         </label>
-                        <input type="time" name="hora" class="form-control" ng-model="atendimentoDeixarOCurso.hora" required>
+                        <input type="time" name="hora" class="form-control" ng-model="hora" ng-change="montarHora(hora)" required>
                     </div>
                 </div>
             </div>
