@@ -27,9 +27,8 @@
                                 <div class="col-md-12">
                                     <div class="col-md-offset-0">
                                         <div class="form-group">
-                                            <select class="form-control" >
-                                                <option>Perfil de Acesso 1</option>
-                                                <option>Perfil de Acesso 2</option>
+                                            <select class="form-control" ng-model="meuPerfil" ng-options="perfil.nomePerfil for perfil in perfis" ng-change="adicionarPerfil()">
+                                                <option>{{perfil.nomePerfil}}</option>
                                             </select>
                                         </div> 
                                     </div>                    
@@ -47,8 +46,8 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="i in itens">
-                                                        <td>{{i.nome}}</td>
+                                                    <tr ng-repeat="nomePerfil in nomePerfis">
+                                                        <td>{{nomePerfil.nome}}</td>
                                                         <td><button type="button" class="btn btn-danger">Remover</button></td>
                                                     </tr>
                                                 </tbody>
@@ -70,9 +69,8 @@
                                 <div class="col-md-12">
                                     <div class="col-md-offset-0">
                                         <div class="form-group">
-                                            <select class="form-control" id="itensAcesso"> 
-                                                <option>Item Avulso 1</option>
-                                                <option>Item Avulso 2</option>
+                                            <select class="form-control" id="itensAcesso" ng-model="meuItem" ng-options="item.nomeItem for item in itens"> 
+                                                <option>{{item.nomeItem}}</option>
                                             </select>
                                         </div>                       
                                     </div>                    
@@ -91,8 +89,9 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="i in itensAvulsos">
-                                                        <td>{{i.itemAvulso}}</td>
+                                                    <tr ng-repeat="nomeItem in nomeItens">
+                                                        <td>{{nomeItem.nome}}</td>
+                                                        <td><button type="button" class="btn btn-success">Permitido</button></td>
                                                         <td><button type="button" class="btn btn-danger">Remover</button></td>
                                                     </tr>
                                                 </tbody>
@@ -115,4 +114,5 @@
                 </div>
             </div>    
         </div>
+    </div>   
 </form>
