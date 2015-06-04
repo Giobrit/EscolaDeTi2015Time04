@@ -14,7 +14,7 @@
                     <div class="col-md-10">
                         <div class="col-md-offset-2">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Nome do Perfil" />
+                                <input type="text" class="form-control" ng-model="novoPerfil.nome" placeholder="Nome do Perfil" />
                             </div>    
                         </div>    
                     </div>
@@ -35,8 +35,8 @@
                     <div class="col-md-10">
                         <div class="col-md-offset-2">
                             <div class="form-group">
-                                <select class="form-control" >
-                                    <option></option>
+                                <select class="form-control" ng-model="itemAcesso" ng-options="item.nomeItem for item in itens">
+                                    <option>{{item.nomeItem}}</option>
                                 </select>
                             </div>                       
                         </div>                    

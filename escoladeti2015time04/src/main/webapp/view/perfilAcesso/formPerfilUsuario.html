@@ -1,39 +1,26 @@
 <form name="" novalidate ng-init="init()">
     <div class="container-fluid formulario">
         <div class="panel panel-info">
-            <div class="panel-heading"><h3>Cadastro Perfil de Usuario</h3></div>
+            <div class="panel-heading"><h3>Cadastro Perfil de Usuario {{nomeUsuario.nome}}</h3></div>
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-offset-0">
-                            <h4>Nome do Usuario</h4>
-                        </div>    
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-offset-0">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Nome do Usuario ser vinculado" />
-                            </div>    
-                        </div>    
-                    </div>
-                </div>
                 <div class="row col-md-6">
                     <div class="panel panel-info">
                         <div class="panel-heading "><h4>Perfis de Acesso</h4></div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-offset-0">
-                                        <div class="form-group">
-                                            <select class="form-control" ng-model="meuPerfil" ng-options="perfil.nomePerfil for perfil in perfis" ng-change="adicionarPerfil()">
-                                                <option>{{perfil.nomePerfil}}</option>
-                                            </select>
-                                        </div> 
-                                    </div>                    
-                                </div>                
-                            </div>
+                                <div class="col-md-10">
+
+                                    <div class="form-group">
+                                        <select class="form-control" ng-model="meuPerfil" ng-options="perfil.nomePerfil for perfil in perfis" ng-change="adicionarPerfil()">
+                                            <option>{{perfil.nomePerfil}}</option>
+                                        </select>
+                                    </div>                                                        
+                                </div> 
+                                <div class="col-md-1">
+                                    <a href="#/PerfilAcesso/list" type="button" class="tooltip, btn btn-primary" title="Lista dos Perfis de Acesso"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+                                </div> 
+                            </div>                            
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-offset-0">

@@ -32,8 +32,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr dir-paginate="i in itens | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
-                                        <td>{{i.nome}}</td>
+                                    <!--dir-paginate="perfil in perfis | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual"-->
+                                    <tr ng-repeat="perfil in perfis">
+                                        <td>{{perfil.novoPerfil}}</td>
                                         <td>
                                             <span>
                                                 <a href="#/PerfilAcesso/form/{{i.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar">Editar</a>
