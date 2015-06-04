@@ -1,34 +1,34 @@
-AppModule.controller("controllerFormObjetivoDeixarOCurso", controllerFormMotivoPreventivo);
+AppModule.controller("controllerFormMotivoPreventivo", controllerFormMotivoPreventivo);
 
-AppModule.controller("controllerListObjetivoDeixarOCurso", controllerListMotivoPreventivo);
+AppModule.controller("controllerListMotivoPreventivo", controllerListMotivoPreventivo);
 
 function controllerFormMotivoPreventivo($scope, $http, $routeParams, $location) {
 
     $scope.init = function () {
         limparTela();
         
-        idMotivoPreventivo = $routeParams.id;
+        var idMotivoPreventivo = $routeParams.id;
         if (idMotivoPreventivo) {
             $scope.editando = true;
             $scope.editar(idMotivoPreventivo);
         }
     };
 
-    $scope.salvar = function () {        
+    $scope.salvar = function () {                        
         if ($scope.editando) {
-            $http.put("atendimento/Preventivo", $scope.atendimentoPreventivo).success(onSuccess).error(onError);
+            $http.put("/atendimento/preventivo/motivo", $scope.atendimentoPreventivo).success(onSuccess).error(onError);
         } else {
-            $http.post("atendimento/Preventivo", $scope.atendimentoPreventivo).success(onSuccess).error(onError);
+            $http.post("/atendimento/preventivo/motivo", $scope.atendimentoPreventivo).success(onSuccess).error(onError);                      
         }
         
         function onSuccess() {
-            $location.path("AtendimentoPreventivo/list");
+            $location.path("/AtendimentoPreventivo/list");
             alert("Salvo com sucesso");
         }
     };
 
     $scope.editar = function (id) {
-        $http.get("atendimento/Preventivo/" + id).success(onSuccess).error(onError);
+        $http.get("/atendimento/preventivo/motivo/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.atendimentoPreventivo = data;
@@ -37,6 +37,7 @@ function controllerFormMotivoPreventivo($scope, $http, $routeParams, $location) 
 
     function limparTela() {
         $scope.atendimentoPreventivo = {};
+        $scope.editando = false;
     }
 
     function onError(data) {
@@ -55,12 +56,12 @@ function controllerListMotivoPreventivo($scope, $http) {
         $scope.listar();
     };
 
-    $scope.alterarStatus = function (objetivo) {
-        var status = objetivo.status === 'ATIVO' ? 'INATIVO' : 'ATIVO';
-        $http.put("atendimento/Preventivo/" + preventivo.id + "/" + status).success(onSuccess).error(onError);
+    $scope.alterarStatus = function (preventivo) {
+        var status = preventivo.status === 'ATIVO' ? 'INATIVO' : 'ATIVO';
+        $http.put("/atendimento/preventivo/motivo/" + preventivo.id + "/" + status).success(onSuccess).error(onError);
 
         function onSuccess() {
-            objetivo.status = status;
+            preventivo.status = status;
         }
     };
 
@@ -71,8 +72,8 @@ function controllerListMotivoPreventivo($scope, $http) {
         requisicaoListagem.colunaOrdenacao = $scope.colunaOrdenacao;
         requisicaoListagem.ordenacaoCrescente = ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;               
-//        alert(JSON.stringify(requisicaoListagem));
-        $http.post("atendimento/Preventivo/listar", requisicaoListagem).success(onSuccess).error(onError);
+        
+        $http.post("/atendimento/preventivo/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.objetivos = data.itens;
             $scope.totalPaginas = data.numeroTotalPaginas;

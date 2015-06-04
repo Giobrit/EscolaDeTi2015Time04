@@ -1,4 +1,4 @@
-<form name="formObjetivo" novalidate ng-init="init()" >
+<form name="formPreventivo" novalidate ng-init="init()" >
     <div class="container-fluid formulario" style="margin-top: 30px;">
         <div class="panel panel-info">
             <div class="panel-heading"><h3>Cadastro de Motivo(Preventivo)<span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span></h3></div>
@@ -27,7 +27,7 @@
                 <div class="col-md-9">
                     <div class="col-md-offset-7 pull-right">
                         <a type="button" href="#/AtendimentoPreventivo/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
-                        
+
                         <button type="submit" ng-click="salvar()" ng-disabled="(formPreventivo.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
                     </div>
                 </div>	

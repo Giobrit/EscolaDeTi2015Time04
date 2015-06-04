@@ -1,12 +1,12 @@
-<form name="formObjetivo" novalidate ng-init="init()" >
+<form name="formPreventivo" novalidate ng-init="init()" >
     <div class="container-fluid formulario" ng-init="init()">
         <div class="panel panel-info">
-            <div class="panel-heading"><h3>Lista de Objetivo<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
+            <div class="panel-heading"><h3>Lista de Preventivos<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <a href="#/AtendimentoPreventivo/form" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo motivo">Adicionar Novo</a>
+                            <a href="#/AtendimentoPreventivo/form/" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo motivo">Adicionar Novo</a>
                         </div>
                     </div>
                 </div>
@@ -29,15 +29,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="o in objetivos">
-                                        <td>{{o.descricao}}</td>                                        
+                                    <tr ng-repeat="p in preventivos">
+                                        <td>{{p.descricao}}</td>                                        
                                         <td>
-                                            <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="o.status === 'INATIVO'" ng-click="alterarStatus(o)">Ativar</button>
-                                            <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="o.status === 'ATIVO'" ng-click="alterarStatus(o)">Inativar</button>
+                                            <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="p.status === 'INATIVO'" ng-click="alterarStatus(p)">Ativar</button>
+                                            <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="p.status === 'ATIVO'" ng-click="alterarStatus(p)">Inativar</button>
                                         </td>
                                         <td>
                                             <span>                                                
-                                                <a href="#/AtendimentoPreventivo/form/{{o.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                                <a href="#/atendimento/preventivo/form/{{p.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                                             </span>
                                         </td>
                                     </tr>
