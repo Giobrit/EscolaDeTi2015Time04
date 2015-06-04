@@ -109,7 +109,7 @@
                             <h4>Matriculado</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="matriculado" id="sel1" ng-model="atendimentoDeixarOCurso.matriculado" required>
+                            <select class="form-control" name="matriculado" id="sel1" ng-model="matriculadoSelecionado" ng-change="setMatriculado(matriculadoSelecionado)" required>
                                 <option>Sim</option>
                                 <option>Não</option>
                             </select>

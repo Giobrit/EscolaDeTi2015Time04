@@ -24,7 +24,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         alert(JSON.stringify($scope.atendimentoDeixarOCurso));
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
-        } else {            
+        } else {
             $http.post("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         }
 
@@ -44,8 +44,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.preencherListDeObjetivo = function () {
-        var requisicaoListagem = new RequisicaoListagem();
-        $http.post("atendimento/deixarOCurso/objetivo/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.get("/atendimento/deixarOCurso/objetivo/listarAtivos").success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.objetivos = data.itens;
@@ -53,8 +52,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.preencherListDeMotivo = function () {
-        var requisicaoListagem = new RequisicaoListagem();
-        $http.post("/atendimento/deixarOCurso/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.get("/atendimento/deixarOCurso/motivo/listarAtivos").success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
@@ -80,6 +78,14 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
     $scope.setMotivo = function (data) {
         $scope.atendimentoDeixarOCurso.motivo = data.id;
+    };
+
+    $scope.setMatriculado = function (data) {        
+        if(data === "Sim"){
+            $scope.atendimentoDeixarOCurso.matriculado = true;
+        }else{
+            $scope.atendimentoDeixarOCurso.matriculado = false;
+        }
     };
 
     function setAtributosAluno(aluno) {
