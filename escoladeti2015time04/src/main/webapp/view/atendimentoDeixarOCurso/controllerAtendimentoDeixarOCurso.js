@@ -44,16 +44,22 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             var dataAux = new Date(data.data);
               
             alert(JSON.stringify(data));
+            $scope.atendimentoDeixarOCurso.id = data.id;
             $scope.atendimentoDeixarOCurso.protocolo = data.protocolo;
             $scope.dataDeixarOCurso = dataAux;
-            $scope.horaDeixarOCurso = dataAux;
+            $scope.horaDeixarOCurso = dataAux;            
+            $scope.setData($scope.dataDeixarOCurso);
+            $scope.setHora($scope.horaDeixarOCurso);            
             $scope.atendimentoDeixarOCurso.ra = data.ra;
             $scope.atendimentoDeixarOCurso.transferencia = data.transferencia;
             $scope.atendimentoDeixarOCurso.coordenadorDiretor = data.coordenadordiretor;            
             $scope.atendimentoDeixarOCurso.descricaoPrivada = data.descricaoprivada;
             $scope.atendimentoDeixarOCurso.descricaoPublica = data.descricaopublica;
-            
-            $scope.carregarAluno(data.ra);
+            $scope.objetivoSelecionado = data.objetivo;
+            $scope.motivoSelecionado = data.motivo;
+            $scope.setObjetivo($scope.objetivoSelecionado);
+            $scope.setMotivo($scope.motivoSelecionado);            
+            $scope.carregarAluno(data.ra);            
         }
     };
 
@@ -118,9 +124,6 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         dataFormatada = "";
         var dataParaFormatacao = new Date(data);
 
-//        dataFormatada = dataParaFormatacao.getFullYear() + "-" +
-//                (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1) + "-" +
-//                ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate();
         dataFormatada = formatarData(dataParaFormatacao);
     };
 
@@ -133,8 +136,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     $scope.setHora = function (hora) {
         horaFormatada = "";
         var horaParaFormatacao = new Date(hora);
-//        horaFormatada = ((horaParaFormatacao.getHours() < 10) ? "0" : "") + horaParaFormatacao.getHours() + ":" +
-//                ((horaParaFormatacao.getMinutes() < 10) ? "0" : "") + horaParaFormatacao.getMinutes() + ":00";
+
         horaFormatada = formatarHora(horaParaFormatacao);
     };
     
