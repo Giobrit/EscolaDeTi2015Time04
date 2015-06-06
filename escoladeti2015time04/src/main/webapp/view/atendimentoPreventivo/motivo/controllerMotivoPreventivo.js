@@ -2,20 +2,20 @@ AppModule.controller("controllerFormMotivoAtendimentoPreventivo", controllerForm
 
 AppModule.controller("controllerListMotivoAtendimentoPreventivo", controllerListMotivoAtendimentoPreventivo);
 
-function controllerFormMotivoAtendimentoPreventivo($scope, $http, $routeParams, $location) {
+function controllerFormMotivoAtendimentoPreventivo($scope, $http, $routeParams, $location, $timeout, growl) {
 
-    $scope.init = function() {
+    $scope.init = function () {
         limparTela();
 
-//        var idMotivoEditado = $routeParams.id;
-//        if (idMotivoEditado) {
-//            $scope.editando = true;
-//            $scope.editar(idMotivoEditado);
-//        }
+        var idMotivoEditado = $routeParams.id;
+        if (idMotivoEditado) {
+            $scope.editando = true;
+            $scope.editar(idMotivoEditado);
+        }
     };
 
 
-    $scope.salvar = function() {
+    $scope.salvar = function () {
         if ($scope.editando) {
             $http.put("/atendimento/preventivo/motivo", $scope.motivo).success(onSuccess).error(onError);
         } else {
@@ -23,12 +23,15 @@ function controllerFormMotivoAtendimentoPreventivo($scope, $http, $routeParams, 
         }
 
         function onSuccess() {
+            $timeout(success, 100);
             $location.path("/AtendimentoPreventivo/Motivo/list");
-            alert("Motivo cadastrado com sucesso!");
+        }
+        function success() {
+            growl.success("<b>Motivo cadastrado com sucesso!</b>");
         }
     };
 
-    $scope.editar = function(id) {
+    $scope.editar = function (id) {
         $http.get("atendimento/preventivo/motivo/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
@@ -42,23 +45,23 @@ function controllerFormMotivoAtendimentoPreventivo($scope, $http, $routeParams, 
     }
 
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 
 }
 
-function controllerListMotivoAtendimentoPreventivo($scope, $http) {
+function controllerListMotivoAtendimentoPreventivo($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
-    $scope.totalPaginas = 1;
+    $scope.numeroItensPorPagina = 5;
     $scope.colunaOrdenacao = "descricao";
-    var ordenacaoCrescente = true;
+    $scope.ordenacaoCrescente = true;
 
-    $scope.init = function() {
+    $scope.init = function () {
         $scope.listar();
     };
 
-    $scope.alterarStatus = function(motivo) {
+    $scope.alterarStatus = function (motivo) {
         var status = motivo.status === 'ATIVO' ? 'INATIVO' : 'ATIVO';
         $http.put("/atendimento/preventivo/motivo/" + motivo.id + "/" + status).success(onSuccess).error(onError);
 
@@ -67,45 +70,39 @@ function controllerListMotivoAtendimentoPreventivo($scope, $http) {
         }
     };
 
-    $scope.listar = function() {
+    $scope.listar = function () {
         var requisicaoListagem = new RequisicaoListagem();
-        requisicaoListagem.numeroItens = 8;
+        requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
         requisicaoListagem.paginaAtual = $scope.paginaAtual;
         requisicaoListagem.colunaOrdenacao = $scope.colunaOrdenacao;
-        requisicaoListagem.ordenacaoCrescente = ordenacaoCrescente;
+        requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
 
 
-            $http.post("atendimento/preventivo/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.post("atendimento/preventivo/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.motivos = data.itens;
-            $scope.totalPaginas = data.numeroTotalPaginas;
+            $scope.totalRegistros = data.numeroTotalRegistros;
         }
     };
 
-    $scope.alterarOrdenacao = function(coluna) {
+    $scope.alterarOrdenacao = function (coluna) {
+
         if ($scope.colunaOrdenacao === coluna) {
-            ordenacaoCrescente = !ordenacaoCrescente;
+            $scope.ordenacaoCrescente = !$scope.ordenacaoCrescente;
+        } else {
+            $scope.ordenacaoCrescente = true;
         }
 
         $scope.colunaOrdenacao = coluna;
         $scope.listar();
     };
 
-    $scope.alterarPagina = function(pagina) {
-        if (pagina < 1) {
-            return;
-        }
-
-        if (pagina > $scope.totalPaginas) {
-            return;
-        }
-
-        $scope.paginaAtual = pagina;
+    $scope.alterarPagina = function () {
         $scope.listar();
     };
 
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 }

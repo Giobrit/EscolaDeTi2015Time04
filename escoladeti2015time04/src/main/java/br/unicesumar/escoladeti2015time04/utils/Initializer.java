@@ -90,7 +90,6 @@ public class Initializer {
         preventivoMotivoService.criar(new PreventivoMotivo("Frequência baixa"));
         preventivoMotivoService.criar(new PreventivoMotivo("Gravidez"));
         preventivoMotivoService.criar(new PreventivoMotivo("Notas baixas"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Notas baixas"));
         preventivoMotivoService.criar(new PreventivoMotivo("Outros"));
         preventivoMotivoService.criar(new PreventivoMotivo("Pessoal"));
     }

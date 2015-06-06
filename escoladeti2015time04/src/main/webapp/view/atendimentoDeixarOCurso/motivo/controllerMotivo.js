@@ -23,10 +23,10 @@ function controllerFormMotivoAtendimentoDeixarOCurso($scope, $http, $routeParams
         }
             
 
-//        function onSuccess() {
-//            $timeout(success,100);
-//            $location.path("/AtendimentoDeixarOCurso/Motivo/list");
-//        }
+        function onSuccess() {
+            $timeout(success,100);
+            $location.path("/AtendimentoDeixarOCurso/Motivo/list");
+        }
         function success(){
             growl.success("<b>Motivo cadastrado com sucesso!</b>");
         }

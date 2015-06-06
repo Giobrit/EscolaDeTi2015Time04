@@ -1,7 +1,7 @@
 <form name="formPreventivo" novalidate ng-init="init()" >
     <div class="container-fluid formulario" style="margin-top: 30px;">
         <div class="panel panel-info">
-            <div class="panel-heading"><h3>Cadastro de Motivo(Preventivo)<span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span></h3></div>
+            <div class="panel-heading"><h3>Cadastro de Motivo<span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span></h3></div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-9">
@@ -14,7 +14,7 @@
                     <div class="col-md-9">
                         <div class="col-md-offset-4">
                             <div class="form-group" ng-class="{ 'has-error'  : formPreventivo.descricao.$invalid && !formPreventivo.descricao.$pristine}">
-                                <input type="text" name="descricao" placeholder="Informe a descrição do motivo(preventivo)" class="form-control" aria-describedby="basic-addon2" ng-model="preventivo.descricao" ng-minlength="2" ng-maxlength="60" required/>                        
+                                <input type="text" name="descricao" placeholder="Informe a descrição do motivo(preventivo)" class="form-control" aria-describedby="basic-addon2" ng-model="motivo.descricao" ng-minlength="2" ng-maxlength="60" required/>                        
                                 <p ng-show="formPreventivo.descricao.$error.minlength" class="help-block">Descrição no mínimo 2 caracteres.</p>
                                 <p ng-show="formPreventivo.descricao.$error.maxlength" class="help-block">Descrição no máximo 60 caracteres.</p>
                             </div>
