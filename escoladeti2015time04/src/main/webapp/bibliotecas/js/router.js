@@ -54,6 +54,9 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/AtendimentoDeixarOCurso/form/:id', {
         templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
         controller: 'controllerFormAtendimentoDeixarOCurso'
+    }).when('/AtendimentoDeixarOCurso/list',{
+        templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
+        controller: 'controllerListAtendimentoDeixarOCurso'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });
