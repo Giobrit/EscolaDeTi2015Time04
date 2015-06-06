@@ -2,11 +2,11 @@ AppModule.controller("controllerFormObjetivoDeixarOCurso", controllerFormObjetiv
 
 AppModule.controller("controllerListObjetivoDeixarOCurso", controllerListObjetivoDeixarOCurso);
 
-function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $location) {
+function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $location, growl, $timeout) {
 
     $scope.init = function () {
         limparTela();
-        
+
         idObjetivoEditado = $routeParams.id;
         if (idObjetivoEditado) {
             $scope.editando = true;
@@ -14,16 +14,19 @@ function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $locati
         }
     };
 
-    $scope.salvar = function () {        
+    $scope.salvar = function () {
         if ($scope.editando) {
             $http.put("atendimento/deixarOCurso/objetivo", $scope.objetivo).success(onSuccess).error(onError);
         } else {
             $http.post("atendimento/deixarOCurso/objetivo", $scope.objetivo).success(onSuccess).error(onError);
         }
-        
+
         function onSuccess() {
+            $timeout(success,100);
             $location.path("AtendimentoDeixarOCurso/Objetivo/list");
-            alert("Objetivo salvo com sucesso");
+        }
+        function success(){
+            growl.success("Objetivo salvo com sucesso");
         }
     };
 
@@ -40,18 +43,18 @@ function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $locati
     }
 
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 }
 
-function controllerListObjetivoDeixarOCurso($scope, $http) {
+function controllerListObjetivoDeixarOCurso($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
-    $scope.totalPaginas = 1;
+    $scope.numeroItensPorPagina = 5;
     $scope.colunaOrdenacao = "descricao";
-    var ordenacaoCrescente = true;
+    $scope.ordenacaoCrescente = true;
 
-    $scope.init = function () {        
+    $scope.init = function () {
         $scope.listar();
     };
 
@@ -66,43 +69,36 @@ function controllerListObjetivoDeixarOCurso($scope, $http) {
 
     $scope.listar = function () {
         var requisicaoListagem = new RequisicaoListagem();
-        requisicaoListagem.numeroItens = 8;
+        requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
         requisicaoListagem.paginaAtual = $scope.paginaAtual;
         requisicaoListagem.colunaOrdenacao = $scope.colunaOrdenacao;
-        requisicaoListagem.ordenacaoCrescente = ordenacaoCrescente;
-        requisicaoListagem.valorFiltragem = $scope.pesquisa;               
-//        alert(JSON.stringify(requisicaoListagem));
+        requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
+        requisicaoListagem.valorFiltragem = $scope.pesquisa;
+
         $http.post("atendimento/deixarOCurso/objetivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.objetivos = data.itens;
-            $scope.totalPaginas = data.numeroTotalPaginas;
+            $scope.totalRegistros = data.numeroTotalRegistros;
         }
     };
 
     $scope.alterarOrdenacao = function (coluna) {
         if ($scope.colunaOrdenacao === coluna) {
-            ordenacaoCrescente = !ordenacaoCrescente;
+            $scope.ordenacaoCrescente = !$scope.ordenacaoCrescente;
+        } else {
+            $scope.ordenacaoCrescente = true;
         }
-        
+
         $scope.colunaOrdenacao = coluna;
         $scope.listar();
     };
-    
-    $scope.alterarPagina = function (pagina) {
-        if (pagina < 1) {
-            return;
-        }
 
-        if (pagina > $scope.totalPaginas) {
-            return;
-        }
-
-        $scope.paginaAtual = pagina;
+    $scope.alterarPagina = function () {
         $scope.listar();
     };
-    
+
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 
 }

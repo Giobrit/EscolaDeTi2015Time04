@@ -4,23 +4,23 @@ import java.util.List;
 
 public class ResultadoListagem<T> {
 
-    private Long numeroTotalPaginas;
+    private Long numeroTotalRegistros;
     private List<T> itens;
 
     public ResultadoListagem() {
     }
 
-    public ResultadoListagem(Long numeroTotalPaginas, List<T> itens) {
-        this.numeroTotalPaginas = numeroTotalPaginas;
+    public ResultadoListagem(Long numeroTotalRegistros, List<T> itens) {
+        this.numeroTotalRegistros = numeroTotalRegistros;
         this.itens = itens;
     }
 
-    public Long getNumeroTotalPaginas() {
-        return numeroTotalPaginas;
+    public Long getNumeroTotalRegistros() {
+        return numeroTotalRegistros;
     }
 
-    public void setNumeroTotalPaginas(Long itensPorPagina, Long totalItens) {
-        this.numeroTotalPaginas = totalItens / itensPorPagina;
+    public void setNumeroTotalRegistros(Long numeroTotalRegistros) {
+        this.numeroTotalRegistros = numeroTotalRegistros;
     }
 
     public List<T> getItens() {

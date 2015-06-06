@@ -2,8 +2,8 @@ AppModule.controller("controllerFormUsuario", controllerFormularioFilho);
 
 AppModule.controller("controllerListUsuario", controllerListagemFilho);
 
-function controllerFormularioFilho($scope, $http, $routeParams, $location) {
-
+function controllerFormularioFilho($scope, $http, $routeParams, $location, growl, $timeout) {
+//growl.error("<b>I'm</b> a success message and not unique");
     $scope.usuarioCommandEditarSenha = {};
 
     $scope.init = function () {
@@ -24,9 +24,13 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location) {
         }
 
         function onSuccess() {
+            $timeout(success,100);
             $location.path("/Usuario/list");
-            alert("Usuario salvo com sucesso");
+            
         }
+    };
+    function success(){
+      growl.success("<b>Usuário Salvo com Sucesso</b>");
     };
 
     $scope.editar = function (id) {
@@ -47,7 +51,7 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location) {
         $http.put("/usuario/alterarSenha", $scope.usuarioCommandEditarSenha).success(onSuccess).error(onError);
 
         function onSuccess() {
-            alert("Senha do usuario [" + $scope.usuario.nome + "] alterada com sucesso!")
+            growl.success("Senha do usuario <b>" + $scope.usuario.nome + "</b> alterada com sucesso!")
         }
     };
 
@@ -57,18 +61,19 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location) {
     }
 
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 }
 
-function controllerListagemFilho($scope, $http) {
+function controllerListagemFilho($scope, $http, growl) {
+    
 
     $scope.paginaAtual = 1;
-    $scope.totalPaginas = 1;
+    $scope.numeroItensPorPagina = 5;
     $scope.usuarioAlterandoSenha = {};
     $scope.usuarioCommandEditarSenha = {};
     $scope.colunaOrdenacao = "nome";
-    var ordenacaoCrescente = true;
+    $scope.ordenacaoCrescente = true;
 
     $scope.init = function () {
         $scope.listar();
@@ -85,40 +90,33 @@ function controllerListagemFilho($scope, $http) {
 
     $scope.listar = function () {
         var requisicaoListagem = new RequisicaoListagem();
-        requisicaoListagem.numeroItens = 8;
+        requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
         requisicaoListagem.paginaAtual = $scope.paginaAtual;
         requisicaoListagem.colunaOrdenacao = $scope.colunaOrdenacao;
-        requisicaoListagem.ordenacaoCrescente = ordenacaoCrescente;
+        requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
-        
+
         $http.post("/usuario/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.usuarios = data.itens;
-            $scope.totalPaginas = data.numeroTotalPaginas;
+            $scope.totalRegistros = data.numeroTotalRegistros;
         }
     };
 
     $scope.alterarOrdenacao = function (coluna) {
         if ($scope.colunaOrdenacao === coluna) {
-            ordenacaoCrescente = !ordenacaoCrescente;
+            $scope.ordenacaoCrescente = !$scope.ordenacaoCrescente;
+        } else {
+            $scope.ordenacaoCrescente = true;
         }
-        
+
         $scope.colunaOrdenacao = coluna;
         $scope.listar();
     };
-    
-    $scope.alterarPagina = function (pagina) {
-        if (pagina < 1) {
-            return;
-        }
 
-        if (pagina > $scope.totalPaginas) {
-            return;
-        }
-
-        $scope.paginaAtual = pagina;
+    $scope.alterarPagina = function () {
         $scope.listar();
-    };
+   };
 
     $scope.setUsuarioAlterandoSenha = function (usuario) {
         $scope.usuarioAlterandoSenha = usuario;
@@ -131,12 +129,12 @@ function controllerListagemFilho($scope, $http) {
         $http.put("/usuario/alterarSenha", $scope.usuarioCommandEditarSenha).success(onSuccess).error(onError);
 
         function onSuccess() {
-            alert("Senha do usuario [" + $scope.usuarioAlterandoSenha.nome + "] alterada com sucesso!")
+            growl.success("Senha do usuario <b>" + $scope.usuarioAlterandoSenha.nome + "</b> alterada com sucesso!")
         }
     };
 
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 
 }

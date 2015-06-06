@@ -23,13 +23,17 @@
                             <table class="table table-hover table-condensed">
                                 <thead>
                                     <tr>
-                                        <th ng-click="alterarOrdenacao('descricao')" class="col-md-5">Descrição</th>                                        
+                                        <th ng-click="alterarOrdenacao('descricao')" class="col-md-10">
+                                            Descrição
+                                            <span class="glyphicon glyphicon-menu-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'descricao'"></span>
+                                            <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'descricao'"></span>
+                                        </th>                                        
                                         <th ng-click="alterarOrdenacao('status')" class="col-md-1">Ação</th>
                                         <th class="col-md-1">Opção</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="o in objetivos">
+                                    <tr dir-paginate="o in objetivos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
                                         <td>{{o.descricao}}</td>                                        
                                         <td>
                                             <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="o.status === 'INATIVO'" ng-click="alterarStatus(o)">Ativar</button>
@@ -47,22 +51,9 @@
                     </div> 
                 </div>
                 <div class="row">
-                    <div class="col-md-11">
-                        <div class="col-md-offset-6">
-                            <nav>
-                                <ul class="pagination" id="paginacao">
-                                    <li>
-                                        <a href="" ng-click="alterarPagina(paginaAtual - 1)" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="" ng-click="alterarPagina(paginaAtual + 1)" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoDeixarOCurso/objetivo/paginacao.html"></dir-pagination-controls>
                         </div>
                     </div>
                 </div>
