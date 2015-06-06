@@ -2,7 +2,7 @@ AppModule.controller("controllerFormMotivoAtendimentoDeixarOCurso", controllerFo
 
 AppModule.controller("controllerListMotivoAtendimentoDeixarOCurso", controllerListMotivoAtendimentoDeixarOCurso);
 
-function controllerFormMotivoAtendimentoDeixarOCurso($scope, $http, $routeParams, $location) {
+function controllerFormMotivoAtendimentoDeixarOCurso($scope, $http, $routeParams, $location, growl, $timeout) {
 
     $scope.init = function () {
         limparTela();
@@ -21,10 +21,14 @@ function controllerFormMotivoAtendimentoDeixarOCurso($scope, $http, $routeParams
         } else {
             $http.post("/atendimento/deixarOCurso/motivo", $scope.motivo).success(onSuccess).error(onError);
         }
+            
 
         function onSuccess() {
+            $timeout(success,100);
             $location.path("/AtendimentoDeixarOCurso/Motivo/list");
-            alert("Motivo cadastrado com sucesso!");
+        }
+        function success(){
+            growl.success("<b>Motivo cadastrado com sucesso!</b>");
         }
     };
 
@@ -42,17 +46,17 @@ function controllerFormMotivoAtendimentoDeixarOCurso($scope, $http, $routeParams
     }
 
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 
 }
 
-function controllerListMotivoAtendimentoDeixarOCurso($scope, $http) {
+function controllerListMotivoAtendimentoDeixarOCurso($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 5;
     $scope.colunaOrdenacao = "descricao";
-    var ordenacaoCrescente = true;
+    $scope.ordenacaoCrescente = true; 
 
     $scope.init = function () {
         $scope.listar();
@@ -99,6 +103,6 @@ function controllerListMotivoAtendimentoDeixarOCurso($scope, $http) {
     };
 
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 }
