@@ -57,6 +57,15 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/AtendimentoDeixarOCurso/list',{
         templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
         controller: 'controllerListAtendimentoDeixarOCurso'
+    }).when('/AtendimentoPreventivo/Motivo/form', {
+        templateUrl: 'view/atendimentoPreventivo/motivo/cadastroMotivo.html',
+        controller: 'controllerFormMotivoAtendimentoPreventivo'
+    }).when('/AtendimentoPreventivo/Motivo/form/:id', {
+        templateUrl: 'view/atendimentoPreventivo/motivo/cadastroMotivo.html',
+        controller: 'controllerFormMotivoAtendimentoPreventivo'
+    }).when('/AtendimentoPreventivo/Motivo/list', {
+        templateUrl: 'view/atendimentoPreventivo/motivo/listagemMotivo.html',
+        controller: 'controllerListMotivoAtendimentoPreventivo'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });

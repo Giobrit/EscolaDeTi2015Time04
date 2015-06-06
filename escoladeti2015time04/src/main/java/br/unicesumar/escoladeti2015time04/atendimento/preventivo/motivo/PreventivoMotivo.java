@@ -32,7 +32,11 @@ public class PreventivoMotivo implements Serializable {
 
     public PreventivoMotivo() {
     }
-
+    
+    public PreventivoMotivo(String descricao) {
+        this.descricao = descricao;
+    }
+    
     public PreventivoMotivo(Long id, String descricao) {
         this.id = id;
         this.descricao = descricao;
