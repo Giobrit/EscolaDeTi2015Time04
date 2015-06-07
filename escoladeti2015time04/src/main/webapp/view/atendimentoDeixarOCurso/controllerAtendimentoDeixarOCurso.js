@@ -19,13 +19,11 @@ function controllerListAtendimentoDeixarOCurso($scope, $http) {
                 {label: "Bolsa", nome: "bolsaFinanciamento", checked: false},
                 {label: "Reprovações", nome: "numeroReprovacoes", checked: false},
                 {label: "Matriculado", nome: "matriculado", checked: true},
-                {label: "Instituição", nome: "instituicao", checked: true},
                 {label: "Transferência", nome: "transferencia", checked: true},
-                {label: "Coordenador", nome: "coordenador", checked: true},
-                {label: "Objetivo", nome: "Objetivo", checked: true},
-                {label: "Motivo", nome: "Motivo", checked: true},
-                {label: "Descrição Privada", nome: "descricaoprivada", checked: true},
-                {label: "Descrição Pública", nome: "descricaopublica", checked: true}
+                {label: "Coordenador", nome: "coordenadorDiretor", checked: true},
+                {label: "Objetivo", nome: "objetivo", checked: true},
+                {label: "Motivo", nome: "motivo", checked: true},
+                {label: "Descrição", nome: "descricaoPublica", checked: true}
             ];
 
     $scope.init = function () {

@@ -39,7 +39,7 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="a in atendimentos">
-                                            <td ng-repeat="c in colunas" ng-show="c.checked">{{a[c.nome.toLowerCase()]}}</td>
+                                            <td ng-repeat="c in colunas" ng-show="c.checked"  style="white-space:pre-wrap;">{{a[c.nome.toLowerCase()]}}</td>
                                             <td>
                                                 <span>
                                                     <a href="#/AtendimentoDeixarOCurso/form/{{a.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
