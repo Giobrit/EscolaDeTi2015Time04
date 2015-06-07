@@ -5,9 +5,33 @@ function controllerListAtendimentoDeixarOCurso($scope, $http) {
     $scope.numeroItensPorPagina = 8;
     $scope.colunaOrdenacao = "nomeAluno";
     var ordenacaoCrescente = true;
+
+    $scope.colunas =
+            [
+                {label: "Protocolo", nome: "protocolo", checked: false},
+                {label: "Data", nome: "data", checked: false},
+                {label: "Hora", nome: "hora", checked: false},
+                {label: "RA", nome: "ra", checked: false},
+                {label: "Nome Aluno", nome: "nomeAluno", checked: false},
+                {label: "Curso", nome: "curso", checked: false},
+                {label: "Série", nome: "serieSemestre", checked: false},
+                {label: "Turno", nome: "turno", checked: false},
+                {label: "Bolsa", nome: "bolsaFinanciamento", checked: false},
+                {label: "Reprovações", nome: "numeroReprovacoes", checked: false},
+                {label: "Matriculado", nome: "matriculado", checked: true},
+                {label: "Instituição", nome: "instituicao", checked: true},
+                {label: "Transferência", nome: "transferencia", checked: true},
+                {label: "Coordenador", nome: "coordenador", checked: true},
+                {label: "Objetivo", nome: "Objetivo", checked: true},
+                {label: "Motivo", nome: "Motivo", checked: true},
+                {label: "Descrição Privada", nome: "descricaoprivada", checked: true},
+                {label: "Descrição Pública", nome: "descricaopublica", checked: true}
+            ];
+
     $scope.init = function () {
         $scope.listar();
     };
+
     $scope.listar = function () {
         var requisicaoListagem = new RequisicaoListagem();
         requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
@@ -39,43 +63,8 @@ function controllerListAtendimentoDeixarOCurso($scope, $http) {
         alert(JSON.stringify(data));
     }
 
-    $scope.colunaEVisivel = function (nome) {
-        var EstacolunaEVisivel = false;
-
-        $scope.colunas.forEach(paraCadaElemento);
-
-        function paraCadaElemento(coluna) {
-            if (coluna.nome === nome) {
-                EstacolunaEVisivel = coluna.checked;
-            }
-        }
-
-        return EstacolunaEVisivel;
-    };
-
-    $scope.colunas =
-            [
-                {nome: "protocolo", checked: true},
-                {nome: "data", checked: true},
-                {nome: "hora", checked: true},
-                {nome: "aluno", checked: true},
-                {nome: "curso", checked: true},
-                {nome: "serie", checked: true},
-                {nome: "turno", checked: true},
-                {nome: "bolsa", checked: true},
-                {nome: "reprovacoes", checked: false},
-                {nome: "matriculado", checked: false},
-                {nome: "instituicao", checked: false},
-                {nome: "transferencia", checked: false},
-                {nome: "coordenador", checked: true},
-                {nome: "Objetivo", checked: true},
-                {nome: "Motivo", checked: true},
-                {nome: "descricaoprivada", checked: true},
-                {nome: "descricaopublica", checked: true}
-            ];
-
     $scope.alterarCheckbox = function (coluna) {
-        coluna['checked'] = !coluna['checked'];
+        coluna.checked = !coluna.checked;
         $scope.listar();
     };
 
@@ -89,7 +78,7 @@ function controllerListAtendimentoDeixarOCurso($scope, $http) {
                 colunasVisiveis.push(coluna.nome);
             }
         }
+
         return colunasVisiveis;
     }
 }
-;
