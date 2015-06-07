@@ -92,10 +92,8 @@
                         <div class="col-md-9">
                             <div class="col-md-offset-4">
                                 <div class="form-group" ng-class="{ 'has-error' : formUsuario.confirmarCadastro.$invalid && !formUsuario.confirmarCadastro.$pristine}">
-                                    <input type="password" name="confirmarCadastro" placeholder="Informe a Senha Novamente" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.confirmar" ng-minlength="6" ng-maxlength="10" />                        
-                                    <p ng-show="formUsuario.confirmarCadastro.$error.minlength" class="help-block">Senha no mínimo 6 caracteres.</p>
-                                    <p ng-show="formUsuario.confirmarCadastro.$error.maxlength" class="help-block">Senha no máximo 10 caracteres.</p>
-                                    <p ng-show="usuario.confirmarCadastro != usuario.senhaCadastro" class="help-block">Senhas devem ser iguais.</p>
+                                    <input type="password" name="confirmarCadastro" placeholder="Informe a Senha Novamente" class="form-control" aria-describedby="basic-addon2" ng-model="usuario.confirmarCadastro" ng-minlength="6" ng-maxlength="10" />                        
+                                    <p ng-show="usuario.confirmarCadastro !== usuario.senha" class="help-block">Senhas devem ser iguais.</p>
                                 </div>
                             </div>	
                         </div>

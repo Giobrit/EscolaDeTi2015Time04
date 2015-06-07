@@ -4,8 +4,8 @@
             <h2>Cadastro de Atendimento</h2>
         </div>
         <div class="panel panel-info">
-            <div class="panel-heading"><h3>Dados Básicos<span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></h3></div>
-            <div class="panel-body">
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo"><h3>Dados Básicos<span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo" class="panel-body collapse in">
                 <div class="row form-group">
                     <div class="col-md-2">
                         <label>
@@ -17,19 +17,18 @@
                         <label>
                             <h4>Data</h4>
                         </label>                        
-                        <input type="date" name="data" class="form-control" ng-model="dataDeixarOCurso" ng-change="setData(dataDeixarOCurso)" required>
+                        <input type="text" name="data" class="form-control" data-uk-datepicker="{format:'DD/MM/YYYY'}" ng-model="dataDeixarOCurso" ng-change="setData(dataDeixarOCurso)" required>
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Hora</h4>
                         </label>
-                        <input type="time" name="hora" class="form-control" ng-model="horaDeixarOCurso" ng-change="setHora(horaDeixarOCurso)" required>
+                        <input type="text" name="hora" class="form-control" data-uk-timepicker="{format:'24h'}" ng-model="horaDeixarOCurso" ng-change="setHora(horaDeixarOCurso)" required>
                     </div>
                 </div>
             </div>
-
-            <div class="panel-heading"><h3>Dados do Aluno<span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span></h3></div>
-            <div class="panel-body"> 
+            <div class="panel-heading"  data-toggle="collapse" data-target="#demo1"><h3>Dados do Aluno<span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo1" class="panel-body collapse in"> 
                 <div class="row form-group">
                     <div class="col-md-2">
                         <label>
@@ -136,8 +135,8 @@
                 </div>
             </div>
 
-            <div class="panel-heading"><h3>Dados do Atendimento<span class="glyphicon glyphicon-edit pull-right" aria-hidden="true"></span></h3></div>
-            <div class="panel-body"> 
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo3"><h3>Dados do Atendimento<span class="glyphicon glyphicon-edit pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo3" class="panel-body collapse in"> 
                 <div class="row form-group">
                     <div class="col-md-6">
                         <label>
@@ -174,7 +173,6 @@
                         <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada" required></textarea>
                     </div>
                 </div>
-
                 <div class="row">	
                     <div class="col-md-12">
                         <div class="col-md-offset-7 pull-right">
@@ -184,6 +182,6 @@
                     </div>	
                 </div>	
             </div>
-        </div>      
+        </div>         	
     </div>
 </form>
