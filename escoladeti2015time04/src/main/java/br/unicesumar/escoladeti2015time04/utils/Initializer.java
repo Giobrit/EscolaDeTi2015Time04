@@ -4,6 +4,8 @@ import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.Deixar
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivoService;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivo;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivoService;
+import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivo;
+import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivoService;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcessoService;
 import br.unicesumar.escoladeti2015time04.usuario.Senha;
@@ -24,6 +26,8 @@ public class Initializer {
     private DeixarOCursoMotivoService deixarOCursoMotivoService;
     @Autowired
     private DeixarOCursoObjetivoService deixarOCursoObjetivoService;
+    @Autowired
+    private PreventivoMotivoService preventivoMotivoService;
 
     @PostConstruct
     public void initialize() {
@@ -31,6 +35,7 @@ public class Initializer {
         inicializarAdministrador();
         inicializarAtendimentoDeixarOCursoMotivo();
         inicializarAtendimentoDeixarOCursoObjetivo();
+        inicializarAtendimentoPreventivoMotivo();
     }
 
     private void inicializarItensAcesso() {
@@ -73,6 +78,20 @@ public class Initializer {
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Cancelamento"));
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Permanência"));
 
+    }
+
+    private void inicializarAtendimentoPreventivoMotivo() {
+        preventivoMotivoService.criar(new PreventivoMotivo("Aprendizagem"));
+        preventivoMotivoService.criar(new PreventivoMotivo("Crise de Ansiedade"));
+        preventivoMotivoService.criar(new PreventivoMotivo("Crise de Pânico"));
+        preventivoMotivoService.criar(new PreventivoMotivo("Depressão"));
+        preventivoMotivoService.criar(new PreventivoMotivo("Dúvida quanto à transferência"));
+        preventivoMotivoService.criar(new PreventivoMotivo("Dúvida quanto ao UNIFIES"));
+        preventivoMotivoService.criar(new PreventivoMotivo("Frequência baixa"));
+        preventivoMotivoService.criar(new PreventivoMotivo("Gravidez"));
+        preventivoMotivoService.criar(new PreventivoMotivo("Notas baixas"));
+        preventivoMotivoService.criar(new PreventivoMotivo("Outros"));
+        preventivoMotivoService.criar(new PreventivoMotivo("Pessoal"));
     }
 
 }

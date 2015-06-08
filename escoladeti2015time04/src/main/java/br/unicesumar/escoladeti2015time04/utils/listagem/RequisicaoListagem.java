@@ -2,18 +2,19 @@ package br.unicesumar.escoladeti2015time04.utils.listagem;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Set;
 
 public class RequisicaoListagem {
 
-    private Long numeroItensPorPagina;
-    private Long paginaAtual;
-    private String[] colunasVisiveis;
-    private String colunaOrdenacao;
-    private Boolean ordenacaoCrescente;
-    private String valorFiltragem;
+    private final Long numeroItensPorPagina;
+    private final Long paginaAtual;
+    private final Set<String> colunasVisiveis;
+    private final String colunaOrdenacao;
+    private final Boolean ordenacaoCrescente;
+    private final String valorFiltragem;
 
     @JsonCreator
-    public RequisicaoListagem(@JsonProperty("numeroItens") Long numeroItensPorPagina, @JsonProperty("paginaAtual") Long paginaAtual, @JsonProperty("colunaOrdenacao") String colunaOrdenacao, @JsonProperty("valorFiltragem") String valorFiltragem, @JsonProperty("colunasVisiveis") String[] colunasVisiveis, @JsonProperty("ordenacaoCrescente") Boolean ordenacaoCrescente) {
+    public RequisicaoListagem(@JsonProperty("numeroItens") Long numeroItensPorPagina, @JsonProperty("paginaAtual") Long paginaAtual, @JsonProperty("colunaOrdenacao") String colunaOrdenacao, @JsonProperty("valorFiltragem") String valorFiltragem, @JsonProperty("colunasVisiveis") Set<String> colunasVisiveis, @JsonProperty("ordenacaoCrescente") Boolean ordenacaoCrescente) {
         this.numeroItensPorPagina = numeroItensPorPagina;
         this.paginaAtual = paginaAtual;
         this.colunasVisiveis = colunasVisiveis;
@@ -32,5 +33,9 @@ public class RequisicaoListagem {
 
     public Ordenador getOrdenador() {
         return new Ordenador(colunaOrdenacao, ordenacaoCrescente);
+    }
+    
+    public Set<String> getColunasVisiveis() {
+        return this.colunasVisiveis;
     }
 }

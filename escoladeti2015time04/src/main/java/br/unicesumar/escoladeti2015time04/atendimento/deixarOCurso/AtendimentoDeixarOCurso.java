@@ -1,56 +1,61 @@
-
 package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso;
 
+import br.unicesumar.escoladeti2015time04.atendimento.Atendimento;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.*;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.*;
+import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "atendimentodeixarocurso")
-public class AtendimentoDeixarOCurso implements Serializable {
-  
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
-    
+public class AtendimentoDeixarOCurso extends Atendimento implements Serializable {
+
     @ColunaListavel
     private Long protocolo;
-    
+
     @ColunaListavel
+    @Column(name = "coordenadordiretor")
     private String coordenadorDiretor;
-    
+
     @ColunaListavel
     private String transferencia;
-    
+
     @ColunaListavel
-    @Column(nullable = false)
+    @Column(name = "numeroreprovacoes", nullable = false)
     private int numeroReprovacoes;
-        
+
     @ManyToOne
-    @ColunaListavel
+    @ColunaListavel(nomeNaQuery = "m.descricao as motivo")
+    @JoinColumn(name = "motivo", nullable = false)
     private DeixarOCursoMotivo motivo;
-    
+
     @ManyToOne
-    @ColunaListavel
+    @ColunaListavel(nomeNaQuery = "o.descricao as objetivo")
+    @JoinColumn(name = "objetivo", nullable = false)
     private DeixarOCursoObjetivo objetivo;
 
     public AtendimentoDeixarOCurso() {
     }
 
-    public AtendimentoDeixarOCurso(Long id, Long protocolo, String coordenadorDiretor, String transferencia, int numeroReprovacoes, DeixarOCursoMotivo motivo, DeixarOCursoObjetivo objetivo) {
-        this.id = id;
+    public AtendimentoDeixarOCurso(Long protocolo, String coordenadorDiretor, String transferencia, int numeroReprovacoes, DeixarOCursoMotivo motivo, DeixarOCursoObjetivo objetivo) {
+        this.protocolo = protocolo;
+        this.coordenadorDiretor = coordenadorDiretor;
+        this.transferencia = transferencia;
+        this.numeroReprovacoes = numeroReprovacoes;
+        this.motivo = motivo;
+        this.objetivo = objetivo;
+    }
+
+    public AtendimentoDeixarOCurso(Long protocolo, String coordenadorDiretor, String transferencia, int numeroReprovacoes, DeixarOCursoMotivo motivo, DeixarOCursoObjetivo objetivo, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
+        super(data, usuarioLogado, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
         this.transferencia = transferencia;
@@ -63,36 +68,44 @@ public class AtendimentoDeixarOCurso implements Serializable {
         return protocolo;
     }
 
+    public void setProtocolo(Long protocolo) {
+        this.protocolo = protocolo;
+    }
+
     public String getCoordenadorDiretor() {
         return coordenadorDiretor;
-    }
-
-    public String getTransferencia() {
-        return transferencia;
-    }
-
-    public int getNumeroReprovacoes() {
-        return numeroReprovacoes;
-    }
-
-    public DeixarOCursoMotivo getMotivo() {
-        return motivo;
-    }
-
-    public DeixarOCursoObjetivo getObjetivo() {
-        return objetivo;
     }
 
     public void setCoordenadorDiretor(String coordenadorDiretor) {
         this.coordenadorDiretor = coordenadorDiretor;
     }
 
+    public String getTransferencia() {
+        return transferencia;
+    }
+
     public void setTransferencia(String transferencia) {
         this.transferencia = transferencia;
     }
 
+    public int getNumeroReprovacoes() {
+        return numeroReprovacoes;
+    }
+
+    public void setNumeroReprovacoes(int numeroReprovacoes) {
+        this.numeroReprovacoes = numeroReprovacoes;
+    }
+
+    public DeixarOCursoMotivo getMotivo() {
+        return motivo;
+    }
+
     public void setMotivo(DeixarOCursoMotivo motivo) {
         this.motivo = motivo;
+    }
+
+    public DeixarOCursoObjetivo getObjetivo() {
+        return objetivo;
     }
 
     public void setObjetivo(DeixarOCursoObjetivo objetivo) {
@@ -123,9 +136,7 @@ public class AtendimentoDeixarOCurso implements Serializable {
 
     @Override
     public String toString() {
-        return "AtendimentoDeixarOCurso{" + "id=" + id + ", protocolo=" + protocolo + ", coordenadorDiretor=" + coordenadorDiretor + ", transferencia=" + transferencia + ", numeroReprovacoes=" + numeroReprovacoes + ", motivo=" + motivo + ", objetivo=" + objetivo + '}';
+        return "AtendimentoDeixarOCurso{" + "protocolo=" + protocolo + ", coordenadorDiretor=" + coordenadorDiretor + ", transferencia=" + transferencia + ", numeroReprovacoes=" + numeroReprovacoes + ", motivo=" + motivo + ", objetivo=" + objetivo + '}';
     }
-    
-        
-    
+
 }

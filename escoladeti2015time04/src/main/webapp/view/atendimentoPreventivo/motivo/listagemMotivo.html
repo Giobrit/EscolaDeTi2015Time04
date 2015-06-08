@@ -1,4 +1,4 @@
-<form name="formMotivo" novalidate ng-init="init()" >
+<form name="formPreventivo" novalidate ng-init="init()" >
     <div class="container-fluid formulario" ng-init="init()">
         <div class="panel panel-info">
             <div class="panel-heading"><h3>Lista de Motivo<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <a href="#/AtendimentoDeixarOCurso/Motivo/form/" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo usuário">Adicionar Novo</a>
+                            <a href="#/AtendimentoPreventivo/Motivo/form/" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo motivo">Adicionar Novo</a>
                         </div>
                     </div>
                 </div>
@@ -27,21 +27,21 @@
                                             Descrição
                                             <span class="glyphicon glyphicon-menu-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'descricao'"></span>
                                             <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'descricao'"></span>
-                                        </th>
+                                        </th>                                        
                                         <th ng-click="alterarOrdenacao('status')" class="col-md-1">Ação</th>
                                         <th class="col-md-1">Opção</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr dir-paginate="m in motivos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
-                                        <td>{{m.descricao}}</td>
+                                    <tr dir-paginate="p in motivos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
+                                        <td>{{p.descricao}}</td>                                        
                                         <td>
-                                            <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="m.status === 'INATIVO'" ng-click="alterarStatus(m)">Ativar</button>
-                                            <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="m.status === 'ATIVO'" ng-click="alterarStatus(m)">Inativar</button>
+                                            <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="p.status === 'INATIVO'" ng-click="alterarStatus(p)">Ativar</button>
+                                            <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="p.status === 'ATIVO'" ng-click="alterarStatus(p)">Inativar</button>
                                         </td>
                                         <td>
-                                            <span>
-                                                <a href="#/AtendimentoDeixarOCurso/Motivo/form/{{m.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                            <span>                                                
+                                                <a href="#/AtendimentoPreventivo/Motivo/form/{{p.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                                             </span>
                                         </td>
                                     </tr>
@@ -49,15 +49,15 @@
                             </table>
                         </div> 
                     </div> 
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="text-center">
-                            <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoDeixarOCurso/motivo/paginacao.html"></dir-pagination-controls>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoPreventivo/motivo/paginacao.html"></dir-pagination-controls>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
-</form>    
+</form>
