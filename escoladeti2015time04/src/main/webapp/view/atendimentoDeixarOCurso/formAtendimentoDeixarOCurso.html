@@ -17,13 +17,15 @@
                         <label>
                             <h4>Data</h4>
                         </label>                        
-                        <input type="text" name="data" class="form-control" data-uk-datepicker="{format:'DD/MM/YYYY'}" ng-model="dataDeixarOCurso" ng-change="setData(dataDeixarOCurso)" required>
+                        <!--<input type="text" name="data" class="form-control" data-uk-datepicker="{format:'DD/MM/YYYY}" ng-model="dataDeixarOCurso" ng-change="setData(dataDeixarOCurso)">-->
+                        <input type="date" name="data" class="form-control" ng-model="dataDeixarOCurso" ng-change="setData(dataDeixarOCurso)" required>
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Hora</h4>
                         </label>
-                        <input type="text" name="hora" class="form-control" data-uk-timepicker="{format:'24h'}" ng-model="horaDeixarOCurso" ng-change="setHora(horaDeixarOCurso)" required>
+<!--                        <input type="text" name="hora" class="form-control" data-uk-timepicker="{format:'24h'}" ng-model="horaDeixarOCurso" ng-change="setHora(horaDeixarOCurso)">-->
+                        <input type="time" name="hora" class="form-control" ng-model="horaDeixarOCurso" ng-change="setHora(horaDeixarOCurso)" required>
                     </div>
                 </div>
             </div>
@@ -125,8 +127,8 @@
                     <div class="col-md-6">
                         <label>
                             <h4>Coordenador / Diretor</h4>
-                        </label>
-                        <div class="form-group" >
+                        </label>                        
+                        <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.coordenadorDiretor.$invalid && !formAtendimentoDeixarOCurso.coordenadorDiretor.$pristine}">
                             <input type="text" name="coordenadorDiretor" placeholder="Informe o Coordenador / Diretor"class="form-control" ng-model="atendimentoDeixarOCurso.coordenadorDiretor" ng-minlength="2" ng-maxlength="50" >
                             <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
                             <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.maxlength" class="help-block">Nome no máximo 50 caracteres.</p>
@@ -172,16 +174,16 @@
                         </label>
                         <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada" required></textarea>
                     </div>
-                </div>
-                <div class="row">	
-                    <div class="col-md-12">
-                        <div class="col-md-offset-7 pull-right">
-                            <a type="button" href="#/AtendimentoDeixarOCurso/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
-                            <button type="submit" ng-click="salvar()" ng-disabled="(formAtendimentoDeixarOCurso.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
-                        </div>
-                    </div>	
-                </div>	
+                </div>                
             </div>
-        </div>         	
-    </div>
+        </div>        
+        <div class="row">	
+            <div class="col-md-12">
+                <div class="col-md-offset-7 pull-right">
+                    <a type="button" href="#/AtendimentoDeixarOCurso/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
+                    <button type="submit" ng-click="salvar()" ng-disabled="(formAtendimentoDeixarOCurso.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
+                </div>
+            </div>	
+        </div>	
+    </div>    
 </form>

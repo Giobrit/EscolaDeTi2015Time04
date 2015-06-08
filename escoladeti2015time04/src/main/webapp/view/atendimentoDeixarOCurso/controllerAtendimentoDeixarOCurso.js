@@ -21,7 +21,9 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.editando = false;
     };
 
-    $scope.salvar = function () {
+    $scope.salvar = function () {        
+        alert($scope.dataDeixarOCurso);
+        alert($scope.horaDeixarOCurso);
         montarCampoData();
         alert($scope.atendimentoDeixarOCurso.data);
         alert(JSON.stringify($scope.atendimentoDeixarOCurso));
@@ -32,7 +34,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         }
 
         function onSuccess() {
-            $location.path("/atendimento/deixarOCurso/list");
+            $location.path("/AtendimentoDeixarOCurso/list");
             alert("Atendimento salvo com sucesso");
         }
     };
@@ -138,7 +140,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.setMatriculado(aluno.matriculado);
     }
 
-    $scope.setData = function (data) {
+    $scope.setData = function (data) {        
         dataFormatada = "";
         var dataParaFormatacao = new Date(data);
 
@@ -151,7 +153,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
                 ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate();
     }
 
-    $scope.setHora = function (hora) {        
+    $scope.setHora = function (hora) {                
         horaFormatada = "";
         var horaParaFormatacao = new Date(hora);
 
