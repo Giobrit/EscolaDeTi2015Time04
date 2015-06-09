@@ -22,8 +22,6 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.salvar = function () {        
-        alert($scope.dataDeixarOCurso);
-        alert($scope.horaDeixarOCurso);
         montarCampoData();
         alert($scope.atendimentoDeixarOCurso.data);
         alert(JSON.stringify($scope.atendimentoDeixarOCurso));
@@ -43,8 +41,10 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $http.get("/atendimento/deixarOCurso/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
-            var dataAux = new Date(data.data);
-              
+            
+            var dataAux = new Date(data.data);                        
+            
+            alert(dataAux);            
             alert(JSON.stringify(data));
             $scope.atendimentoDeixarOCurso.id = data.id;
             $scope.atendimentoDeixarOCurso.protocolo = data.protocolo;
