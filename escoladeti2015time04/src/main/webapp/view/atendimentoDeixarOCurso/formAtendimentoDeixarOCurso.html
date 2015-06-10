@@ -13,19 +13,22 @@
                         </label>
                         <input type="text" name="protocolo" class="form-control" ng-model="atendimentoDeixarOCurso.protocolo">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" >
                         <label>
                             <h4>Data</h4>
-                        </label>                        
-                        <!--<input type="text" name="data" class="form-control" data-uk-datepicker="{format:'DD/MM/YYYY}" ng-model="dataDeixarOCurso" ng-change="setData(dataDeixarOCurso)">-->
-                        <input type="date" name="data" class="form-control" ng-model="dataDeixarOCurso" ng-change="setData(dataDeixarOCurso)" required>
+                        </label>
+                        <div class="datepicker" date-format="dd/MM/yyyy">
+                            <input type="text" class="form-control angular-datepicker-input" ng-model="dataDeixarOCurso"/>
+                        </div>
+                        <!--<input type="date" name="data" class="form-control" ng-model="dataDeixarOCurso" ng-change="setData(dataDeixarOCurso)" required>-->
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Hora</h4>
                         </label>
-<!--                        <input type="text" name="hora" class="form-control" data-uk-timepicker="{format:'24h'}" ng-model="horaDeixarOCurso" ng-change="setHora(horaDeixarOCurso)">-->
-                        <input type="time" name="hora" class="form-control" ng-model="horaDeixarOCurso" ng-change="setHora(horaDeixarOCurso)" required>
+                        <input class="form-control" size="5" ng-model="horaDeixarOCurso" bs-timepicker data-time-format="HH:mm" data-length="1" data-minute-step="1" data-arrow-behavior="picker" type="text">
+                        <!--<input type="text" name="hora" class="form-control" data-uk-timepicker="{format:'24h'}" ng-model="horaDeixarOCurso">-->
+                        <!--<input type="time" name="hora" class="form-control" ng-model="horaDeixarOCurso" ng-change="setHora(horaDeixarOCurso)" required>-->
                     </div>
                 </div>
             </div>
