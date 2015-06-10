@@ -31,14 +31,14 @@
                                         <tr>
                                             <th ng-repeat="c in colunas" class="col-md-4" ng-click="alterarOrdenacao(c.nome)"  ng-show="c.checked">
                                                 {{c.label}}
-                                                <span class="glyphicon glyphicon-menu-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === c.nome"></span>
-                                                <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === c.nome"></span>
+                                                <i class="fa fa-angle-up pull-right" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === c.nome"></i>
+                                                <i class="fa fa-angle-down pull-right" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === c.nome"></i>
                                             </th>        
                                             <th>Opções</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="a in atendimentos">
+                                        <tr dir-paginate="a in atendimentos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
                                             <td ng-repeat="c in colunas" ng-show="c.checked"  style="white-space:pre-wrap;">{{a[c.nome.toLowerCase()]}}</td>
                                             <td>
                                                 <span>
@@ -52,22 +52,9 @@
                         </div> 
                     </div>
                     <div class="row">
-                        <div class="col-md-11">
-                            <div class="col-md-offset-6">
-                                <nav>
-                                    <ul class="pagination" id="paginacao">
-                                        <li>
-                                            <a href="" ng-click="alterarPagina(paginaAtual - 1)" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" ng-click="alterarPagina(paginaAtual + 1)" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoDeixarOCurso/motivo/paginacao.html"></dir-pagination-controls>
                             </div>
                         </div>
                     </div>

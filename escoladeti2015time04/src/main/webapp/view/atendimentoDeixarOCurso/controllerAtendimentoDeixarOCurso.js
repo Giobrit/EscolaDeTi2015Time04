@@ -1,5 +1,5 @@
 AppModule.controller("controllerListAtendimentoDeixarOCurso", controllerListAtendimentoDeixarOCurso);
-function controllerListAtendimentoDeixarOCurso($scope, $http) {
+function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 8;
@@ -58,7 +58,7 @@ function controllerListAtendimentoDeixarOCurso($scope, $http) {
         $scope.listar();
     };
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 
     $scope.alterarCheckbox = function (coluna) {
