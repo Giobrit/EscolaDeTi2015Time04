@@ -3,9 +3,9 @@ AppModule.controller("controllerFormAtendimentoDeixarOCurso", controllerFormAten
 function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location) {
 
     $scope.init = function () {
-        $scope.limparTela();
         $scope.preencherListDeObjetivo();
         $scope.preencherListDeMotivo();
+        $scope.limparTela();
 
         idEditando = $routeParams.id;
 
@@ -22,7 +22,6 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
     $scope.salvar = function () {
         montarCampoData();
-        console.log(JSON.stringify($scope.atendimentoDeixarOCurso));
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         } else {
@@ -131,7 +130,6 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     }
 
     $scope.setData = function () {
-        console.log($scope.dataDeixarOCurso);
         return formatarData(new Date($scope.dataDeixarOCurso));
         ;
     };
@@ -152,8 +150,6 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     }
 
     function montarCampoData() {
-       console.log( $scope.setData());
-       console.log( $scope.setHora());
         $scope.atendimentoDeixarOCurso.data = $scope.setData() + "T" + $scope.setHora() + "-03";
     }
     $scope.setData();
