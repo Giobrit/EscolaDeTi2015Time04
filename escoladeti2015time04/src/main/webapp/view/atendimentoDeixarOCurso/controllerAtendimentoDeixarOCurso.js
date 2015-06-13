@@ -1,12 +1,11 @@
 AppModule.controller("controllerFormAtendimentoDeixarOCurso", controllerFormAtendimentoDeixarOCurso);
-var dataFormatada;
-var horaFormatada;
+
 function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location) {
 
     $scope.init = function () {
-        $scope.limparTela();
         $scope.preencherListDeObjetivo();
         $scope.preencherListDeMotivo();
+        $scope.limparTela();
 
         idEditando = $routeParams.id;
 
@@ -21,10 +20,8 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.editando = false;
     };
 
-    $scope.salvar = function () {        
+    $scope.salvar = function () {
         montarCampoData();
-        alert($scope.atendimentoDeixarOCurso.data);
-        alert(JSON.stringify($scope.atendimentoDeixarOCurso));
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         } else {
@@ -41,48 +38,40 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $http.get("/atendimento/deixarOCurso/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
+
+            var dataAux = new Date(data.data);
+
+            $scope.atendimentoDeixarOCurso = data;
             
-            var dataAux = new Date(data.data);                        
-            
-            alert(dataAux);            
-            alert(JSON.stringify(data));
-            $scope.atendimentoDeixarOCurso.id = data.id;
-            $scope.atendimentoDeixarOCurso.protocolo = data.protocolo;
             $scope.dataDeixarOCurso = dataAux;
-            $scope.horaDeixarOCurso = dataAux;            
-            $scope.setData($scope.dataDeixarOCurso);
-            $scope.setHora($scope.horaDeixarOCurso);            
-            $scope.atendimentoDeixarOCurso.ra = data.ra;
-            $scope.atendimentoDeixarOCurso.transferencia = data.transferencia;
-            $scope.atendimentoDeixarOCurso.coordenadorDiretor = data.coordenadordiretor;            
-            $scope.atendimentoDeixarOCurso.descricaoPrivada = data.descricaoprivada;
-            $scope.atendimentoDeixarOCurso.descricaoPublica = data.descricaopublica;
+            $scope.horaDeixarOCurso = dataAux;
+            
+            
             selecionaObjetivoNaTela(data.objetivo);
             selecionaMotivoNaTela(data.motivo);
-            $scope.setObjetivo($scope.objetivoSelecionado);
-            $scope.setMotivo($scope.motivoSelecionado);
-            $scope.carregarAluno(data.ra);                                
+//            $scope.setObjetivo($scope.objetivoSelecionado);
+//            $scope.setMotivo($scope.motivoSelecionado);
         }
-    };   
-    
-    function selecionaObjetivoNaTela(descricao){
+    };
+
+    function selecionaObjetivoNaTela(descricao) {
         $scope.objetivos.forEach(paraCada);
-        function paraCada(objetivo){
-            if(objetivo.descricao === descricao){
+        function paraCada(objetivo) {
+            if (objetivo.descricao === descricao) {
                 $scope.objetivoSelecionado = objetivo;
             }
         }
     }
-    
-    function selecionaMotivoNaTela(descricao){
+
+    function selecionaMotivoNaTela(descricao) {
         $scope.motivos.forEach(paraCada);
-        function paraCada(motivo){
-            if(motivo.descricao === descricao){
+        function paraCada(motivo) {
+            if (motivo.descricao === descricao) {
                 $scope.motivoSelecionado = motivo;
             }
         }
     }
-    
+
     $scope.preencherListDeObjetivo = function () {
         $http.get("/atendimento/deixarOCurso/objetivo/listarAtivos").success(onSuccess).error(onError);
 
@@ -140,11 +129,9 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.setMatriculado(aluno.matriculado);
     }
 
-    $scope.setData = function (data) {        
-        dataFormatada = "";
-        var dataParaFormatacao = new Date(data);
-
-        dataFormatada = formatarData(dataParaFormatacao);
+    $scope.setData = function () {
+        return formatarData(new Date($scope.dataDeixarOCurso));
+        ;
     };
 
     function formatarData(dataParaFormatacao) {
@@ -153,22 +140,19 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
                 ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate();
     }
 
-    $scope.setHora = function (hora) {                
-        horaFormatada = "";
-        var horaParaFormatacao = new Date(hora);
-
-        horaFormatada = formatarHora(horaParaFormatacao);
+    $scope.setHora = function () {
+        return formatarHora(new Date($scope.horaDeixarOCurso));
     };
-    
-    function formatarHora(horaParaFormatacao){
+
+    function formatarHora(horaParaFormatacao) {
         return ((horaParaFormatacao.getHours() < 10) ? "0" : "") + horaParaFormatacao.getHours() + ":" +
                 ((horaParaFormatacao.getMinutes() < 10) ? "0" : "") + horaParaFormatacao.getMinutes() + ":00";
     }
-    
-    function montarCampoData() {
-        $scope.atendimentoDeixarOCurso.data = dataFormatada + "T" + horaFormatada;
-    }
 
+    function montarCampoData() {
+        $scope.atendimentoDeixarOCurso.data = $scope.setData() + "T" + $scope.setHora() + "-03";
+    }
+    $scope.setData();
     function onError(data) {
         alert(JSON.stringify(data));
     }
