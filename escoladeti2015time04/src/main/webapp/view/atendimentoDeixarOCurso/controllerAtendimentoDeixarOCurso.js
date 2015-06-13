@@ -22,6 +22,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
     $scope.salvar = function () {
         montarCampoData();
+        alert(JSON.stringify($scope.atendimentoDeixarOCurso));
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         } else {
@@ -40,17 +41,30 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         function onSuccess(data) {
 
             var dataAux = new Date(data.data);
-
-            $scope.atendimentoDeixarOCurso = data;
             
+            $scope.atendimentoDeixarOCurso.id = data.id;
+            $scope.atendimentoDeixarOCurso.protocolo = data.protocolo;
+            $scope.atendimentoDeixarOCurso.ra = data.ra;           
+            $scope.atendimentoDeixarOCurso.nomeAluno = data.nomealuno;
+            $scope.atendimentoDeixarOCurso.curso = data.curso;
+            $scope.atendimentoDeixarOCurso.centro = data.centro;
+            $scope.atendimentoDeixarOCurso.serieSemestre = data.seriesemestre;
+            $scope.atendimentoDeixarOCurso.turno = data.turno;
+            $scope.atendimentoDeixarOCurso.bolsaFinanciamento = data.bolsafinanciamento;
+            $scope.atendimentoDeixarOCurso.numeroReprovacoes = data.numeroreprovacoes;
+            $scope.atendimentoDeixarOCurso.descricaoPrivada = data.descricaoprivada;
+            $scope.atendimentoDeixarOCurso.descricaoPublica = data.descricaopublica;
+            $scope.atendimentoDeixarOCurso.transferencia = data.transferencia;
+            $scope.atendimentoDeixarOCurso.coordenadorDiretor = data.coordenadordiretor;
             $scope.dataDeixarOCurso = dataAux;
-            $scope.horaDeixarOCurso = dataAux;
-            
+            $scope.horaDeixarOCurso = dataAux;            
+            $scope.matriculadoSelecionado = data.matriculado === true ? "Sim" : "Não";
+            $scope.setMatriculado(data.matriculado);
             
             selecionaObjetivoNaTela(data.objetivo);
-            selecionaMotivoNaTela(data.motivo);
-//            $scope.setObjetivo($scope.objetivoSelecionado);
-//            $scope.setMotivo($scope.motivoSelecionado);
+            selecionaMotivoNaTela(data.motivo);                       
+            $scope.setObjetivo($scope.objetivoSelecionado);
+            $scope.setMotivo($scope.motivoSelecionado);
         }
     };
 
@@ -126,7 +140,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.atendimentoDeixarOCurso.bolsaFinanciamento = aluno.bolsa;
         $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;
         $scope.matriculadoSelecionado = aluno.matriculado;
-        $scope.setMatriculado(aluno.matriculado);
+        $scope.setMatriculado(aluno.matriculado);            
     }
 
     $scope.setData = function () {
