@@ -31,8 +31,8 @@
                                         <tr>
                                             <th ng-repeat="c in colunas" class="col-md-4" ng-click="alterarOrdenacao(c.nome)"  ng-show="c.checked">
                                                 {{c.label}}
-                                                <i class="fa fa-angle-up pull-right" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === c.nome"></i>
-                                                <i class="fa fa-angle-down pull-right" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === c.nome"></i>
+                                                <i class="fa fa-angle-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === c.nome"></i>
+                                                <i class="fa fa-angle-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === c.nome"></i>
                                             </th>        
                                             <th>Opções</th>
                                         </tr>
