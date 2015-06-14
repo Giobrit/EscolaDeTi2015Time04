@@ -1,4 +1,4 @@
-package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo;
+package br.unicesumar.escoladeti2015time04.atendimento.motivo;
 
 import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("atendimento/deixarOCurso/motivo")
-public class DeixarOCursoMotivoController {
+public class AtendimentoMotivoController {
 
     @Autowired
-    private DeixarOCursoMotivoService service;
+    private AtendimentoMotivoService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Map<String, Object> localizar(@PathVariable Long id) {
@@ -23,27 +23,27 @@ public class DeixarOCursoMotivoController {
     }
 
     @RequestMapping(value = "/listarAtivos", method = RequestMethod.GET)
-    public ResultadoListagem<DeixarOCursoMotivo> listarAtivos() {
+    public ResultadoListagem<AtendimentoMotivo> listarAtivos() {
         return this.service.listarAtivos();
     }
 
     @RequestMapping(value = "/listar", method = RequestMethod.POST)
-    public ResultadoListagem<DeixarOCursoMotivo> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
+    public ResultadoListagem<AtendimentoMotivo> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
         return this.service.listar(requisicaoListagem);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void criarMotivo(@RequestBody DeixarOCursoMotivo motivo) {
+    public void criarMotivo(@RequestBody AtendimentoMotivo motivo) {
         this.service.criar(motivo);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void editarMotivo(@RequestBody DeixarOCursoMotivoCommandEditar motivo) {
+    public void editarMotivo(@RequestBody AtendimentoMotivoCommandEditar motivo) {
         this.service.editar(motivo);
     }
 
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
-    public void alterarStatus(@PathVariable Long id, @PathVariable DeixarOCursoMotivoStatus status) {
+    public void alterarStatus(@PathVariable Long id, @PathVariable AtendimentoMotivoStatus status) {
         this.service.inativar(id, status);
     }
 

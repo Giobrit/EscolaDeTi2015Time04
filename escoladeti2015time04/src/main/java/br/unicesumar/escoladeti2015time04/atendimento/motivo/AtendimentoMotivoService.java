@@ -1,4 +1,4 @@
-package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo;
+package br.unicesumar.escoladeti2015time04.atendimento.motivo;
 
 import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Ordenador;
@@ -10,23 +10,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Transactional
-public class DeixarOCursoMotivoService extends Service<DeixarOCursoMotivo, DeixarOCursoMotivoRepository, DeixarOCursoMotivoCommandEditar> {
+public class AtendimentoMotivoService extends Service<AtendimentoMotivo, AtendimentoMotivoRepository, AtendimentoMotivoCommandEditar> {
 
-    public void inativar(Long id, DeixarOCursoMotivoStatus status) {
-        DeixarOCursoMotivo motivo = repository.getOne(id);
+    public void inativar(Long id, AtendimentoMotivoStatus status) {
+        AtendimentoMotivo motivo = repository.getOne(id);
         motivo.setStatus(status);
         repository.save(motivo);
     }
 
     @Override
-    public void criar(DeixarOCursoMotivo motivo) {
-        motivo.setStatus(DeixarOCursoMotivoStatus.ATIVO);
+    public void criar(AtendimentoMotivo motivo) {
+        motivo.setStatus(AtendimentoMotivoStatus.ATIVO);
         super.criar(motivo);
     }
 
     @Override
-    protected Class<DeixarOCursoMotivo> getClassEntity() {
-        return DeixarOCursoMotivo.class;
+    protected Class<AtendimentoMotivo> getClassEntity() {
+        return AtendimentoMotivo.class;
     }
 
     public ResultadoListagem listarAtivos() {

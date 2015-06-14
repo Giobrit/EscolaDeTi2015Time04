@@ -1,9 +1,11 @@
-package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo;
+package br.unicesumar.escoladeti2015time04.atendimento.motivo;
 
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.utils.listagem.PoliticaFiltragem;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "deixarocursomotivo")
-public class DeixarOCursoMotivo implements Serializable {
+public class AtendimentoMotivo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -28,20 +30,29 @@ public class DeixarOCursoMotivo implements Serializable {
     @Column(nullable = false)
     @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
     @Enumerated(EnumType.STRING)
-    private DeixarOCursoMotivoStatus status;
+    private AtendimentoMotivoStatus status;
+    
+    @Column (nullable = false)
+    
+    private Set<AtendimentoDoMotivo> atendimenotsDoMotivo;
 
-    public DeixarOCursoMotivo() {
+    public AtendimentoMotivo() {
     }
 
-    public DeixarOCursoMotivo(String descricao) {
+    public AtendimentoMotivo(String descricao) {
         this.descricao = descricao;
     }
 
-    public DeixarOCursoMotivo(Long id, String descricao) {
+    public AtendimentoMotivo(Long id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
 
+    public AtendimentoMotivo(String descricao, Set<AtendimentoDoMotivo> atendimenotsDoMotivo) {
+        this.descricao = descricao;
+        this.atendimenotsDoMotivo = atendimenotsDoMotivo;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -50,16 +61,25 @@ public class DeixarOCursoMotivo implements Serializable {
         return descricao;
     }
 
-    public DeixarOCursoMotivoStatus getStatus() {
+    public AtendimentoMotivoStatus getStatus() {
         return status;
     }
+
+    public Set<AtendimentoDoMotivo> getAtendimenotsDoMotivo() {
+        return atendimenotsDoMotivo;
+    }
+    
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
-    public void setStatus(DeixarOCursoMotivoStatus status) {
+    public void setStatus(AtendimentoMotivoStatus status) {
         this.status = status;
+    }
+
+    public void setAtendimenotsDoMotivo(Set<AtendimentoDoMotivo> atendimenotsDoMotivo) {
+        this.atendimenotsDoMotivo = atendimenotsDoMotivo;
     }
 
     @Override
@@ -77,7 +97,7 @@ public class DeixarOCursoMotivo implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final DeixarOCursoMotivo other = (DeixarOCursoMotivo) obj;
+        final AtendimentoMotivo other = (AtendimentoMotivo) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -86,7 +106,6 @@ public class DeixarOCursoMotivo implements Serializable {
 
     @Override
     public String toString() {
-        return "Motivo{" + "id=" + id + ", descricao=" + descricao + '}';
+        return "AtendimentoMotivo{" + "id=" + id + ", descricao=" + descricao + ", status=" + status + ", atendimenotsDoMotivo=" + atendimenotsDoMotivo + '}';
     }
-
 }
