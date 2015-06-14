@@ -1,6 +1,6 @@
 AppModule.controller("controllerFormAtendimentoDeixarOCurso", controllerFormAtendimentoDeixarOCurso);
 
-function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location) {
+function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location, growl, $timeout) {
 
     $scope.init = function () {
         $scope.preencherListDeObjetivo();
@@ -21,8 +21,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.salvar = function () {
-        montarCampoData();
-        alert(JSON.stringify($scope.atendimentoDeixarOCurso));
+        montarCampoData();        
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         } else {
@@ -30,21 +29,24 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         }
 
         function onSuccess() {
+            $timeout(success, 100);
             $location.path("/AtendimentoDeixarOCurso/list");
-            alert("Atendimento salvo com sucesso");
         }
     };
+
+    function success() {
+        growl.success("<b>Atendimento " + ($scope.editando === true ? "editado" : "salvo") + " com sucesso</b>");
+    }
+    ;
 
     $scope.editar = function (id) {
         $http.get("/atendimento/deixarOCurso/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
 
-            var dataAux = new Date(data.data);
-            
             $scope.atendimentoDeixarOCurso.id = data.id;
             $scope.atendimentoDeixarOCurso.protocolo = data.protocolo;
-            $scope.atendimentoDeixarOCurso.ra = data.ra;           
+            $scope.atendimentoDeixarOCurso.ra = data.ra;
             $scope.atendimentoDeixarOCurso.nomeAluno = data.nomealuno;
             $scope.atendimentoDeixarOCurso.curso = data.curso;
             $scope.atendimentoDeixarOCurso.centro = data.centro;
@@ -56,13 +58,13 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             $scope.atendimentoDeixarOCurso.descricaoPublica = data.descricaopublica;
             $scope.atendimentoDeixarOCurso.transferencia = data.transferencia;
             $scope.atendimentoDeixarOCurso.coordenadorDiretor = data.coordenadordiretor;
-            $scope.dataDeixarOCurso = dataAux;
-            $scope.horaDeixarOCurso = dataAux;            
-            $scope.matriculadoSelecionado = data.matriculado === true ? "Sim" : "Não";
+            $scope.dataDeixarOCurso = timestampParaData(data.data);
+            $scope.horaDeixarOCurso = new Date(data.data);
+            $scope.matriculadoSelecionado = data.matriculado;
             $scope.setMatriculado(data.matriculado);
-            
+
             selecionaObjetivoNaTela(data.objetivo);
-            selecionaMotivoNaTela(data.motivo);                       
+            selecionaMotivoNaTela(data.motivo);
             $scope.setObjetivo($scope.objetivoSelecionado);
             $scope.setMotivo($scope.motivoSelecionado);
         }
@@ -124,11 +126,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.setMatriculado = function (data) {
-        if (data === "Sim") {
-            $scope.atendimentoDeixarOCurso.matriculado = true;
-        } else {
-            $scope.atendimentoDeixarOCurso.matriculado = false;
-        }
+        $scope.atendimentoDeixarOCurso.matriculado = data === "Sim" ? true : false;
     };
 
     function setAtributosAluno(aluno) {
@@ -140,7 +138,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.atendimentoDeixarOCurso.bolsaFinanciamento = aluno.bolsa;
         $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;
         $scope.matriculadoSelecionado = aluno.matriculado;
-        $scope.setMatriculado(aluno.matriculado);            
+        $scope.setMatriculado(aluno.matriculado);
     }
 
     $scope.setData = function () {
@@ -150,8 +148,8 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
     function formatarData(dataParaFormatacao) {
         return dataParaFormatacao.getFullYear() + "-" +
-                (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1) + "-" +
-                ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate();
+                ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate() + "-" +
+                (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1);
     }
 
     $scope.setHora = function () {
@@ -164,11 +162,13 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     }
 
     function montarCampoData() {
-        $scope.atendimentoDeixarOCurso.data = $scope.setData() + "T" + $scope.setHora() + "-03";
+        if ($scope.horaDeixarOCurso && $scope.dataDeixarOCurso) {
+            $scope.atendimentoDeixarOCurso.data = $scope.setData() + "T" + $scope.setHora() + "-03";
+        }
     }
     $scope.setData();
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 
 }
