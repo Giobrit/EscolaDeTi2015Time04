@@ -2,7 +2,7 @@ AppModule.controller("controllerFormAtendimentoDeixarOCurso", controllerFormAten
 
 function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location) {
 
-    $scope.motivos = [];
+    //$scope.motivos = [];
     $scope.init = function () {
         $scope.preencherListDeObjetivo();
         $scope.preencherListDeMotivo();

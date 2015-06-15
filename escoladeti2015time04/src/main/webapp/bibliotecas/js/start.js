@@ -1,4 +1,4 @@
-AppModule = angular.module("Cadastros", ['ngRoute', 'angularUtils.directives.dirPagination', 'angular-growl', '720kb.datepicker', 'mgcrea.ngStrap']);
+AppModule = angular.module("Cadastros", ['ngRoute', 'ngAnimate', 'ngSanitize','angularUtils.directives.dirPagination', 'angular-growl', '720kb.datepicker', 'mgcrea.ngStrap']);
 
 AppModule.config(function (growlProvider, $typeaheadProvider) {
     growlProvider.globalTimeToLive({success: 4000, error: 4000, warning: 4000, info: 4000});
@@ -6,7 +6,7 @@ AppModule.config(function (growlProvider, $typeaheadProvider) {
     growlProvider.globalDisableCountDown(true);
 
     angular.extend($typeaheadProvider.defaults, {
-        minLength: 2,
+        minLength: 1,
         limit: 8
     });
 });
