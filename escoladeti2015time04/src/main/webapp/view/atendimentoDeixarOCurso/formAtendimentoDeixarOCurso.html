@@ -19,16 +19,13 @@
                         </label>
                         <div class="datepicker" date-format="dd/MM/yyyy">
                             <input type="text" class="form-control angular-datepicker-input" ng-model="dataDeixarOCurso"/>
-                        </div>
-                        <!--<input type="date" name="data" class="form-control" ng-model="dataDeixarOCurso" ng-change="setData(dataDeixarOCurso)" required>-->
+                        </div>                        
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Hora</h4>
                         </label>
-                        <input class="form-control" size="5" ng-model="horaDeixarOCurso" bs-timepicker data-time-format="HH:mm" data-length="1" data-minute-step="1" data-arrow-behavior="picker" type="text">
-                        <!--<input type="text" name="hora" class="form-control" data-uk-timepicker="{format:'24h'}" ng-model="horaDeixarOCurso">-->
-                        <!--<input type="time" name="hora" class="form-control" ng-model="horaDeixarOCurso" ng-change="setHora(horaDeixarOCurso)" required>-->
+                        <input class="form-control" size="5" ng-model="horaDeixarOCurso" bs-timepicker data-time-format="HH:mm" data-length="1" data-minute-step="1" data-arrow-behavior="picker" type="text">                        
                     </div>
                 </div>
             </div>
@@ -39,7 +36,7 @@
                         <label>
                             <h4>Ra</h4>
                         </label>
-                        <input type="text" name="ra" class="form-control" ng-model="atendimentoDeixarOCurso.ra" ng-keyup="carregarAluno(atendimentoDeixarOCurso.ra)" maxlength="8" required>
+                        <input type="text" name="ra" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.ra.$invalid && !formAtendimentoDeixarOCurso.ra.$pristine}" class="form-control" ng-model="atendimentoDeixarOCurso.ra" ng-keyup="carregarAluno(atendimentoDeixarOCurso.ra)" maxlength="8" required>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -59,20 +56,20 @@
                         <label>
                             <h4>Curso</h4>
                         </label>
-                        <input type="text" name="curso" placeholder="Informe o curso do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.curso" required>
+                        <input type="text" name="curso" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.curso.$invalid && !formAtendimentoDeixarOCurso.curso.$pristine}" placeholder="Informe o curso do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.curso" required>
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Centro</h4>
                         </label>
-                        <input type="text" name="centro" placeholder="Informe o centro" class="form-control" ng-model="atendimentoDeixarOCurso.centro" required>
+                        <input type="text" name="centro" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.centro.$invalid && !formAtendimentoDeixarOCurso.centro.$pristine}" placeholder="Informe o centro" class="form-control" ng-model="atendimentoDeixarOCurso.centro" required>
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Série</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="serieSemestre" id="sel1"  ng-model="atendimentoDeixarOCurso.serieSemestre" required> 
+                            <select class="form-control" name="serieSemestre" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.serieSemestre.$invalid && !formAtendimentoDeixarOCurso.serieSemestre.$pristine}" id="sel1"  ng-model="atendimentoDeixarOCurso.serieSemestre" required> 
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -86,7 +83,7 @@
                             <h4>Turno</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="turno" id="sel1" ng-model="atendimentoDeixarOCurso.turno" required>
+                            <select class="form-control" name="turno" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.turno.$invalid && !formAtendimentoDeixarOCurso.turno.$pristine}" id="sel1" ng-model="atendimentoDeixarOCurso.turno" required>
                                 <option>Matutino</option>
                                 <option>Noturno</option>
                             </select>
@@ -98,14 +95,14 @@
                         <label>
                             <h4>Bolsa</h4>
                         </label>
-                        <input type="text" name="bolsaFinanciamento" placeholder="Informe se o aluno possui bolsa" class="form-control" ng-model="atendimentoDeixarOCurso.bolsaFinanciamento" required>
+                        <input type="text" name="bolsaFinanciamento" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.bolsaFinanciamento.$invalid && !formAtendimentoDeixarOCurso.bolsaFinanciamento.$pristine}" placeholder="Informe se o aluno possui bolsa" class="form-control" ng-model="atendimentoDeixarOCurso.bolsaFinanciamento" required>
                     </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Reprovações</h4>
                         </label>
                         <div class="form-group">
-                            <input type="text" name="numeroReprovacoes" placeholder="Informe o número" class="form-control" ng-model="atendimentoDeixarOCurso.numeroReprovacoes" required>
+                            <input type="text" name="numeroReprovacoes" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.numeroReprovacoes.$invalid && !formAtendimentoDeixarOCurso.numeroReprovacoes.$pristine}" placeholder="Informe o número" class="form-control" ng-model="atendimentoDeixarOCurso.numeroReprovacoes" required>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -113,7 +110,7 @@
                             <h4>Matriculado</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="matriculado" id="sel1" ng-model="matriculadoSelecionado" ng-change="setMatriculado(matriculadoSelecionado)" required>
+                            <select class="form-control" name="matriculado" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.matriculado.$invalid && !formAtendimentoDeixarOCurso.matriculado.$pristine}" id="sel1" ng-model="matriculadoSelecionado" ng-change="setMatriculado(matriculadoSelecionado)" required>
                                 <option>Sim</option>
                                 <option>Não</option>
                             </select>
@@ -148,7 +145,7 @@
                             <h4>Objetivo</h4>
                         </label>
                         <div class="form-group opcao">
-                            <select class="form-control" id="sel1" name="objetivo" ng-change="setObjetivo(objetivoSelecionado)" ng-model="objetivoSelecionado" ng-options="o.descricao for o in objetivos" required> 
+                            <select class="form-control" id="sel1" name="objetivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.objetivo.$invalid && !formAtendimentoDeixarOCurso.objetivo.$pristine}" ng-change="setObjetivo(objetivoSelecionado)" ng-model="objetivoSelecionado" ng-options="o.descricao for o in objetivos" required> 
                             </select>
                         </div>
                     </div>
@@ -157,9 +154,9 @@
                             <h4>Motivo</h4>
                         </label>
                         <div class="form-group opcao">
-                            <input class="form-control" ng-model="motivoSelecionado" bs-options="motivo as motivo.descricao for motivo in motivos" data-animation="am-flip-x"  placeholder="Motivo" bs-typeahead type="text">                       
+                            <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.motivo.$invalid && !formAtendimentoDeixarOCurso.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
+                            </select>
                         </div>
-
                     </div>
                 </div>
                 <div class="row form-group">
@@ -167,7 +164,7 @@
                         <label>
                             <h4>Descrição resumida</h4>
                         </label>
-                        <textarea class="form-control" name="descricaoPublica" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPublica" required></textarea>
+                        <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.descricaoPublica.$invalid && !formAtendimentoDeixarOCurso.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPublica" required></textarea>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -175,7 +172,7 @@
                         <label>
                             <h4>Descrição detalhada</h4>
                         </label>
-                        <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada" required></textarea>
+                        <textarea class="form-control" name="descricaoPrivada" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.descricaoPrivada.$invalid && !formAtendimentoDeixarOCurso.descricaoPrivada.$pristine}" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada" required></textarea>
                     </div>
                 </div>                
             </div>

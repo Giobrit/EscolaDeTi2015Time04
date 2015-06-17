@@ -1,6 +1,6 @@
 AppModule.controller("controllerFormAtendimentoDeixarOCurso", controllerFormAtendimentoDeixarOCurso);
 
-function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location) {
+function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location, growl, $timeout) {
 
     //$scope.motivos = [];
     $scope.init = function () {
@@ -22,7 +22,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.salvar = function () {
-        montarCampoData();
+        montarCampoData();        
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         } else {
@@ -30,17 +30,39 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         }
 
         function onSuccess() {
+            $timeout(success, 100);
             $location.path("/AtendimentoDeixarOCurso/list");
-            alert("Atendimento salvo com sucesso");
         }
     };
+
+    function success() {
+        growl.success("<b>Atendimento " + ($scope.editando === true ? "editado" : "salvo") + " com sucesso</b>");
+    }
+    ;
 
     $scope.editar = function (id) {
         $http.get("/atendimento/deixarOCurso/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
 
-            var dataAux = new Date(data.data);
+            $scope.atendimentoDeixarOCurso.id = data.id;
+            $scope.atendimentoDeixarOCurso.protocolo = data.protocolo;
+            $scope.atendimentoDeixarOCurso.ra = data.ra;
+            $scope.atendimentoDeixarOCurso.nomeAluno = data.nomealuno;
+            $scope.atendimentoDeixarOCurso.curso = data.curso;
+            $scope.atendimentoDeixarOCurso.centro = data.centro;
+            $scope.atendimentoDeixarOCurso.serieSemestre = data.seriesemestre;
+            $scope.atendimentoDeixarOCurso.turno = data.turno;
+            $scope.atendimentoDeixarOCurso.bolsaFinanciamento = data.bolsafinanciamento;
+            $scope.atendimentoDeixarOCurso.numeroReprovacoes = data.numeroreprovacoes;
+            $scope.atendimentoDeixarOCurso.descricaoPrivada = data.descricaoprivada;
+            $scope.atendimentoDeixarOCurso.descricaoPublica = data.descricaopublica;
+            $scope.atendimentoDeixarOCurso.transferencia = data.transferencia;
+            $scope.atendimentoDeixarOCurso.coordenadorDiretor = data.coordenadordiretor;
+            $scope.dataDeixarOCurso = timestampParaData(data.data);
+            $scope.horaDeixarOCurso = new Date(data.data);
+            $scope.matriculadoSelecionado = data.matriculado;
+            $scope.setMatriculado(data.matriculado);
 
             $scope.atendimentoDeixarOCurso = data;
 
@@ -50,8 +72,8 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
             selecionaObjetivoNaTela(data.objetivo);
             selecionaMotivoNaTela(data.motivo);
-//            $scope.setObjetivo($scope.objetivoSelecionado);
-//            $scope.setMotivo($scope.motivoSelecionado);
+            $scope.setObjetivo($scope.objetivoSelecionado);
+            $scope.setMotivo($scope.motivoSelecionado);
         }
     };
 
@@ -113,11 +135,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.setMatriculado = function (data) {
-        if (data === "Sim") {
-            $scope.atendimentoDeixarOCurso.matriculado = true;
-        } else {
-            $scope.atendimentoDeixarOCurso.matriculado = false;
-        }
+        $scope.atendimentoDeixarOCurso.matriculado = data === "Sim" ? true : false;
     };
 
     function setAtributosAluno(aluno) {
@@ -139,8 +157,8 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
     function formatarData(dataParaFormatacao) {
         return dataParaFormatacao.getFullYear() + "-" +
-                (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1) + "-" +
-                ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate();
+                ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate() + "-" +
+                (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1);
     }
 
     $scope.setHora = function () {
@@ -153,11 +171,109 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     }
 
     function montarCampoData() {
-        $scope.atendimentoDeixarOCurso.data = $scope.setData() + "T" + $scope.setHora() + "-03";
+        if ($scope.horaDeixarOCurso && $scope.dataDeixarOCurso) {
+            $scope.atendimentoDeixarOCurso.data = $scope.setData() + "T" + $scope.setHora() + "-03";
+        }
     }
     $scope.setData();
     function onError(data) {
-        alert(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
     }
 
+}
+
+AppModule.controller("controllerListAtendimentoDeixarOCurso", controllerListAtendimentoDeixarOCurso);
+function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
+
+    $scope.paginaAtual = 1;
+    $scope.numeroItensPorPagina = 8;
+    colunaOrdenacao = "protocolo";
+    $scope.labelOrdenacao = "Protocolo";
+    var ordenacaoCrescente = true;
+
+    $scope.colunas =
+            [
+                {label: "Protocolo", colunaOrdenacao: "protocolo", propriedadeItem: "protocolo", checked: false},
+                {label: "Data", colunaOrdenacao: "data", propriedadeItem: "data", checked: true},
+                {label: "Hora", colunaOrdenacao: "data", propriedadeItem: "hora", checked: true},
+                {label: "RA", colunaOrdenacao: "ra", propriedadeItem: "ra", checked: false},
+                {label: "Nome Aluno", colunaOrdenacao: "colunaOrdenacaoAluno", propriedadeItem: "colunaOrdenacaoAluno", checked: false},
+                {label: "Curso", colunaOrdenacao: "curso", propriedadeItem: "curso", checked: false},
+                {label: "Série", colunaOrdenacao: "serieSemestre", propriedadeItem: "serieSemestre", checked: false},
+                {label: "Turno", colunaOrdenacao: "turno", propriedadeItem: "turno", checked: false},
+                {label: "Bolsa", colunaOrdenacao: "bolsaFinanciamento", propriedadeItem: "bolsaFinanciamento", checked: false},
+                {label: "Reprovações", colunaOrdenacao: "numeroReprovacoes", propriedadeItem: "numeroReprovacoes", checked: false},
+                {label: "Matriculado", colunaOrdenacao: "matriculado", propriedadeItem: "matriculado", checked: true},
+                {label: "Transferência", colunaOrdenacao: "transferencia", propriedadeItem: "transferencia", checked: true},
+                {label: "Coordenador", colunaOrdenacao: "coordenadorDiretor", propriedadeItem: "coordenadorDiretor", checked: true},
+                {label: "Objetivo", colunaOrdenacao: "objetivo", propriedadeItem: "objetivo", checked: true},
+                {label: "Motivo", colunaOrdenacao: "motivo", propriedadeItem: "motivo", checked: true},
+                {label: "Descrição", colunaOrdenacao: "descricaoPublica", propriedadeItem: "descricaoPublica", checked: true}
+            ];
+
+    $scope.init = function () {
+        $scope.listar();
+    };
+
+    $scope.listar = function () {
+        var requisicaoListagem = new RequisicaoListagem();
+        requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
+        requisicaoListagem.paginaAtual = $scope.paginaAtual;
+        requisicaoListagem.colunaOrdenacao = colunaOrdenacao;
+        requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
+        requisicaoListagem.valorFiltragem = $scope.pesquisa;
+        requisicaoListagem.colunasVisiveis = colunasVisiveis();
+        $http.post("atendimento/deixarOCurso/listar", requisicaoListagem).success(onSuccess).error(onError);
+        function onSuccess(data) {
+            setDataHora(data.itens);
+            $scope.atendimentos = data.itens;
+            $scope.totalRegistros = data.numeroTotalRegistros;
+        }
+
+        function setDataHora(itens) {
+            itens.forEach(paraCada);
+
+            function paraCada(item) {
+                item.hora = timestampParaHora(item.data);
+
+                item.data = timestampParaData(item.data);
+            }
+        }
+    };
+    $scope.alterarOrdenacao = function (coluna) {
+        if (colunaOrdenacao === coluna.colunaOrdenacao) {
+            $scope.ordenacaoCrescente = !$scope.ordenacaoCrescente;
+        } else {
+            $scope.ordenacaoCrescente = true;
+        }
+
+        colunaOrdenacao = coluna.colunaOrdenacao;
+        $scope.labelOrdenacao = coluna.label;
+        $scope.listar();
+    };
+    $scope.alterarPagina = function () {
+        $scope.listar();
+    };
+    function onError(data) {
+        growl.error(JSON.stringify(data));
+    }
+
+    $scope.alterarCheckbox = function (coluna) {
+        coluna.checked = !coluna.checked;
+        $scope.listar();
+    };
+
+    function colunasVisiveis() {
+        var colunasVisiveis = [];
+
+        $scope.colunas.forEach(paraCadaElemento);
+
+        function paraCadaElemento(coluna) {
+            if (coluna.checked) {
+                colunasVisiveis.push(coluna.propriedadeItem);
+            }
+        }
+
+        return colunasVisiveis;
+    }
 }
