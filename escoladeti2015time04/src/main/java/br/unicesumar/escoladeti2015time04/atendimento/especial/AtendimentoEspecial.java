@@ -24,8 +24,8 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
     @Column(name = "coordenadordiretor")
     private String coordenadorDiretor;
 
-    @ColunaListavel
-    @Column(name = "laudoMedico", nullable = false)
+    @ColunaListavel(nomeNaQuery = "CASE laudo WHEN true THEN 'Sim' ELSE 'Não' END AS laudo")
+    @Column(name = "laudo", nullable = false)
     private boolean laudoMedico;
 
     @ManyToOne
