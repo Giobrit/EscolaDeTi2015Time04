@@ -93,6 +93,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         atendimentoDeixarOCurso.setSerieSemestre(command.getSerieSemestre());
         atendimentoDeixarOCurso.setTurno(command.getTurno());
         atendimentoDeixarOCurso.setMatriculado(command.getMatriculado());
+        atendimentoDeixarOCurso.setTransferencia(command.getTransferencia());
         atendimentoDeixarOCurso.setBolsaFinanciamento(command.getBolsaFinanciamento());
         atendimentoDeixarOCurso.setDescricaoPublica(command.getDescricaoPublica());
         atendimentoDeixarOCurso.setDescricaoPrivada(command.getDescricaoPrivada());
