@@ -1,8 +1,8 @@
-AppModule.controller("controllerFormMotivoAtendimentoDeixarOCurso", controllerFormMotivoAtendimentoDeixarOCurso);
+AppModule.controller("controllerFormMotivoAtendimento", controllerFormMotivoAtendimento);
 
-AppModule.controller("controllerListMotivoAtendimentoDeixarOCurso", controllerListMotivoAtendimentoDeixarOCurso);
+AppModule.controller("controllerListMotivoAtendimento", controllerListMotivoAtendimento);
 
-function controllerFormMotivoAtendimentoDeixarOCurso($scope, $http, $routeParams, $location, growl, $timeout) {
+function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location, growl, $timeout) {
 
     $scope.init = function() {
         limparTela();
@@ -17,15 +17,15 @@ function controllerFormMotivoAtendimentoDeixarOCurso($scope, $http, $routeParams
 
     $scope.salvar = function() {
         if ($scope.editando) {
-            $http.put("/atendimento/deixarOCurso/motivo", $scope.motivo).success(onSuccess).error(onError);
+            $http.put("/atendimento/motivo", $scope.motivo).success(onSuccess).error(onError);
         } else {
-            $http.post("/atendimento/deixarOCurso/motivo", $scope.motivo).success(onSuccess).error(onError);
+            $http.post("/atendimento/motivo", $scope.motivo).success(onSuccess).error(onError);
         }
             
 
         function onSuccess() {
             $timeout(success,100);
-            $location.path("/AtendimentoDeixarOCurso/Motivo/list");
+            $location.path("/AtendimentoMotivo/list");
         }
         function success(){
             growl.success("<b>Motivo cadastrado com sucesso!</b>");
@@ -33,7 +33,7 @@ function controllerFormMotivoAtendimentoDeixarOCurso($scope, $http, $routeParams
     };
 
     $scope.editar = function(id) {
-        $http.get("/atendimento/deixarOCurso/motivo/" + id).success(onSuccess).error(onError);
+        $http.get("/atendimento/motivo/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.motivo = data;
@@ -51,7 +51,7 @@ function controllerFormMotivoAtendimentoDeixarOCurso($scope, $http, $routeParams
 
 }
 
-function controllerListMotivoAtendimentoDeixarOCurso($scope, $http, growl) {
+function controllerListMotivoAtendimento($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 5;
@@ -65,7 +65,7 @@ function controllerListMotivoAtendimentoDeixarOCurso($scope, $http, growl) {
     $scope.alterarStatus = function (motivo) {
 
         var status = motivo.status === 'ATIVO' ? 'INATIVO' : 'ATIVO';
-        $http.put("/atendimento/deixarOCurso/motivo/" + motivo.id + "/" + status).success(onSuccess).error(onError);
+        $http.put("/atendimento/motivo/" + motivo.id + "/" + status).success(onSuccess).error(onError);
 
         function onSuccess() {
             motivo.status = status;
@@ -81,7 +81,7 @@ function controllerListMotivoAtendimentoDeixarOCurso($scope, $http, growl) {
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
 
 
-        $http.post("/atendimento/deixarOCurso/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.post("/atendimento/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.motivos = data.itens;
             $scope.totalRegistros = data.numeroTotalRegistros;

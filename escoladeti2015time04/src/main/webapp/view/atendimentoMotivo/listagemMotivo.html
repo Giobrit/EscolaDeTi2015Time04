@@ -1,12 +1,12 @@
 <form name="formMotivo" novalidate ng-init="init()" >
-    <div class="container-fluid formulario" ng-init="init()">
+    <div class="container-fluid formulario">
         <div class="panel panel-info">
             <div class="panel-heading"><h3>Lista de Motivo<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <a href="#/AtendimentoDeixarOCurso/Motivo/form/" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo usuário">Adicionar Novo</a>
+                            <a href="#/AtendimentoMotivo/form/" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo usuário">Adicionar Novo</a>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                                         </td>
                                         <td>
                                             <span>
-                                                <a href="#/AtendimentoDeixarOCurso/Motivo/form/{{m.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                                <a href="#/AtendimentoMotivo/form/{{m.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                                             </span>
                                         </td>
                                     </tr>
@@ -53,7 +53,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="text-center">
-                            <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoDeixarOCurso/motivo/paginacao.html"></dir-pagination-controls>
+                            <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoMotivo/paginacao.html"></dir-pagination-controls>
                         </div>
                     </div>
                 </div>

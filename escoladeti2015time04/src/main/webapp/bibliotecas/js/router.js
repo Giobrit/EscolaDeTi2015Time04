@@ -39,30 +39,21 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/AtendimentoDeixarOCurso/Objetivo/list', {
         templateUrl: 'view/atendimentoDeixarOCurso/objetivo/listagemObjetivo.html',
         controller: 'controllerListObjetivoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/Motivo/form', {
-        templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
-        controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/Motivo/list', {
-        templateUrl: 'view/atendimentoDeixarOCurso/motivo/listagemMotivo.html',
-        controller: 'controllerListMotivoAtendimentoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/Motivo/form/:id', {
-        templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
-        controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
     }).when('/AtendimentoDeixarOCurso/form', {
         templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
         controller: 'controllerFormAtendimentoDeixarOCurso'
     }).when('/AtendimentoDeixarOCurso/form/:id', {
         templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
         controller: 'controllerFormAtendimentoDeixarOCurso'
-    }).when('/AtendimentoPreventivo/Motivo/form', {
-        templateUrl: 'view/atendimentoPreventivo/motivo/cadastroMotivo.html',
-        controller: 'controllerFormMotivoAtendimentoPreventivo'
-    }).when('/AtendimentoPreventivo/Motivo/form/:id', {
-        templateUrl: 'view/atendimentoPreventivo/motivo/cadastroMotivo.html',
-        controller: 'controllerFormMotivoAtendimentoPreventivo'
-    }).when('/AtendimentoPreventivo/Motivo/list', {
-        templateUrl: 'view/atendimentoPreventivo/motivo/listagemMotivo.html',
-        controller: 'controllerListMotivoAtendimentoPreventivo'
+    }).when('/AtendimentoMotivo/form', {
+        templateUrl: 'view/atendimentoMotivo/cadastroMotivo.html',
+        controller: 'controllerFormMotivoAtendimento'
+    }).when('/AtendimentoMotivo/form/:id', {
+        templateUrl: 'view/atendimentoMotivo/cadastroMotivo.html',
+        controller: 'controllerFormMotivoAtendimento'
+    }).when('/AtendimentoMotivo/list', {
+        templateUrl: 'view/atendimentoMotivo/listagemMotivo.html',
+        controller: 'controllerListMotivoAtendimento'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });

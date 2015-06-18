@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("atendimento/deixarOCurso/motivo")
+@RequestMapping("atendimento/motivo")
 public class AtendimentoMotivoController {
 
     @Autowired

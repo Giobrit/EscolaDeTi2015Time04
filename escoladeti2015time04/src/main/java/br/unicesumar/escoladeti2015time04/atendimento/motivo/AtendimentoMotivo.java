@@ -3,20 +3,22 @@ package br.unicesumar.escoladeti2015time04.atendimento.motivo;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.utils.listagem.PoliticaFiltragem;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "deixarocursomotivo")
+@Table(name = "atendimentomotivo")
 public class AtendimentoMotivo implements Serializable {
 
     @Id
@@ -31,10 +33,15 @@ public class AtendimentoMotivo implements Serializable {
     @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
     @Enumerated(EnumType.STRING)
     private AtendimentoMotivoStatus status;
-    
-    @Column (nullable = false)
-    
-    private Set<AtendimentoDoMotivo> atendimenotsDoMotivo;
+
+    @Column(name = "atendimentodomotivo",nullable = false)
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = AtendimentoDoMotivo.class)
+    @JoinTable(
+            name = "atendimentodomotivo",
+            joinColumns = {@JoinColumn(name = "atendimentomotivoid", referencedColumnName = "id")}
+    )
+    private Set<AtendimentoDoMotivo> atendimentosDoMotivo;
 
     public AtendimentoMotivo() {
     }
@@ -48,11 +55,11 @@ public class AtendimentoMotivo implements Serializable {
         this.descricao = descricao;
     }
 
-    public AtendimentoMotivo(String descricao, Set<AtendimentoDoMotivo> atendimenotsDoMotivo) {
+    public AtendimentoMotivo(String descricao, Set<AtendimentoDoMotivo> atendimentosDoMotivo) {
         this.descricao = descricao;
-        this.atendimenotsDoMotivo = atendimenotsDoMotivo;
+        this.atendimentosDoMotivo = atendimentosDoMotivo;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -65,10 +72,9 @@ public class AtendimentoMotivo implements Serializable {
         return status;
     }
 
-    public Set<AtendimentoDoMotivo> getAtendimenotsDoMotivo() {
-        return atendimenotsDoMotivo;
+    public Set<AtendimentoDoMotivo> getAtendimentosDoMotivo() {
+        return atendimentosDoMotivo;
     }
-    
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
@@ -78,8 +84,8 @@ public class AtendimentoMotivo implements Serializable {
         this.status = status;
     }
 
-    public void setAtendimenotsDoMotivo(Set<AtendimentoDoMotivo> atendimenotsDoMotivo) {
-        this.atendimenotsDoMotivo = atendimenotsDoMotivo;
+    public void setAtendimentosDoMotivo(Set<AtendimentoDoMotivo> atendimentosDoMotivo) {
+        this.atendimentosDoMotivo = atendimentosDoMotivo;
     }
 
     @Override
@@ -106,6 +112,6 @@ public class AtendimentoMotivo implements Serializable {
 
     @Override
     public String toString() {
-        return "AtendimentoMotivo{" + "id=" + id + ", descricao=" + descricao + ", status=" + status + ", atendimenotsDoMotivo=" + atendimenotsDoMotivo + '}';
+        return "AtendimentoMotivo{" + "id=" + id + ", descricao=" + descricao + ", status=" + status + ", atendimenotsDoMotivo=" + atendimentosDoMotivo + '}';
     }
 }

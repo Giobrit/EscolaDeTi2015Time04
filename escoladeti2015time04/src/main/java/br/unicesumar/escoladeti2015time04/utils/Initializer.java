@@ -4,6 +4,7 @@ import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
 import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivoService;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivo;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivoService;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoDoMotivo;
 import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivo;
 import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivoService;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
@@ -11,6 +12,8 @@ import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcessoService;
 import br.unicesumar.escoladeti2015time04.usuario.Senha;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.usuario.UsuarioService;
+import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -55,29 +58,36 @@ public class Initializer {
     }
 
     private void inicializarAtendimentoMotivo() {
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Aprendizagem"));
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Distância"));
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Doença"));
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Financeiro"));
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Gravidez"));
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Mudança de Cidade"));
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Não Identificação com o Curso"));
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Notas baixas"));
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Trabalho"));
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Transferência para outra IES"));
-        atendimentoMotivoService.criar(new AtendimentoMotivo("Outros"));
+        Set<AtendimentoDoMotivo> atendimentosDoMotivoDeixarOCurso = new HashSet<>();
+        Set<AtendimentoDoMotivo> atendimentosDoMotivoPreventivo = new HashSet<>();
+        Set<AtendimentoDoMotivo> atendimentosDoMotivoDeixarOCursoEPreventivo = new HashSet<>();
+
+        atendimentosDoMotivoDeixarOCurso.add(AtendimentoDoMotivo.ATENDIMENTODEIXAROCURSO);
+        atendimentosDoMotivoPreventivo.add(AtendimentoDoMotivo.ATENDIMENTOPREVENTIVO);
+
+        atendimentosDoMotivoDeixarOCursoEPreventivo.add(AtendimentoDoMotivo.ATENDIMENTODEIXAROCURSO);
+        atendimentosDoMotivoDeixarOCursoEPreventivo.add(AtendimentoDoMotivo.ATENDIMENTOPREVENTIVO);
+
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Aprendizagem", atendimentosDoMotivoDeixarOCursoEPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Gravidez", atendimentosDoMotivoDeixarOCursoEPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Notas baixas", atendimentosDoMotivoDeixarOCursoEPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Outros", atendimentosDoMotivoDeixarOCursoEPreventivo));
         
-//        preventivoMotivoService.criar(new PreventivoMotivo("Aprendizagem"));
-//        preventivoMotivoService.criar(new PreventivoMotivo("Crise de Ansiedade"));
-//        preventivoMotivoService.criar(new PreventivoMotivo("Crise de Pânico"));
-//        preventivoMotivoService.criar(new PreventivoMotivo("Depressão"));
-//        preventivoMotivoService.criar(new PreventivoMotivo("Dúvida quanto à transferência"));
-//        preventivoMotivoService.criar(new PreventivoMotivo("Dúvida quanto ao UNIFIES"));
-//        preventivoMotivoService.criar(new PreventivoMotivo("Frequência baixa"));
-//        preventivoMotivoService.criar(new PreventivoMotivo("Gravidez"));
-//        preventivoMotivoService.criar(new PreventivoMotivo("Notas baixas"));
-//        preventivoMotivoService.criar(new PreventivoMotivo("Outros"));
-//        preventivoMotivoService.criar(new PreventivoMotivo("Pessoal"));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Distância", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Doença", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Financeiro", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Mudança de Cidade", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Não Identificação com o Curso", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Trabalho", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Transferência para outra IES", atendimentosDoMotivoDeixarOCurso));
+
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Crise de Ansiedade", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Crise de Pânico", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Depressão", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Dúvida quanto à transferência", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Dúvida quanto ao UNIFIES", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Frequência baixa", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Pessoal", atendimentosDoMotivoPreventivo));
     }
 
     private void inicializarAtendimentoDeixarOCursoObjetivo() {
