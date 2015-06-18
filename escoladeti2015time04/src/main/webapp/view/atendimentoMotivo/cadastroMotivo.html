@@ -22,10 +22,35 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="col-md-offset-4">
+                            <table class="table table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-10">
+                                            Atendimentos que utilizam
+                                        </th>
+                                        <th class="col-md-2">Utiliza</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr  ng-click="a.checked = !a.checked" ng-repeat="a in atendimentos">
+                                        <th> {{a.label}} </th>
+                                        <th> 
+                                            <input type="checkbox" ng-checked="a.checked"/>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div> 
+                </div> 
+
                 <div class="row">	
                     <div class="col-md-9">
                         <div class="col-md-offset-7 pull-right">
-                            <a type="button" href="AtendimentoMotivo/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
+                            <a type="button" href="#/AtendimentoMotivo/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
                             <button type="submit" ng-click="salvar()" ng-disabled="(formMotivo.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
                         </div>
                     </div>	

@@ -4,7 +4,7 @@ AppModule.controller("controllerListMotivoAtendimento", controllerListMotivoAten
 
 function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location, growl, $timeout) {
 
-    $scope.init = function() {
+    $scope.init = function () {
         limparTela();
 
         var idMotivoEditado = $routeParams.id;
@@ -14,25 +14,32 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
         }
     };
 
+    $scope.atendimentos =
+            [
+                {label: "Atendimento", atedimentoDoMotivo: "ATENDIMENTODEIXAROCURSO", checked: false},
+                {label: "Atendimento Especial", atedimentoDoMotivo: "ATENDIMENTOESPECIAL", checked: false},
+                {label: "Atendimento Preventivo", atedimentoDoMotivo: "ATENDIMENTOPREVENTIVO", checked: false}
+            ];
 
-    $scope.salvar = function() {
+    $scope.salvar = function () {
+        setAtendimentosDoMotivo();
         if ($scope.editando) {
             $http.put("/atendimento/motivo", $scope.motivo).success(onSuccess).error(onError);
         } else {
             $http.post("/atendimento/motivo", $scope.motivo).success(onSuccess).error(onError);
         }
-            
+
 
         function onSuccess() {
-            $timeout(success,100);
+            $timeout(success, 100);
             $location.path("/AtendimentoMotivo/list");
         }
-        function success(){
+        function success() {
             growl.success("<b>Motivo cadastrado com sucesso!</b>");
         }
     };
 
-    $scope.editar = function(id) {
+    $scope.editar = function (id) {
         $http.get("/atendimento/motivo/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
@@ -49,6 +56,15 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
         growl.error(JSON.stringify(data));
     }
 
+    function setAtendimentosDoMotivo() {
+        $scope.motivo.atendimentosDoMotivo = [];
+        $scope.atendimentos.forEach(pegarAtendimentoDoMotivo);
+        function pegarAtendimentoDoMotivo(atendimento) {
+            if (atendimento.checked) {
+                $scope.motivo.atendimentosDoMotivo.push(atendimento.atedimentoDoMotivo);
+            }
+        }
+    }
 }
 
 function controllerListMotivoAtendimento($scope, $http, growl) {
@@ -56,9 +72,9 @@ function controllerListMotivoAtendimento($scope, $http, growl) {
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 5;
     $scope.colunaOrdenacao = "descricao";
-    $scope.ordenacaoCrescente = true; 
+    $scope.ordenacaoCrescente = true;
 
-    $scope.init = function() {
+    $scope.init = function () {
         $scope.listar();
     };
 
@@ -72,7 +88,7 @@ function controllerListMotivoAtendimento($scope, $http, growl) {
         }
     };
 
-    $scope.listar = function() {
+    $scope.listar = function () {
         var requisicaoListagem = new RequisicaoListagem();
         requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
         requisicaoListagem.paginaAtual = $scope.paginaAtual;
