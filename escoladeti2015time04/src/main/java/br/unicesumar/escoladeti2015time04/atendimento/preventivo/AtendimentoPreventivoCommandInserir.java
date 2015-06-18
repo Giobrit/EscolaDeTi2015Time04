@@ -6,22 +6,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import javax.persistence.Column;
 
-class AtendimentoPreventivoCommandInserir extends AtendimentoCommandInserir {
+public class AtendimentoPreventivoCommandInserir extends AtendimentoCommandInserir {
 
-    @AtributoCommand    
     @Column(nullable = false)
-    private int numeroReprovacoes;    
+    private int numeroReprovacoes;
 
-    @AtributoCommand    
     private String meioContato;
 
-    @AtributoCommand    
     private String encaminhamento;
-    
-    @AtributoCommand
+
     @Column(nullable = false)
     private Long idMotivo;
-    
+
     public AtendimentoPreventivoCommandInserir(
             @JsonProperty("data") Date data,
             @JsonProperty("ra") String ra,
@@ -41,10 +37,10 @@ class AtendimentoPreventivoCommandInserir extends AtendimentoCommandInserir {
         super(data, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
         this.numeroReprovacoes = numeroReprovacoes;
         this.meioContato = meioContato;
-        this.encaminhamento = encaminhamento;        
-        this.idMotivo = idMotivo;        
+        this.encaminhamento = encaminhamento;
+        this.idMotivo = idMotivo;
     }
-    
+
     public int getNumeroReprovacoes() {
         return numeroReprovacoes;
     }

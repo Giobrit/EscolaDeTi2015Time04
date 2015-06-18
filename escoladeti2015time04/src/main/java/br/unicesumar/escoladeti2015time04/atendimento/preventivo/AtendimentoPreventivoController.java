@@ -16,24 +16,24 @@ public class AtendimentoPreventivoController {
 
     @Autowired
     private AtendimentoPreventivoService service;
-    
+
     @RequestMapping(value = "/listar", method = RequestMethod.POST)
     public ResultadoListagem<AtendimentoPreventivo> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
         return this.service.listar(requisicaoListagem);
     }
-    
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Map<String, Object> localizar(@PathVariable Long id) {
         return this.service.localizar(id);
     }
-    
+
     @RequestMapping(method = RequestMethod.POST)
     public void criarAtendimentoPreventivo(@RequestBody AtendimentoPreventivoCommandInserir atendimentoPreventivo) {
         this.service.criar(atendimentoPreventivo);
     }
-    
+
     @RequestMapping(method = RequestMethod.PUT)
-    public void editarAtendimentoPreventivo(@RequestBody AtendimentoPreventivoCommandEditar atendimentoPreventivo)  {
-       this.service.editar(atendimentoPreventivo); 
+    public void editarAtendimentoPreventivo(@RequestBody AtendimentoPreventivoCommandEditar atendimentoPreventivo) {
+        this.service.editar(atendimentoPreventivo);
     }
 }
