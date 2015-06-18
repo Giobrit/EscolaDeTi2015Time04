@@ -2,12 +2,11 @@ AppModule.controller("controllerFormAtendimentoDeixarOCurso", controllerFormAten
 
 function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $location, growl, $timeout) {
 
-    //$scope.motivos = [];
     $scope.init = function () {
         $scope.preencherListDeObjetivo();
         $scope.preencherListDeMotivo();
         $scope.limparTela();
-        $scope.motivoSelecionado = "";
+
         idEditando = $routeParams.id;
 
         if (idEditando) {
@@ -64,12 +63,6 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             $scope.matriculadoSelecionado = data.matriculado;
             $scope.setMatriculado(data.matriculado);
 
-            $scope.atendimentoDeixarOCurso = data;
-
-            $scope.dataDeixarOCurso = dataAux;
-            $scope.horaDeixarOCurso = dataAux;
-
-
             selecionaObjetivoNaTela(data.objetivo);
             selecionaMotivoNaTela(data.motivo);
             $scope.setObjetivo($scope.objetivoSelecionado);
@@ -104,14 +97,12 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.preencherListDeMotivo = function () {
-
         $http.get("/atendimento/deixarOCurso/motivo/listarAtivos").success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
         }
     };
-
 
     $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
