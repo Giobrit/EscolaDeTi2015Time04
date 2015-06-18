@@ -1,4 +1,4 @@
-AppModule = angular.module("Cadastros", ['ngRoute', 'ngAnimate', 'ngSanitize','angularUtils.directives.dirPagination', 'angular-growl', '720kb.datepicker', 'mgcrea.ngStrap']);
+AppModule = angular.module("Cadastros", ['ngRoute', 'angularUtils.directives.dirPagination', 'angular-growl', '720kb.datepicker', 'mgcrea.ngStrap', 'ngAnimate', 'ngSanitize']);
 
 AppModule.config(function (growlProvider, $typeaheadProvider) {
     growlProvider.globalTimeToLive({success: 4000, error: 4000, warning: 4000, info: 4000});
