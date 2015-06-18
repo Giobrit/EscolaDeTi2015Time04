@@ -1,7 +1,6 @@
 package br.unicesumar.escoladeti2015time04.atendimento.preventivo;
 
 import br.unicesumar.escoladeti2015time04.atendimento.AtendimentoCommandInserir;
-import br.unicesumar.escoladeti2015time04.utils.service.AtributoCommand;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import javax.persistence.Column;
