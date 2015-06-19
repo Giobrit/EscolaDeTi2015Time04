@@ -36,6 +36,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     protected Map<Field, ColunaListavel> colunasListaveisEntidade = new HashMap<>();
+    protected Map<Field, ColunaLocalizavel> colunasLocalizaveisEntidade = new HashMap<>();
     protected Field idEntidade;
     protected String select;
     protected String from;
@@ -45,7 +46,8 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     @PostConstruct
     protected void init() {
-        this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel());
+        this.colunasListaveisEntidade.putAll(getMapFieldAnotacao(ColunaListavel.class));
+        this.colunasLocalizaveisEntidade.putAll(getMapFieldAnotacao(ColunaLocalizavel.class));
         this.idEntidade = getIdEntidade(getClassEntity());
         this.select = montarSelectListar();
         this.from = montarFromListar();
@@ -303,19 +305,19 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return numeroPaginas;
     }
 
-    protected Map<Field, ColunaListavel> getMapFieldColunaListavel() {
-        return getMapFieldColunaListavel(getClassEntity());
+    protected <A extends Annotation> Map<Field, A> getMapFieldAnotacao(Class<A> classAnotacao) {
+        return getMapFieldAnotacao(classAnotacao, getClassEntity());
     }
 
-    protected Map<Field, ColunaListavel> getMapFieldColunaListavel(Class entidade) {
-        Map<Field, ColunaListavel> mapFieldColunaListavel = new HashMap<>();
+    protected <A extends Annotation> Map<Field, A> getMapFieldAnotacao(Class<A> classAnotacao, Class entidade) {
+        Map<Field, A> mapFieldAnotacao = new HashMap<>();
         for (Field atributoEntidade : entidade.getDeclaredFields()) {
-            ColunaListavel annotacaoDoAtributo = atributoEntidade.getAnnotation(ColunaListavel.class);//getAnnotationByType(atributoEntidade, ColunaListavel.class);
+            A annotacaoDoAtributo = (A) atributoEntidade.getAnnotation(classAnotacao);//getAnnotationByType(atributoEntidade, ColunaListavel.class);
             if (annotacaoDoAtributo != null) {
-                mapFieldColunaListavel.put(atributoEntidade, annotacaoDoAtributo);
+                mapFieldAnotacao.put(atributoEntidade, annotacaoDoAtributo);
             }
         }
-        return mapFieldColunaListavel;
+        return mapFieldAnotacao;
     }
 
 }

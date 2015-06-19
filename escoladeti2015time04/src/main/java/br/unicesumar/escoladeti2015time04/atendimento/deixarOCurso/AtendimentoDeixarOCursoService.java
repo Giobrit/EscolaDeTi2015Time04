@@ -28,8 +28,8 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
 
     @Override
     protected void init() {
-        this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel());
-        this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel(getClassEntity().getSuperclass()));
+        this.colunasListaveisEntidade.putAll(getMapFieldAnotacao());
+        this.colunasListaveisEntidade.putAll(getMapFieldAnotacao(getClassEntity().getSuperclass()));
         this.idEntidade = getIdEntidade(getClassEntity().getSuperclass());
         this.select = montarSelectListar();
         this.from = montarFromListar();
