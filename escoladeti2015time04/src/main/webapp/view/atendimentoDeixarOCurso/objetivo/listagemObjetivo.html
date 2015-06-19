@@ -25,10 +25,14 @@
                                     <tr>
                                         <th ng-click="alterarOrdenacao('descricao')" class="col-md-10">
                                             Descrição
-                                            <span class="glyphicon glyphicon-menu-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'descricao'"></span>
-                                            <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'descricao'"></span>
+                                            <i class="fa fa-angle-up pull-left" ng-show="ordenacaoCrescente && colunaOrdenacao === 'descricao'"></i>
+                                            <i class="fa fa-angle-down pull-left" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'descricao'"></i>
                                         </th>                                        
-                                        <th ng-click="alterarOrdenacao('status')" class="col-md-1">Ação</th>
+                                        <th ng-click="alterarOrdenacao('status')" class="col-md-1">
+                                            Ação
+                                            <i class="fa fa-angle-up pull-left" ng-show="ordenacaoCrescente && colunaOrdenacao === 'status'"></i>
+                                            <i class="fa fa-angle-down pull-left" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'status'"></i> 
+                                        </th>
                                         <th class="col-md-1">Opção</th>
                                     </tr>
                                 </thead>
