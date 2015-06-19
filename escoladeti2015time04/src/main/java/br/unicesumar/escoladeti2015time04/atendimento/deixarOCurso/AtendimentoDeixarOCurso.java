@@ -33,12 +33,12 @@ public class AtendimentoDeixarOCurso extends Atendimento implements Serializable
     private int numeroReprovacoes;
 
     @ManyToOne
-    @ColunaListavel(nomeNaQuery = "m.descricao as motivo")
+    @ColunaListavel(campoNaQuery = "m.descricao as motivo")
     @JoinColumn(name = "motivo", nullable = false)
     private DeixarOCursoMotivo motivo;
 
     @ManyToOne
-    @ColunaListavel(nomeNaQuery = "o.descricao as objetivo")
+    @ColunaListavel(campoNaQuery = "o.descricao as objetivo")
     @JoinColumn(name = "objetivo", nullable = false)
     private DeixarOCursoObjetivo objetivo;
 

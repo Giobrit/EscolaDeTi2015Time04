@@ -60,7 +60,7 @@ public class Atendimento implements Serializable {
     @Column(nullable = false)
     protected String turno;
 
-    @ColunaListavel(nomeNaQuery = "CASE matriculado WHEN true THEN 'Sim' ELSE 'Não' END AS matriculado")
+    @ColunaListavel(campoNaQuery = "CASE matriculado WHEN true THEN 'Sim' ELSE 'Não' END AS matriculado")
     @Column(nullable = false)
     protected Boolean matriculado;
 

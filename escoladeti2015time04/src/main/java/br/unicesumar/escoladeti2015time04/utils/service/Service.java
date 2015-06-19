@@ -204,13 +204,13 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return fromDoSelect + "  ";
     }
 
-    protected String getCamposQuery() {
+    protected <A extends Annotation> String getCamposQuery(Map<Field, A> colunas) {
         String campos = "";
-        for (Map.Entry<Field, ColunaListavel> colunasListaveis : colunasListaveisEntidade.entrySet()) {
-            Field campo = colunasListaveis.getKey();
-            ColunaListavel colunaListavel = colunasListaveis.getValue();
+        for (Map.Entry<Field, A> coluna : colunas.entrySet()) {
+            Field campo = coluna.getKey();
+            A colunaGerenciavel = coluna.getValue();
 
-            campos += getCampoEmUmaQuery(colunaListavel, campo);
+            campos += getCampoEmUmaQuery(colunaGerenciavel, campo);
         }
 
         campos = campos.substring(0, campos.length() - 1);
@@ -242,11 +242,17 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     private String getCampoEmUmaQuery(ColunaListavel colunaListavel, Field campo) {
         String campoString;
+        String campoNaQuery = "";
 
-        if ("".equals(colunaListavel.nomeNaQuery())) {
+        try {
+            campoNaQuery = (String) colunaListavel.getClass().getField("campoNaQuery").get(colunaListavel);
+        } catch (Exception e) {
+        }
+
+        if ("".equals(campoNaQuery)) {
             campoString = campo.getName();
         } else {
-            campoString = colunaListavel.nomeNaQuery();
+            campoString = campoNaQuery;
         }
 
         return campoString + ",";
