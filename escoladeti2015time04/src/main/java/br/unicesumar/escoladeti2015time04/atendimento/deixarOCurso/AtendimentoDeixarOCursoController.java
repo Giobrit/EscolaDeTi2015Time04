@@ -2,6 +2,7 @@ package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso;
 
 import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,10 @@ public class AtendimentoDeixarOCursoController {
     @RequestMapping(value = "/listar", method = RequestMethod.POST)
     public ResultadoListagem<AtendimentoDeixarOCurso> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
         return this.service.listar(requisicaoListagem);
+    }
+    @RequestMapping(value = "/coordenadoresCadastrados", method = RequestMethod.GET)
+    public List<String> recuperarCoordenadores (){
+        return this.service.recuperarCoordenadores();
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -7,9 +7,11 @@ import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.Deix
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.usuario.UsuarioService;
 import br.unicesumar.escoladeti2015time04.utils.service.Service;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -105,5 +107,11 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
 
         repository.save(atendimentoDeixarOCurso);
 
+    }
+    
+    public List<String> recuperarCoordenadores(){
+        String queryRecuperarCoordenadores = "select distinct coordenadorDiretor" + super.from;
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        return jdbcTemplate.queryForList(queryRecuperarCoordenadores, mapSqlParameterSource, String.class);
     }
 }
