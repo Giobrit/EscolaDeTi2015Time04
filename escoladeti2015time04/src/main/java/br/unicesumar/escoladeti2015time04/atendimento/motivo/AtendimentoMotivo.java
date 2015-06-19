@@ -33,9 +33,10 @@ public class AtendimentoMotivo implements Serializable {
     @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
     @Enumerated(EnumType.STRING)
     private AtendimentoMotivoStatus status;
-
-    @Column(name = "atendimentodomotivo",nullable = false)
+    
+    //@ColunaListavel
     @Enumerated(EnumType.STRING)
+    @Column(name = "atendimentodomotivo",nullable = false)
     @ElementCollection(targetClass = AtendimentoDoMotivo.class)
     @JoinTable(
             name = "atendimentodomotivo",

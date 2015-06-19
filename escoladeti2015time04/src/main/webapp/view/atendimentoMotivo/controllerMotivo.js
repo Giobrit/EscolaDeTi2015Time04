@@ -44,6 +44,7 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
 
         function onSuccess(data) {
             $scope.motivo = data;
+            carregarAtendimentosDoMotivo();
         }
     };
 
@@ -62,6 +63,19 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
         function pegarAtendimentoDoMotivo(atendimento) {
             if (atendimento.checked) {
                 $scope.motivo.atendimentosDoMotivo.push(atendimento.atedimentoDoMotivo);
+            }
+        }
+    }
+
+    function carregarAtendimentosDoMotivo() {
+        $scope.motivo.atendimentos.forEach(verificaSeExisteAtendimentoDoMotivo);
+        function verificaSeExisteAtendimentoDoMotivo(atendimento) {
+            $scope.motivo.atendimentosDoMotivo.forEach(existeAtendimentoDoMotivo);
+            function existeAtendimentoDoMotivo(atendimentoDoMotivo) {
+                console.log(atendimentoDoMotivo);
+                if (atendimento === atendimentoDoMotivo) {
+                    atendimento.checked = true;
+                }
             }
         }
     }
