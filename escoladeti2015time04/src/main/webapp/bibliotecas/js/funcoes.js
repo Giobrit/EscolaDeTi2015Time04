@@ -39,3 +39,7 @@ function completaString(string, tamanho, caracter, posicaoEsquerda) {
     return stringFinal;
 
 }
+
+function booleanToString(boolean) {
+    return boolean ? "Sim" : "Não";
+}

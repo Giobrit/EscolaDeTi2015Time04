@@ -144,8 +144,8 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.atendimentoDeixarOCurso.turno = aluno.turno;
         $scope.atendimentoDeixarOCurso.bolsaFinanciamento = aluno.bolsa;
         $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;
-        $scope.matriculadoSelecionado = aluno.matriculado;
-        $scope.setMatriculado(aluno.matriculado);
+        $scope.atendimentoDeixarOCurso.matriculado = aluno.matriculado;
+        $scope.matriculadoSelecionado = booleanToString(aluno.matriculado);
     }
 
     $scope.setData = function () {
@@ -253,6 +253,7 @@ function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
         $scope.listar();
     };
     function onError(data) {
+        console.log(JSON.stringify(data));
         growl.error(JSON.stringify(data));
     }
 

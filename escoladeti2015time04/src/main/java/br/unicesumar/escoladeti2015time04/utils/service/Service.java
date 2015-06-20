@@ -200,7 +200,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         String fromDoSelect = " FROM ";
 
         fromDoSelect += getClassEntity().getSimpleName();
-
+        
         return fromDoSelect + "  ";
     }
 
@@ -210,7 +210,11 @@ public abstract class Service<E, R extends JpaRepository, C> {
             Field campo = coluna.getKey();
             A colunaGerenciavel = coluna.getValue();
 
-            campos += getCampoEmUmaQuery(colunaGerenciavel, campo);
+            if (colunaGerenciavel instanceof ColunaListavel) {
+                campos += getCampoEmUmaQuery((ColunaListavel) colunaGerenciavel, campo);
+            } else if (colunaGerenciavel instanceof ColunaLocalizavel) {
+                campos += getCampoEmUmaQuery((ColunaLocalizavel) colunaGerenciavel, campo);
+            }
         }
 
         campos = campos.substring(0, campos.length() - 1);
@@ -241,23 +245,31 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     private String getCampoEmUmaQuery(ColunaListavel colunaListavel, Field campo) {
+        String campoNaQuery = colunaListavel.campoNaQuery();
+        String aliasNaQuery = colunaListavel.aliasNaQuery();
+
+        return montarCampoDeQuery(campo, campoNaQuery, aliasNaQuery) + ",";
+    }
+    private String getCampoEmUmaQuery(ColunaLocalizavel colunaLocalizavel, Field campo) {
+        String campoNaQuery = colunaLocalizavel.campoNaQuery();
+        String aliasNaQuery = colunaLocalizavel.aliasNaQuery();
+
+        return montarCampoDeQuery(campo, campoNaQuery, aliasNaQuery) + ",";
+    }
+
+    private String montarCampoDeQuery(Field campo, String campoNaQuery, String aliasNaQuery) {
         String campoString;
-        String campoNaQuery = "";
-
-        try {
-            campoNaQuery = (String) colunaListavel.getClass().getField("campoNaQuery").get(colunaListavel);
-        } catch (Exception e) {
-        }
-
         if ("".equals(campoNaQuery)) {
             campoString = campo.getName();
         } else {
             campoString = campoNaQuery;
         }
-        
-        if ("".equals(colunaListavel.))
 
-        return campoString + ",";
+        if (!"".equals(aliasNaQuery)) {
+            campoString += " as " + aliasNaQuery;
+        }
+
+       return campoString;
     }
 
     protected String montarSelectNumeroTotalRegistros() {
@@ -267,9 +279,9 @@ public abstract class Service<E, R extends JpaRepository, C> {
     protected String montarSelectNumeroTotalRegistros(Class entidade) {
         String sql = "SELECT count(";
 
-        sql += idEntidade.getName();
-        sql += ") as numeroTotalRegistros FROM ";
-        sql += entidade.getSimpleName();
+        sql += getClassEntity().getSimpleName() + "." + idEntidade.getName();
+        sql += ") as numeroTotalRegistros";
+        sql += this.from;
 
         return sql + "  ";
     }

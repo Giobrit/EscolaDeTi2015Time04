@@ -1,6 +1,7 @@
 package br.unicesumar.escoladeti2015time04.utils.listagem;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.Map;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
@@ -47,9 +48,9 @@ public class Filtro {
             }
 
             if (colunaListavel.politicaFiltro() == PoliticaFiltragem.VALOR_RELATIVO) {
-                demaisFiltros += " lower( (" + getCampoFiltro(colunaListavel, atributo) + ")::varchar)) like :valorFiltroRelativo ";
+                demaisFiltros += " lower( (" + getCampoFiltro(colunaListavel, atributo) + ")::varchar) like :valorFiltroRelativo ";
             } else if (colunaListavel.politicaFiltro() == PoliticaFiltragem.VALOR_COMPLETO) {
-                demaisFiltros += " lower( (" + getCampoFiltro(colunaListavel, atributo) + ")::varchar)) = :valorFiltroExato ";
+                demaisFiltros += " lower( (" + getCampoFiltro(colunaListavel, atributo) + ")::varchar) = :valorFiltroExato ";
             }
         }
         demaisFiltros += ") ";
@@ -58,12 +59,17 @@ public class Filtro {
 
     private String getCampoFiltro(ColunaListavel colunaListavel, Field atributo) {
         String campoString;
+
         if ("".equals(colunaListavel.campoNaQuery())) {
             campoString = atributo.getName();
         } else {
             campoString = colunaListavel.campoNaQuery();
         }
-        
+
+        if (atributo.getType() == Date.class) {
+            campoString = "to_char(" + campoString + ", 'DD/mm/YYYY HH24:MI:SS')";
+        }
+
         return campoString;
     }
 }
