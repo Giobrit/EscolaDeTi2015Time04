@@ -140,7 +140,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     public Map<String, Object> localizar(Long id) {
-        String listarUsuario = this.select + "," + getCamposQuery() + this.from + " where " + getClassEntity().getSimpleName() + "." + idEntidade.getName() + " = :id";
+        String listarUsuario = this.select + "," + getCamposQuery(this.colunasLocalizaveisEntidade) + this.from + " where " + getClassEntity().getSimpleName() + "." + idEntidade.getName() + " = :id";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
@@ -220,7 +220,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     protected String getCamposQuery(Set<String> colunasRetornadas) {
         if (colunasRetornadas == null) {
-            return getCamposQuery();
+            return getCamposQuery(this.colunasListaveisEntidade);
         }
 
         String campos = " ";
@@ -240,7 +240,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return campos + " ";
     }
 
-    private String getCampoEmUmaQuery(ColunaListavel colunaListavel, Field campo) {
+    private <A extends Annotation> String getCampoEmUmaQuery(A colunaListavel, Field campo) {
         String campoString;
         String campoNaQuery = "";
 

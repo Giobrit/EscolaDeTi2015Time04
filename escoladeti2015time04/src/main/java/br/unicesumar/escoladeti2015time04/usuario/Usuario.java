@@ -22,11 +22,13 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
+    @ColunaListavel
     @ColunaLocalizavel
     @Column(nullable = false)
     private String nome;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(unique = true, nullable = false)
     private String login;
 

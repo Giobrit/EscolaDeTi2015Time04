@@ -5,6 +5,7 @@ import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.*;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.*;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
+import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -19,26 +20,32 @@ import javax.persistence.Table;
 public class AtendimentoDeixarOCurso extends Atendimento implements Serializable {
 
     @ColunaListavel
+    @ColunaLocalizavel
     private Long protocolo;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "coordenadordiretor")
     private String coordenadorDiretor;
 
     @ColunaListavel
+    @ColunaLocalizavel
     private String transferencia;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "numeroreprovacoes", nullable = false)
     private int numeroReprovacoes;
 
     @ManyToOne
     @ColunaListavel(campoNaQuery = "m.descricao as motivo")
+    @ColunaLocalizavel(campoNaQuery = "m.descricao as motivo")
     @JoinColumn(name = "motivo", nullable = false)
     private DeixarOCursoMotivo motivo;
 
     @ManyToOne
     @ColunaListavel(campoNaQuery = "o.descricao as objetivo")
+    @ColunaLocalizavel(campoNaQuery = "o.descricao as objetivo")
     @JoinColumn(name = "objetivo", nullable = false)
     private DeixarOCursoObjetivo objetivo;
 

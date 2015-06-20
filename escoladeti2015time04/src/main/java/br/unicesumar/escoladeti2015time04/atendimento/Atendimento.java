@@ -2,6 +2,7 @@ package br.unicesumar.escoladeti2015time04.atendimento;
 
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -28,51 +29,63 @@ public class Atendimento implements Serializable {
     protected Long id;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(unique = true, nullable = false, columnDefinition = "timestamp with time zone not null")
     @Temporal(value = TemporalType.TIMESTAMP)
     protected Date data;
 
     @ManyToOne
+    @ColunaListavel
     @JoinColumn(name = "usuariologado", nullable = false)
     protected Usuario usuarioLogado;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(nullable = false)
     protected String ra;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(nullable = false)
     protected String centro;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "nomealuno", nullable = false)
     protected String nomeAluno;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(nullable = false)
     protected String curso;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "seriesemestre", nullable = false)
     protected int serieSemestre;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(nullable = false)
     protected String turno;
 
-    @ColunaListavel(campoNaQuery = "CASE matriculado WHEN true THEN 'Sim' ELSE 'Não' END AS matriculado")
+    @ColunaLocalizavel
     @Column(nullable = false)
+    @ColunaListavel(campoNaQuery = "CASE matriculado WHEN true THEN 'Sim' ELSE 'Não' END AS matriculado")
     protected Boolean matriculado;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "bolsafinanciamento", nullable = false)
     protected String bolsaFinanciamento;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "descricaopublica", nullable = false)
     protected String descricaoPublica;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "descricaoprivada", nullable = false)
     protected String descricaoPrivada;
 
