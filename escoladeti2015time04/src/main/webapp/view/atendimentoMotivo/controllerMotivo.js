@@ -70,35 +70,13 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
     }
 
     function setAtendimentosDoMotivo() {
-        $scope.motivo.atendimentosDoMotivo = [];
-        $scope.atendimentos.forEach(pegarAtendimentoDoMotivo);
-        function pegarAtendimentoDoMotivo(atendimento) {
-            if (atendimento.checked) {
-                $scope.motivo.atendimentosDoMotivo.push(atendimento.atendimentoDoMotivo);
-            }
-        }
-
-//       $scope.motivo.atendimentosDoMotivo = [];
-//       for(var i=0; i < $scope.atendimentos.length; i++){
-//           if($scope.atendimentos[i].checked){
-//               $scope.motivo.atendimentosDoMotivo.push($scope.atendimentos[i].atendimentoDoMotivo);
-//           }
-//       }
+       $scope.motivo.atendimentosDoMotivo = [];
+       for(var i=0; i < $scope.atendimentos.length; i++){
+           if($scope.atendimentos[i].checked){
+               $scope.motivo.atendimentosDoMotivo.push($scope.atendimentos[i].atendimentoDoMotivo);
+           }
+       }
     }
-//
-//    function carregarAtendimentosDoMotivo() {
-//        $scope.motivo.atendimentos.forEach(verificaSeExisteAtendimentoDoMotivo);
-//        function verificaSeExisteAtendimentoDoMotivo(atendimento) {
-//            $scope.motivo.atendimentosDoMotivo.forEach(existeAtendimentoDoMotivo);
-//            function existeAtendimentoDoMotivo(atendimentoDoMotivo) {
-//                alert("atendimento");
-//                console.log(atendimentoDoMotivo);
-//                if (atendimento.atendimentoDoMotivo === atendimentoDoMotivo) {
-//                    atendimento.checked = true;
-//                }
-//            }
-//        }
-//    }
 }
 
 function controllerListMotivoAtendimento($scope, $http, growl) {
