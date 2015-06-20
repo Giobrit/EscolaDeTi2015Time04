@@ -20,13 +20,13 @@ AppModule.config(function ($routeProvider, $locationProvider) {
         controller: 'controllerListUsuario'
     }).when('/AtendimentoDeixarOCurso/list', {
         templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
-        controller: ''    
+        controller: ''
     }).when('/Usuario/login', {
         templateUrl: 'view/login/login.html',
         controller: ''
     }).when('/Usuario/form/alterarSenha/:id', {
         templateUrl: 'view/usuario/alterarSenhaUsuario.html',
-        controller: 'controllerFormUsuario'    
+        controller: 'controllerFormUsuario'
     }).when('/AtendimentoDeixarOCurso/Objetivo/form', {
         templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
         controller: 'controllerFormObjetivoDeixarOCurso'
@@ -63,6 +63,15 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/AtendimentoPreventivo/Motivo/list', {
         templateUrl: 'view/atendimentoPreventivo/motivo/listagemMotivo.html',
         controller: 'controllerListMotivoAtendimentoPreventivo'
+    }).when('/AtendimentoEspecial/form', {
+        templateUrl: 'view/atendimentoEspecial/formAtendimentoEspecial.html',
+        controller: 'controllerFormAtendimentoEspecial'
+    }).when('/AtendimentoEspecial/form/:id', {
+        templateUrl: 'view/atendimentoEspecial/formAtendimentoEspecial.html',
+        controller: 'controllerFormAtendimentoEspecial'
+    }).when('/AtendimentoEspecial/list', {
+        templateUrl: 'view/atendimentoEspecial/ListAtendimentoEspecial.html',
+        controller: 'controllerListAtendimentoEspecial'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });
