@@ -16,9 +16,9 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
 
     $scope.atendimentos =
             [
-                {label: "Atendimento", atedimentoDoMotivo: "ATENDIMENTODEIXAROCURSO", checked: false},
-                {label: "Atendimento Especial", atedimentoDoMotivo: "ATENDIMENTOESPECIAL", checked: false},
-                {label: "Atendimento Preventivo", atedimentoDoMotivo: "ATENDIMENTOPREVENTIVO", checked: false}
+                {label: "Atendimento", atendimentoDoMotivo: "ATENDIMENTODEIXAROCURSO", checked: false},
+                {label: "Atendimento Especial", atendimentoDoMotivo: "ATENDIMENTOESPECIAL", checked: false},
+                {label: "Atendimento Preventivo", atendimentoDoMotivo: "ATENDIMENTOPREVENTIVO", checked: false}
             ];
 
     $scope.salvar = function () {
@@ -44,7 +44,8 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
 
         function onSuccess(data) {
             $scope.motivo = data;
-            carregarAtendimentosDoMotivo();
+            
+            marcarAtendimentoDoMotivo();
         }
     };
 
@@ -56,29 +57,48 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
     function onError(data) {
         growl.error(JSON.stringify(data));
     }
+    
+    function marcarAtendimentoDoMotivo(){
+        for(var i = 0; i < $scope.motivo.atendimentosDoMotivo.length; i++){
+            console.log($scope.motivo.atendimentosDoMotivo[i]);
+            for(var j = 0; j < $scope.atendimentos.length;j++){
+                if($scope.atendimentos[j].atendimentoDoMotivo === $scope.motivo.atendimentosDoMotivo[i]){
+                    $scope.atendimentos[j].checked = true;
+                }
+            }
+        }
+    }
 
     function setAtendimentosDoMotivo() {
         $scope.motivo.atendimentosDoMotivo = [];
         $scope.atendimentos.forEach(pegarAtendimentoDoMotivo);
         function pegarAtendimentoDoMotivo(atendimento) {
             if (atendimento.checked) {
-                $scope.motivo.atendimentosDoMotivo.push(atendimento.atedimentoDoMotivo);
+                $scope.motivo.atendimentosDoMotivo.push(atendimento.atendimentoDoMotivo);
             }
         }
-    }
 
-    function carregarAtendimentosDoMotivo() {
-        $scope.motivo.atendimentos.forEach(verificaSeExisteAtendimentoDoMotivo);
-        function verificaSeExisteAtendimentoDoMotivo(atendimento) {
-            $scope.motivo.atendimentosDoMotivo.forEach(existeAtendimentoDoMotivo);
-            function existeAtendimentoDoMotivo(atendimentoDoMotivo) {
-                console.log(atendimentoDoMotivo);
-                if (atendimento === atendimentoDoMotivo) {
-                    atendimento.checked = true;
-                }
-            }
-        }
+//       $scope.motivo.atendimentosDoMotivo = [];
+//       for(var i=0; i < $scope.atendimentos.length; i++){
+//           if($scope.atendimentos[i].checked){
+//               $scope.motivo.atendimentosDoMotivo.push($scope.atendimentos[i].atendimentoDoMotivo);
+//           }
+//       }
     }
+//
+//    function carregarAtendimentosDoMotivo() {
+//        $scope.motivo.atendimentos.forEach(verificaSeExisteAtendimentoDoMotivo);
+//        function verificaSeExisteAtendimentoDoMotivo(atendimento) {
+//            $scope.motivo.atendimentosDoMotivo.forEach(existeAtendimentoDoMotivo);
+//            function existeAtendimentoDoMotivo(atendimentoDoMotivo) {
+//                alert("atendimento");
+//                console.log(atendimentoDoMotivo);
+//                if (atendimento.atendimentoDoMotivo === atendimentoDoMotivo) {
+//                    atendimento.checked = true;
+//                }
+//            }
+//        }
+//    }
 }
 
 function controllerListMotivoAtendimento($scope, $http, growl) {
