@@ -28,14 +28,13 @@ public class AtendimentoEspecialController {
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public void criarAtendimentoDeixarOCurso(@RequestBody AtendimentoEspecialCommandInserir atendimentoDeixarOCurso) {
-        this.service.criar(atendimentoDeixarOCurso);
+    public void criarAtendimentoEspecial(@RequestBody AtendimentoEspecialCommandInserir atendimentoEspecial) {
+        this.service.criar(atendimentoEspecial);
     }
     
     @RequestMapping(method = RequestMethod.PUT)
-    public void editarAtendimentoDeixarOCurso(@RequestBody AtendimentoEspecialCommandEditar atendimentoDeixarOCurso)  {
-       this.service.editar(atendimentoDeixarOCurso); 
-    }
-    
+    public void editarAtendimentoEspecial(@RequestBody AtendimentoEspecialCommandEditar atendimentoEspecial)  {
+       this.service.editar(atendimentoEspecial); 
+    }    
     
 }
