@@ -61,13 +61,13 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location, growl
     }
 
     function onError(data) {
+        console.log(data);
         growl.error(JSON.stringify(data));
     }
 }
 
 function controllerListagemFilho($scope, $http, growl) {
     
-
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 5;
     $scope.usuarioAlterandoSenha = {};
@@ -138,4 +138,3 @@ function controllerListagemFilho($scope, $http, growl) {
     }
 
 }
-
