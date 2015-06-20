@@ -38,21 +38,32 @@ public class Filtro {
 
     private String getDemaisFiltros(Map<Field, ColunaListavel> atributosEntidade) {
         String demaisFiltros = AND;
-        for (Map.Entry<Field, ColunaListavel> entrySet : atributosEntidade.entrySet()) {
-            Field atributo = entrySet.getKey();
-            ColunaListavel colunaListavel = entrySet.getValue();
+        for (Map.Entry<Field, ColunaListavel> mapAtributo : atributosEntidade.entrySet()) {
+            Field atributo = mapAtributo.getKey();
+            ColunaListavel colunaListavel = mapAtributo.getValue();
 
             if (!AND.equals(demaisFiltros)) {
                 demaisFiltros += " or ";
             }
 
             if (colunaListavel.politicaFiltro() == PoliticaFiltragem.VALOR_RELATIVO) {
-                demaisFiltros += " lower(" + atributo.getName() + ") like :valorFiltroRelativo ";
+                demaisFiltros += " lower( (" + getCampoFiltro(colunaListavel, atributo) + ")::varchar)) like :valorFiltroRelativo ";
             } else if (colunaListavel.politicaFiltro() == PoliticaFiltragem.VALOR_COMPLETO) {
-                demaisFiltros += " lower(" + atributo.getName() + ") = :valorFiltroExato ";
+                demaisFiltros += " lower( (" + getCampoFiltro(colunaListavel, atributo) + ")::varchar)) = :valorFiltroExato ";
             }
         }
-        demaisFiltros += ")   ";
+        demaisFiltros += ") ";
         return demaisFiltros;
+    }
+
+    private String getCampoFiltro(ColunaListavel colunaListavel, Field atributo) {
+        String campoString;
+        if ("".equals(colunaListavel.campoNaQuery())) {
+            campoString = atributo.getName();
+        } else {
+            campoString = colunaListavel.campoNaQuery();
+        }
+        
+        return campoString;
     }
 }

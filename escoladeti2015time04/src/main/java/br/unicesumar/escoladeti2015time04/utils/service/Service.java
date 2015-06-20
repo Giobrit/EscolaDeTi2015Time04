@@ -240,7 +240,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return campos + " ";
     }
 
-    private <A extends Annotation> String getCampoEmUmaQuery(A colunaListavel, Field campo) {
+    private String getCampoEmUmaQuery(ColunaListavel colunaListavel, Field campo) {
         String campoString;
         String campoNaQuery = "";
 
@@ -254,6 +254,8 @@ public abstract class Service<E, R extends JpaRepository, C> {
         } else {
             campoString = campoNaQuery;
         }
+        
+        if ("".equals(colunaListavel.))
 
         return campoString + ",";
     }

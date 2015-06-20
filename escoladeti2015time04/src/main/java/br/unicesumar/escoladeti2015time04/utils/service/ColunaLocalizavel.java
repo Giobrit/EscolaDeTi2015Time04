@@ -1,4 +1,3 @@
-
 package br.unicesumar.escoladeti2015time04.utils.service;
 
 import java.lang.annotation.ElementType;
@@ -9,5 +8,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ColunaLocalizavel {
-    public String campoNaQuery() default "";    
+
+    public String campoNaQuery() default "";
+
+    public String aliasNaQuery() default "";
 }
