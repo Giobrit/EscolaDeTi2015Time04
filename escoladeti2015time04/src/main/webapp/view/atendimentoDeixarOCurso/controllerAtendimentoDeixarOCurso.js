@@ -21,7 +21,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.salvar = function () {
-        montarCampoData();        
+        montarCampoData();
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         } else {
@@ -37,7 +37,6 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     function success() {
         growl.success("<b>Atendimento " + ($scope.editando === true ? "editado" : "salvo") + " com sucesso</b>");
     }
-    ;
 
     $scope.editar = function (id) {
         $http.get("/atendimento/deixarOCurso/" + id).success(onSuccess).error(onError);
@@ -101,6 +100,14 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
+        }
+    };
+
+    $scope.recuperarListaCoordenadores = function () {
+        $http.get("/atendimento/deixarOCurso/coordenadoresCadastrados").success(onSuccess).error(onError);
+
+        function onSuccess(data) {
+            $scope.recuperarCoordenadores = data.itens;
         }
     };
 
@@ -188,7 +195,7 @@ function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
                 {label: "Data", colunaOrdenacao: "data", propriedadeItem: "data", checked: true},
                 {label: "Hora", colunaOrdenacao: "data", propriedadeItem: "hora", checked: true},
                 {label: "RA", colunaOrdenacao: "ra", propriedadeItem: "ra", checked: false},
-                {label: "Nome Aluno", colunaOrdenacao: "colunaOrdenacaoAluno", propriedadeItem: "colunaOrdenacaoAluno", checked: false},
+                {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: false},
                 {label: "Curso", colunaOrdenacao: "curso", propriedadeItem: "curso", checked: false},
                 {label: "Série", colunaOrdenacao: "serieSemestre", propriedadeItem: "serieSemestre", checked: false},
                 {label: "Turno", colunaOrdenacao: "turno", propriedadeItem: "turno", checked: false},
