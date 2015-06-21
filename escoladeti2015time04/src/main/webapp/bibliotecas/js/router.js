@@ -68,7 +68,7 @@ AppModule.config(function ($routeProvider, $locationProvider) {
         controller: 'controllerFormAtendimentoPreventivo'
     }).when('/AtendimentoPreventivo/list', {
         templateUrl: 'view/atendimentoPreventivo/listagemAtendimentoPreventivo.html',
-        controller: ''
+        controller: 'controllerListAtendimentoPreventivo'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });
