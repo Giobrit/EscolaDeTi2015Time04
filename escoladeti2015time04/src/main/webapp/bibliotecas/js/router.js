@@ -63,6 +63,12 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/AtendimentoPreventivo/Motivo/list', {
         templateUrl: 'view/atendimentoPreventivo/motivo/listagemMotivo.html',
         controller: 'controllerListMotivoAtendimentoPreventivo'
+    }).when('/AtendimentoPreventivo/form', {
+        templateUrl: 'view/atendimentoPreventivo/cadastroAtendimentoPreventivo.html',
+        controller: 'controllerFormAtendimentoPreventivo'
+    }).when('/AtendimentoPreventivo/list', {
+        templateUrl: 'view/atendimentoPreventivo/listagemAtendimentoPreventivo.html',
+        controller: ''
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });
