@@ -122,14 +122,14 @@
                         <label>
                             <h4>Instituição de Transferência</h4>
                         </label>
-                        <input type="text" name="transferencia" placeholder="Informe a instituição de transferência" class="form-control" ng-model="atendimentoDeixarOCurso.transferencia">
+                        <input type="text" name="transferencia" placeholder="Informe a instituição de transferência" class="form-control" ng-model="atendimentoDeixarOCurso.transferencia" data-animation="am-flip-x" bs-options="transferencia for transferencia in getRecuperarTransferencias()" bs-typeahead>
                     </div>
                     <div class="col-md-6">
                         <label>
                             <h4>Coordenador / Diretor</h4>
                         </label>                        
                         <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.coordenadorDiretor.$invalid && !formAtendimentoDeixarOCurso.coordenadorDiretor.$pristine}">
-                            <input type="text" name="coordenadorDiretor" placeholder="Informe o Coordenador / Diretor"class="form-control" ng-model="coordenadorDiretor" bs-options="recuperarCoordenadores.coordenadorDiretor for recuperarCoordenadores in recuperarCoordenadores()" ng-minlength="2" ng-maxlength="50" bs-typeahead>
+                            <input type="text" name="coordenadorDiretor" placeholder="Informe o Coordenador / Diretor" class="form-control" ng-model="atendimentoDeixarOCurso.coordenadorDiretor" data-animation="am-flip-x" bs-options="coordenadorDiretor  for coordenadorDiretor in getRecuperarCoordenadores()" bs-typeahead>
                             <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
                             <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.maxlength" class="help-block">Nome no máximo 50 caracteres.</p>
                         </div>                        
