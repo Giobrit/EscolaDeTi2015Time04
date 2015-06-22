@@ -59,8 +59,8 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             $scope.atendimentoDeixarOCurso.coordenadorDiretor = data.coordenadordiretor;
             $scope.dataDeixarOCurso = timestampParaData(data.data);
             $scope.horaDeixarOCurso = new Date(data.data);
-            $scope.matriculadoSelecionado = data.matriculado;
-            $scope.setMatriculado(data.matriculado);
+            $scope.matriculadoSelecionado = booleanToString(data.matriculado);
+//            $scope.setMatriculado(data.matriculado);
 
             selecionaObjetivoNaTela(data.objetivo);
             selecionaMotivoNaTela(data.motivo);
@@ -133,7 +133,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.setMatriculado = function (data) {
-        $scope.atendimentoDeixarOCurso.matriculado = data === "Sim" ? true : false;
+        $scope.atendimentoDeixarOCurso.matriculado = stringToBoolean(data);
     };
 
     function setAtributosAluno(aluno) {
@@ -144,8 +144,8 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.atendimentoDeixarOCurso.turno = aluno.turno;
         $scope.atendimentoDeixarOCurso.bolsaFinanciamento = aluno.bolsa;
         $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;
-        $scope.atendimentoDeixarOCurso.matriculado = aluno.matriculado;
-        $scope.matriculadoSelecionado = booleanToString(aluno.matriculado);
+        $scope.atendimentoDeixarOCurso.matriculado = stringToBoolean(aluno.matriculado);
+        $scope.matriculadoSelecionado = aluno.matriculado;
     }
 
     function onError(data) {

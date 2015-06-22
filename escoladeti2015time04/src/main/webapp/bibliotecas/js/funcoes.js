@@ -70,3 +70,7 @@ function completaString(string, tamanho, caracter, posicaoEsquerda) {
 function booleanToString(boolean) {
     return boolean ? "Sim" : "Não";
 }
+
+function stringToBoolean(string) {
+    return string === "Sim" ? true : false;
+}
