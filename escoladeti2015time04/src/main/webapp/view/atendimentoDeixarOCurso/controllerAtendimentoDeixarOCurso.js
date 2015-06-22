@@ -21,7 +21,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.salvar = function () {
-        montarCampoData();        
+        $scope.atendimentoDeixarOCurso.data = prepararDataParaSalvar($scope.dataDeixarOCurso, $scope.horaDeixarOCurso);
         if ($scope.editando) {
             $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
         } else {
@@ -37,7 +37,6 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     function success() {
         growl.success("<b>Atendimento " + ($scope.editando === true ? "editado" : "salvo") + " com sucesso</b>");
     }
-    ;
 
     $scope.editar = function (id) {
         $http.get("/atendimento/deixarOCurso/" + id).success(onSuccess).error(onError);
@@ -60,8 +59,8 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             $scope.atendimentoDeixarOCurso.coordenadorDiretor = data.coordenadordiretor;
             $scope.dataDeixarOCurso = timestampParaData(data.data);
             $scope.horaDeixarOCurso = new Date(data.data);
-            $scope.matriculadoSelecionado = data.matriculado;
-            $scope.setMatriculado(data.matriculado);
+            $scope.matriculadoSelecionado = booleanToString(data.matriculado);
+//            $scope.setMatriculado(data.matriculado);
 
             selecionaObjetivoNaTela(data.objetivo);
             selecionaMotivoNaTela(data.motivo);
@@ -104,6 +103,14 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         }
     };
 
+    $scope.recuperarListaCoordenadores = function () {
+        $http.get("/atendimento/deixarOCurso/coordenadoresCadastrados").success(onSuccess).error(onError);
+
+        function onSuccess(data) {
+            $scope.recuperarCoordenadores = data.itens;
+        }
+    };
+
     $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
             setAtributosAluno({});
@@ -126,7 +133,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.setMatriculado = function (data) {
-        $scope.atendimentoDeixarOCurso.matriculado = data === "Sim" ? true : false;
+        $scope.atendimentoDeixarOCurso.matriculado = stringToBoolean(data);
     };
 
     function setAtributosAluno(aluno) {
@@ -137,36 +144,10 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.atendimentoDeixarOCurso.turno = aluno.turno;
         $scope.atendimentoDeixarOCurso.bolsaFinanciamento = aluno.bolsa;
         $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;
+        $scope.atendimentoDeixarOCurso.matriculado = stringToBoolean(aluno.matriculado);
         $scope.matriculadoSelecionado = aluno.matriculado;
-        $scope.setMatriculado(aluno.matriculado);
     }
 
-    $scope.setData = function () {
-        return formatarData(new Date($scope.dataDeixarOCurso));
-        ;
-    };
-
-    function formatarData(dataParaFormatacao) {
-        return dataParaFormatacao.getFullYear() + "-" +
-                ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate() + "-" +
-                (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1);
-    }
-
-    $scope.setHora = function () {
-        return formatarHora(new Date($scope.horaDeixarOCurso));
-    };
-
-    function formatarHora(horaParaFormatacao) {
-        return ((horaParaFormatacao.getHours() < 10) ? "0" : "") + horaParaFormatacao.getHours() + ":" +
-                ((horaParaFormatacao.getMinutes() < 10) ? "0" : "") + horaParaFormatacao.getMinutes() + ":00";
-    }
-
-    function montarCampoData() {
-        if ($scope.horaDeixarOCurso && $scope.dataDeixarOCurso) {
-            $scope.atendimentoDeixarOCurso.data = $scope.setData() + "T" + $scope.setHora() + "-03";
-        }
-    }
-    $scope.setData();
     function onError(data) {
         growl.error(JSON.stringify(data));
     }
@@ -188,7 +169,7 @@ function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
                 {label: "Data", colunaOrdenacao: "data", propriedadeItem: "data", checked: true},
                 {label: "Hora", colunaOrdenacao: "data", propriedadeItem: "hora", checked: true},
                 {label: "RA", colunaOrdenacao: "ra", propriedadeItem: "ra", checked: false},
-                {label: "Nome Aluno", colunaOrdenacao: "colunaOrdenacaoAluno", propriedadeItem: "colunaOrdenacaoAluno", checked: false},
+                {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: false},
                 {label: "Curso", colunaOrdenacao: "curso", propriedadeItem: "curso", checked: false},
                 {label: "Série", colunaOrdenacao: "serieSemestre", propriedadeItem: "serieSemestre", checked: false},
                 {label: "Turno", colunaOrdenacao: "turno", propriedadeItem: "turno", checked: false},
@@ -246,6 +227,7 @@ function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
         $scope.listar();
     };
     function onError(data) {
+        console.log(JSON.stringify(data));
         growl.error(JSON.stringify(data));
     }
 

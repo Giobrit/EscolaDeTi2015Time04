@@ -26,12 +26,13 @@
                     <div class="row">
                         <div class="col-md-12" style="overflow-x: auto;">
                             <div class="col-md-offset-0" style="overflow-x: auto;">
-                                <table class="table table-hover table-condensed table-bordered" style="width: auto; white-space: nowrap;">
+                                <table class="table table-hover table-condensed table-bordered table-responsive" style="white-space: nowrap;">
                                     <thead>
                                         <tr>
-                                            <th ng-repeat="c in colunas" class="col-md-4" ng-click="alterarOrdenacao(c)"  ng-show="c.checked">
-                                                <i class="fa fa-angle-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && labelOrdenacao === c.label"></i>
-                                                <i class="fa fa-angle-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && labelOrdenacao === c.label"></i>
+                                            <th ng-repeat="c in colunas"  ng-click="alterarOrdenacao(c)"  ng-show="c.checked">
+                                                <i class="fa fa-circle-o" aria-hidden="true" ng-show="labelOrdenacao !== c.label"></i>
+                                                <i class="fa fa-arrow-circle-o-up" aria-hidden="true" ng-show="ordenacaoCrescente && labelOrdenacao === c.label"></i>
+                                                <i class="fa fa-arrow-circle-o-down" aria-hidden="true" ng-show="!ordenacaoCrescente && labelOrdenacao === c.label"></i>
                                                 {{c.label}}
                                             </th>        
                                             <th>Opções</th>
@@ -39,7 +40,7 @@
                                     </thead>
                                     <tbody>
                                         <tr dir-paginate="a in atendimentos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
-                                            <td ng-repeat="c in colunas" ng-show="c.checked"  style="white-space:pre-wrap;">{{a[c.propriedadeItem.toLowerCase()]}}</td>
+                                            <td ng-repeat="c in colunas" ng-show="c.checked"  style="white-space: normal ;">{{a[c.propriedadeItem.toLowerCase()]}}</td>
                                             <td>
                                                 <span>
                                                     <a href="#/AtendimentoDeixarOCurso/form/{{a.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
