@@ -150,7 +150,6 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
     $scope.setData = function () {
         return formatarData(new Date($scope.dataDeixarOCurso));
-        ;
     };
 
     function formatarData(dataParaFormatacao) {
@@ -185,7 +184,7 @@ function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 8;
-    colunaOrdenacao = "protocolo";
+    var colunaOrdenacao = "protocolo";
     $scope.labelOrdenacao = "Protocolo";
     var ordenacaoCrescente = true;
 
