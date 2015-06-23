@@ -1,11 +1,13 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
+import br.unicesumar.escoladeti2015time04.perfilacesso.PerfilAcesso;
 import br.unicesumar.escoladeti2015time04.utils.Email;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.utils.listagem.PoliticaFiltragem;
 import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,6 +16,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario implements Serializable {
@@ -45,14 +51,39 @@ public class Usuario implements Serializable {
     @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
     private Status status;
 
+    @OneToMany
+    @ColunaLocalizavel
+    @JoinTable(
+            name = "usuario_perfildeacesso",
+            joinColumns = {
+                @JoinColumn(name = "idusuario")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "idperfilacesso")}
+    )
+    private Set<PerfilAcesso> perfisDeAcesso;
+
     public Usuario() {
     }
-    
+
     public Usuario(String nome, String login, Senha senha, Email email) {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
         this.email = email;
+    }
+
+    public Usuario(String nome, String login, Senha senha, Email email, Status status, Set<PerfilAcesso> perfisDeAcesso) {
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.email = email;
+        this.status = status;
+        this.perfisDeAcesso = perfisDeAcesso;
+    }
+
+    public Usuario(Long id, Set<PerfilAcesso> perfisDeAcesso) {
+        this.id = id;
+        this.perfisDeAcesso = perfisDeAcesso;
     }
 
     public Long getId() {
@@ -97,6 +128,14 @@ public class Usuario implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Set<PerfilAcesso> getPerfisDeAcesso() {
+        return perfisDeAcesso;
+    }
+
+    public void setPerfisDeAcesso(Set<PerfilAcesso> perfisDeAcesso) {
+        this.perfisDeAcesso = perfisDeAcesso;
     }
 
     @Override
