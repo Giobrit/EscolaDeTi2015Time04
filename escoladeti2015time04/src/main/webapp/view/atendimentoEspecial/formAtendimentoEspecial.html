@@ -130,7 +130,7 @@
                 <div class="row form-group">
                     <div class="col-md-6">
                         <label>
-                            <h4>Encaminhado para:</h4>
+                            <h4>Encaminhado para</h4>
                         </label>
                         <input type="text" name="encaminhadoPara" ng-class="{ 'has-error'  : formAtendimentoEspecial.encaminhadoPara.$invalid && !formAtendimentoEspecial.encaminhadoPara.$pristine}" placeholder="Informe para onde será encaminhado" class="form-control" ng-model="atendimentoEspecial.encaminhadoPara" required>
                     </div>
@@ -147,11 +147,19 @@
                 <div class="row form-group">
                     <div class="col-md-12">
                         <label>
-                            <h4>Descrição</h4>
+                            <h4>Descrição resumida</h4>
                         </label>
-                        <textarea class="form-control" name="descricao" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricao.$invalid && !formAtendimentoEspecial.descricao.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricao" required></textarea>
+                        <textarea class="form-control" name="descricaoResumida" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoResumida.$invalid && !formAtendimentoEspecial.descricaoResumida.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoResumida" required></textarea>
                     </div>
-                </div>                               
+                </div>  
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label>
+                            <h4>Descrição detalhada</h4>
+                        </label>
+                        <textarea class="form-control" name="descricaoDetalhada" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoDetalhada.$invalid && !formAtendimentoEspecial.descricaoDetalhada.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoDetalhada" required></textarea>
+                    </div>
+                </div> 
             </div>
         </div>        
         <div class="row">	

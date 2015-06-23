@@ -53,7 +53,8 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $scope.atendimentoEspecial.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoEspecial.laudoMedico = data.laudomedico;
             $scope.atendimentoEspecial.encaminhadoPara = data.encaminhadopara;
-            $scope.atendimentoEspecial.descricao = data.descricao;
+            $scope.atendimentoEspecial.descricaoResumida = data.descricaoresumida;
+            $scope.atendimentoEspecial.descricaoDetalhada= data.descricaodetalhada;
             $scope.dataDeixarOCurso = timestampParaData(data.data);
             $scope.horaDeixarOCurso = new Date(data.data);
             $scope.matriculadoSelecionado = data.matriculado;
@@ -171,7 +172,8 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
                 {label: "Solicitação", colunaOrdenacao: "solicitacao", propriedadeItem: "solicitacao", checked: true},
                 {label: "Encaminhado Para", colunaOrdenacao: "encaminhadoPara", propriedadeItem: "encaminhadoPara", checked: true},
                 {label: "Motivo", colunaOrdenacao: "motivo", propriedadeItem: "motivo", checked: true},
-                {label: "Descrição", colunaOrdenacao: "descricao", propriedadeItem: "descricao", checked: true}
+                {label: "Descrição Resumida", colunaOrdenacao: "descricaoResumida", propriedadeItem: "descricaoResumida", checked: true},
+                {label: "Descrição Detalhada", colunaOrdenacao: "descricaoDetalhada", propriedadeItem: "descricaoDetalhada", checked: true}
             ];
 
     $scope.init = function () {
