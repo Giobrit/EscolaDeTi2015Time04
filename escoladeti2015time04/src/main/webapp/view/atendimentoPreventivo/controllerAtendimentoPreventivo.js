@@ -48,7 +48,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
             $scope.atendimentoPreventivo.nomeAluno = data.nomealuno;
             $scope.atendimentoPreventivo.curso = data.curso;
             $scope.atendimentoPreventivo.centro = data.centro;
-            $scope.atendimentoPreventivo.serieSemestre = data.serieSemestre;
+            $scope.atendimentoPreventivo.serieSemestre = data.seriesemestre;
             $scope.atendimentoPreventivo.turno = data.turno;
             $scope.atendimentoPreventivo.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoPreventivo.numeroReprovacoes = data.numeroreprovacoes;
@@ -108,7 +108,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
         $scope.atendimentoPreventivo.nomeAluno = aluno.nome;
         $scope.atendimentoPreventivo.curso = aluno.curso;
         $scope.atendimentoPreventivo.centro = aluno.centro;
-        $scope.atendimentoPreventivo.serieSemestre = aluno.serie;
+        $scope.atendimentoPreventivo.serieSemestre = aluno.serieSemestre;
         $scope.atendimentoPreventivo.turno = aluno.turno;
         $scope.atendimentoPreventivo.bolsaFinanciamento = aluno.bolsa;
         $scope.atendimentoPreventivo.numeroReprovacoes = aluno.reprovacao;
