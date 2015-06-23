@@ -118,4 +118,10 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         return jdbcTemplate.queryForList(queryRecuperarCoordenadores, mapSqlParameterSource, String.class);
     }
+    
+    public List<String> recuperarTransferencias(){
+        String queryRecuperarTransferencias = "select distinct transferencia" + super.from;
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        return jdbcTemplate.queryForList(queryRecuperarTransferencias, mapSqlParameterSource, String.class);
+    }
 }

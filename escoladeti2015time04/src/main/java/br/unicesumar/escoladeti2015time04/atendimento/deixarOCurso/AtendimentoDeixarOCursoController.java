@@ -22,9 +22,15 @@ public class AtendimentoDeixarOCursoController {
     public ResultadoListagem<AtendimentoDeixarOCurso> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
         return this.service.listar(requisicaoListagem);
     }
+    
     @RequestMapping(value = "/coordenadoresCadastrados", method = RequestMethod.GET)
     public List<String> recuperarCoordenadores (){
         return this.service.recuperarCoordenadores();
+    }
+    
+    @RequestMapping(value = "/transferenciasCadastradas", method = RequestMethod.GET)
+    public List<String> recuperarTransferencias (){
+        return this.service.recuperarTransferencias();
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
