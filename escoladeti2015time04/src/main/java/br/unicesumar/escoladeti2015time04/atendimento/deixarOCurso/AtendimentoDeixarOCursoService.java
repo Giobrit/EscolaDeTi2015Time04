@@ -6,9 +6,11 @@ import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.Deix
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivoService;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.usuario.UsuarioService;
+import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import br.unicesumar.escoladeti2015time04.utils.service.Service;
+
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -30,8 +32,10 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
 
     @Override
     protected void init() {
-        this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel());
-        this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel(getClassEntity().getSuperclass()));
+        this.colunasListaveisEntidade.putAll(getMapFieldAnotacao(ColunaListavel.class));
+        this.colunasListaveisEntidade.putAll(getMapFieldAnotacao(ColunaListavel.class, getClassEntity().getSuperclass()));
+        this.colunasLocalizaveisEntidade.putAll(getMapFieldAnotacao(ColunaLocalizavel.class));
+        this.colunasLocalizaveisEntidade.putAll(getMapFieldAnotacao(ColunaLocalizavel.class, getClassEntity().getSuperclass()));
         this.idEntidade = getIdEntidade(getClassEntity().getSuperclass());
         this.select = montarSelectListar();
         this.from = montarFromListar();
