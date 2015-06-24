@@ -1,6 +1,6 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
-import br.unicesumar.escoladeti2015time04.perfilUsuario.itemAvulso;
+import br.unicesumar.escoladeti2015time04.perfilUsuario.ItemAvulso;
 import br.unicesumar.escoladeti2015time04.perfilacesso.PerfilAcesso;
 import br.unicesumar.escoladeti2015time04.utils.Email;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
@@ -65,9 +65,9 @@ public class Usuario implements Serializable {
     private Set<PerfilAcesso> perfisDeAcesso;
 
     @ColunaLocalizavel
-    @OneToMany(mappedBy = "usuario");
-    private Set<itemAvulso> itensAvulsos;
-    
+    @OneToMany(mappedBy = "usuario")
+    private Set<ItemAvulso> itensAvulsos;
+
     public Usuario() {
     }
 
@@ -142,6 +142,14 @@ public class Usuario implements Serializable {
 
     public void setPerfisDeAcesso(Set<PerfilAcesso> perfisDeAcesso) {
         this.perfisDeAcesso = perfisDeAcesso;
+    }
+
+    public Set<ItemAvulso> getItensAvulsos() {
+        return itensAvulsos;
+    }
+
+    public void setItensAvulsos(Set<ItemAvulso> itensAvulsos) {
+        this.itensAvulsos = itensAvulsos;
     }
 
     @Override
