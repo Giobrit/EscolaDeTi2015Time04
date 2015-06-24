@@ -28,7 +28,7 @@ public class Atendimento implements Serializable {
     protected Long id;
 
     @ColunaListavel
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, columnDefinition = "timestamp with time zone not null")
     @Temporal(value = TemporalType.TIMESTAMP)
     protected Date data;
 
