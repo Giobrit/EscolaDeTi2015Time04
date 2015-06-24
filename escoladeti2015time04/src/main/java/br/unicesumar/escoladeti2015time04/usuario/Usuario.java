@@ -1,5 +1,6 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
+import br.unicesumar.escoladeti2015time04.perfilUsuario.itemAvulso;
 import br.unicesumar.escoladeti2015time04.perfilacesso.PerfilAcesso;
 import br.unicesumar.escoladeti2015time04.utils.Email;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
@@ -63,6 +64,10 @@ public class Usuario implements Serializable {
     )
     private Set<PerfilAcesso> perfisDeAcesso;
 
+    @ColunaLocalizavel
+    @OneToMany(mappedBy = "usuario");
+    private Set<itemAvulso> itensAvulsos;
+    
     public Usuario() {
     }
 
