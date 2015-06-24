@@ -5,8 +5,6 @@ import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivoSe
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivo;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivoService;
 import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoDoMotivo;
-import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivo;
-import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivoService;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcessoService;
 import br.unicesumar.escoladeti2015time04.usuario.Senha;
