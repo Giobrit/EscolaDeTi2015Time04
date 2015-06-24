@@ -24,8 +24,8 @@ public class AtendimentoPreventivo extends Atendimento implements Serializable {
     private int numeroReprovacoes;
 
     @ManyToOne
-    @ColunaListavel(campoNaQuery = "m.descricao as motivo")
-    @ColunaLocalizavel(campoNaQuery = "m.descricao as motivo")
+    @ColunaListavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
+    @ColunaLocalizavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
     @JoinColumn(name = "motivo", nullable = false)
     private PreventivoMotivo motivo;
 

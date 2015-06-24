@@ -20,7 +20,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
     };
 
     $scope.salvar = function () {
-        montarCampoData();
+        $scope.atendimentoPreventivo.data = prepararDataParaSalvar($scope.dataPreventivo, $scope.horaPreventivo);
         if ($scope.editando) {
             $http.put("/atendimento/preventivo", $scope.atendimentoPreventivo).success(onSuccess).error(onError);
         } else {
@@ -36,13 +36,11 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
     function success() {
         growl.success("<b>Atendimento Preventivo " + ($scope.editando === true ? "editado" : "salvo") + " com sucesso</b>");
     }
-    ;
 
     $scope.editar = function (id) {
         $http.get("/atendimento/preventivo/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
-
             $scope.atendimentoPreventivo.id = data.id;
             $scope.atendimentoPreventivo.ra = data.ra;
             $scope.atendimentoPreventivo.nomeAluno = data.nomealuno;
@@ -58,8 +56,9 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
             $scope.atendimentoPreventivo.encaminhamento = data.encaminhamento;
             $scope.dataPreventivo = timestampParaData(data.data);
             $scope.horaPreventivo = new Date(data.data);
-            $scope.matriculadoSelecionado = data.matriculado;
-            $scope.setMatriculado(data.matriculado);
+            $scope.atendimentoPreventivo.matriculado = data.matriculado;
+            $scope.matriculadoSelecionado = booleanToString(data.matriculado);
+          //  $scope.setMatriculado(data.matriculado);
 
             selecionaMotivoNaTela(data.motivo);
             $scope.setMotivo($scope.motivoSelecionado);
@@ -113,36 +112,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
         $scope.atendimentoPreventivo.bolsaFinanciamento = aluno.bolsa;
         $scope.atendimentoPreventivo.numeroReprovacoes = aluno.reprovacao;
         $scope.matriculadoSelecionado = aluno.matriculado;
-        $scope.setMatriculado(aluno.matriculado);
     }
-
-    $scope.setData = function () {
-        return formatarData(new Date($scope.dataPreventivo));
-    };
-
-    function formatarData(dataParaFormatacao) {
-        return dataParaFormatacao.getFullYear() + "-" +
-                ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate() + "-" +
-                (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1);
-    }
-
-    $scope.setHora = function () {
-        return formatarHora(new Date($scope.horaPreventivo));
-    };
-
-    function formatarHora(horaParaFormatacao) {
-        return ((horaParaFormatacao.getHours() < 10) ? "0" : "") + horaParaFormatacao.getHours() + ":" +
-                ((horaParaFormatacao.getMinutes() < 10) ? "0" : "") + horaParaFormatacao.getMinutes() + ":00";
-    }
-
-    function montarCampoData() {
-        if ($scope.horaPreventivo && $scope.dataPreventivo) {
-            $scope.atendimentoPreventivo.data = $scope.setData() + "T" + $scope.setHora() + "-03";
-        }
-    }
-
-    $scope.setData();
-
 
     function onError(data) {
         console.log(JSON.stringify(data));
