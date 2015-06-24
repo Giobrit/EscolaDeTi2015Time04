@@ -25,20 +25,24 @@
                                     <tr>
                                         <th ng-click="alterarOrdenacao('nome')" class="col-md-5">
                                             Nome
-                                            <span class="glyphicon glyphicon-menu-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'nome'"></span>
-                                            <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'nome'"></span>
+                                            <i class="fa fa-angle-up pull-left" ng-show="ordenacaoCrescente && colunaOrdenacao === 'nome'"></i>
+                                            <i class="fa fa-angle-down pull-left" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'nome'"></i>
                                         </th>
                                         <th ng-click="alterarOrdenacao('login')" class="col-md-2">
                                             Login
-                                            <span class="glyphicon glyphicon-menu-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'login'"></span>
-                                            <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'login'"></span>
+                                            <i class="fa fa-angle-up pull-left" ng-show="ordenacaoCrescente && colunaOrdenacao === 'login'"></i>
+                                            <i class="fa fa-angle-down pull-left" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'login'"></i>
                                         </th>
                                         <th ng-click="alterarOrdenacao('email')" class="col-md-2">
                                             Email
-                                            <span class="glyphicon glyphicon-menu-up pull-left" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'email'"></span>
-                                            <span class="glyphicon glyphicon-menu-down pull-left" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'email'"></span>
+                                            <i class="fa fa-angle-up pull-left" ng-show="ordenacaoCrescente && colunaOrdenacao === 'email'"></i>
+                                            <i class="fa fa-angle-down pull-left" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'email'"></i>
                                         </th>
-                                        <th ng-click="alterarOrdenacao('status')" class="col-md-1">Ação</th>
+                                        <th ng-click="alterarOrdenacao('status')" class="col-md-1">
+                                            Ação
+                                            <i class="fa fa-angle-up pull-left" ng-show="ordenacaoCrescente && colunaOrdenacao === 'status'"></i>
+                                            <i class="fa fa-angle-down pull-left" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'status'"></i>
+                                        </th>
                                         <th class="col-md-1">Opção</th>
                                     </tr>
                                 </thead>
