@@ -106,23 +106,18 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         }
     };
 
-    $scope.getRecuperarCoordenadores = function () {
-        return $http.get("/atendimento/deixarOCurso/coordenadoresCadastrados").then(onSuccess);
-
-        function onSuccess(result) {
-            console.log(JSON.stringify(result.data));
-            return result.data;
+//    $scope.getRecuperarCoordenadores = function () {
+//    $scope.getRecuperarTransferencias = function () {
+    $scope.getCamposInseridos = function (campo, valor) {
+        if (valor.length < 3) {
+            return;
         }
-        ;
-    };
-
-    $scope.getRecuperarTransferencias = function () {
-        return $http.get("/atendimento/deixarOCurso/transferenciasCadastradas").then(onSuccess);
+        
+        return $http.get("/atendimento/deixarOCurso/typeAHead/" + campo + "/" + valor).then(onSuccess);
 
         function onSuccess(result) {
             return result.data;
         }
-        ;
     };
 
     $scope.carregarAluno = function (ra) {
