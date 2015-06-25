@@ -2,9 +2,9 @@ AppModule.controller("controllerFormAtendimentoEspecial", controllerFormAtendime
 
 function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $location, growl, $timeout) {
 
-    $scope.init = function () {
+    $scope.init = function() {
         $scope.limparTela();
-
+        $scope.preencherListDeMotivo();
         idEditando = $routeParams.id;
 
         if (idEditando) {
@@ -13,12 +13,12 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         }
     };
 
-    $scope.limparTela = function () {
+    $scope.limparTela = function() {
         $scope.atendimentoEspecial = {};
         $scope.editando = false;
     };
 
-    $scope.salvar = function () {
+    $scope.salvar = function() {
         montarCampoData();
         if ($scope.editando) {
             $http.put("/atendimento/especial", $scope.atendimentoEspecial).success(onSuccess).error(onError);
@@ -37,7 +37,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     }
     ;
 
-    $scope.editar = function (id) {
+    $scope.editar = function(id) {
         $http.get("/atendimento/especial/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
@@ -54,7 +54,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $scope.atendimentoEspecial.laudoMedico = data.laudomedico;
             $scope.atendimentoEspecial.encaminhadoPara = data.encaminhadopara;
             $scope.atendimentoEspecial.descricaoResumida = data.descricaoresumida;
-            $scope.atendimentoEspecial.descricaoDetalhada= data.descricaodetalhada;
+            $scope.atendimentoEspecial.descricaoDetalhada = data.descricaodetalhada;
             $scope.dataDeixarOCurso = timestampParaData(data.data);
             $scope.horaDeixarOCurso = new Date(data.data);
             $scope.matriculadoSelecionado = data.matriculado;
@@ -74,15 +74,15 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         }
     }
 
-    $scope.preencherListDeMotivo = function () {
-        $http.get("/atendimento/especial/motivo/listarAtivos").success(onSuccess).error(onError);
+    $scope.preencherListDeMotivo = function() {
+        $http.get("/atendimento/deixarOCurso/motivo/listarAtivos").success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
         }
     };
 
-    $scope.carregarAluno = function (ra) {
+    $scope.carregarAluno = function(ra) {
         if (ra.length !== 8) {
             setAtributosAluno({});
             return;
@@ -96,11 +96,11 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     };
 
 
-    $scope.setMotivo = function (data) {
+    $scope.setMotivo = function(data) {
         $scope.atendimentoEspecial.idMotivo = data.id;
     };
 
-    $scope.setMatriculado = function (data) {
+    $scope.setMatriculado = function(data) {
         $scope.atendimentoEspecial.matriculado = data === "Sim" ? true : false;
     };
 
@@ -115,7 +115,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         $scope.setMatriculado(aluno.matriculado);
     }
 
-    $scope.setData = function () {
+    $scope.setData = function() {
         return formatarData(new Date($scope.dataDeixarOCurso));
         ;
     };
@@ -126,7 +126,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
                 (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1);
     }
 
-    $scope.setHora = function () {
+    $scope.setHora = function() {
         return formatarHora(new Date($scope.horaDeixarOCurso));
     };
 
@@ -176,11 +176,11 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
                 {label: "Descrição Detalhada", colunaOrdenacao: "descricaoDetalhada", propriedadeItem: "descricaoDetalhada", checked: true}
             ];
 
-    $scope.init = function () {
+    $scope.init = function() {
         $scope.listar();
     };
 
-    $scope.listar = function () {
+    $scope.listar = function() {
         var requisicaoListagem = new RequisicaoListagem();
         requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
         requisicaoListagem.paginaAtual = $scope.paginaAtual;
@@ -205,7 +205,7 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
             }
         }
     };
-    $scope.alterarOrdenacao = function (coluna) {
+    $scope.alterarOrdenacao = function(coluna) {
         if (colunaOrdenacao === coluna.colunaOrdenacao) {
             $scope.ordenacaoCrescente = !$scope.ordenacaoCrescente;
         } else {
@@ -216,14 +216,14 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
         $scope.labelOrdenacao = coluna.label;
         $scope.listar();
     };
-    $scope.alterarPagina = function () {
+    $scope.alterarPagina = function() {
         $scope.listar();
     };
     function onError(data) {
         growl.error(JSON.stringify(data));
     }
 
-    $scope.alterarCheckbox = function (coluna) {
+    $scope.alterarCheckbox = function(coluna) {
         coluna.checked = !coluna.checked;
         $scope.listar();
     };
