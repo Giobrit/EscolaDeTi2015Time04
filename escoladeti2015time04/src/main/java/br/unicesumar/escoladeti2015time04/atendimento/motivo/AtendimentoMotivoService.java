@@ -47,10 +47,10 @@ public class AtendimentoMotivoService extends Service<AtendimentoMotivo, Atendim
 
         List<String> atendimentoDoMotivo;
 
-        atendimentoDoMotivo = jdbcTemplateTemplate.queryForList(requisicao, params,String.class);
+        atendimentoDoMotivo = jdbcTemplateTemplate.queryForList(requisicao, params, String.class);
 
         motivo.put("atendimentosDoMotivo", atendimentoDoMotivo);
-        
+
         return motivo;
     }
 
@@ -62,6 +62,16 @@ public class AtendimentoMotivoService extends Service<AtendimentoMotivo, Atendim
     public ResultadoListagem listarAtivos() {
         final Filtro filtro = new Filtro();
         filtro.setCondicaoPadrao("status = 'ATIVO'");
+
+        final HashSet<String> colunasVisiveis = new HashSet<>();
+        colunasVisiveis.add("descricao");
+
+        return listar(colunasVisiveis, filtro, new Ordenador("descricao"));
+    }
+
+    public ResultadoListagem listarMotivos() {
+        final Filtro filtro = new Filtro();
+        filtro.setCondicaoPadrao("atendimentodomotivo = 'ATENDIMENTODEIXAROCURSO'");
 
         final HashSet<String> colunasVisiveis = new HashSet<>();
         colunasVisiveis.add("descricao");

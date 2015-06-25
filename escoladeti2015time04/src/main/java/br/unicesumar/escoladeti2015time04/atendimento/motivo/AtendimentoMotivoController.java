@@ -26,6 +26,11 @@ public class AtendimentoMotivoController {
     public ResultadoListagem<AtendimentoMotivo> listarAtivos() {
         return this.service.listarAtivos();
     }
+    
+    @RequestMapping(value = "/listar/{motivo}", method = RequestMethod.GET)
+    public Map<String, Object> listarMotivo(@PathVariable String motivo) {
+        return this.service.listarMotivo(motivo);
+    }
 
     @RequestMapping(value = "/listar", method = RequestMethod.POST)
     public ResultadoListagem<AtendimentoMotivo> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
