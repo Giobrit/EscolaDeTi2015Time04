@@ -4,6 +4,7 @@ import br.unicesumar.escoladeti2015time04.atendimento.Atendimento;
 import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivo;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -18,19 +19,23 @@ import javax.persistence.Table;
 public class AtendimentoPreventivo extends Atendimento implements Serializable {
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "numeroreprovacoes", nullable = false)
     private int numeroReprovacoes;
 
     @ManyToOne
-    @ColunaListavel(nomeNaQuery = "m.descricao as motivo")
+    @ColunaListavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
+    @ColunaLocalizavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
     @JoinColumn(name = "motivo", nullable = false)
     private PreventivoMotivo motivo;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "meiocontato", nullable = false)
     private String meioContato;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "encaminhamento", nullable = false)
     private String encaminhamento;
 
