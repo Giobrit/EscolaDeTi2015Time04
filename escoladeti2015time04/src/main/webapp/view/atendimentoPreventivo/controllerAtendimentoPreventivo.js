@@ -21,6 +21,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
 
     $scope.salvar = function () {
         $scope.atendimentoPreventivo.data = prepararDataParaSalvar($scope.dataPreventivo, $scope.horaPreventivo);
+        
         if ($scope.editando) {
             $http.put("/atendimento/preventivo", $scope.atendimentoPreventivo).success(onSuccess).error(onError);
         } else {
@@ -58,7 +59,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
             $scope.horaPreventivo = new Date(data.data);
             $scope.atendimentoPreventivo.matriculado = data.matriculado;
             $scope.matriculadoSelecionado = booleanToString(data.matriculado);
-          //  $scope.setMatriculado(data.matriculado);
+            //  $scope.setMatriculado(data.matriculado);
 
             selecionaMotivoNaTela(data.motivo);
             $scope.setMotivo($scope.motivoSelecionado);
@@ -100,17 +101,18 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
     };
 
     $scope.setMatriculado = function (data) {
-        $scope.atendimentoPreventivo.matriculado = data === "Sim" ? true : false;
+        $scope.atendimentoPreventivo.matriculado = stringToBoolean(data);
     };
 
     function setAtributosAluno(aluno) {
         $scope.atendimentoPreventivo.nomeAluno = aluno.nome;
         $scope.atendimentoPreventivo.curso = aluno.curso;
         $scope.atendimentoPreventivo.centro = aluno.centro;
-        $scope.atendimentoPreventivo.serieSemestre = aluno.serieSemestre;
+        $scope.atendimentoPreventivo.serieSemestre = aluno.serie;
         $scope.atendimentoPreventivo.turno = aluno.turno;
         $scope.atendimentoPreventivo.bolsaFinanciamento = aluno.bolsa;
         $scope.atendimentoPreventivo.numeroReprovacoes = aluno.reprovacao;
+        $scope.atendimentoPreventivo.matriculado = stringToBoolean(aluno.matriculado);
         $scope.matriculadoSelecionado = aluno.matriculado;
     }
 
@@ -212,7 +214,7 @@ function controllerListAtendimentoPreventivo($scope, $http, growl) {
 
         return colunasVisiveis;
     }
-    
+
     function onError(data) {
         console.log(JSON.stringify(data));
         growl.error(JSON.stringify(data));
