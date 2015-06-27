@@ -6,10 +6,14 @@ import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.Deix
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivoService;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.usuario.UsuarioService;
+import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import br.unicesumar.escoladeti2015time04.utils.service.Service;
-import javax.annotation.PostConstruct;
+
+import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,8 +32,10 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
 
     @Override
     protected void init() {
-        this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel());
-        this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel(getClassEntity().getSuperclass()));
+        this.colunasListaveisEntidade.putAll(getMapFieldAnotacao(ColunaListavel.class));
+        this.colunasListaveisEntidade.putAll(getMapFieldAnotacao(ColunaListavel.class, getClassEntity().getSuperclass()));
+        this.colunasLocalizaveisEntidade.putAll(getMapFieldAnotacao(ColunaLocalizavel.class));
+        this.colunasLocalizaveisEntidade.putAll(getMapFieldAnotacao(ColunaLocalizavel.class, getClassEntity().getSuperclass()));
         this.idEntidade = getIdEntidade(getClassEntity().getSuperclass());
         this.select = montarSelectListar();
         this.from = montarFromListar();
@@ -93,6 +99,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         atendimentoDeixarOCurso.setSerieSemestre(command.getSerieSemestre());
         atendimentoDeixarOCurso.setTurno(command.getTurno());
         atendimentoDeixarOCurso.setMatriculado(command.getMatriculado());
+        atendimentoDeixarOCurso.setTransferencia(command.getTransferencia());
         atendimentoDeixarOCurso.setBolsaFinanciamento(command.getBolsaFinanciamento());
         atendimentoDeixarOCurso.setDescricaoPublica(command.getDescricaoPublica());
         atendimentoDeixarOCurso.setDescricaoPrivada(command.getDescricaoPrivada());
@@ -104,5 +111,17 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
 
         repository.save(atendimentoDeixarOCurso);
 
+    }
+
+    public List<String> recuperarCoordenadores() {
+        String queryRecuperarCoordenadores = "select distinct coordenadorDiretor" + super.from;
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        return jdbcTemplate.queryForList(queryRecuperarCoordenadores, mapSqlParameterSource, String.class);
+    }
+    
+    public List<String> recuperarTransferencias(){
+        String queryRecuperarTransferencias = "select distinct transferencia" + super.from;
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        return jdbcTemplate.queryForList(queryRecuperarTransferencias, mapSqlParameterSource, String.class);
     }
 }
