@@ -110,7 +110,6 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         return $http.get("/atendimento/deixarOCurso/coordenadoresCadastrados").then(onSuccess);
 
         function onSuccess(result) {
-            console.log(JSON.stringify(result.data));
             return result.data;
         }
         ;
