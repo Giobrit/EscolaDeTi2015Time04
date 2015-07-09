@@ -1,157 +1,90 @@
-<div class="container-fluid listaAtendimento formulario"  ng-init="init()">
-    <div class="panel panel-info">
-        <div class="panel-heading"><h3>Lista de Atendimento<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-offset-2 pull-right">
-                        <a href="#/AtendimentoDeixarOCurso/form" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo Atendimentp">Adicionar Novo</a>
-
+<form name="formAtendimentoDeixarOCurso" novalidate ng-init="init()" >
+    <div class="container-fluid listaAtendimento formulario"  ng-init="init()">
+        <div class="panel panel-info">
+            <div class="panel-heading"><h3>Lista de Atendimento<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-offset-2 pull-right">
+                            <a href="#/AtendimentoDeixarOCurso/form" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar Novo Atendimento">Adicionar Novo</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row Pesquisa">
-                <div class="col-md-11">
-                    <div class="">
-                        <div class="form-group">
-                            <input type="text" id="buscar" name="buscar" ng-change="listar()" placeholder="Informe o dado a ser pesquisado" class="form-control" ng-model="pesquisa" ng-maxlength="100" />                        
+                <div class="row Pesquisa">
+                    <div class="col-md-11">
+                        <div class="">
+                            <div class="form-group">
+                                <input type="text" id="buscar" name="buscar" ng-change="listar()" placeholder="Informe o dado a ser pesquisado" class="form-control" ng-model="pesquisa" ng-maxlength="100" />                        
+                            </div>
+                        </div>	
+                    </div>       
+                    <div class="col-md-1 ">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-warning btn-lg permissao" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
                         </div>
-                    </div>	
-                </div>       
-                <div class="col-md-1 ">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-warning btn-lg permissao" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
                     </div>
-                    <!----------------->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Itens da tabela</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <table class="table table-condensed table-bordered">
+                    <div class="row">
+                        <div class="col-md-12" style="overflow-x: auto;">
+                            <div style="overflow-x: auto;">
+                                <table class="table table-hover table-condensed table-bordered table-responsive" style="white-space: nowrap;">
+                                    <thead>
                                         <tr>
-                                            <td><input type="checkbox" name="lista" value="protocolo" checked/><label>Protocolo</label></td>                                    
-                                            <td><input type="checkbox" name="lista" value="data" checked/><label>Data</label></td>
-                                            <td><input type="checkbox" name="lista" value="hora" checked/><label>Hora</label></td>
-                                            <td><input type="checkbox" name="lista" value="ra" checked/><label>Ra</label></td>
-                                            <td><input type="checkbox" name="lista" value="aluno" checked/><label>Aluno</label></td>
-
+                                            <th ng-repeat="c in colunas"  ng-click="alterarOrdenacao(c)"  ng-show="c.checked">
+                                                <i class="fa fa-circle-o" aria-hidden="true" ng-show="labelOrdenacao !== c.label"></i>
+                                                <i class="fa fa-arrow-circle-o-up" aria-hidden="true" ng-show="ordenacaoCrescente && labelOrdenacao === c.label"></i>
+                                                <i class="fa fa-arrow-circle-o-down" aria-hidden="true" ng-show="!ordenacaoCrescente && labelOrdenacao === c.label"></i>
+                                                {{c.label}}
+                                            </th>        
+                                            <th>Opções</th>
                                         </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="lista" value="curso" checked/><label>Curso</label></td>
-                                            <td><input type="checkbox" name="lista" value="serie" checked/><label>Série</label></td>                                    
-                                            <td><input type="checkbox" name="lista" value="turno" checked/><label>Turno</label></td>
-                                            <td><input type="checkbox" name="lista" value="bolsa" checked/><label>Bolsa</label></td>
-                                            <td><input type="checkbox" name="lista" value="reprovacoes" checked/><label>Reprovações</label></td>
-
+                                    </thead>
+                                    <tbody>
+                                        <tr dir-paginate="a in atendimentos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
+                                            <td ng-repeat="c in colunas" ng-show="c.checked"  style="white-space: normal ;">{{a[c.propriedadeItem.toLowerCase()]}}</td>
+                                            <td>
+                                                <span>
+                                                    <a href="#/AtendimentoDeixarOCurso/form/{{a.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                                </span>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="lista" value="matriculado" checked/><label>Matriculado</label></td>
-                                            <td><input type="checkbox" name="lista" value="instituicao" checked /><label>Instituição</label></td> 
-                                            <td><input type="checkbox" name="lista" value="transferencia" checked/><label>Transferencia</label></td>                                    
-                                            <td><input type="checkbox" name="lista" value="coordenador" checked/><label>Coordenador</label></td>
-                                            <td><input type="checkbox" name="lista" value="objetivo" checked/><label>Objetivo</label></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="lista" value="motivo" checked/><label>Motivo</label></td>
-                                            <td><input type="checkbox" name="lista" value="descricaoResumida" checked /><label>Descrição R.</label></td>
-                                            <td><input type="checkbox" name="lista" value="descricaoDetalhada" checked/><label>Descrição D.</label></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
-                                    <button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
-                                </div>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoDeixarOCurso/motivo/paginacao.html"></dir-pagination-controls>
                             </div>
                         </div>
                     </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</form>
+<form>
 
-
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Itens da tabela</h4>
                 </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-12" style="overflow-x: auto;">
-                    <div class="col-md-offset-0" style="overflow-x: auto;">
-                        <table class="table table-hover table-condensed table-bordered" style="width: auto; white-space: nowrap;">
-                            <thead>
-                                <tr>
-                                    <th>Protocolo</th>
-                                    <th>Data</th>
-                                    <th>Hora</th>
-                                    <th>Ra</th>
-                                    <th>Aluno</th>
-                                    <th>Curso</th>
-                                    <th>Centro</th>
-                                    <th>Serie</th>
-                                    <th>Turno</th>
-                                    <th>Bolsa</th>
-                                    <th>Reprovações</th>
-                                    <th>Matriculado</th>
-                                    <th>Instituição de Transferencia</th>
-                                    <th>Coordenador</th>
-                                    <th>Objetivo</th>
-                                    <th>Motivo</th>
-                                    <th>Descrição Resumida</th>
-                                    <th>Descrição Detalhada</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="a in alunos">
-                                    <td>{{a.protocolo}}</td>
-                                    <td>{{a.data}}</td>
-                                    <td>{{a.hora}}</td>
-                                    <td>{{a.ra}}</td>
-                                    <td>{{a.aluno}}</td>
-                                    <td>{{a.curso}}</td>
-                                    <td>{{a.centro}}</td>
-                                    <td>{{a.serie}}</td>
-                                    <td>{{a.turno}}</td>
-                                    <td>{{a.bolsa}}</td>
-                                    <td>{{a.reprovações}}</td>
-                                    <td>{{a.matriculado}}</td>
-                                    <td>{{a.instituição}}</td>
-                                    <td>{{a.coordenador}}</td>
-                                    <td>{{a.objetivo}}</td>
-                                    <td>{{a.motivo}}</td>
-                                    <td>{{a.descricaoResumida}}</td>
-                                    <td>{{a.descricaoDetalhada}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="a.status === 'INATIVO'" ng-click="alterarStatus(a)">Ativar</button>
-                                        <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="a.status === 'ATIVO'" ng-click="alterarStatus(a)">Inativar</button>
-                                    </td>
-                                    <td><a href="#/Usuario/form/{{a.id}}" type="button" class="btn btn-warning botaoEditar">Editar</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> 
-                </div> 
-            </div>
-            <div class="row">
-                <div class="col-md-11">
-                    <div class="col-md-offset-6">
-                        <nav>
-                            <ul class="pagination" id="paginacao">
-                                <li>
-                                    <a href="" ng-click="alterarPagina(paginaAtual - 1)" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" ng-click="alterarPagina(paginaAtual + 1)" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4" ng-repeat="c in colunas"  ng-click="alterarCheckbox(c)">
+                            <input class="col-md-1"  type="checkbox" ng-checked="c.checked" />
+                            <label>{{c.label}}</label>
+                        </div>                                                                                    
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                </div>
             </div>
-        </div>    
+        </div>
     </div>
-</div>
+</form>

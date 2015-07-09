@@ -6,23 +6,17 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 
-public class EditarPerfilAcessoCommand {
+public class PerfilAcessoCommandInserir {
 
-    private final Long id;
     @Column(nullable = false)
     private final String nome;
     @Column(nullable = false)
-    private Set<Long> conjuntoItemAcessoIds = new HashSet<>();
+    private Set<Long> itensDeAcesso = new HashSet<>();
 
     @JsonCreator
-    public EditarPerfilAcessoCommand(@JsonProperty("id") Long id, @JsonProperty("nome") String nome, @JsonProperty("listaItensAcessoIds") Set<Long> conjuntoItemAcessoIds) {
-        this.id = id;
+    public PerfilAcessoCommandInserir(@JsonProperty("nome") String nome, @JsonProperty("itensDeAcesso") Set<Long> itensDeAcesso) {
         this.nome = nome;
-        this.conjuntoItemAcessoIds = conjuntoItemAcessoIds;
-    }
-
-    public Long getId() {
-        return id;
+        this.itensDeAcesso = itensDeAcesso;
     }
 
     public String getNome() {
@@ -30,6 +24,6 @@ public class EditarPerfilAcessoCommand {
     }
 
     public Set<Long> getConjuntoItemAcessoIds() {
-        return conjuntoItemAcessoIds;
+        return itensDeAcesso;
     }
 }

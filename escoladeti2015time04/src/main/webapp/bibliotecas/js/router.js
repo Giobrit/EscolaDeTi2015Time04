@@ -32,10 +32,7 @@ AppModule.config(function ($routeProvider, $locationProvider) {
         controller: ''
     }).when('/Usuario/form/alterarSenha/:id', {
         templateUrl: 'view/usuario/alterarSenhaUsuario.html',
-        controller: 'controllerFormUsuario'
-    }).when('/AtendimentoDeixarOCurso/form', {
-        templateUrl: 'view/atendimentoDeixarOCurso/cadastroAtendimentoDeixarOCurso.html',
-        controller: 'controllerFormAtendimentoDeixarOCurso'
+        controller: 'controllerFormUsuario'    
     }).when('/AtendimentoDeixarOCurso/Objetivo/form', {
         templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
         controller: 'controllerFormObjetivoDeixarOCurso'
@@ -60,6 +57,18 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/AtendimentoDeixarOCurso/form/:id', {
         templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
         controller: 'controllerFormAtendimentoDeixarOCurso'
+    }).when('/AtendimentoDeixarOCurso/list',{
+        templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
+        controller: 'controllerListAtendimentoDeixarOCurso'
+    }).when('/AtendimentoPreventivo/Motivo/form', {
+        templateUrl: 'view/atendimentoPreventivo/motivo/cadastroMotivo.html',
+        controller: 'controllerFormMotivoAtendimentoPreventivo'
+    }).when('/AtendimentoPreventivo/Motivo/form/:id', {
+        templateUrl: 'view/atendimentoPreventivo/motivo/cadastroMotivo.html',
+        controller: 'controllerFormMotivoAtendimentoPreventivo'
+    }).when('/AtendimentoPreventivo/Motivo/list', {
+        templateUrl: 'view/atendimentoPreventivo/motivo/listagemMotivo.html',
+        controller: 'controllerListMotivoAtendimentoPreventivo'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });

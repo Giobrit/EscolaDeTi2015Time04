@@ -8,6 +8,11 @@ public class Ordenador {
     private String colunaDeOrdenacao;
     private Boolean ordenacaoCrescente;
 
+    public Ordenador(String colunaDeOrdenacao) {
+        this.colunaDeOrdenacao = colunaDeOrdenacao;
+        this.ordenacaoCrescente = true;
+    }
+    
     public Ordenador(String colunaDeOrdenacao, Boolean ordenacaoCrescente) {
         this.colunaDeOrdenacao = colunaDeOrdenacao;
         this.ordenacaoCrescente = ordenacaoCrescente;

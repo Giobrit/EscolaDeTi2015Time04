@@ -2,6 +2,7 @@ package br.unicesumar.escoladeti2015time04.atendimento;
 
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
+import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -25,56 +26,87 @@ public class Atendimento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
-    
+    protected Long id;
+
     @ColunaListavel
-    @Column(unique = true, nullable = false)
+    @ColunaLocalizavel
+    @Column(unique = true, nullable = false, columnDefinition = "timestamp with time zone not null")
     @Temporal(value = TemporalType.TIMESTAMP)
-    private Date data;
-    
-    @JoinColumn(nullable = false)
+    protected Date data;
+
     @ManyToOne
-    private Usuario usuarioLogado;
-    
-    @ColunaListavel    
-    @Column(unique = true, nullable = false)
-    private String ra;
-    
     @ColunaListavel
-    @Column(nullable = false)
-    private String centro;
-    
+    @JoinColumn(name = "usuariologado", nullable = false)
+    protected Usuario usuarioLogado;
+
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(nullable = false)
-    private String nomeAluno;
-    
+    protected String ra;
+
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(nullable = false)
-    private String curso;
-    
+    protected String centro;
+
     @ColunaListavel
-    @Column(nullable = false)
-    private int serieSemestre;
-    
+    @ColunaLocalizavel
+    @Column(name = "nomealuno", nullable = false)
+    protected String nomeAluno;
+
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(nullable = false)
-    private String turno;
-    
+    protected String curso;
+
     @ColunaListavel
-    @Column(nullable = false)
-    private Boolean matriculado;
-    
+    @ColunaLocalizavel
+    @Column(name = "seriesemestre", nullable = false)
+    protected int serieSemestre;
+
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(nullable = false)
-    private String bolsaFinanciamento;
-    
+    protected String turno;
+
+    @ColunaLocalizavel
+    @Column(nullable = false)
+    @ColunaListavel(campoNaQuery = "CASE matriculado WHEN true THEN 'Sim' ELSE 'Não' END", aliasNaQuery = "matriculado")
+    protected Boolean matriculado;
+
     @ColunaListavel
-    @Column(nullable = false)
-    private String descricaoPublica;
-    
+    @ColunaLocalizavel
+    @Column(name = "bolsafinanciamento", nullable = false)
+    protected String bolsaFinanciamento;
+
     @ColunaListavel
-    @Column(nullable = false)
-    private String descricaoPrivada;
+    @ColunaLocalizavel
+    @Column(name = "descricaopublica", nullable = false)
+    protected String descricaoPublica;
+
+    @ColunaListavel
+    @ColunaLocalizavel
+    @Column(name = "descricaoprivada", nullable = false)
+    protected String descricaoPrivada;
+
+    public Atendimento() {
+    }
+
+    public Atendimento(Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
+
+        this.data = data;
+        this.usuarioLogado = usuarioLogado;
+        this.ra = ra;
+        this.centro = centro;
+        this.nomeAluno = nomeAluno;
+        this.curso = curso;
+        this.serieSemestre = serieSemestre;
+        this.turno = turno;
+        this.matriculado = matriculado;
+        this.bolsaFinanciamento = bolsaFinanciamento;
+        this.descricaoPublica = descricaoPublica;
+        this.descricaoPrivada = descricaoPrivada;
+    }
 
     public Atendimento(Long id, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
 
@@ -91,9 +123,6 @@ public class Atendimento implements Serializable {
         this.bolsaFinanciamento = bolsaFinanciamento;
         this.descricaoPublica = descricaoPublica;
         this.descricaoPrivada = descricaoPrivada;
-    }
-
-    public Atendimento() {
     }
 
     public Long getId() {
