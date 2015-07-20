@@ -22,9 +22,10 @@ public class AtendimentoDeixarOCursoController {
     public ResultadoListagem<AtendimentoDeixarOCurso> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
         return this.service.listar(requisicaoListagem);
     }
-    @RequestMapping(value = "/coordenadoresCadastrados", method = RequestMethod.GET)
-    public List<String> recuperarCoordenadores (){
-        return this.service.recuperarCoordenadores();
+    
+    @RequestMapping(value = "/typeAHead/{campo}/{valor}", method = RequestMethod.GET)
+    public List<?> recuperarCoordenadores (@PathVariable String campo, @PathVariable String valor){
+        return this.service.camposLocalizaveisInseridos(campo, valor);
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -4,15 +4,11 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
     $scope.init = function () {
         $scope.preencherListDeObjetivo();
-        $scope.preencherListDeMotivo();
+
         $scope.limparTela();
 
         idEditando = $routeParams.id;
 
-        if (idEditando) {
-            $scope.editando = true;
-            $scope.editar(idEditando);
-        }
     };
 
     $scope.limparTela = function () {
@@ -57,6 +53,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             $scope.atendimentoDeixarOCurso.descricaoPublica = data.descricaopublica;
             $scope.atendimentoDeixarOCurso.transferencia = data.transferencia;
             $scope.atendimentoDeixarOCurso.coordenadorDiretor = data.coordenadordiretor;
+            $scope.atendimentoDeixarOCurso.matriculado = data.matriculado;
             $scope.dataDeixarOCurso = timestampParaData(data.data);
             $scope.horaDeixarOCurso = new Date(data.data);
             $scope.matriculadoSelecionado = booleanToString(data.matriculado);
@@ -92,7 +89,9 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
         function onSuccess(data) {
             $scope.objetivos = data.itens;
+            $scope.preencherListDeMotivo();
         }
+
     };
 
     $scope.preencherListDeMotivo = function () {
@@ -100,14 +99,24 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
+            if (idEditando) {
+                $scope.editando = true;
+                $scope.editar(idEditando);
+            }
         }
     };
 
-    $scope.recuperarListaCoordenadores = function () {
-        $http.get("/atendimento/deixarOCurso/coordenadoresCadastrados").success(onSuccess).error(onError);
+//    $scope.getRecuperarCoordenadores = function () {
+//    $scope.getRecuperarTransferencias = function () {
+    $scope.getCamposInseridos = function (campo, valor) {
+        if (valor.length < 3) {
+            return;
+        }
+        
+        return $http.get("/atendimento/deixarOCurso/typeAHead/" + campo + "/" + valor).then(onSuccess);
 
-        function onSuccess(data) {
-            $scope.recuperarCoordenadores = data.itens;
+        function onSuccess(result) {
+            return result.data;
         }
     };
 
