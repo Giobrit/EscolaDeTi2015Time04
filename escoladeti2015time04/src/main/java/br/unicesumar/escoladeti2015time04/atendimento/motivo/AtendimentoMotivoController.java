@@ -22,14 +22,9 @@ public class AtendimentoMotivoController {
         return this.service.localizar(id);
     }
 
-    @RequestMapping(value = "/listarAtivos", method = RequestMethod.GET)
-    public ResultadoListagem<AtendimentoMotivo> listarAtivos() {
-        return this.service.listarAtivos();
-    }
-    
-    @RequestMapping(value = "/listar/{motivo}", method = RequestMethod.GET)
-    public Map<String, Object> listarMotivo(@PathVariable String motivo) {
-        return this.service.listarMotivo(motivo);
+    @RequestMapping(value = "/listarAtivos/{atendimentoDoMotivo}", method = RequestMethod.GET)
+    public ResultadoListagem listarMotivo(@PathVariable AtendimentoDoMotivo atendimentoDoMotivo) {
+        return this.service.listarMotivosAtivos(atendimentoDoMotivo);
     }
 
     @RequestMapping(value = "/listar", method = RequestMethod.POST)

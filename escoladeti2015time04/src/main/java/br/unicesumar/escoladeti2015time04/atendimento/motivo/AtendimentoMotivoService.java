@@ -1,6 +1,5 @@
 package br.unicesumar.escoladeti2015time04.atendimento.motivo;
 
-import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Ordenador;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
@@ -9,17 +8,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 @Transactional
 public class AtendimentoMotivoService extends Service<AtendimentoMotivo, AtendimentoMotivoRepository, AtendimentoMotivoCommandEditar> {
 
-    @Autowired
-    private NamedParameterJdbcTemplate jdbcTemplateTemplate;
+    @Override
+    protected String montarFromListar() {
+        String fromLocal = super.montarFromListar();
+        fromLocal += "inner join atendimentodomotivo on atendimentomotivoid = id";
+        return fromLocal;
+    }
 
     public void inativar(Long id, AtendimentoMotivoStatus status) {
         AtendimentoMotivo motivo = repository.getOne(id);
@@ -47,7 +48,7 @@ public class AtendimentoMotivoService extends Service<AtendimentoMotivo, Atendim
 
         List<String> atendimentoDoMotivo;
 
-        atendimentoDoMotivo = jdbcTemplateTemplate.queryForList(requisicao, params, String.class);
+        atendimentoDoMotivo = jdbcTemplate.queryForList(requisicao, params, String.class);
 
         motivo.put("atendimentosDoMotivo", atendimentoDoMotivo);
 
@@ -59,19 +60,13 @@ public class AtendimentoMotivoService extends Service<AtendimentoMotivo, Atendim
         return AtendimentoMotivo.class;
     }
 
-    public ResultadoListagem listarAtivos() {
+    public ResultadoListagem listarMotivosAtivos(AtendimentoDoMotivo atendimentoDoMotivo) {
+        String wherePadrao = "";
+        wherePadrao += " status = 'ATIVO' AND ";
+        wherePadrao += " atendimentodomotivo = '" + atendimentoDoMotivo + "'";
+
         final Filtro filtro = new Filtro();
-        filtro.setCondicaoPadrao("status = 'ATIVO'");
-
-        final HashSet<String> colunasVisiveis = new HashSet<>();
-        colunasVisiveis.add("descricao");
-
-        return listar(colunasVisiveis, filtro, new Ordenador("descricao"));
-    }
-
-    public ResultadoListagem listarMotivos() {
-        final Filtro filtro = new Filtro();
-        filtro.setCondicaoPadrao("atendimentodomotivo = 'ATENDIMENTODEIXAROCURSO'");
+        filtro.setCondicaoPadrao(wherePadrao);
 
         final HashSet<String> colunasVisiveis = new HashSet<>();
         colunasVisiveis.add("descricao");
