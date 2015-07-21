@@ -106,13 +106,11 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         }
     };
 
-//    $scope.getRecuperarCoordenadores = function () {
-//    $scope.getRecuperarTransferencias = function () {
     $scope.getCamposInseridos = function (campo, valor) {
         if (valor.length < 3) {
             return;
         }
-        
+
         return $http.get("/atendimento/deixarOCurso/typeAHead/" + campo + "/" + valor).then(onSuccess);
 
         function onSuccess(result) {

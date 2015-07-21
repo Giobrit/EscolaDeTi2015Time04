@@ -1,4 +1,4 @@
-package br.unicesumar.escoladeti2015time04.perfilacesso;
+package br.unicesumar.escoladeti2015time04.atendimento.especial;
 
 import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
@@ -11,40 +11,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/perfilAcesso")
-public class PerfilAcessoController {
-
+@RequestMapping("/atendimento/especial")
+public class AtendimentoEspecialController {
+    
     @Autowired
-    private PerfilAcessoService service;
-
+    private AtendimentoEspecialService service;
+    
     @RequestMapping(value = "/listar", method = RequestMethod.POST)
-    public ResultadoListagem<PerfilAcesso> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
+    public ResultadoListagem<AtendimentoEspecial> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
         return this.service.listar(requisicaoListagem);
     }
-
+    
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Map<String, Object> localizar(@PathVariable Long id) {
         return this.service.localizar(id);
     }
-
-    @RequestMapping(value = "/verificar-se-existe-perfil/{nome}", method = RequestMethod.GET)
-    public Boolean verificarSeExistePerfilAcesso(@PathVariable String nome) {
-        return service.existePerfil(nome);
-    }
-
+    
     @RequestMapping(method = RequestMethod.POST)
-    public void criarPerfilAcesso(@RequestBody PerfilAcessoCommandInserir command) {
-        service.criar(command);
+    public void criarAtendimentoEspecial(@RequestBody AtendimentoEspecialCommandInserir atendimentoEspecial) {
+        this.service.criar(atendimentoEspecial);
     }
-
+    
     @RequestMapping(method = RequestMethod.PUT)
-    public void editarPerfilAcesso(@RequestBody PerfilAcessoCommandEditar command) {
-        service.editar(command);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void removerPerfilAcesso(@PathVariable Long id) {
-        service.remover(id);
-    }
-
+    public void editarAtendimentoEspecial(@RequestBody AtendimentoEspecialCommandEditar atendimentoEspecial)  {
+       this.service.editar(atendimentoEspecial); 
+    }    
+    
 }
