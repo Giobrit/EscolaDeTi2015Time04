@@ -121,13 +121,13 @@
                         <label>
                             <h4>Encaminhamento</h4>
                         </label>
-                        <input type="text" name="encaminhamento" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.encaminhamento.$invalid && !cadastroAtendimentoPreventivo.encaminhamento.$pristine}" placeholder="Modo de encaminhamento" class="form-control" ng-model="atendimentoPreventivo.encaminhamento" required>
+                        <input type="text" name="encaminhamento" placeholder="Modo de encaminhamento" class="form-control" ng-model="atendimentoPreventivo.encaminhamento" data-animation="am-flip-x" bs-options="encaminhamento for encaminhamento in getCamposInseridos('encaminhamento', $viewValue)" bs-typeahead>                      
                     </div>   
                     <div class="col-md-3">
                         <label>
                             <h4>Meio de contato</h4>
                         </label>
-                        <input type="text" name="meioContato" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.meioContato.$invalid && !cadastroAtendimentoPreventivo.meioContato.$pristine}" placeholder="Informe o meio de contato" class="form-control" ng-model="atendimentoPreventivo.meioContato" required>
+                        <input type="text" name="meioContato" placeholder="Informe o meio de contato" class="form-control" ng-model="atendimentoPreventivo.meioContato" data-animation="am-flip-x" bs-options="meiocontato for meiocontato in getCamposInseridos('meioContato', $viewValue)" bs-typeahead>
                     </div>
                     <div class="col-md-6">
                         <label>

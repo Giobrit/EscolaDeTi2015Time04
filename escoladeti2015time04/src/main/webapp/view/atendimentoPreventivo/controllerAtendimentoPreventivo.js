@@ -8,10 +8,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
 
         idEditando = $routeParams.id;
 
-        if (idEditando) {
-            $scope.editando = true;
-            $scope.editar(idEditando);
-        }
+
     };
 
     $scope.limparTela = function () {
@@ -21,7 +18,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
 
     $scope.salvar = function () {
         $scope.atendimentoPreventivo.data = prepararDataParaSalvar($scope.dataPreventivo, $scope.horaPreventivo);
-        
+
         if ($scope.editando) {
             $http.put("/atendimento/preventivo", $scope.atendimentoPreventivo).success(onSuccess).error(onError);
         } else {
@@ -80,9 +77,26 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
+            if (idEditando) {
+                $scope.editando = true;
+                $scope.editar(idEditando);
+            }
         }
     }
 
+    $scope.getCamposInseridos = function (campo, valor) {
+        if (valor.length < 3) {
+            return;
+        }
+        
+        return $http.get("/atendimento/preventivo/typeAHead/" + campo + "/" + valor).then(onSuccess);
+
+        function onSuccess(result) {
+            return result.data;
+        }
+    };
+    
+    
     $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
             setAtributosAluno({});
