@@ -1,5 +1,6 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
+import br.unicesumar.escoladeti2015time04.utils.excecoes.CampoInvalido;
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,7 +24,7 @@ public class Senha implements Serializable {
 
     public Senha(String senha) {
         if (!validarSenha(senha)) {
-            throw new IllegalArgumentException("Senha não atende aos requisitos de segurança!");
+            throw new CampoInvalido("Senha");
         }
         
         this.senha = DigestUtils.md5DigestAsHex(senha.getBytes());
@@ -35,7 +36,7 @@ public class Senha implements Serializable {
 
     public void setSenha(String senha) {
         if (!validarSenha(senha)) {
-            throw new IllegalArgumentException("Senha não atende aos requisitos de segurança!");
+            throw new CampoInvalido("Senha");
         }
         this.senha = DigestUtils.md5DigestAsHex(senha.getBytes());
     }

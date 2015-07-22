@@ -246,6 +246,7 @@ angular.module('angular-growl').provider('growl', function () {
                 return sendMessage(text, config, 'info');
             }
             function success(text, config) {
+                text = "<b>" + text + "<b>";
                 return sendMessage(text, config, 'success');
             }
             function general(text, config, severity) {

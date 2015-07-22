@@ -17,10 +17,13 @@ public class ItemAcesso {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+
     @Column(nullable = false, unique = true)
     private String descricao;
+    
     @Column(nullable = false, unique = true)
     private String rota;
+    
     @ManyToOne(optional = false)
     @JoinColumn(name = "superior")
     private ItemAcesso superior;
