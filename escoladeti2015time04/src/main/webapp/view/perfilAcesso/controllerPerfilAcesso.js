@@ -5,45 +5,59 @@ AppModule.controller("controllerListPerfilAcesso", controllerListPerfilAcesso);
 AppModule.controller("controllerFormPerfilUsuario", controllerFormPerfilUsuario);
 
 function controllerFormPerfilAcesso($scope, $http, $routeParams, $location) {
-    
-    $scope.salvar = function(){
-        if($scope.editando){
+
+    $scope.salvar = function () {
+        if ($scope.editando) {
             $scope.put("/perfilDeAcesso", $scope.perfilDeAcesso).success(onSuccess).error();
-        }else{
+        } else {
             $scope.post("/perfilDeAcesso", $scope.perfilDeAcesso).success(onSuccess).error();
         }
         function onSuccess() {
             $location.path("/PerfilAcesso/list");
             alert("Perfil cadastrado com sucesso");
-    }
-    $scope.editar = function (id) {
-        $http.get("/perfilDeAcesso/" + id).success(onSuccess).error(onError);
+        }
+        $scope.editar = function (id) {
+            $http.get("/perfilDeAcesso/" + id).success(onSuccess).error(onError);
+
+            function onSuccess(data) {
+                $scope.perfilDeAcesso = data;
+            }
+        };
+    };
+
+
+    $scope.getItensAcesso = function (callback) {
+        $http.get("/itemAcesso/").success(onSuccess).error(onError);
 
         function onSuccess(data) {
-            $scope.perfilDeAcesso = data;
+            callback(data);
         }
     };
-};
 
+//    $scope.selecionouItemAcesso = function (state) {
+//        $scope.stateInfo = state.name + " (" + state.id + ")";
+//    };
+//
+//    $scope.itensAcesso = [
+//        {"name": "Alabama", "id": "AL"},
+//        {"name": "Alaska", "id": "AK"}
+//    ];
 
+    $scope.itemAcessoSelecionado = {};
     
-    $scope.itens =[
-        {nomeItem: "Item Acesso 1"},  
-        {nomeItem: "Item Acesso 2"},  
-        {nomeItem: "Item Acesso 3"},  
-        {nomeItem: "Item Acesso 4"} 
-    ];
-    $scope.itemAcesso = $scope.itens[0];
+    function onError() {
+        
+    }
 
 }
 
 function controllerListPerfilAcesso($scope, $http, $routeParams, $location) {
-    
-    $scope.init=function(){
+
+    $scope.init = function () {
         $scope.listar();
     };
-    $scope.listar = function(){
-    $http.post("/perfilDeAcesso/listar", requisicaoListagem).success(onSuccess).error(onError);
+    $scope.listar = function () {
+        $http.post("/perfilDeAcesso/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.perfilDeAcesso = data.itens;
             $scope.totalRegistros = data.numeroTotalRegistros;
@@ -63,33 +77,28 @@ function controllerListPerfilAcesso($scope, $http, $routeParams, $location) {
 
 
 function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
-    
+
     $scope.perfis = [
-        {nomePerfil: 'Perfil de Acesso 1', id:1},  
-        {nomePerfil: 'Perfil de Acesso 2', id:2},
-        {nomePerfil: 'Perfil de Acesso 3', id:3},
-        {nomePerfil: 'Perfil de Acesso 4', id:4}
+        {nomePerfil: 'Perfil de Acesso 1', id: 1},
+        {nomePerfil: 'Perfil de Acesso 2', id: 2},
+        {nomePerfil: 'Perfil de Acesso 3', id: 3},
+        {nomePerfil: 'Perfil de Acesso 4', id: 4}
     ];
-    $scope.meuPerfil = $scope.perfis[0]; 
-    
-    $scope.adicionarPerfil = function(){
+    $scope.meuPerfil = $scope.perfis[0];
+
+    $scope.adicionarPerfil = function () {
         $http.post("/perfilUsuario", $scope.perfilUsuario);
-           
+
     };
-    
- 
-//    $scope.nomePerfis = [
-//       
-//    ];
-    
-    $scope.itens =[
+
+    $scope.itens = [
         {nomeItem: 'Item Avulso 1'},
         {nomeItem: 'Item Avulso 2'}
     ];
     $scope.meuItem = $scope.itens[0];
     $scope.nomeItens = [
-        {nome: 'Item Avulso 3'},  
-        {nome: 'Item Avulso 4'}  
+        {nome: 'Item Avulso 3'},
+        {nome: 'Item Avulso 4'}
     ];
-    
- }
+
+}

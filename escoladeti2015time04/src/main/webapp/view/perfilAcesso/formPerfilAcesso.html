@@ -35,10 +35,10 @@
                     <div class="col-md-10">
                         <div class="col-md-offset-2">
                             <div class="form-group">
-                                <select class="form-control" ng-model="itemAcesso" ng-options="item.nomeItem for item in itens">
-                                    <option>{{item.nomeItem}}</option>
-                                </select>
-                            </div>                       
+                                <select class="ac-select form-control" ac-model="itemAcessoSelecionado" ac-options="ia.descricao for ia in getItensAcesso()" 
+                                        ac-settings="{ comboMode: true, loadOnOpen: true, minWidth: '300px' }" ac-change="selecionouItemAcesso(value)"></select>
+                            </div>            
+
                         </div>                    
                     </div>                
                 </div>
@@ -46,7 +46,7 @@
                     <div class="col-md-10">
                         <div class="col-md-offset-2">
                             <div class="form-group">
-                                <table class="tablel table-striped">
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th class="col-md-10">Item de Acesso</th>
@@ -54,8 +54,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="p in perfil">
-                                            <td>{{p.perfis}}</td>
+                                        <tr ng-repeat="ia in data">
+                                            <td>{{data}}</td>
                                             <td><button type="button" class="btn btn-danger">Remover</button></td>
                                         </tr>
                                     </tbody>
@@ -74,6 +74,6 @@
                 </div>    
             </div>
         </div>      
-       
+
     </div>
 </form>
