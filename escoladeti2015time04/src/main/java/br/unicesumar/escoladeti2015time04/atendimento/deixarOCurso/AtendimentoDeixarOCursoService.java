@@ -112,16 +112,4 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         repository.save(atendimentoDeixarOCurso);
 
     }
-
-    public List<String> recuperarCoordenadores() {
-        String queryRecuperarCoordenadores = "select distinct coordenadorDiretor" + super.from;
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        return jdbcTemplate.queryForList(queryRecuperarCoordenadores, mapSqlParameterSource, String.class);
-    }
-    
-    public List<String> recuperarTransferencias(){
-        String queryRecuperarTransferencias = "select distinct transferencia" + super.from;
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        return jdbcTemplate.queryForList(queryRecuperarTransferencias, mapSqlParameterSource, String.class);
-    }
 }
