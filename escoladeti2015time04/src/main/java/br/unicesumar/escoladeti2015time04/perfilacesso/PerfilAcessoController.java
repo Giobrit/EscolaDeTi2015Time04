@@ -1,6 +1,7 @@
 package br.unicesumar.escoladeti2015time04.perfilacesso;
 
-import java.util.List;
+import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
+import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,20 +11,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/perfilacesso")
+@RequestMapping(value = "/perfilAcesso")
 public class PerfilAcessoController {
 
     @Autowired
     private PerfilAcessoService service;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Map<String, Object>> getPerfilAcesso() {
-        return service.listarPerfilAcesso();
+    @RequestMapping(value = "/listar", method = RequestMethod.POST)
+    public ResultadoListagem<PerfilAcesso> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
+        return this.service.listar(requisicaoListagem);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Map<String,Object> getPerfilAcessoById(@PathVariable Long id) {
-        return service.findById(id);
+    public Map<String, Object> localizar(@PathVariable Long id) {
+        return this.service.localizar(id);
     }
 
     @RequestMapping(value = "/verificar-se-existe-perfil/{nome}", method = RequestMethod.GET)
@@ -32,12 +33,12 @@ public class PerfilAcessoController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void criarPerfilAcesso(@RequestBody CriarPerfilAcessoCommand command) {
-        service.salvar(command);
+    public void criarPerfilAcesso(@RequestBody PerfilAcessoCommandInserir command) {
+        service.criar(command);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void editarPerfilAcesso(@RequestBody EditarPerfilAcessoCommand command) {
+    public void editarPerfilAcesso(@RequestBody PerfilAcessoCommandEditar command) {
         service.editar(command);
     }
 
