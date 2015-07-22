@@ -34,19 +34,21 @@ function controllerFormPerfilAcesso($scope, $http, $routeParams, $location) {
         }
     };
 
-//    $scope.selecionouItemAcesso = function (state) {
-//        $scope.stateInfo = state.name + " (" + state.id + ")";
-//    };
+    $scope.selecionouItemAcesso = function (state) {
+        console.log(state);
+
+        $scope.data.push(state)
+    };
 //
 //    $scope.itensAcesso = [
 //        {"name": "Alabama", "id": "AL"},
 //        {"name": "Alaska", "id": "AK"}
 //    ];
-
+    $scope.data = [];
     $scope.itemAcessoSelecionado = {};
-    
+
     function onError() {
-        
+
     }
 
 }

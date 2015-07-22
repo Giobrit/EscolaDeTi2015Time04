@@ -24,9 +24,6 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/Usuario/list', {
         templateUrl: 'view/usuario/ListagemUsuario.html',
         controller: 'controllerListUsuario'
-    }).when('/AtendimentoDeixarOCurso/list', {
-        templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
-        controller: ''    
     }).when('/Usuario/login', {
         templateUrl: 'view/login/login.html',
         controller: ''
