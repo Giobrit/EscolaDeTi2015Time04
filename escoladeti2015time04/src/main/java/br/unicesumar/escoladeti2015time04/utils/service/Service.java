@@ -40,6 +40,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     protected Field idEntidade;
     protected String select;
     protected String from;
+    protected String groupBy;
     protected String selectNumeroRegistros;
 
     protected abstract Class<E> getClassEntity();
@@ -51,6 +52,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
         this.idEntidade = getIdEntidade(getClassEntity());
         this.select = montarSelectListar();
         this.from = montarFromListar();
+        this.groupBy = montarGroupBy();
         this.selectNumeroRegistros = montarSelectNumeroTotalRegistros();
     }
 
@@ -133,14 +135,14 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
         String selectParaListagem = this.select + camposQuery + this.from;
 
-        selectParaListagem += filtro.getFiltros(colunasListaveisEntidade, parans) + ordenador.getOrdenacao() + paginador.getPaginacao(parans);
+        selectParaListagem += filtro.getFiltros(colunasListaveisEntidade, parans) + this.groupBy + ordenador.getOrdenacao() + paginador.getPaginacao(parans);
         List<Map<String, Object>> resultado = jdbcTemplate.query(selectParaListagem, parans, new MapRowMapper());
 
         return new ResultadoListagem(calcularNumeroTotalRegistros(filtro), resultado);
     }
 
     public Map<String, Object> localizar(Long id) {
-        String listarUsuario = this.select + "," + getCamposQuery(this.colunasLocalizaveisEntidade) + this.from + " where " + getClassEntity().getSimpleName() + "." + idEntidade.getName() + " = :id";
+        String listarUsuario = this.select + "," + getCamposQuery(this.colunasLocalizaveisEntidade) + this.from + " where " + getClassEntity().getSimpleName() + "." + idEntidade.getName() + " = :id" + this.groupBy;
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
@@ -202,6 +204,13 @@ public abstract class Service<E, R extends JpaRepository, C> {
         fromDoSelect += getClassEntity().getSimpleName();
         
         return fromDoSelect + "  ";
+    }
+    protected String montarGroupBy() {
+        String groupByDaQuery = " GROUP BY ";
+
+        groupByDaQuery += getClassEntity().getSimpleName() + "." + idEntidade.getName();
+        
+        return groupByDaQuery + " ";
     }
 
     protected <A extends Annotation> String getCamposQuery(Map<Field, A> colunas) {
@@ -277,7 +286,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     protected String montarSelectNumeroTotalRegistros(Class entidade) {
-        String sql = "SELECT count(";
+        String sql = "SELECT count( distinct ";
 
         sql += getClassEntity().getSimpleName() + "." + idEntidade.getName();
         sql += ") as numeroTotalRegistros";

@@ -40,6 +40,7 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
     };
 
     $scope.editar = function (id) {
+        
         $http.get("/atendimento/motivo/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
@@ -55,6 +56,7 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
     }
 
     function onError(data) {
+        console.log(JSON.stringify(data));
         growl.error(JSON.stringify(data));
     }
     
