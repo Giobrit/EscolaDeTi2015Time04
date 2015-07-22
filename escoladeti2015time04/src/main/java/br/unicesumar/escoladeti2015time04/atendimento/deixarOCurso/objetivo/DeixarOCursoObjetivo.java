@@ -2,6 +2,7 @@ package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo;
 
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.utils.listagem.PoliticaFiltragem;
+import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -21,10 +22,12 @@ public class DeixarOCursoObjetivo implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @Column(nullable = false, unique = true)
     @ColunaListavel
+    @ColunaLocalizavel
+    @Column(nullable = false, unique = true)
     private String descricao;
-
+    
+    @ColunaLocalizavel
     @Enumerated(EnumType.STRING)
     @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
     private DeixarOCursoObjetivoStatus status;

@@ -4,6 +4,7 @@ import br.unicesumar.escoladeti2015time04.atendimento.Atendimento;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivo;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
+import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -18,26 +19,32 @@ import javax.persistence.Table;
 public class AtendimentoEspecial extends Atendimento implements Serializable {
 
     @ColunaListavel
+    @ColunaLocalizavel
     private Long protocolo;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "coordenadordiretor")
     private String coordenadorDiretor;
 
-    @ColunaListavel(nomeNaQuery = "CASE laudo WHEN true THEN 'Sim' ELSE 'Não' END AS laudo")
+    @ColunaLocalizavel
     @Column(name = "laudo", nullable = false)
+    @ColunaListavel(campoNaQuery = "CASE laudo WHEN true THEN 'Sim' ELSE 'Não' END", aliasNaQuery = "laudo")
     private boolean laudoMedico;
 
     @ManyToOne
-    @ColunaListavel(nomeNaQuery = "m.descricao as motivo")
     @JoinColumn(name = "motivo", nullable = false)
+    @ColunaListavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
+    @ColunaLocalizavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
     private DeixarOCursoMotivo motivo;
 
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "encaminhamento")
     private String encaminhamento;
     
     @ColunaListavel
+    @ColunaLocalizavel
     @Column(name = "solicitacao")
     private String solicitacao;
 

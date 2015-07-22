@@ -36,6 +36,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     protected Map<Field, ColunaListavel> colunasListaveisEntidade = new HashMap<>();
+    protected Map<Field, ColunaLocalizavel> colunasLocalizaveisEntidade = new HashMap<>();
     protected Field idEntidade;
     protected String select;
     protected String from;
@@ -45,7 +46,8 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     @PostConstruct
     protected void init() {
-        this.colunasListaveisEntidade.putAll(getMapFieldColunaListavel());
+        this.colunasListaveisEntidade.putAll(getMapFieldAnotacao(ColunaListavel.class));
+        this.colunasLocalizaveisEntidade.putAll(getMapFieldAnotacao(ColunaLocalizavel.class));
         this.idEntidade = getIdEntidade(getClassEntity());
         this.select = montarSelectListar();
         this.from = montarFromListar();
@@ -138,7 +140,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     public Map<String, Object> localizar(Long id) {
-        String listarUsuario = this.select + "," + getCamposQuery() + this.from + " where " + getClassEntity().getSimpleName() + "." + idEntidade.getName() + " = :id";
+        String listarUsuario = this.select + "," + getCamposQuery(this.colunasLocalizaveisEntidade) + this.from + " where " + getClassEntity().getSimpleName() + "." + idEntidade.getName() + " = :id";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
@@ -198,17 +200,21 @@ public abstract class Service<E, R extends JpaRepository, C> {
         String fromDoSelect = " FROM ";
 
         fromDoSelect += getClassEntity().getSimpleName();
-
+        
         return fromDoSelect + "  ";
     }
 
-    protected String getCamposQuery() {
+    protected <A extends Annotation> String getCamposQuery(Map<Field, A> colunas) {
         String campos = "";
-        for (Map.Entry<Field, ColunaListavel> colunasListaveis : colunasListaveisEntidade.entrySet()) {
-            Field campo = colunasListaveis.getKey();
-            ColunaListavel colunaListavel = colunasListaveis.getValue();
+        for (Map.Entry<Field, A> coluna : colunas.entrySet()) {
+            Field campo = coluna.getKey();
+            A colunaGerenciavel = coluna.getValue();
 
-            campos += getCampoEmUmaQuery(colunaListavel, campo);
+            if (colunaGerenciavel instanceof ColunaListavel) {
+                campos += getCampoEmUmaQuery((ColunaListavel) colunaGerenciavel, campo);
+            } else if (colunaGerenciavel instanceof ColunaLocalizavel) {
+                campos += getCampoEmUmaQuery((ColunaLocalizavel) colunaGerenciavel, campo);
+            }
         }
 
         campos = campos.substring(0, campos.length() - 1);
@@ -218,7 +224,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
     protected String getCamposQuery(Set<String> colunasRetornadas) {
         if (colunasRetornadas == null) {
-            return getCamposQuery();
+            return getCamposQuery(this.colunasListaveisEntidade);
         }
 
         String campos = " ";
@@ -239,15 +245,31 @@ public abstract class Service<E, R extends JpaRepository, C> {
     }
 
     private String getCampoEmUmaQuery(ColunaListavel colunaListavel, Field campo) {
-        String campoString;
+        String campoNaQuery = colunaListavel.campoNaQuery();
+        String aliasNaQuery = colunaListavel.aliasNaQuery();
 
-        if ("".equals(colunaListavel.nomeNaQuery())) {
+        return montarCampoDeQuery(campo, campoNaQuery, aliasNaQuery) + ",";
+    }
+    private String getCampoEmUmaQuery(ColunaLocalizavel colunaLocalizavel, Field campo) {
+        String campoNaQuery = colunaLocalizavel.campoNaQuery();
+        String aliasNaQuery = colunaLocalizavel.aliasNaQuery();
+
+        return montarCampoDeQuery(campo, campoNaQuery, aliasNaQuery) + ",";
+    }
+
+    private String montarCampoDeQuery(Field campo, String campoNaQuery, String aliasNaQuery) {
+        String campoString;
+        if ("".equals(campoNaQuery)) {
             campoString = campo.getName();
         } else {
-            campoString = colunaListavel.nomeNaQuery();
+            campoString = campoNaQuery;
         }
 
-        return campoString + ",";
+        if (!"".equals(aliasNaQuery)) {
+            campoString += " as " + aliasNaQuery;
+        }
+
+       return campoString;
     }
 
     protected String montarSelectNumeroTotalRegistros() {
@@ -257,9 +279,9 @@ public abstract class Service<E, R extends JpaRepository, C> {
     protected String montarSelectNumeroTotalRegistros(Class entidade) {
         String sql = "SELECT count(";
 
-        sql += idEntidade.getName();
-        sql += ") as numeroTotalRegistros FROM ";
-        sql += entidade.getSimpleName();
+        sql += getClassEntity().getSimpleName() + "." + idEntidade.getName();
+        sql += ") as numeroTotalRegistros";
+        sql += this.from;
 
         return sql + "  ";
     }
@@ -303,19 +325,19 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return numeroPaginas;
     }
 
-    protected Map<Field, ColunaListavel> getMapFieldColunaListavel() {
-        return getMapFieldColunaListavel(getClassEntity());
+    protected <A extends Annotation> Map<Field, A> getMapFieldAnotacao(Class<A> classAnotacao) {
+        return getMapFieldAnotacao(classAnotacao, getClassEntity());
     }
 
-    protected Map<Field, ColunaListavel> getMapFieldColunaListavel(Class entidade) {
-        Map<Field, ColunaListavel> mapFieldColunaListavel = new HashMap<>();
+    protected <A extends Annotation> Map<Field, A> getMapFieldAnotacao(Class<A> classAnotacao, Class entidade) {
+        Map<Field, A> mapFieldAnotacao = new HashMap<>();
         for (Field atributoEntidade : entidade.getDeclaredFields()) {
-            ColunaListavel annotacaoDoAtributo = atributoEntidade.getAnnotation(ColunaListavel.class);//getAnnotationByType(atributoEntidade, ColunaListavel.class);
+            A annotacaoDoAtributo = (A) atributoEntidade.getAnnotation(classAnotacao);//getAnnotationByType(atributoEntidade, ColunaListavel.class);
             if (annotacaoDoAtributo != null) {
-                mapFieldColunaListavel.put(atributoEntidade, annotacaoDoAtributo);
+                mapFieldAnotacao.put(atributoEntidade, annotacaoDoAtributo);
             }
         }
-        return mapFieldColunaListavel;
+        return mapFieldAnotacao;
     }
 
 }
