@@ -1,5 +1,7 @@
 package br.unicesumar.escoladeti2015time04.atendimento.motivo;
 
+import br.unicesumar.escoladeti2015time04.utils.excecoes.CampoObrigatorio;
+import br.unicesumar.escoladeti2015time04.utils.excecoes.ExcecaoPadrao;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
 import br.unicesumar.escoladeti2015time04.utils.listagem.Ordenador;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
@@ -30,6 +32,9 @@ public class AtendimentoMotivoService extends Service<AtendimentoMotivo, Atendim
 
     @Override
     public void criar(AtendimentoMotivo motivo) {
+    if(motivo.getAtendimentosDoMotivo().isEmpty()){
+        throw new ExcecaoPadrao("Nenhum atendimento foi selecionado para o motivo.", "Nenhum atendimento foi selecionado.");
+    }
         motivo.setStatus(AtendimentoMotivoStatus.ATIVO);
         super.criar(motivo);
     }

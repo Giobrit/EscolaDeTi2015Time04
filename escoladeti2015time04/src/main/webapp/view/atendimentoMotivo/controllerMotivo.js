@@ -56,8 +56,7 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
     }
 
     function onError(data) {
-        console.log(JSON.stringify(data));
-        growl.error(JSON.stringify(data));
+        errorPadrao(data, growl);
     }
     
     function marcarAtendimentoDoMotivo(){
