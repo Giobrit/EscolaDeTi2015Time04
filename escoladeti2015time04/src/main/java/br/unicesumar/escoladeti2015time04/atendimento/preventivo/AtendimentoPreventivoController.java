@@ -2,6 +2,7 @@ package br.unicesumar.escoladeti2015time04.atendimento.preventivo;
 
 import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,11 @@ public class AtendimentoPreventivoController {
     @RequestMapping(value = "/listar", method = RequestMethod.POST)
     public ResultadoListagem<AtendimentoPreventivo> listar(@RequestBody RequisicaoListagem requisicaoListagem) {
         return this.service.listar(requisicaoListagem);
+    }
+    
+    @RequestMapping(value = "/typeAHead/{campo}/{valor}", method = RequestMethod.GET)
+    public List<?> recuperarCoordenadores (@PathVariable String campo, @PathVariable String valor){
+        return this.service.camposLocalizaveisInseridos(campo, valor);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
