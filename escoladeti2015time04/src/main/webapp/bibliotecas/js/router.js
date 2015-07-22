@@ -20,13 +20,13 @@ AppModule.config(function ($routeProvider, $locationProvider) {
         controller: 'controllerListUsuario'
     }).when('/AtendimentoDeixarOCurso/list', {
         templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
-        controller: ''    
+        controller: ''
     }).when('/Usuario/login', {
         templateUrl: 'view/login/login.html',
         controller: ''
     }).when('/Usuario/form/alterarSenha/:id', {
         templateUrl: 'view/usuario/alterarSenhaUsuario.html',
-        controller: 'controllerFormUsuario'    
+        controller: 'controllerFormUsuario'
     }).when('/AtendimentoDeixarOCurso/Objetivo/form', {
         templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
         controller: 'controllerFormObjetivoDeixarOCurso'
@@ -42,6 +42,9 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/AtendimentoDeixarOCurso/form/:id', {
         templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
         controller: 'controllerFormAtendimentoDeixarOCurso'
+    }).when('/AtendimentoDeixarOCurso/list', {
+        templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
+        controller: 'controllerListAtendimentoDeixarOCurso'
     }).when('/AtendimentoMotivo/form', {
         templateUrl: 'view/atendimentoMotivo/cadastroMotivo.html',
         controller: 'controllerFormMotivoAtendimento'

@@ -40,7 +40,7 @@ public abstract class Service<E, R extends JpaRepository, C> {
     protected Field idEntidade;
     protected String select;
     protected String from;
-    protected String groupBy;
+    protected String groupBy = "";
     protected String selectNumeroRegistros;
 
     protected abstract Class<E> getClassEntity();
