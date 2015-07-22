@@ -3,7 +3,6 @@ AppModule.controller("controllerFormUsuario", controllerFormularioFilho);
 AppModule.controller("controllerListUsuario", controllerListagemFilho);
 
 function controllerFormularioFilho($scope, $http, $routeParams, $location, growl, $timeout) {
-//growl.error("<b>I'm</b> a success message and not unique");
     $scope.usuarioCommandEditarSenha = {};
 
     $scope.init = function () {
@@ -24,13 +23,9 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location, growl
         }
 
         function onSuccess() {
-            $timeout(success,100);
+            growl.success("Usuário Salvo com Sucesso");
             $location.path("/Usuario/list");
-            
         }
-    };
-    function success(){
-      growl.success("<b>Usuário Salvo com Sucesso</b>");
     };
 
     $scope.editar = function (id) {
@@ -61,13 +56,12 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location, growl
     }
 
     function onError(data) {
-        console.log(data);
-        growl.error(JSON.stringify(data));
+        errorPadrao(data, growl);
     }
 }
 
 function controllerListagemFilho($scope, $http, growl) {
-    
+
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 5;
     $scope.usuarioAlterandoSenha = {};
@@ -116,7 +110,7 @@ function controllerListagemFilho($scope, $http, growl) {
 
     $scope.alterarPagina = function () {
         $scope.listar();
-   };
+    };
 
     $scope.setUsuarioAlterandoSenha = function (usuario) {
         $scope.usuarioAlterandoSenha = usuario;
@@ -134,7 +128,6 @@ function controllerListagemFilho($scope, $http, growl) {
     };
 
     function onError(data) {
-        growl.error(JSON.stringify(data));
+        errorPadrao(data, growl);
     }
-
 }
