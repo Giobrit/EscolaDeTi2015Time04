@@ -2,7 +2,10 @@ AppModule.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider.when('/PerfilAcesso/form', {
         templateUrl: 'view/perfilAcesso/formPerfilAcesso.html',
-        controller: 'controllerFormPerfilAcesso'
+        controller: 'controllerFormPerfilAcesso',
+        resolve: {
+            logado: validacaoLogin
+        }
     }).when('/PerfilAcesso/list', {
         templateUrl: 'view/perfilAcesso/listPerfilAcesso.html',
         controller: 'controllerListPerfilAcesso'
@@ -29,7 +32,7 @@ AppModule.config(function ($routeProvider, $locationProvider) {
         controller: ''
     }).when('/Usuario/form/alterarSenha/:id', {
         templateUrl: 'view/usuario/alterarSenhaUsuario.html',
-        controller: 'controllerFormUsuario'    
+        controller: 'controllerFormUsuario'
     }).when('/AtendimentoDeixarOCurso/Objetivo/form', {
         templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
         controller: 'controllerFormObjetivoDeixarOCurso'
@@ -54,7 +57,7 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/AtendimentoDeixarOCurso/form/:id', {
         templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
         controller: 'controllerFormAtendimentoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/list',{
+    }).when('/AtendimentoDeixarOCurso/list', {
         templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
         controller: 'controllerListAtendimentoDeixarOCurso'
     }).when('/AtendimentoPreventivo/Motivo/form', {
@@ -74,3 +77,10 @@ AppModule.config(function ($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(false);
 });
+
+
+function validacaoLogin($q, $timeout) {
+    console.log("weiygfher9iug");
+    var deferred = $q.defe();
+    return deferred.promise;
+}
