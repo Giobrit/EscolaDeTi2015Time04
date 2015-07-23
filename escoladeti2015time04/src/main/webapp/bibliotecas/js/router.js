@@ -54,7 +54,6 @@
         //verificar se é possível separar as rotas em módulos
 
         $locationProvider.html5Mode(false);
-
     });
 
     function adicionarRota(routeProvider, rota, urlTemplate, controllerName) {

@@ -6,6 +6,9 @@ AppModule.controller("controllerFormPerfilUsuario", controllerFormPerfilUsuario)
 
 function controllerFormPerfilAcesso($scope, $http, $routeParams, $location) {
 
+    $scope.itensAcessoSelecionados = [];
+    $scope.itemAcessoSelecionado = {};
+
     $scope.salvar = function () {
         if ($scope.editando) {
             $scope.put("/perfilDeAcesso", $scope.perfilDeAcesso).success(onSuccess).error();
@@ -17,7 +20,7 @@ function controllerFormPerfilAcesso($scope, $http, $routeParams, $location) {
             alert("Perfil cadastrado com sucesso");
         }
         $scope.editar = function (id) {
-            $http.get("/perfilDeAcesso/" + id).success(onSuccess).error(onError);
+            $http.get("/perfilDeAcesso/" + id).success(onSuccess).error($scope.$scope.onError);
 
             function onSuccess(data) {
                 $scope.perfilDeAcesso = data;
@@ -25,9 +28,8 @@ function controllerFormPerfilAcesso($scope, $http, $routeParams, $location) {
         };
     };
 
-
     $scope.getItensAcesso = function (callback) {
-        $http.get("/itemAcesso/").success(onSuccess).error(onError);
+        $http.get("/itemAcesso/").success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             callback(data);
@@ -36,20 +38,13 @@ function controllerFormPerfilAcesso($scope, $http, $routeParams, $location) {
 
     $scope.selecionouItemAcesso = function (state) {
         console.log(state);
-
-        $scope.data.push(state)
+        $scope.itensAcessoSelecionados.push(state);
     };
-//
-//    $scope.itensAcesso = [
-//        {"name": "Alabama", "id": "AL"},
-//        {"name": "Alaska", "id": "AK"}
-//    ];
-    $scope.data = [];
-    $scope.itemAcessoSelecionado = {};
 
-    function onError() {
-
-    }
+    $scope.remover = function (itemAcesso) {
+        posicaoRemovida = $scope.itensAcessoSelecionados.indexOf(itemAcesso);
+        $scope.itensAcessoSelecionados.splice(posicaoRemovida, 1);
+    };
 
 }
 
@@ -59,7 +54,7 @@ function controllerListPerfilAcesso($scope, $http, $routeParams, $location) {
         $scope.listar();
     };
     $scope.listar = function () {
-        $http.post("/perfilDeAcesso/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.post("/perfilDeAcesso/listar", requisicaoListagem).success(onSuccess).error($scope.$scope.onError);
         function onSuccess(data) {
             $scope.perfilDeAcesso = data.itens;
             $scope.totalRegistros = data.numeroTotalRegistros;

@@ -54,9 +54,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="ia in data">
+                                        <tr ng-repeat="ia in itensAcessoSelecionados">
                                             <td>{{ia.descricao}}</td>
-                                            <td><button type="button" class="btn btn-danger">Remover</button></td>
+                                            <td><button type="button" ng-click="remover(ia)" class="btn btn-danger">Remover</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
