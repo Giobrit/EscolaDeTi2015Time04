@@ -1,4 +1,4 @@
-AppModule.config(function ($routeProvider, $locationProvider) {
+AppModule.config(function($routeProvider, $locationProvider) {
 
     $routeProvider.when('/PerfilAcesso/form', {
         templateUrl: 'view/PerfilAcesso.html',
@@ -51,7 +51,7 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/AtendimentoDeixarOCurso/form/:id', {
         templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
         controller: 'controllerFormAtendimentoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/list',{
+    }).when('/AtendimentoDeixarOCurso/list', {
         templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
         controller: 'controllerListAtendimentoDeixarOCurso'
     }).when('/AtendimentoPreventivo/Motivo/form', {
@@ -72,6 +72,15 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     }).when('/AtendimentoEspecial/list', {
         templateUrl: 'view/atendimentoEspecial/ListAtendimentoEspecial.html',
         controller: 'controllerListAtendimentoEspecial'
+    }).when('/AtendimentoPreventivo/form', {
+        templateUrl: 'view/atendimentoPreventivo/cadastroAtendimentoPreventivo.html',
+        controller: 'controllerFormAtendimentoPreventivo'
+    }).when('/AtendimentoPreventivo/list', {
+        templateUrl: 'view/atendimentoPreventivo/listagemAtendimentoPreventivo.html',
+        controller: 'controllerListAtendimentoPreventivo'
+    }).when('/AtendimentoPreventivo/form/:id', {
+        templateUrl: 'view/atendimentoPreventivo/cadastroAtendimentoPreventivo.html',
+        controller: 'controllerFormAtendimentoPreventivo'
     }).otherwise('/', {
         templateUrl: 'view/Home.html'
     });
