@@ -3,9 +3,9 @@ AppModule.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/PerfilAcesso/form', {
         templateUrl: 'view/perfilAcesso/formPerfilAcesso.html',
         controller: 'controllerFormPerfilAcesso',
-        resolve: {
-            logado: validacaoLogin
-        }
+//        resolve: {
+//            logado: validacaoLogin
+//        }
     }).when('/PerfilAcesso/list', {
         templateUrl: 'view/perfilAcesso/listPerfilAcesso.html',
         controller: 'controllerListPerfilAcesso'

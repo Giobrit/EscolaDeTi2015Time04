@@ -8,7 +8,7 @@ function controllerIndex($scope, $http, growl) {
 
     $scope.estaLogado = false;
     
-    function onError(data) {
+     $scope.onError = function(data) {
         errorPadrao(data, growl);
     }
 
