@@ -58,7 +58,7 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
                 commandInserir.getProtocolo(),
                 commandInserir.getCoordenadorDiretor(),
                 commandInserir.isLaudoMedico(), motivo,
-                commandInserir.getEncaminhamento(),
+                commandInserir.getEncaminhadoPara(),
                 commandInserir.getSolicitacao(),
                 commandInserir.getData(), usuario,
                 commandInserir.getRa(),
@@ -97,7 +97,7 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
         atendimentoEspecial.setCoordenadorDiretor(command.getCoordenadorDiretor());
         atendimentoEspecial.setMotivo(motivo);
         atendimentoEspecial.setLaudoMedico(command.isLaudoMedico());
-        atendimentoEspecial.setEncaminhamento(command.getEncaminhamento());
+        atendimentoEspecial.setEncaminhadoPara(command.getEncaminhadoPara());
         atendimentoEspecial.setSolicitacao(command.getSolicitacao());
 
         repository.save(atendimentoEspecial);

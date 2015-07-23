@@ -5,7 +5,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     $scope.init = function() {
         $scope.limparTela();
         $scope.preencherListDeMotivo();
-        idEditando = $routeParams.id;
+        var idEditando = $routeParams.id;
 
         if (idEditando) {
             $scope.editando = true;
@@ -55,6 +55,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $scope.atendimentoEspecial.encaminhadoPara = data.encaminhadopara;
             $scope.atendimentoEspecial.descricaoResumida = data.descricaoresumida;
             $scope.atendimentoEspecial.descricaoDetalhada = data.descricaodetalhada;
+            $scope.atendimentoEspecial.solicitacao = data.solicitacao;
             $scope.dataDeixarOCurso = timestampParaData(data.data);
             $scope.horaDeixarOCurso = new Date(data.data);
             $scope.matriculadoSelecionado = data.matriculado;
@@ -152,7 +153,7 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 8;
-    colunaOrdenacao = "protocolo";
+    $scope.colunaOrdenacao = "protocolo";
     $scope.labelOrdenacao = "Protocolo";
     var ordenacaoCrescente = true;
 
