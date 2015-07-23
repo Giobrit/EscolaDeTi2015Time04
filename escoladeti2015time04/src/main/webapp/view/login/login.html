@@ -1,33 +1,13 @@
-<!DOCTYPE html>
-<html ng-app="Cadastros" lang="pt">
-    <head>
-        <meta charset="utf-8">
-        <meta content="width=300, initial-scale=1" name="viewport">
-        
-        <link href="../../jquery/jquery-ui.min.css" rel="stylesheet">
-        <link href="../login/login.css" rel="stylesheet">
-        <script src="../../bibliotecas/js/angular.min.js"></script>
-        <script src="../../bibliotecas/js/angular-route.min.js"></script>
-        <script src="../../bibliotecas/js/start.js"></script>
-        <script src="../../bibliotecas/js/router.js"></script>
-        <script src="../controllerLogin.js" type="text/javascript"></script>
-        <title>Login Nacc</title>
+<form class="menuLogin" ng-init="init()">
+    <div class="card signin-card clearfix">
+        <div id="cc_iframe_parent"></div>
+        <img class="profile-img" src="../../bibliotecas/img/logotipo.png">
+        <p class="profile-name"></p>
+        <label  class="hidden-label" for="Email">E-mail</label>
+        <input  id="Email" name="Email" ng-model="login.loginOuEmail" type="text" placeholder=" Login ou E-mail" value="" spellcheck="false" class="">
 
-    </head>
-    <body>
-        <form class="menuLogin" ng-init="init()" ng-controller="controllerLogin">
-            <div class="card signin-card clearfix">
-                <div id="cc_iframe_parent"></div>
-                <img class="profile-img" src="../../bibliotecas/img/logotipo.png">
-                <p class="profile-name"></p>
-
-                <label  class="hidden-label" for="Email">E-mail</label>
-                <input  id="Email" name="Email" ng-model="login.loginOuEmail" type="text" placeholder=" Login ou E-mail" value="" spellcheck="false" class="">
-
-                <label  class="hidden-label" for="Passwd">Senha</label>
-                <input  id="Passwd" name="Passwd" ng-model="login.senha" type="text" placeholder=" Senha"  class="">
-                <input id="signIn" name="signIn" ng-click="logar()" class="rc-button rc-button-submit" type="submit" value="Fazer login">
-            </div>
-        </form>
-    </body>
-</html>
+        <label  class="hidden-label" for="Passwd">Senha</label>
+        <input  id="Passwd" name="Passwd" ng-model="login.senha" type="text" placeholder=" Senha"  class="">
+        <input id="signIn" name="signIn" ng-click="logar()" class="rc-button rc-button-submit" type="submit" value="Fazer login">
+    </div>
+</form>
