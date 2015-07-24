@@ -42,7 +42,7 @@ public class Senha implements Serializable {
     }
 
     private Boolean validarSenha(String senha) {
-        return temMinuscula(senha) && temMaiuscula(senha) && temNumero(senha)
+        return senha != null && temMinuscula(senha) && temMaiuscula(senha) && temNumero(senha)
                 && temEspecial(senha) && comprimentoDaSenha(senha);
     }
 
