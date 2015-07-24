@@ -2,24 +2,22 @@ AppModule.controller("controllerFormAtendimentoEspecial", controllerFormAtendime
 
 function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $location, growl, $timeout) {
 
-    $scope.init = function() {
-        $scope.limparTela();
+    $scope.init = function () {
         $scope.preencherListDeMotivo();
+        $scope.limparTela();
+
         var idEditando = $routeParams.id;
 
-        if (idEditando) {
-            $scope.editando = true;
-            $scope.editar(idEditando);
-        }
     };
 
-    $scope.limparTela = function() {
+    $scope.limparTela = function () {
         $scope.atendimentoEspecial = {};
         $scope.editando = false;
     };
 
-    $scope.salvar = function() {
-        montarCampoData();
+    $scope.salvar = function () {
+        $scope.atendimentoEspecial.data = prepararDataParaSalvar($scope.dataEspecial, $scope.horaEspecial);
+
         if ($scope.editando) {
             $http.put("/atendimento/especial", $scope.atendimentoEspecial).success(onSuccess).error(onError);
         } else {
@@ -37,7 +35,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     }
     ;
 
-    $scope.editar = function(id) {
+    $scope.editar = function (id) {
         $http.get("/atendimento/especial/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
@@ -53,13 +51,14 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $scope.atendimentoEspecial.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoEspecial.laudoMedico = data.laudomedico;
             $scope.atendimentoEspecial.encaminhadoPara = data.encaminhadopara;
-            $scope.atendimentoEspecial.descricaoResumida = data.descricaoresumida;
-            $scope.atendimentoEspecial.descricaoDetalhada = data.descricaodetalhada;
+            $scope.atendimentoEspecial.descricaoPublica = data.descricaopublica;
+            $scope.atendimentoEspecial.descricaoPrivada = data.descricaoprivada;
             $scope.atendimentoEspecial.solicitacao = data.solicitacao;
-            $scope.dataDeixarOCurso = timestampParaData(data.data);
-            $scope.horaDeixarOCurso = new Date(data.data);
-            $scope.matriculadoSelecionado = data.matriculado;
-            $scope.setMatriculado(data.matriculado);
+            $scope.dataEspecial = timestampParaData(data.data);
+            $scope.horaEspecial = new Date(data.data);
+            $scope.atendimentoEspecial.matriculado = data.matriculado;
+            $scope.matriculadoSelecionado = booleanToString(data.matriculado);
+            //  $scope.setMatriculado(data.matriculado);
 
             selecionaMotivoNaTela(data.motivo);
             $scope.setMotivo($scope.motivoSelecionado);
@@ -80,10 +79,14 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
+            if (idEditando) {
+                $scope.editando = true;
+                $scope.editar(idEditando);
+            }
         }
     };
 
-    $scope.carregarAluno = function(ra) {
+    $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
             setAtributosAluno({});
             return;
@@ -101,8 +104,8 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         $scope.atendimentoEspecial.idMotivo = data.id;
     };
 
-    $scope.setMatriculado = function(data) {
-        $scope.atendimentoEspecial.matriculado = data === "Sim" ? true : false;
+    $scope.setMatriculado = function (data) {
+        $scope.atendimentoEspecial.matriculado = stringToBoolean(data);
     };
 
     function setAtributosAluno(aluno) {
@@ -112,37 +115,12 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         $scope.atendimentoEspecial.serieSemestre = aluno.serie;
         $scope.atendimentoEspecial.turno = aluno.turno;
         $scope.atendimentoEspecial.bolsaFinanciamento = aluno.bolsa;
+        $scope.atendimentoEspecial.matriculado = stringToBoolean(aluno.matriculado);
         $scope.matriculadoSelecionado = aluno.matriculado;
-        $scope.setMatriculado(aluno.matriculado);
     }
 
-    $scope.setData = function() {
-        return formatarData(new Date($scope.dataDeixarOCurso));
-        ;
-    };
-
-    function formatarData(dataParaFormatacao) {
-        return dataParaFormatacao.getFullYear() + "-" +
-                ((dataParaFormatacao.getDate() < 10) ? "0" : "") + dataParaFormatacao.getDate() + "-" +
-                (((dataParaFormatacao.getMonth() + 1) < 10) ? "0" : "") + (dataParaFormatacao.getMonth() + 1);
-    }
-
-    $scope.setHora = function() {
-        return formatarHora(new Date($scope.horaDeixarOCurso));
-    };
-
-    function formatarHora(horaParaFormatacao) {
-        return ((horaParaFormatacao.getHours() < 10) ? "0" : "") + horaParaFormatacao.getHours() + ":" +
-                ((horaParaFormatacao.getMinutes() < 10) ? "0" : "") + horaParaFormatacao.getMinutes() + ":00";
-    }
-
-    function montarCampoData() {
-        if ($scope.horaDeixarOCurso && $scope.dataDeixarOCurso) {
-            $scope.atendimentoEspecial.data = $scope.setData() + "T" + $scope.setHora() + "-03";
-        }
-    }
-    $scope.setData();
     function onError(data) {
+        console.log(JSON.stringify(data));
         growl.error(JSON.stringify(data));
     }
 
@@ -153,7 +131,7 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 8;
-    $scope.colunaOrdenacao = "protocolo";
+    var colunaOrdenacao = "protocolo";
     $scope.labelOrdenacao = "Protocolo";
     var ordenacaoCrescente = true;
 
@@ -163,7 +141,7 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
                 {label: "Data", colunaOrdenacao: "data", propriedadeItem: "data", checked: true},
                 {label: "Hora", colunaOrdenacao: "data", propriedadeItem: "hora", checked: true},
                 {label: "RA", colunaOrdenacao: "ra", propriedadeItem: "ra", checked: false},
-                {label: "Nome Aluno", colunaOrdenacao: "colunaOrdenacaoAluno", propriedadeItem: "colunaOrdenacaoAluno", checked: false},
+                {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: false},
                 {label: "Curso", colunaOrdenacao: "curso", propriedadeItem: "curso", checked: false},
                 {label: "Série", colunaOrdenacao: "serieSemestre", propriedadeItem: "serieSemestre", checked: false},
                 {label: "Turno", colunaOrdenacao: "turno", propriedadeItem: "turno", checked: false},
@@ -173,15 +151,15 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
                 {label: "Solicitação", colunaOrdenacao: "solicitacao", propriedadeItem: "solicitacao", checked: true},
                 {label: "Encaminhado Para", colunaOrdenacao: "encaminhadoPara", propriedadeItem: "encaminhadoPara", checked: true},
                 {label: "Motivo", colunaOrdenacao: "motivo", propriedadeItem: "motivo", checked: true},
-                {label: "Descrição Resumida", colunaOrdenacao: "descricaoResumida", propriedadeItem: "descricaoResumida", checked: true},
-                {label: "Descrição Detalhada", colunaOrdenacao: "descricaoDetalhada", propriedadeItem: "descricaoDetalhada", checked: true}
+                {label: "Descrição Resumida", colunaOrdenacao: "descricaoPublica", propriedadeItem: "descricaoPublica", checked: true},
+                {label: "Descrição Detalhada", colunaOrdenacao: "descricaoPrivada", propriedadeItem: "descricaoPrivada", checked: true}
             ];
 
-    $scope.init = function() {
+    $scope.init = function () {
         $scope.listar();
     };
 
-    $scope.listar = function() {
+    $scope.listar = function () {
         var requisicaoListagem = new RequisicaoListagem();
         requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
         requisicaoListagem.paginaAtual = $scope.paginaAtual;
@@ -217,14 +195,11 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
         $scope.labelOrdenacao = coluna.label;
         $scope.listar();
     };
-    $scope.alterarPagina = function() {
+    $scope.alterarPagina = function () {
         $scope.listar();
     };
-    function onError(data) {
-        growl.error(JSON.stringify(data));
-    }
 
-    $scope.alterarCheckbox = function(coluna) {
+    $scope.alterarCheckbox = function (coluna) {
         coluna.checked = !coluna.checked;
         $scope.listar();
     };
@@ -241,5 +216,9 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
         }
 
         return colunasVisiveis;
+    }
+    
+    function onError(data) {
+        growl.error(JSON.stringify(data));
     }
 }

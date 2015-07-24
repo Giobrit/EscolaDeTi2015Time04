@@ -101,22 +101,26 @@
                         <label>
                             <h4>Matriculado</h4>
                         </label>
-                        <div class="form-group">
+                    <div class="form-group">
                             <select class="form-control" name="matriculado" ng-class="{ 'has-error'  : formAtendimentoEspecial.matriculado.$invalid && !formAtendimentoEspecial.matriculado.$pristine}" id="sel1" ng-model="matriculadoSelecionado" ng-change="setMatriculado(matriculadoSelecionado)" required>
                                 <option>Sim</option>
                                 <option>Não</option>
                             </select>
-                        </div>
+                    </div></div>
+                        <div class="col-md-2">
+                            <label>
+                                <h4>Laudo Médico</h4>
+                            </label>
+                        <div class="form-group">
+                            <select class="form-control" name="laudoMedico" ng-class="{ 'has-error'  : formAtendimentoEspecial.laudoMedico.$invalid && !formAtendimentoEspecial.laudoMedico.$pristine}" id="sel1" ng-model="laudoMedicoSelecionado" ng-change="setLaudoMedico(laudoMedicoSelecionado)" required>
+                                <option>Sim</option>
+                                <option>Não</option>
+                            </select>
+                        </div></div>
                     </div>
-                </div>
+               
                 <div class="row form-group">
-                    <div class="col-md-6" >
-                        <label>
-                            <h4>Laudo Médico</h4>
-                        </label>
-                        <input type="text" name="laudoMedico" ng-class="{ 'has-error'  : formAtendimentoEspecial.laudoMedico.$invalid && !formAtendimentoEspecial.laudoMedico.$pristine}" placeholder="Informe o laudo médico" class="form-control" ng-model="atendimentoEspecial.laudoMedico" required>
-                    </div>
-                    <div class="col-md-6" >
+                    <div class="col-md-12">
                         <label>
                             <h4>Solicitação</h4>
                         </label>
@@ -149,7 +153,7 @@
                         <label>
                             <h4>Descrição resumida</h4>
                         </label>
-                        <textarea class="form-control" name="descricaoResumida" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoResumida.$invalid && !formAtendimentoEspecial.descricaoResumida.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoResumida" required></textarea>
+                        <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoPublica.$invalid && !formAtendimentoEspecial.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPublica" required></textarea>
                     </div>
                 </div>  
                 <div class="row form-group">
@@ -157,7 +161,7 @@
                         <label>
                             <h4>Descrição detalhada</h4>
                         </label>
-                        <textarea class="form-control" name="descricaoDetalhada" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoDetalhada.$invalid && !formAtendimentoEspecial.descricaoDetalhada.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoDetalhada" required></textarea>
+                        <textarea class="form-control" name="descricaoDetalhada" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoPrivada.$invalid && !formAtendimentoEspecial.descricaoPrivada.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPrivada" required></textarea>
                     </div>
                 </div> 
             </div>

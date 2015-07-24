@@ -28,8 +28,8 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
     private String coordenadorDiretor;
 
     @ColunaLocalizavel
-    @Column(name = "laudoMedico", nullable = false)
-    @ColunaListavel(campoNaQuery = "CASE laudoMedico WHEN true THEN 'Sim' ELSE 'Não' END", aliasNaQuery = "laudoMedico")
+    @Column(name = "laudomedico", nullable = false)
+    @ColunaListavel(campoNaQuery = "CASE laudomedico WHEN true THEN 'Sim' ELSE 'Não' END", aliasNaQuery = "laudomedico")
     private boolean laudoMedico;
 
     @ManyToOne
@@ -142,6 +142,6 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
 
     @Override
     public String toString() {
-        return "AtendimentoEspecial{" + "protocolo=" + protocolo + ", coordenadorDiretor=" + coordenadorDiretor + ", laudoMedico=" + laudoMedico + ", motivo=" + motivo + ", encaminhadoPara=" + encaminhadoPara + ", solicitacao=" + solicitacao + '}';
+        return "AtendimentoEspecial{" + "protocolo=" + protocolo + ", coordenadorDiretor=" + coordenadorDiretor + ", laudoMedico=" + laudoMedico + /*", motivo=" + motivo + */", encaminhadoPara=" + encaminhadoPara + ", solicitacao=" + solicitacao + '}';
     }
 }
