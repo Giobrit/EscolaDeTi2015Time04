@@ -55,10 +55,10 @@
     <!--Start Container-->
     <div id="main" class="container-fluid">
         <div class="row">
-            <div ng-show="estaLogado" id="sidebar-left" class="col-xs-2 col-sm-2 col-md-2" style="position: fixed;">
+            <div id="sidebar-left" class="col-xs-2 col-sm-2 col-md-2" style="position: fixed;">
                 <ul class="nav main-menu">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">
+                        <a href="" class="dropdown-toggle">
                             <i class="fa fa-user"></i>
                             <span class="hidden-xs">Usuário</span>
                         </a>
@@ -67,9 +67,8 @@
                             <li><a class="ajax-link" href="#/Usuario/list">Listar Usuários</a></li>
                         </ul>
                     </li>
-
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">
+                        <a href="" class="dropdown-toggle">
                             <i class="fa fa-pencil-square-o"></i>
                             <span class="hidden-xs">Perfil de Acesso</span>
                         </a>
@@ -112,6 +111,9 @@
                     </li>
                 </ul>
             </div>
+
+            <!--<ng-include src="usuarioLogado ? 'view/menu/menuLateral.html' :  null" ></ng-include>-->
+            
             <div class="container col-xs-10 col-sm-10 col-md-10 pull-right">
                 <div growl></div>
                 <div ng-view></div>

@@ -6,10 +6,10 @@ function controllerIndex($scope, $http, $cookies, growl) {
     $scope.initSistema = function () {
         //inicializa a porra toda!
 
-//        var now = new Date();
-//        $cookies.put('login', 'o cabra tah logado', {
-//            expires: new Date(now.getFullYear()+11, now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 1)
-//        });
+        var now = new Date();
+        $cookies.put('login', 'o cabra tah logado', {
+            expires: new Date(now.getFullYear()+11, now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 1)
+        });
 
         var cookie = $cookies.get('login');
 
@@ -21,8 +21,8 @@ function controllerIndex($scope, $http, $cookies, growl) {
 
         function erroAutenticacao(oi) {
             $scope.usuarioLogado = "usuario";
-            console.log(oi);
-            $cookies.remove('login');
+//            console.log(oi);
+//            $cookies.remove('login');
         }
 
         if (cookie) {

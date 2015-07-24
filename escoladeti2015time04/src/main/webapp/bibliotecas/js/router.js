@@ -74,9 +74,17 @@
 
 //        console.log(cookie);
         if (!cookie) {
+                console.log("cookie");
             deferred.resolve();
             $location.path("/login");
         } else {
+            var path = $location.path();
+            if (path === "/login") {
+                deferred.resolve();
+                $location.path("/");
+                console.log(cookie);
+                return deferred.promise;
+            }
             var now = new Date();
             $cookies.put('login', cookie, {
                 expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
