@@ -49,7 +49,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         fromDoSelect = super.montarFromListar();
 
         fromDoSelect += " inner join atendimento a on a.id = atendimentoDeixarOCurso.id";
-        fromDoSelect += " inner join deixarocursomotivo m on m.id = atendimentoDeixarOCurso.motivo";
+        fromDoSelect += " inner join atendimentomotivo m on m.id = atendimentoDeixarOCurso.motivo";
         fromDoSelect += " inner join deixarocursoObjetivo o on o.id = atendimentoDeixarOCurso.objetivo";
 
         return fromDoSelect + "  ";
