@@ -1,7 +1,15 @@
 (function () {
     AppModule.config(function ($routeProvider, $locationProvider) {
 
-        adicionarRota($routeProvider, '/login', 'view/login/login.html', 'controllerTelaLogin');
+        //Rotas Avulsas
+        $routeProvider.when('/Sair', {
+            resolve: {
+                sair: sairDoSistema
+            }
+        })
+
+        //Rotas Login
+        adicionarRota($routeProvider, '/Login', 'view/login/login.html', 'controllerTelaLogin');
         adicionarRota($routeProvider, '/', 'view/Home.html');
         //Rotas PerfilAcesso
         adicionarRota($routeProvider, '/PerfilAcesso/form', 'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
@@ -69,20 +77,19 @@
 
     function validacaoLogin($q, $cookies, $location, growl) {
         var deferred = $q.defer();
-        var cookie = $cookies.get('login');
-//    var cookie = $cookies.remove('login');//('login');
 
-//        console.log(cookie);
+
+        var cookie = $cookies.get('login');
+
+//            console.log(cookie);
         if (!cookie) {
-                console.log("cookie");
             deferred.resolve();
-            $location.path("/login");
+            $location.path("/Login");
         } else {
             var path = $location.path();
-            if (path === "/login") {
+            if (path === "/Login") {
                 deferred.resolve();
                 $location.path("/");
-                console.log(cookie);
                 return deferred.promise;
             }
             var now = new Date();
@@ -95,7 +102,13 @@
             }
         }
 
+
         return deferred.promise;
+    }
+
+    function sairDoSistema($cookies) {
+        var cookie = $cookies.remove('login');//('login');
+        location.reload();
     }
 
     function validarPermissoes(deferred) {

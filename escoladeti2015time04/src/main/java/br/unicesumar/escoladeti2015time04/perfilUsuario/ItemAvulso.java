@@ -37,6 +37,7 @@ public class ItemAvulso implements Serializable {
     @JoinColumn(name = "iditemacesso", updatable = false, insertable = false, referencedColumnName = "id")
     private ItemAcesso itemAcesso;
 
+    @Column(name = "tipoitemavulso")
     private TipoItemAvulso tipoItemAvulso;
 
     public ItemAvulso(Usuario usuario, ItemAcesso itemAcesso, TipoItemAvulso tipoItemAvulso) {

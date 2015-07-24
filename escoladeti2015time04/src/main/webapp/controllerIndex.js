@@ -1,33 +1,38 @@
 AppModule.controller("controllerIndex", controllerIndex);
 var teste;
-function controllerIndex($scope, $http, $cookies, growl) {
+function controllerIndex($scope, $http, $cookies, $location, growl) {
     $scope.usuarioLogado;
 
     $scope.initSistema = function () {
         //inicializa a porra toda!
-
-        var now = new Date();
-        $cookies.put('login', 'o cabra tah logado', {
-            expires: new Date(now.getFullYear()+11, now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 1)
-        });
-
+//
+//        var now = new Date();
+//        $cookies.put('login', 1, {
+//            expires: new Date(now.getFullYear() + 11, now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 1)
+//        });
+//        
         var cookie = $cookies.get('login');
 
-        function onSucesso(usuario) {
-            console.log(teste);
-            $scope.usuarioLogado = "usuario";
+        if (cookie) {
+            $http.get("usuario/" + cookie).success(onSuccess).error(onError);
+        } else {
+            $location.path("/Login")
+            $scope.usuarioLogado = undefined;
+        }
+
+        function onSuccess(usuario) {
+            $scope.usuarioLogado = usuario;
+            var now = new Date();
+            $cookies.put('login', usuario.id, {
+                expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
+            });
             teste = usuario;
         }
 
-        function erroAutenticacao(oi) {
-            $scope.usuarioLogado = "usuario";
-//            console.log(oi);
-//            $cookies.remove('login');
-        }
-
-        if (cookie) {
-            $http.get("usuario/" + '1').success(onSucesso).error(erroAutenticacao);
-
+        function onError(oi) {
+            $scope.usuarioLogado = undefined;
+            console.log(oi);
+            $cookies.remove('login');
         }
     };
 

@@ -140,6 +140,10 @@ public abstract class Service<E, R extends JpaRepository, C> {
 
         return new ResultadoListagem(calcularNumeroTotalRegistros(filtro), resultado);
     }
+    
+    public List<E> listar() throws DataAccessException {
+       return repository.findAll();
+    }
 
     public Map<String, Object> localizar(Long id) {
         String listarUsuario = this.select + "," + getCamposQuery(this.colunasLocalizaveisEntidade) + this.from + " where " + getClassEntity().getSimpleName() + "." + idEntidade.getName() + " = :id" + this.groupBy;
