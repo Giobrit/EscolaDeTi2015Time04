@@ -1,8 +1,8 @@
-AppModule.controller("controllerFormMotivoAtendimentoPreventivo", controllerFormMotivoAtendimentoPreventivo);
+AppModule.controller("controllerFormMotivoAtendimento", controllerFormMotivoAtendimento);
 
-AppModule.controller("controllerListMotivoAtendimentoPreventivo", controllerListMotivoAtendimentoPreventivo);
+AppModule.controller("controllerListMotivoAtendimento", controllerListMotivoAtendimento);
 
-function controllerFormMotivoAtendimentoPreventivo($scope, $http, $routeParams, $location, $timeout, growl) {
+function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location, growl, $timeout) {
 
     $scope.init = function () {
         limparTela();
@@ -14,17 +14,25 @@ function controllerFormMotivoAtendimentoPreventivo($scope, $http, $routeParams, 
         }
     };
 
+    $scope.atendimentos =
+            [
+                {label: "Atendimento", atendimentoDoMotivo: "ATENDIMENTODEIXAROCURSO", checked: false},
+                {label: "Atendimento Especial", atendimentoDoMotivo: "ATENDIMENTOESPECIAL", checked: false},
+                {label: "Atendimento Preventivo", atendimentoDoMotivo: "ATENDIMENTOPREVENTIVO", checked: false}
+            ];
 
     $scope.salvar = function () {
+        setAtendimentosDoMotivo();
         if ($scope.editando) {
-            $http.put("/atendimento/preventivo/motivo", $scope.motivo).success(onSuccess).error(onError);
+            $http.put("/atendimento/motivo", $scope.motivo).success(onSuccess).error(onError);
         } else {
-            $http.post("/atendimento/preventivo/motivo", $scope.motivo).success(onSuccess).error(onError);
+            $http.post("/atendimento/motivo", $scope.motivo).success(onSuccess).error(onError);
         }
+
 
         function onSuccess() {
             $timeout(success, 100);
-            $location.path("/AtendimentoPreventivo/Motivo/list");
+            $location.path("/AtendimentoMotivo/list");
         }
         function success() {
             growl.success("<b>Motivo cadastrado com sucesso!</b>");
@@ -32,10 +40,13 @@ function controllerFormMotivoAtendimentoPreventivo($scope, $http, $routeParams, 
     };
 
     $scope.editar = function (id) {
-        $http.get("atendimento/preventivo/motivo/" + id).success(onSuccess).error(onError);
+        
+        $http.get("/atendimento/motivo/" + id).success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.motivo = data;
+            
+            marcarAtendimentoDoMotivo();
         }
     };
 
@@ -45,12 +56,31 @@ function controllerFormMotivoAtendimentoPreventivo($scope, $http, $routeParams, 
     }
 
     function onError(data) {
-        growl.error(JSON.stringify(data));
+        errorPadrao(data, growl);
+    }
+    
+    function marcarAtendimentoDoMotivo(){
+        for(var i = 0; i < $scope.motivo.atendimentosDoMotivo.length; i++){
+            console.log($scope.motivo.atendimentosDoMotivo[i]);
+            for(var j = 0; j < $scope.atendimentos.length;j++){
+                if($scope.atendimentos[j].atendimentoDoMotivo === $scope.motivo.atendimentosDoMotivo[i]){
+                    $scope.atendimentos[j].checked = true;
+                }
+            }
+        }
     }
 
+    function setAtendimentosDoMotivo() {
+       $scope.motivo.atendimentosDoMotivo = [];
+       for(var i=0; i < $scope.atendimentos.length; i++){
+           if($scope.atendimentos[i].checked){
+               $scope.motivo.atendimentosDoMotivo.push($scope.atendimentos[i].atendimentoDoMotivo);
+           }
+       }
+    }
 }
 
-function controllerListMotivoAtendimentoPreventivo($scope, $http, growl) {
+function controllerListMotivoAtendimento($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 5;
@@ -62,8 +92,9 @@ function controllerListMotivoAtendimentoPreventivo($scope, $http, growl) {
     };
 
     $scope.alterarStatus = function (motivo) {
+
         var status = motivo.status === 'ATIVO' ? 'INATIVO' : 'ATIVO';
-        $http.put("/atendimento/preventivo/motivo/" + motivo.id + "/" + status).success(onSuccess).error(onError);
+        $http.put("/atendimento/motivo/" + motivo.id + "/" + status).success(onSuccess).error(onError);
 
         function onSuccess() {
             motivo.status = status;
@@ -79,7 +110,7 @@ function controllerListMotivoAtendimentoPreventivo($scope, $http, growl) {
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
 
 
-        $http.post("atendimento/preventivo/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.post("/atendimento/motivo/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
             $scope.motivos = data.itens;
             $scope.totalRegistros = data.numeroTotalRegistros;

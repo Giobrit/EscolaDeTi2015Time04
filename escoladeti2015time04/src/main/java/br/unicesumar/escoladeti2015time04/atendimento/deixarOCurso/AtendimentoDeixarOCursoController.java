@@ -23,14 +23,9 @@ public class AtendimentoDeixarOCursoController {
         return this.service.listar(requisicaoListagem);
     }
     
-    @RequestMapping(value = "/coordenadoresCadastrados", method = RequestMethod.GET)
-    public List<String> recuperarCoordenadores (){
-        return this.service.recuperarCoordenadores();
-    }
-    
-    @RequestMapping(value = "/transferenciasCadastradas", method = RequestMethod.GET)
-    public List<String> recuperarTransferencias (){
-        return this.service.recuperarTransferencias();
+    @RequestMapping(value = "/typeAHead/{campo}/{valor}", method = RequestMethod.GET)
+    public List<?> recuperarCoordenadores (@PathVariable String campo, @PathVariable String valor){
+        return this.service.camposLocalizaveisInseridos(campo, valor);
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
