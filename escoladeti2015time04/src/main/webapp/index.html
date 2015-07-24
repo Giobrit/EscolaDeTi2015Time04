@@ -53,18 +53,19 @@
 
     <body ng-controller="controllerIndex" ng-init="initSistema()">
         <!--<div>-->
-    <ng-include src="usuarioLogado ? 'view/menu/header.html' :  null" ></ng-include>
+    <!--<ng-include src="usuarioLogado ? 'view/menu/header.html' :  null" ></ng-include>-->
+    <ng-include ng-if="usuarioLogado" src="'view/menu/header.html'" ></ng-include>
     <!--<ng-include src="'view/menu/header.html'" ></ng-include>-->
     <!--</div>-->
     <!--Start Container-->
     <div id="main" class="container-fluid">
         <div class="row">
-            <div id="sidebar-left" class="col-xs-2 col-sm-2 col-md-2" style="position: fixed;">
+            <!--<div id="sidebar-left" class="col-xs-2 col-sm-2 col-md-2" style="position: fixed;">-->
 
                 
                 
                 
-                
+<!--                
                 <ul class="nav main-menu">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle">
@@ -115,17 +116,18 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="ajax-link" href="#/AtendimentoMotivo/list">Motivo</a></li>
-                            <!--<li><a href="view/login/login.html">Login</a></li>-->
+                            <li><a href="view/login/login.html">Login</a></li>
                         </ul>
                     </li>
                 </ul>
-            </div>
+            </div>-->
 
             
             
             
             
             <!--<ng-include src="usuarioLogado ? 'view/menu/menuLateral.html' :  null" ></ng-include>-->
+            <ng-include ng-if="usuarioLogado" src="'view/menu/menuLateral.html'" ></ng-include>
             
             <div class="container col-xs-10 col-sm-10 col-md-10 pull-right">
                 <div growl></div>

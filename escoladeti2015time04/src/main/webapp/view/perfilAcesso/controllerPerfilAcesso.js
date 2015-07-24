@@ -31,7 +31,6 @@ function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, grow
             }
         }
 
-//            console.log( $scope.perfilDeAcesso.itensDeAcesso);
             
         if ($scope.editando) {
             $http.put("/perfilAcesso", $scope.perfilDeAcesso).success(onSuccess).error($scope.onError);
@@ -59,7 +58,6 @@ function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, grow
                     }
                 }
             }
-//            console.log(data.itensDeAcesso);
         }
     };
 
@@ -78,19 +76,15 @@ function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, grow
     };
 
     $scope.selecionaPeloCombo = function (itemAcesso) {
-//        console.log(itemAcesso);
-//        console.log(!itemAcesso.check);
         var itemAcessoLocalizado = $scope.itensAcesso[buscarEmArray($scope.itensAcesso, itemAcesso.id, "id")];
         $scope.seleciona(itemAcessoLocalizado, !itemAcessoLocalizado.check, itemAcessoLocalizado.grupo);
     };
 
     $scope.seleciona = function (itemAcesso, check, grupoOriginal) {
         if (grupoOriginal || check || !itemAcesso.grupo) {
-//            console.log(1);
             itemAcesso.check = check;
         }
         if (!check && itemAcesso.grupo && !possuiInferiorCheckado(itemAcesso.id)) {
-//            console.log(2);
             itemAcesso.check = check;
         }
 
@@ -142,23 +136,99 @@ function controllerListPerfilAcesso($scope, $http, $routeParams, $location) {
     $scope.init = function () {
         $scope.listar();
     };
+    
+    $scope.paginaAtual = 1;
+    $scope.numeroItensPorPagina = 8;
+    var colunaOrdenacao = "protocolo";
+    $scope.labelOrdenacao = "Protocolo";
+    var ordenacaoCrescente = true;
+
+    $scope.colunas =
+            [
+                {label: "Protocolo", colunaOrdenacao: "protocolo", propriedadeItem: "protocolo", checked: false},
+                {label: "Data", colunaOrdenacao: "data", propriedadeItem: "data", checked: true},
+                {label: "Hora", colunaOrdenacao: "data", propriedadeItem: "hora", checked: true},
+                {label: "RA", colunaOrdenacao: "ra", propriedadeItem: "ra", checked: false},
+                {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: true},
+                {label: "Curso", colunaOrdenacao: "curso", propriedadeItem: "curso", checked: false},
+                {label: "Série", colunaOrdenacao: "serieSemestre", propriedadeItem: "serieSemestre", checked: false},
+                {label: "Turno", colunaOrdenacao: "turno", propriedadeItem: "turno", checked: false},
+                {label: "Bolsa", colunaOrdenacao: "bolsaFinanciamento", propriedadeItem: "bolsaFinanciamento", checked: false},
+                {label: "Reprovações", colunaOrdenacao: "numeroReprovacoes", propriedadeItem: "numeroReprovacoes", checked: false},
+                {label: "Matriculado", colunaOrdenacao: "matriculado", propriedadeItem: "matriculado", checked: true},
+                {label: "Transferência", colunaOrdenacao: "transferencia", propriedadeItem: "transferencia", checked: true},
+                {label: "Coordenador", colunaOrdenacao: "coordenadorDiretor", propriedadeItem: "coordenadorDiretor", checked: true},
+                {label: "Objetivo", colunaOrdenacao: "objetivo", propriedadeItem: "objetivo", checked: true},
+                {label: "Motivo", colunaOrdenacao: "motivo", propriedadeItem: "motivo", checked: true},
+                {label: "Descrição", colunaOrdenacao: "descricaoPublica", propriedadeItem: "descricaoPublica", checked: true}
+            ];
+
+    $scope.init = function () {
+        $scope.listar();
+    };
+
     $scope.listar = function () {
-        $http.post("/perfilDeAcesso/listar", requisicaoListagem).success(onSuccess).error($scope.$scope.onError);
+        var requisicaoListagem = new RequisicaoListagem();
+        requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
+        requisicaoListagem.paginaAtual = $scope.paginaAtual;
+        requisicaoListagem.colunaOrdenacao = colunaOrdenacao;
+        requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
+        requisicaoListagem.valorFiltragem = $scope.pesquisa;
+        requisicaoListagem.colunasVisiveis = colunasVisiveis();
+        $http.post("perfilAcesso/listar", requisicaoListagem).success(onSuccess).error(onError);
         function onSuccess(data) {
-            $scope.perfilDeAcesso = data.itens;
+            setDataHora(data.itens);
+            $scope.atendimentos = data.itens;
             $scope.totalRegistros = data.numeroTotalRegistros;
+        }
+
+        function setDataHora(itens) {
+            itens.forEach(paraCada);
+
+            function paraCada(item) {
+                item.hora = timestampParaHora(item.data);
+
+                item.data = timestampParaData(item.data);
+            }
         }
     };
     $scope.alterarOrdenacao = function (coluna) {
-        if ($scope.colunaOrdenacao === coluna) {
+        if (colunaOrdenacao === coluna.colunaOrdenacao) {
             $scope.ordenacaoCrescente = !$scope.ordenacaoCrescente;
         } else {
             $scope.ordenacaoCrescente = true;
         }
 
-        $scope.colunaOrdenacao = coluna;
+        colunaOrdenacao = coluna.colunaOrdenacao;
+        $scope.labelOrdenacao = coluna.label;
         $scope.listar();
     };
+    $scope.alterarPagina = function () {
+        $scope.listar();
+    };
+    function onError(data) {
+        console.log(JSON.stringify(data));
+        growl.error(JSON.stringify(data));
+    }
+
+    $scope.alterarCheckbox = function (coluna) {
+        coluna.checked = !coluna.checked;
+        $scope.listar();
+    };
+
+    function colunasVisiveis() {
+        var colunasVisiveis = [];
+
+        $scope.colunas.forEach(paraCadaElemento);
+
+        function paraCadaElemento(coluna) {
+            if (coluna.checked) {
+                colunasVisiveis.push(coluna.propriedadeItem);
+            }
+        }
+
+        return colunasVisiveis;
+    }
 }
 
 
