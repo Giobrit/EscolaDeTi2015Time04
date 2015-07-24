@@ -81,3 +81,27 @@ function errorPadrao(data, growl) {
     console.log(mensagemConsole);
     growl.error(mensagemUsuario);
 }
+
+function buscarEmArray(array, busca, propriedade) {
+    var indexElemento = -1;
+    array.forEach(paraCadaElemento);
+
+    function paraCadaElemento(elemento, index) {
+        var achou;
+        
+        if (propriedade) {
+//            console.log(elemento[propriedade]);
+//            console.log(busca);
+            achou = elemento[propriedade] === busca;
+//            console.log(achou);
+        } else {
+            achou = elemento === busca;
+        }
+        
+        if (achou) {
+            indexElemento = index;
+        }
+    }
+    
+    return indexElemento;
+}

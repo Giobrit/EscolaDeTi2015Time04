@@ -4,112 +4,136 @@ AppModule.controller("controllerListPerfilAcesso", controllerListPerfilAcesso);
 
 AppModule.controller("controllerFormPerfilUsuario", controllerFormPerfilUsuario);
 
-function controllerFormPerfilAcesso($scope, $http, $timeout, $routeParams, $location, $interval) {
+function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, growl) {
 
-//    $scope.itensAcessoSelecionados = [];
-//    $scope.itemAcessoSelecionado = {};
-//
-//    $scope.salvar = function () {
-//        if ($scope.editando) {
-//            $scope.put("/perfilDeAcesso", $scope.perfilDeAcesso).success(onSuccess).error();
-//        } else {
-//            $scope.post("/perfilDeAcesso", $scope.perfilDeAcesso).success(onSuccess).error();
-//        }
-//        function onSuccess() {
-//            $location.path("/PerfilAcesso/list");
-//            alert("Perfil cadastrado com sucesso");
-//        }
-//        $scope.editar = function (id) {
-//            $http.get("/perfilDeAcesso/" + id).success(onSuccess).error($scope.$scope.onError);
-//
-//            function onSuccess(data) {
-//                $scope.perfilDeAcesso = data;
-//            }
-//        };
-//    };
-//
-//    $scope.getItensAcesso = function (callback) {
-//        $http.get("/itemAcesso/").success(onSuccess).error($scope.onError);
-//
-//        function onSuccess(data) {
-//            callback(data);
-//        }
-//    };
-//
-//    $scope.selecionouItemAcesso = function (state) {
-//        console.log(state);
-//        $scope.itensAcessoSelecionados.push(state);
-//    };
-//
-//    $scope.remover = function (itemAcesso) {
-//        posicaoRemovida = $scope.itensAcessoSelecionados.indexOf(itemAcesso);
-//        $scope.itensAcessoSelecionados.splice(posicaoRemovida, 1);
-//    };
+    $scope.itensAcesso = [];
+    $scope.itemAcessoSelecionado = {};
+    $scope.perfilDeAcesso = {
+        nome: "",
+        itensDeAcesso: []
+    };
 
-var start = new Date();
-  var sec = $interval(function () {
-    var wait = parseInt(((new Date()) - start) / 1000, 10);
-    $scope.wait = wait + 's';
-  }, 1000);
+    var tudoSelecionado = false;
 
-  // you could of course just include the template inline in your code, this example shows a template being returned from a function
-  function rowTemplate() {
-    return $timeout(function() {
-      $scope.waiting = 'Concluido!';
-      $interval.cancel(sec);
-      $scope.wait = '';
-      return '<div ng-class="{ \'my-css-class\': grid.appScope.rowFormatter( row ) }">' +
-                 '  <div ng-if="row.entity.merge">{{row.entity.title}}</div>' +
-                 '  <div ng-if="!row.entity.merge" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>' +
-                 '</div>';
-    }, 6000);
-  }
+    $scope.init = function () {
+        $scope.getItensAcesso();
 
-  // Access outside scope functions from row template
-  $scope.rowFormatter = function( row ) {
-    return row.entity.gender === 'male';
-  };
 
-  $scope.waiting = 'Carregando...';
+        idEditando = $routeParams.id;
+    };
 
-  $http.get('https://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/data/100.json')
-    .success(function (data) {
-      data.forEach( function(row, index) {
-        row.widgets = index % 10;
-      });
-      data[1].merge = true;
-      data[1].title = "A merged row";
-      data[4].merge = true;
-      data[4].title = "Another merged row";
-      $scope.data = data;
-    });
-
-  $scope.gridOptions = {
-    enableFiltering: true,
-    rowTemplate: rowTemplate(),
-    data: 'data',
-    columnDefs: [
-      { name: 'name' },
-      { name: 'gender' },
-      { name: 'company' },
-      { name: 'widgets' },
-      { name: 'cumulativeWidgets', field: 'widgets', cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{grid.appScope.cumulative(grid, row)}}</div>' }
-    ]
-  };
-
-  $scope.cumulative = function( grid, myRow ) {
-    var myRowFound = false;
-    var cumulativeTotal = 0;
-    grid.renderContainers.body.visibleRowCache.forEach( function( row, index ) {
-      if( !myRowFound ) {
-        cumulativeTotal += row.entity.widgets;
-        if( row === myRow ) {
-          myRowFound = true;
+    $scope.salvar = function () {
+        $scope.perfilDeAcesso.itensDeAcesso = [];
+        $scope.itensAcesso.forEach(paraCadaElemento);
+        function paraCadaElemento(itemAcesso) {
+            if (itemAcesso.check) {
+                $scope.perfilDeAcesso.itensDeAcesso.push(itemAcesso.id);
+            }
         }
-      }
-    });
-    return cumulativeTotal;
-  };
+
+//            console.log( $scope.perfilDeAcesso.itensDeAcesso);
+            
+        if ($scope.editando) {
+            $http.put("/perfilAcesso", $scope.perfilDeAcesso).success(onSuccess).error($scope.onError);
+        } else {
+            $http.post("/perfilAcesso", $scope.perfilDeAcesso).success(onSuccess).error($scope.onError);
+        }
+        function onSuccess() {
+            $location.path("/PerfilAcesso/list");
+            growl.success("Perfil salvo com sucesso");
+        }
+    };
+
+    $scope.editar = function (id) {
+        $http.get("/perfilAcesso/" + id).success(onSuccess).error($scope.onError);
+
+        function onSuccess(data) {
+            $scope.perfilDeAcesso = data;
+            $scope.perfilDeAcesso.itensDeAcesso.forEach(percorreIdsQueElePossui);
+            
+            function percorreIdsQueElePossui(idItem) {
+                $scope.itensAcesso.forEach(percorreItensAcesso);
+                function percorreItensAcesso(itemAcesso) {
+                    if (itemAcesso.id === idItem) {
+                        itemAcesso.check = true;
+                    }
+                }
+            }
+//            console.log(data.itensDeAcesso);
+        }
+    };
+
+    $scope.getItensAcesso = function () {
+        $http.get("/itemAcesso/").success(onSuccess).error($scope.onError);
+
+        function onSuccess(data) {
+            data.splice(0, 1);
+//            callback(data);
+            $scope.itensAcesso = data;
+            if (idEditando) {
+                $scope.editando = true;
+                $scope.editar(idEditando);
+            }
+        }
+    };
+
+    $scope.selecionaPeloCombo = function (itemAcesso) {
+//        console.log(itemAcesso);
+//        console.log(!itemAcesso.check);
+        var itemAcessoLocalizado = $scope.itensAcesso[buscarEmArray($scope.itensAcesso, itemAcesso.id, "id")];
+        $scope.seleciona(itemAcessoLocalizado, !itemAcessoLocalizado.check, itemAcessoLocalizado.grupo);
+    };
+
+    $scope.seleciona = function (itemAcesso, check, grupoOriginal) {
+        if (grupoOriginal || check || !itemAcesso.grupo) {
+//            console.log(1);
+            itemAcesso.check = check;
+        }
+        if (!check && itemAcesso.grupo && !possuiInferiorCheckado(itemAcesso.id)) {
+//            console.log(2);
+            itemAcesso.check = check;
+        }
+
+        if (grupoOriginal && itemAcesso.grupo) {
+            selecionarBySuperior(itemAcesso.id, check);
+        }
+
+        if (itemAcesso.superior > 1) {
+            var indexSuperior = buscarEmArray($scope.itensAcesso, itemAcesso.superior, "id");
+            $scope.seleciona($scope.itensAcesso[indexSuperior], check, grupoOriginal);
+        }
+
+    };
+
+    function possuiInferiorCheckado(idItemAcesso) {
+        var possui = false;
+
+        $scope.itensAcesso.forEach(paraCada);
+        function paraCada(itemAcesso, index) {
+            if (itemAcesso.superior === idItemAcesso && itemAcesso.check) {
+                possui = true;
+            }
+        }
+
+        return possui;
+    }
+
+    function selecionarBySuperior(superior, check) {
+        $scope.itensAcesso.forEach(paraCada);
+        function paraCada(itemAcesso) {
+            if (itemAcesso.superior === superior) {
+                itemAcesso.check = check;
+            }
+        }
+    }
+
+    $scope.checkTudo = function () {
+        tudoSelecionado = !tudoSelecionado;
+        $scope.itensAcesso.forEach(paraCada);
+        function paraCada(itemAcesso) {
+            itemAcesso.check = !tudoSelecionado;
+        }
+    }
 
 }
 
@@ -140,27 +164,27 @@ function controllerListPerfilAcesso($scope, $http, $routeParams, $location) {
 
 function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
 
-    $scope.perfis = [
-        {nomePerfil: 'Perfil de Acesso 1', id: 1},
-        {nomePerfil: 'Perfil de Acesso 2', id: 2},
-        {nomePerfil: 'Perfil de Acesso 3', id: 3},
-        {nomePerfil: 'Perfil de Acesso 4', id: 4}
-    ];
-    $scope.meuPerfil = $scope.perfis[0];
-
-    $scope.adicionarPerfil = function () {
-        $http.post("/perfilUsuario", $scope.perfilUsuario);
-
-    };
-
-    $scope.itens = [
-        {nomeItem: 'Item Avulso 1'},
-        {nomeItem: 'Item Avulso 2'}
-    ];
-    $scope.meuItem = $scope.itens[0];
-    $scope.nomeItens = [
-        {nome: 'Item Avulso 3'},
-        {nome: 'Item Avulso 4'}
-    ];
+//    $scope.perfis = [
+//        {nomePerfil: 'Perfil de Acesso 1', id: 1},
+//        {nomePerfil: 'Perfil de Acesso 2', id: 2},
+//        {nomePerfil: 'Perfil de Acesso 3', id: 3},
+//        {nomePerfil: 'Perfil de Acesso 4', id: 4}
+//    ];
+//    $scope.meuPerfil = $scope.perfis[0];
+//
+//    $scope.adicionarPerfil = function () {
+//        $http.post("/perfilUsuario", $scope.perfilUsuario);
+//
+//    };
+//
+//    $scope.itens = [
+//        {nomeItem: 'Item Avulso 1'},
+//        {nomeItem: 'Item Avulso 2'}
+//    ];
+//    $scope.meuItem = $scope.itens[0];
+//    $scope.nomeItens = [
+//        {nome: 'Item Avulso 3'},
+//        {nome: 'Item Avulso 4'}
+//    ];
 
 }

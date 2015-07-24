@@ -23,6 +23,9 @@ public class ItemAcesso {
 
     @Column(unique = true)
     private String rota;
+    
+    @Column(nullable = false)
+    private Boolean grupo;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "superior")
@@ -34,16 +37,25 @@ public class ItemAcesso {
     public ItemAcesso(String descricao, String rota) {
         this.descricao = descricao;
         this.rota = rota;
+        this.grupo = false;
     }
 
     public ItemAcesso(String descricao, ItemAcesso superior) {
         this.descricao = descricao;
+        this.grupo = false;
         this.superior = superior;
+    }
+    
+    public ItemAcesso(String descricao, ItemAcesso superior, Boolean grupo) {
+        this.descricao = descricao;
+        this.superior = superior;
+        this.grupo = grupo;
     }
 
     public ItemAcesso(String descricao, String rota, ItemAcesso superior) {
         this.descricao = descricao;
         this.rota = rota;
+        this.grupo = false;
         this.superior = superior;
     }
 
@@ -99,6 +111,6 @@ public class ItemAcesso {
 
     @Override
     public String toString() {
-        return "itemAcesso{" + "id=" + id + ", descricao=" + descricao + ", rota=" + rota + ", superior=" + superior + '}';
+        return "ItemAcesso{" + "id=" + id + ", descricao=" + descricao + ", rota=" + rota + ", grupo=" + grupo + ", superior=" + superior + '}';
     }
 }

@@ -14,7 +14,7 @@
                     <div class="col-md-10">
                         <div class="col-md-offset-2">
                             <div class="form-group">
-                                <input type="text" class="form-control" ng-model="novoPerfil.nome" placeholder="Nome do Perfil" />
+                                <input type="text" class="form-control" ng-model="perfilDeAcesso.nome" placeholder="Nome do Perfil" />
                             </div>    
                         </div>    
                     </div>
@@ -35,8 +35,8 @@
                     <div class="col-md-10">
                         <div class="col-md-offset-2">
                             <div class="form-group">
-                                <select class="ac-select form-control" ac-model="itemAcessoSelecionado" ac-options="ia.descricao for ia in getItensAcesso()" 
-                                        ac-settings="{ comboMode: true, loadOnOpen: true, minWidth: '300px' }" ac-change="selecionouItemAcesso(value)"></select>
+                                <select class="ac-select form-control" ac-model="itemAcessoSelecionado" ac-options="ia.descricao for ia in itensAcesso" 
+                                        ac-settings="{ comboMode: true, loadOnOpen: true, minWidth: '300px' }" ac-change="selecionaPeloCombo(value)"></select>
                             </div>            
 
                         </div>                    
@@ -49,27 +49,39 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="col-md-10">Item de Acesso</th>
-                                            <th class="col-md-1">Ação</th>
+                                            <th class="col-md-1">
+                                                <i class="fa fa-check" style="opacity: 0.3" aria-hidden="true" ng-click="checkTudo()"></i>
+                                            </th>
+                                            <th class="col-md-2">Grupo</th>
+                                            <th class="col-md-6">Descrição</th>
+                                            <!--<th class="col-md-1">Ação</th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="ia in itensAcessoSelecionados">
-                                            <td>{{ia.descricao}}</td>
-                                            <td><button type="button" ng-click="remover(ia)" class="btn btn-danger">Remover</button></td>
+                                        <tr ng-repeat="ia in itensAcesso" ng-click="seleciona(ia, !ia.check, ia.grupo)">
+                                            <td>
+                                                <i class="fa fa-check" aria-hidden="true" ng-show="ia.check"></i>
+                                                <i class="fa fa-check" style="opacity: 0.3" aria-hidden="true" ng-show="!ia.check"></i>
+                                            </td>
+                                            <td ng-show="ia.grupo">{{ia.descricao}}</td>
+                                            <td ng-show="!ia.grupo"> </td>
+                                            <td ng-show="!ia.grupo">{{ia.descricao}}</td>
+                                            <td ng-show="ia.grupo"> </td>
+                                            
+                                            <!--<td><button type="button" ng-click="remover(ia)" class="btn btn-danger">Remover</button></td>-->
                                         </tr>
                                     </tbody>
                                 </table>
+                                <!--<strong ng-bind="waiting"></strong> <strong>{{ wait}}</strong>-->
+                                <!--<br>-->
+                                <!--<div class="grid" ui-grid="gridOptions" ></div>-->
+
+
                             </div>    
                         </div>
                     </div>
                 </div> 
             </div>
-        </div>
-        <div>
-            <strong ng-bind="waiting"></strong> <strong>{{ wait}}</strong>
-            <br>
-            <div class="grid" ui-grid="gridOptions" ></div>
         </div>
         <div class="row">
             <div class="col-md-12">

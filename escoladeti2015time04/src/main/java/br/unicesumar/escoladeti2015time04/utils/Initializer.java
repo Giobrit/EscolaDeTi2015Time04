@@ -48,7 +48,7 @@ public class Initializer {
             iaMenu.setSuperior(iaMenu);
 
             itemAcessoService.add(iaMenu);
-            final ItemAcesso iaUsuario = new ItemAcesso("Usuário", iaMenu);
+            final ItemAcesso iaUsuario = new ItemAcesso("Usuário", iaMenu, true);
             //Rotas Usuario
             itemAcessoService.add(iaUsuario);
             itemAcessoService.add(new ItemAcesso("Cadastrar Usuário", "/Usuario/form", iaUsuario));
@@ -56,7 +56,7 @@ public class Initializer {
             itemAcessoService.add(new ItemAcesso("Listar Usuário", "/Usuario/list", iaUsuario));
             itemAcessoService.add(new ItemAcesso("Alterar Senha Outros Usuários", "/Usuario/form/alterarSenha/:id", iaUsuario));
 
-            itemAcessoService.add(new ItemAcesso("Perfil Usuario", "/formUsuario.html", iaMenu));
+            itemAcessoService.add(new ItemAcesso("Perfil Usuario", iaMenu, true));
 
 //        //Rotas Login
 //        adicionarRota($routeProvider, '/Login', 'view/login/login.html', 'controllerTelaLogin');
