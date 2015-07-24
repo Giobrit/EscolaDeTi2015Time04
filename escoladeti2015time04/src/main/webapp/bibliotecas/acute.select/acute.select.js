@@ -1,4 +1,4 @@
-﻿/// <reference path="../lib/angular.1.2.26.js" />
+// <reference path="../lib/angular.1.2.26.js" />
 
 // Directive that creates a searchable dropdown list.
 
