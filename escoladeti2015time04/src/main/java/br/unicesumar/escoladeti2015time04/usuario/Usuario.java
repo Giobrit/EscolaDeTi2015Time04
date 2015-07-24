@@ -20,7 +20,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -54,7 +53,6 @@ public class Usuario implements Serializable {
     private Status status;
 
     @ManyToMany
-    @ColunaLocalizavel
     @JoinTable(
             name = "usuario_perfildeacesso",
             joinColumns = {
@@ -63,8 +61,7 @@ public class Usuario implements Serializable {
                 @JoinColumn(name = "idperfilacesso")}
     )
     private Set<PerfilAcesso> perfisDeAcesso;
-
-    @ColunaLocalizavel
+    
     @OneToMany(mappedBy = "usuario")
     private Set<ItemAvulso> itensAvulsos;
 
@@ -78,6 +75,16 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
+    public Usuario(String nome, String login, Senha senha, Email email, Set<PerfilAcesso> perfisDeAcesso, Set<ItemAvulso> itensAvulsos) {
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.email = email;
+        this.perfisDeAcesso = perfisDeAcesso;
+        this.itensAvulsos = itensAvulsos;
+    }
+
+    
     public Usuario(String nome, String login, Senha senha, Email email, Status status, Set<PerfilAcesso> perfisDeAcesso) {
         this.nome = nome;
         this.login = login;

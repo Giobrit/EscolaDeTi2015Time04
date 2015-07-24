@@ -35,7 +35,7 @@ public class UsuarioController {
     }   
     
     @RequestMapping(value = "/logar", method = RequestMethod.POST)
-    public Boolean logar(@RequestBody UsuarioCommandLogar usuarioLogar) {
+    public Map<String, Object> logar(@RequestBody UsuarioCommandLogar usuarioLogar) {
         return this.service.logar(usuarioLogar);
     }
 

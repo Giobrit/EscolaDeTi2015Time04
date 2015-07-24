@@ -1,7 +1,7 @@
 package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso;
 
-import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivo;
-import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivoService;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivoService;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivo;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivoService;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCurso, AtendimentoDeixarOCursoRepository, AtendimentoDeixarOCursoCommandEditar> {
 
     @Autowired
-    private DeixarOCursoMotivoService deixarOCursoMotivoService;
+    private AtendimentoMotivoService deixarOCursoMotivoService;
 
     @Autowired
     private DeixarOCursoObjetivoService deixarOCursoObjetivoService;
@@ -49,7 +49,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
         fromDoSelect = super.montarFromListar();
 
         fromDoSelect += " inner join atendimento a on a.id = atendimentoDeixarOCurso.id";
-        fromDoSelect += " inner join deixarocursomotivo m on m.id = atendimentoDeixarOCurso.motivo";
+        fromDoSelect += " inner join atendimentomotivo m on m.id = atendimentoDeixarOCurso.motivo";
         fromDoSelect += " inner join deixarocursoObjetivo o on o.id = atendimentoDeixarOCurso.objetivo";
 
         return fromDoSelect + "  ";
@@ -61,7 +61,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
     }
 
     public void criar(AtendimentoDeixarOCursoCommandInserir commandInserir) {
-        final DeixarOCursoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(commandInserir.getIdMotivo());
+        final AtendimentoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(commandInserir.getIdMotivo());
         final DeixarOCursoObjetivo objetivo = deixarOCursoObjetivoService.localizarObjeto(commandInserir.getIdObjetivo());
         final Usuario usuario = usuarioService.localizarObjeto(new Long(1));
 
@@ -88,7 +88,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
     @Override
     public void editar(AtendimentoDeixarOCursoCommandEditar command) {
         repository.getOne(command.getId());
-        final DeixarOCursoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(command.getIdMotivo());
+        final AtendimentoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(command.getIdMotivo());
         final DeixarOCursoObjetivo objetivo = deixarOCursoObjetivoService.localizarObjeto(command.getIdObjetivo());
 
         AtendimentoDeixarOCurso atendimentoDeixarOCurso = repository.getOne(command.getId());
@@ -111,17 +111,5 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
 
         repository.save(atendimentoDeixarOCurso);
 
-    }
-
-    public List<String> recuperarCoordenadores() {
-        String queryRecuperarCoordenadores = "select distinct coordenadorDiretor" + super.from;
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        return jdbcTemplate.queryForList(queryRecuperarCoordenadores, mapSqlParameterSource, String.class);
-    }
-    
-    public List<String> recuperarTransferencias(){
-        String queryRecuperarTransferencias = "select distinct transferencia" + super.from;
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        return jdbcTemplate.queryForList(queryRecuperarTransferencias, mapSqlParameterSource, String.class);
     }
 }

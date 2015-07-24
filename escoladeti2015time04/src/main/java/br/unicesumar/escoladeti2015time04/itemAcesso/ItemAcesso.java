@@ -20,10 +20,10 @@ public class ItemAcesso {
 
     @Column(nullable = false, unique = true)
     private String descricao;
-    
-    @Column(nullable = false, unique = true)
+
+    @Column(unique = true)
     private String rota;
-    
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "superior")
     private ItemAcesso superior;
@@ -34,6 +34,11 @@ public class ItemAcesso {
     public ItemAcesso(String descricao, String rota) {
         this.descricao = descricao;
         this.rota = rota;
+    }
+
+    public ItemAcesso(String descricao, ItemAcesso superior) {
+        this.descricao = descricao;
+        this.superior = superior;
     }
 
     public ItemAcesso(String descricao, String rota, ItemAcesso superior) {

@@ -23,15 +23,11 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label class="control-label"><i class="fa fa-clock-o"></i> Hora </label><br>
-                            <div class="form-group">
-                                <input class="form-control" size="8" ng-model="time" name="time" bs-timepicker data-time-format="HH:mm" data-length="1" data-minute-step="1" data-arrow-behavior="picker" type="text">
-                            </div>
+                            <label>
+                                <h4>Hora</h4>
+                            </label>
+                            <input class="form-control" size="5" ng-model="horaDeixarOCurso" bs-timepicker data-time-format="HH:mm" data-length="1" data-minute-step="1" data-arrow-behavior="picker" type="text">                        
                         </div>
-                        <!--                        <label>
-                                                    <h4>Hora</h4>
-                                                </label>
-                                                <input class="form-control" size="5" ng-model="horaDeixarOCurso" bs-timepicker data-time-format="HH:mm" data-length="1" data-minute-step="1" data-arrow-behavior="picker" type="text">                        -->
                     </div>
                 </div>
             </div>
@@ -128,14 +124,14 @@
                         <label>
                             <h4>Instituição de Transferência</h4>
                         </label>
-                        <input type="text" name="transferencia" placeholder="Informe a instituição de transferência" class="form-control" ng-model="atendimentoDeixarOCurso.transferencia" data-animation="am-flip-x" bs-options="transferencia for transferencia in getRecuperarTransferencias()" bs-typeahead>
+                        <input type="text" name="transferencia" placeholder="Informe a instituição de transferência" class="form-control" ng-model="atendimentoDeixarOCurso.transferencia" data-animation="am-flip-x" bs-options="transferencia for transferencia in getCamposInseridos('transferencia', $viewValue)" bs-typeahead>
                     </div>
                     <div class="col-md-6">
                         <label>
                             <h4>Coordenador / Diretor</h4>
                         </label>                        
                         <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.coordenadorDiretor.$invalid && !formAtendimentoDeixarOCurso.coordenadorDiretor.$pristine}">
-                            <input type="text" name="coordenadorDiretor" placeholder="Informe o Coordenador / Diretor" class="form-control" ng-model="atendimentoDeixarOCurso.coordenadorDiretor" data-animation="am-flip-x" bs-options="coordenadorDiretor  for coordenadorDiretor in getRecuperarCoordenadores()" bs-typeahead>
+                            <input type="text" name="coordenadorDiretor" placeholder="Informe o Coordenador / Diretor" class="form-control" ng-model="atendimentoDeixarOCurso.coordenadorDiretor" data-animation="am-flip-x" bs-options="coordenadorDiretor  for coordenadorDiretor in getCamposInseridos('coordenadorDiretor', $viewValue)" bs-typeahead>
                             <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
                             <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.maxlength" class="help-block">Nome no máximo 50 caracteres.</p>
                         </div>                        
