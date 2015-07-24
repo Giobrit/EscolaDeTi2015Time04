@@ -13,6 +13,7 @@
         adicionarRota($routeProvider, '/Usuario/form', 'view/usuario/cadastroUsuario.html', 'controllerFormUsuario');
         adicionarRota($routeProvider, '/Usuario/form/:id', 'view/usuario/cadastroUsuario.html', 'controllerFormUsuario');
         adicionarRota($routeProvider, '/Usuario/list', 'view/usuario/ListagemUsuario.html', 'controllerListUsuario');
+        adicionarRota($routeProvider, '/Usuario/form/alterarSenha/:id', 'view/usuario/alterarSenhaUsuario.html', 'controllerFormUsuario');
         //Rotas Atendimento Deixar O Curso
         adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
         adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form/:id', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
@@ -25,12 +26,6 @@
         
         //Rotas 
 
-//        }).when('/Usuario/login', {
-//            templateUrl: 'view/login/login.html',
-//            controller: ''
-//        }).when('/Usuario/form/alterarSenha/:id', {
-//            templateUrl: 'view/usuario/alterarSenhaUsuario.html',
-//            controller: 'controllerFormUsuario'
 //       }).when('/AtendimentoDeixarOCurso/Motivo/form', {
 //            templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
 //            controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
@@ -67,10 +62,6 @@
     }
 
     function validacaoLogin($q, $cookies, $location, growl) {
-        var now = new Date();
-        $cookies.put('login', 'o cabra tah logado', {
-            expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 1)
-        });
         var deferred = $q.defer();
         var cookie = $cookies.get('login');
 //    var cookie = $cookies.remove('login');//('login');
@@ -81,7 +72,7 @@
             $location.path("/login");
         } else {
             var now = new Date();
-            $cookies.put('login', 'o_cabra_tah_logado', {
+            $cookies.put('login', cookie, {
                 expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
             });
             if (!validarPermissoes(deferred)) {

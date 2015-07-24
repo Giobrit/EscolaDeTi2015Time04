@@ -1,6 +1,6 @@
 AppModule.controller("controllerTelaLogin", controllerDoLogin);
 
-function controllerDoLogin($scope, $http, $location) {
+function controllerDoLogin($scope, $http, $location, growl) {
 
     $scope.init = function () {
         limparTela();
@@ -12,10 +12,15 @@ function controllerDoLogin($scope, $http, $location) {
         function onSuccess(data) {
             if (data) {
                 alert("você logou");
-                window.location($location.host() + ":" + $location.port() + "/#/");
-                //$location.absUrl($location.host() + ":" + $location.port() + "/#/");
+                var now = new Date();
+                $scope.usuarioLogado;
+                $cookies.put('login', 'o cabra tah logado', {
+                    expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 1)
+                });
+//                window.location($location.host() + ":" + $location.port() + "/#/");
+                $location.path("/");
             } else {
-                alert("Login ou sneha incorretos!");
+                growl.error("Login ou seha incorretos!");
             }
         }
     };
