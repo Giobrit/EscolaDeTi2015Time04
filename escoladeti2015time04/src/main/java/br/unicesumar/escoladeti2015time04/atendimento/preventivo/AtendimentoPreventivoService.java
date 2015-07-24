@@ -1,7 +1,7 @@
 package br.unicesumar.escoladeti2015time04.atendimento.preventivo;
 
-import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivo;
-import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivoService;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivoService;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.usuario.UsuarioService;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class AtendimentoPreventivoService extends Service<AtendimentoPreventivo, AtendimentoPreventivoRepository, AtendimentoPreventivoCommandEditar> {
 
     @Autowired
-    private PreventivoMotivoService preventivoMotivoService;
+    private AtendimentoMotivoService motivoService;
 
     @Autowired
     private UsuarioService usuarioService;
@@ -40,7 +40,7 @@ public class AtendimentoPreventivoService extends Service<AtendimentoPreventivo,
         fromDoSelect = super.montarFromListar();
 
         fromDoSelect += " inner join atendimento a on a.id = atendimentoPreventivo.id";
-        fromDoSelect += " inner join preventivoMotivo m on m.id = atendimentoPreventivo.motivo";
+        fromDoSelect += " inner join atendimentoMotivo m on m.id = atendimentoPreventivo.motivo";
 
         return fromDoSelect + "  ";
     }
@@ -51,7 +51,7 @@ public class AtendimentoPreventivoService extends Service<AtendimentoPreventivo,
     }
 
     void criar(AtendimentoPreventivoCommandInserir commandInserir) {
-        final PreventivoMotivo motivo = preventivoMotivoService.localizarObjeto(commandInserir.getIdMotivo());
+        final AtendimentoMotivo motivo = motivoService.localizarObjeto(commandInserir.getIdMotivo());
 
         final Usuario usuario = usuarioService.localizarObjeto(new Long(1));
 
@@ -78,7 +78,7 @@ public class AtendimentoPreventivoService extends Service<AtendimentoPreventivo,
     @Override
     public void editar(AtendimentoPreventivoCommandEditar command) {
         repository.getOne(command.getId());
-        final PreventivoMotivo motivo = preventivoMotivoService.localizarObjeto(command.getIdMotivo());
+        final AtendimentoMotivo motivo = motivoService.localizarObjeto(command.getIdMotivo());
 
         AtendimentoPreventivo atendimentoPreventivo = repository.getOne(command.getId());
         atendimentoPreventivo.setData(command.getData());

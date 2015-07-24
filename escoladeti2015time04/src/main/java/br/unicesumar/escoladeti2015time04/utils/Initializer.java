@@ -1,16 +1,17 @@
 package br.unicesumar.escoladeti2015time04.utils;
 
-import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivo;
-import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivoService;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivoService;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivo;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivoService;
-import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivo;
-import br.unicesumar.escoladeti2015time04.atendimento.preventivo.motivo.PreventivoMotivoService;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoDoMotivo;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcessoService;
 import br.unicesumar.escoladeti2015time04.usuario.Senha;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.usuario.UsuarioService;
+import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,19 +24,16 @@ public class Initializer {
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
-    private DeixarOCursoMotivoService deixarOCursoMotivoService;
+    private AtendimentoMotivoService atendimentoMotivoService;
     @Autowired
     private DeixarOCursoObjetivoService deixarOCursoObjetivoService;
-    @Autowired
-    private PreventivoMotivoService preventivoMotivoService;
 
     @PostConstruct
     public void initialize() {
         inicializarItensAcesso();
         inicializarAdministrador();
-        inicializarAtendimentoDeixarOCursoMotivo();
+        inicializarAtendimentoMotivo();
         inicializarAtendimentoDeixarOCursoObjetivo();
-        inicializarAtendimentoPreventivoMotivo();
     }
 
     private void inicializarItensAcesso() {
@@ -57,18 +55,37 @@ public class Initializer {
         usuarioService.criar(usuario);
     }
 
-    private void inicializarAtendimentoDeixarOCursoMotivo() {
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Aprendizagem"));
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Distância"));
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Doença"));
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Financeiro"));
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Gravidez"));
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Mudança de Cidade"));
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Não Identificação com o Curso"));
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Notas baixas"));
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Trabalho"));
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Transferência para outra IES"));
-        deixarOCursoMotivoService.criar(new DeixarOCursoMotivo("Outros"));
+    private void inicializarAtendimentoMotivo() {
+        Set<AtendimentoDoMotivo> atendimentosDoMotivoDeixarOCurso = new HashSet<>();
+        Set<AtendimentoDoMotivo> atendimentosDoMotivoPreventivo = new HashSet<>();
+        Set<AtendimentoDoMotivo> atendimentosDoMotivoDeixarOCursoEPreventivo = new HashSet<>();
+
+        atendimentosDoMotivoDeixarOCurso.add(AtendimentoDoMotivo.ATENDIMENTODEIXAROCURSO);
+        atendimentosDoMotivoPreventivo.add(AtendimentoDoMotivo.ATENDIMENTOPREVENTIVO);
+
+        atendimentosDoMotivoDeixarOCursoEPreventivo.add(AtendimentoDoMotivo.ATENDIMENTODEIXAROCURSO);
+        atendimentosDoMotivoDeixarOCursoEPreventivo.add(AtendimentoDoMotivo.ATENDIMENTOPREVENTIVO);
+
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Aprendizagem", atendimentosDoMotivoDeixarOCursoEPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Gravidez", atendimentosDoMotivoDeixarOCursoEPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Notas baixas", atendimentosDoMotivoDeixarOCursoEPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Outros", atendimentosDoMotivoDeixarOCursoEPreventivo));
+        
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Distância", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Doença", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Financeiro", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Mudança de Cidade", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Não Identificação com o Curso", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Trabalho", atendimentosDoMotivoDeixarOCurso));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Transferência para outra IES", atendimentosDoMotivoDeixarOCurso));
+
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Crise de Ansiedade", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Crise de Pânico", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Depressão", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Dúvida quanto à transferência", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Dúvida quanto ao UNIFIES", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Frequência baixa", atendimentosDoMotivoPreventivo));
+        atendimentoMotivoService.criar(new AtendimentoMotivo("Pessoal", atendimentosDoMotivoPreventivo));
     }
 
     private void inicializarAtendimentoDeixarOCursoObjetivo() {
@@ -79,19 +96,4 @@ public class Initializer {
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Permanência"));
 
     }
-
-    private void inicializarAtendimentoPreventivoMotivo() {
-        preventivoMotivoService.criar(new PreventivoMotivo("Aprendizagem"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Crise de Ansiedade"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Crise de Pânico"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Depressão"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Dúvida quanto à transferência"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Dúvida quanto ao UNIFIES"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Frequência baixa"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Gravidez"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Notas baixas"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Outros"));
-        preventivoMotivoService.criar(new PreventivoMotivo("Pessoal"));
-    }
-
 }

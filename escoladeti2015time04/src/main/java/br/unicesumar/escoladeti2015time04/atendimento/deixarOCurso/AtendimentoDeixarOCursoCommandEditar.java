@@ -1,7 +1,7 @@
 package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso;
 
 import br.unicesumar.escoladeti2015time04.atendimento.AtendimentoCommandEditar;
-import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivo;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivo;
 import br.unicesumar.escoladeti2015time04.utils.service.AtributoCommand;
 import br.unicesumar.escoladeti2015time04.utils.service.CommandEditar;
