@@ -23,7 +23,7 @@
         adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/Objetivo/form/:id', 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html', 'controllerFormObjetivoDeixarOCurso');
         adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/Objetivo/list', 'view/atendimentoDeixarOCurso/objetivo/listagemObjetivo.html', 'controllerListObjetivoDeixarOCurso');
         //Rotas Atendimento Motivo
-        
+
         //Rotas 
 
 //       }).when('/AtendimentoDeixarOCurso/Motivo/form', {
@@ -68,9 +68,17 @@
 
 //        console.log(cookie);
         if (!cookie) {
+                console.log("cookie");
             deferred.resolve();
             $location.path("/login");
         } else {
+            var path = $location.path();
+            if (path === "/login") {
+                deferred.resolve();
+                $location.path("/");
+                console.log(cookie);
+                return deferred.promise;
+            }
             var now = new Date();
             $cookies.put('login', cookie, {
                 expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
