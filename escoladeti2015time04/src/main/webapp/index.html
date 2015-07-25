@@ -10,7 +10,6 @@
         <link href="bibliotecas/css/angular-growl.min.css" rel="stylesheet">
         <link href="bibliotecas/css/angular-motion.min.css" rel="stylesheet">
         <link href="bibliotecas/css/menu.css" rel="stylesheet">
-        <link href="bibliotecas/3.0.1/ui-grid.css" rel="stylesheet" type="text/css"/>
         <link href="view/login/login.css" rel="stylesheet" type="text/css"/>
         <link href="bibliotecas/css/style.css" rel="stylesheet">
         <link href="bibliotecas/css/angular-datepicker.css" rel="stylesheet"/>
@@ -35,7 +34,6 @@
         <script src="./bibliotecas/js/router.js"></script>
         <script src="./bibliotecas/js/dirPagination.js"></script>
         <script src="./bibliotecas/js/angular-growl.js" type="text/javascript"></script>
-        <script src="./bibliotecas/3.0.1/ui-grid.js" type="text/javascript"></script>
         <script src="./bibliotecas/js/permissaoAcessoController.js"></script>
         <script src="./controllerIndex.js" type="text/javascript"></script>
         <script src="./view/perfilAcesso/controllerPerfilAcesso.js" type="text/javascript"></script>
@@ -52,84 +50,15 @@
     </head>
 
     <body ng-controller="controllerIndex" ng-init="initSistema()">
-        <!--<div>-->
-    <!--<ng-include src="usuarioLogado ? 'view/menu/header.html' :  null" ></ng-include>-->
+   
     <ng-include ng-if="exibeMenu" src="'view/menu/header.html'" ></ng-include>
-    <!--<ng-include src="'view/menu/header.html'" ></ng-include>-->
-    <!--</div>-->
-    <!--Start Container-->
+
     <div id="main" class="container-fluid">
         <div class="row">
-            <!--<div id="sidebar-left" class="col-xs-2 col-sm-2 col-md-2" style="position: fixed;">-->
 
-                
-                
-                
-<!--                
-                <ul class="nav main-menu">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="fa fa-user"></i>
-                            <span class="hidden-xs">Usuário</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="ajax-link" href="#/Usuario/form">Cadastrar Usuário</a></li>
-                            <li><a class="ajax-link" href="#/Usuario/list">Listar Usuários</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="fa fa-pencil-square-o"></i>
-                            <span class="hidden-xs">Perfil de Acesso</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="ajax-link" href="#/PerfilAcesso/form">Cadastrar Perfil</a></li>
-                            <li><a class="ajax-link" href="#/PerfilAcesso/list">Listar Perfil</a></li>
-                            <li><a class="ajax-link" href="#/PerfilUsuario/form">Cadastrar Perfil de Usuario</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="fa fa-desktop"></i>
-                            <span class="hidden-xs">Atendimento</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="ajax-link" href="#/AtendimentoDeixarOCurso/form">Cadastrar</a></li>
-                            <li><a class="ajax-link" href="#/AtendimentoDeixarOCurso/list">Listar</a></li>
-                            <li><a class="ajax-link" href="#/AtendimentoDeixarOCurso/Objetivo/list">Objetivo</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="fa fa-desktop"></i>
-                            <span class="hidden-xs">Atendimento Preventivo</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="ajax-link" href="#/AtendimentoPreventivo/form">Cadastrar</a></li>
-                            <li><a class="ajax-link" href="#/AtendimentoPreventivo/list">Listar</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="fa fa-list"></i>
-                            <span class="hidden-xs">Sistema</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="ajax-link" href="#/AtendimentoMotivo/list">Motivo</a></li>
-                            <li><a href="view/login/login.html">Login</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>-->
-
-            
-            
-            
-            
-            <!--<ng-include src="usuarioLogado ? 'view/menu/menuLateral.html' :  null" ></ng-include>-->
             <ng-include ng-if="exibeMenu" src="'view/menu/menuLateral.html'" ></ng-include>
             
-            <div class="container col-xs-10 col-sm-10 col-md-10 pull-right">
+            <div class="container-fluid">
                 <div growl></div>
                 <div ng-view></div>
             </div>

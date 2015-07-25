@@ -3,6 +3,7 @@ var teste;
 function controllerIndex($scope, $http, $cookies, $location, growl) {
     $scope.exibeMenu = false;
     $scope.usuarioLogado = {};
+
     $scope.permissoesUsuarioLogado = [];
 
     $scope.icones = [];
