@@ -127,7 +127,7 @@ function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, grow
         function paraCada(itemAcesso) {
             itemAcesso.check = !tudoSelecionado;
         }
-    }
+    };
 
 }
 
@@ -157,11 +157,10 @@ function controllerListPerfilAcesso($scope, $http, $location, $routeParams, grow
         $http.post("perfilAcesso/listar", requisicaoListagem).success(onSuccess).error($scope.onError);
         function onSuccess(data) {
             $scope.perfisAcesso = data.itens;
-            console.log(data.itens);
             $scope.totalRegistros = data.numeroTotalRegistros;
         }
     };
-    
+
     $scope.alterarOrdenacao = function (coluna) {
         if (colunaOrdenacao === coluna.colunaOrdenacao) {
             $scope.ordenacaoCrescente = !$scope.ordenacaoCrescente;
@@ -178,32 +177,56 @@ function controllerListPerfilAcesso($scope, $http, $location, $routeParams, grow
         $scope.listar();
     };
 
+    $scope.remover = function (id) {
+        $http.delete("perfilAcesso/" + id).success(onSuccess).error($scope.onError());
+
+        function onSuccess() {
+            console.log("uhul");
+        }
+
+    }
+
 }
 
 
 function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
 
-//    $scope.perfis = [
-//        {nomePerfil: 'Perfil de Acesso 1', id: 1},
-//        {nomePerfil: 'Perfil de Acesso 2', id: 2},
-//        {nomePerfil: 'Perfil de Acesso 3', id: 3},
-//        {nomePerfil: 'Perfil de Acesso 4', id: 4}
-//    ];
-//    $scope.meuPerfil = $scope.perfis[0];
-//
-//    $scope.adicionarPerfil = function () {
-//        $http.post("/perfilUsuario", $scope.perfilUsuario);
-//
-//    };
-//
-//    $scope.itens = [
-//        {nomeItem: 'Item Avulso 1'},
-//        {nomeItem: 'Item Avulso 2'}
-//    ];
-//    $scope.meuItem = $scope.itens[0];
-//    $scope.nomeItens = [
-//        {nome: 'Item Avulso 3'},
-//        {nome: 'Item Avulso 4'}
-//    ];
+    $scope.perfisDeAcesso = {};
+    $scope.perfilSelecionado = {};
+    $scope.perfisDeAcessoSelecionados = [];
+
+    $scope.init = function () {
+        carregarPerfis();
+    };
+
+    function carregarPerfis() {
+        $http.post("/perfilAcesso/listar", {}).success(success).error($scope.onError);
+//        
+        function success(data) {
+            $scope.perfisDeAcesso = data.itens;
+//            console.log(data.itens);
+        }
+    }
+
+    $scope.adicionarPerfil = function () {
+//        $scope.perfisDeAcesso.replace && newValue
+        $scope.perfisDeAcessoSelecionados.push($scope.perfilSelecionado);
+        atualizarTipoItensAcesso();
+    };
+    
+
+    function atualizarTipoItensAcesso() {
+        // TODO: fazer sa bagaça
+    }
+
+    $scope.itens = [
+        {nomeItem: 'Item Avulso 1'},
+        {nomeItem: 'Item Avulso 2'}
+    ];
+    $scope.meuItem = $scope.itens[0];
+    $scope.nomeItens = [
+        {nome: 'Item Avulso 3'},
+        {nome: 'Item Avulso 4'}
+    ];
 
 }

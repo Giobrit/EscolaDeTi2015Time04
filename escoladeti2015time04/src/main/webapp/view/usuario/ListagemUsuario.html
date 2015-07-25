@@ -35,7 +35,7 @@
                                             <i class="fa fa-arrow-circle-o-down" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'login'"></i>
                                             Login
                                         </th>
-                                        <th ng-click="alterarOrdenacao('email')" class="col-md-2">
+                                        <th ng-click="alterarOrdenacao('email')" class="col-md-3">
                                             <i class="fa fa-circle-o" aria-hidden="true" ng-show="colunaOrdenacao !== 'email'"></i>
                                             <i class="fa fa-arrow-circle-o-up" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'email'"></i>
                                             <i class="fa fa-arrow-circle-o-down" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'email'"></i>
@@ -61,7 +61,8 @@
                                         </td>
                                         <td>
                                             <span>
-                                                <a data-toggle="modal" data-target="#myModal" type="button" class="tooltip, btn btn-primary botaoEditar" title="Alterar senha" ng-click="setUsuarioAlterandoSenha(u)"><span><img src="../../bibliotecas/img/password.png"></span></a>
+                                                <a data-toggle="modal" data-target="#myModal" type="button" class="tooltip, btn btn-info botaoEditar" title="Alterar senha" ng-click="setUsuarioAlterandoSenha(u)"><span class="fa fa-key" aria-hidden="true"></span></a>
+                                                <a href="#/PerfilUsuario/form/{{u.id}}" type="button" class="tooltip, btn btn-success botaoEditar" title="Editar"><span class="fa fa-lock" aria-hidden="true"></span></a>
                                                 <a href="#/Usuario/form/{{u.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                                             </span>
                                         </td>

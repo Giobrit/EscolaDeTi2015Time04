@@ -26,9 +26,13 @@ public class UsuarioController {
         return this.service.localizar(id);
     }
     
-    @RequestMapping(value = "/permissoes/{id}", method = RequestMethod.GET)
-    public @ResponseBody List<Map<String, Object>> localizarPermissoes(@PathVariable Long id) {
-        return this.service.localizarPermissoes(id);
+    @RequestMapping(value = "/permissoes/arvore/{id}", method = RequestMethod.GET)
+    public @ResponseBody List<Map<String, Object>> localizarArvorePermissoes(@PathVariable Long id) {
+        return this.service.localizarArvorePermissoes(id);
+    }
+    @RequestMapping(value = "/permissoes/listaRotas/{id}", method = RequestMethod.GET)
+    public @ResponseBody List<Map<String, Object>> localizarRotasPermissoes(@PathVariable Long id) {
+        return this.service.localizarListaPermissoes(id);
     }
 
     @RequestMapping(value = "/listar", method = RequestMethod.POST)

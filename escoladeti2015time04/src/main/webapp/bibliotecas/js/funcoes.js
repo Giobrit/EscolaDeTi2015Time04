@@ -82,14 +82,17 @@ function errorPadrao(data, growl) {
     growl.error(mensagemUsuario);
 }
 
-function buscarEmArray(array, busca, propriedade) {
+function buscarEmArray(array, busca, propriedade, replace, newValue) {
     var indexElemento = -1;
     array.forEach(paraCadaElemento);
 
     function paraCadaElemento(elemento, index) {
         var achou;
-        
+
         if (propriedade) {
+            if (replace) {
+                elemento[propriedade] = elemento[propriedade].replace(":id", newValue);
+            }
 //            console.log(elemento[propriedade]);
 //            console.log(busca);
             achou = elemento[propriedade] === busca;
@@ -97,11 +100,11 @@ function buscarEmArray(array, busca, propriedade) {
         } else {
             achou = elemento === busca;
         }
-        
+
         if (achou) {
             indexElemento = index;
         }
     }
-    
+
     return indexElemento;
 }

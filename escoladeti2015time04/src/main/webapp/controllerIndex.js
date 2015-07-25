@@ -40,28 +40,31 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
                 expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
             });
             teste = usuario;
-            recuperarPermissoesUsuarioLogado(usuario);
+            recuperarRotasPermissoesUsuarioLogado(usuario);
+
         }
 
     }
 
-    function recuperarPermissoesUsuarioLogado(usuario) {
-        $http.get("usuario/permissoes/" + usuario.id).success(onSuccess).error(onErrorAutenticacao);
+    function recuperarRotasPermissoesUsuarioLogado(usuario) {
+        $http.get("usuario/permissoes/arvore/" + usuario.id).success(onSuccess).error(onErrorAutenticacao);
 
         function onSuccess(permissoes) {
             $scope.permissoesUsuarioLogado = permissoes;
         }
     }
 
-
     function onErrorAutenticacao(data) {
         $scope.usuarioLogado = undefined;
         $scope.permissoesUsuarioLogado = undefined;
         $cookies.remove('login');
-        location.reaload();
+        location.reload();
     }
 
     $scope.onError = function (data) {
+        if (!data) {
+            data = "Ocorreu um problema!";
+        }
         errorPadrao(data, growl);
     };
 

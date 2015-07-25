@@ -62,7 +62,7 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
         }
     }
 
-    public List<Map<String, Object>> localizarPermissoes(Long id) {
+    public List<Map<String, Object>> localizarArvorePermissoes(Long id) {
         String query = ""
                 + "select "
                 + "ia.*  "
@@ -84,12 +84,33 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
             MapSqlParameterSource paransFolhas = new MapSqlParameterSource();
             paransFolhas.addValue("idUsuario", id);
             paransFolhas.addValue("idSuperior", permissao.get("id"));
-            
+
             List<Map<String, Object>> folhas = jdbcTemplate.query(queryFolha, paransFolhas, new MapRowMapper());
 
             permissao.put("inferiores", folhas);
         }
 
+        return permissoes;
+    }
+
+    List<Map<String, Object>> localizarListaPermissoes(Long id) {
+        String query = ""
+                + "select "
+                + "ia.*  "
+                + "from itemacesso ia "
+                + "inner join usuario u on u.id = :idUsuario "
+                + "inner join usuario_perfildeacesso upa on upa.idusuario = u.id "
+                + "inner join perfilacesso pa on pa.id = upa.idperfilacesso "
+                + "inner join perfilacesso_itemacesso paia on paia.idperfilacesso = pa.id and paia.iditemacesso = ia.id ";
+
+        String queryRotas = query + "where ia.rota is not null";
+
+        MapSqlParameterSource paransGrupos = new MapSqlParameterSource();
+        paransGrupos.addValue("idUsuario", id);
+
+        List<Map<String, Object>> permissoes = jdbcTemplate.query(queryRotas, paransGrupos, new MapRowMapper());
+
+        
         return permissoes;
     }
 
