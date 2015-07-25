@@ -1,3 +1,13 @@
+//    }).when('/AtendimentoEspecial/form', {
+//        templateUrl: 'view/atendimentoEspecial/formAtendimentoEspecial.html',
+//        controller: 'controllerFormAtendimentoEspecial'
+//    }).when('/AtendimentoEspecial/form/:id', {
+//        templateUrl: 'view/atendimentoEspecial/formAtendimentoEspecial.html',
+//        controller: 'controllerFormAtendimentoEspecial'
+//    }).when('/AtendimentoEspecial/list', {
+//        templateUrl: 'view/atendimentoEspecial/ListAtendimentoEspecial.html',
+//        controller: 'controllerListAtendimentoEspecial'
+//=======
 (function () {
     var idUsuario;
     var listaRotas;
@@ -45,11 +55,16 @@
         adicionarRota($routeProvider, '/AtendimentoMotivo/form', 'view/atendimentoMotivo/cadastroMotivo.html', 'controllerFormMotivoAtendimento');
         adicionarRota($routeProvider, '/AtendimentoMotivo/form/:id', 'view/atendimentoMotivo/cadastroMotivo.html', 'controllerFormMotivoAtendimento');
         adicionarRota($routeProvider, '/AtendimentoMotivo/list', 'view/atendimentoMotivo/listagemMotivo.html', 'controllerListMotivoAtendimento');
-        //Rotas 
+        //Rotas Atendimento Especial
+        adicionarRota($routeProvider, '/AtendimentoEspecial/form', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
+        adicionarRota($routeProvider, '/AtendimentoEspecial/form/:id', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
+        adicionarRota($routeProvider, '/AtendimentoEspecial/list', 'view/atendimentoEspecial/ListAtendimentoEspecial.html', 'controllerListAtendimentoEspecial');
+        
 
         //verificar se é possível separar as rotas em módulos
 
         $locationProvider.html5Mode(false);
+
     });
 
     function adicionarRota(routeProvider, rota, urlTemplate, controllerName) {
