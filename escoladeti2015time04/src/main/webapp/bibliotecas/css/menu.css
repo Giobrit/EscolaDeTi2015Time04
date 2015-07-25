@@ -347,7 +347,7 @@ a.show-sidebar:hover {
     z-index: 9;
 }
 .no-move {
-    display: none;
+    display: block;
 }
 .expanded .no-move {
     position: absolute;
@@ -403,12 +403,12 @@ a.show-sidebar:hover {
 .expanded a.close-link {
     display:none;
 }
-#sidebar-left.col-xs-2 {
+#sidebar-left.col-xs-1 {
     opacity: 0;
-    width: 0%;
+    width: 20%;
     padding: 0;
 }
-.sidebar-show #sidebar-left.col-xs-2 {
+.sidebar-show #sidebar-left.col-xs-1 {
     opacity: 1;
     width: 16.666666666666664%;
     padding: 0 15px;
@@ -881,7 +881,7 @@ td.beauty-hover {
     }
     .sidebar-show #sidebar-left.col-sm-2 {
         opacity: 0;
-        width:0;
+        width:16.666666666%;
         padding:0;
     }
     .sidebar-show #content.col-sm-10 {
