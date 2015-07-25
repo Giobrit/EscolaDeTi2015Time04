@@ -124,7 +124,8 @@
                         <label>
                             <h4>Solicitação</h4>
                         </label>
-                        <input type="text" name="solicitacao" ng-class="{ 'has-error'  : formAtendimentoEspecial.solicitacao.$invalid && !formAtendimentoEspecial.solicitacao.$pristine}" placeholder="Solicitação" class="form-control" ng-model="atendimentoEspecial.solicitacao" required>
+                        <div ng-dropdown-multiselect="" options="example13data" selected-model="example13model" extra-settings="example13settings"></div>
+                        <!--<input type="text" name="solicitacao" ng-class="{ 'has-error'  : formAtendimentoEspecial.solicitacao.$invalid && !formAtendimentoEspecial.solicitacao.$pristine}" placeholder="Solicitação" class="form-control" ng-model="atendimentoEspecial.solicitacao" required>-->
                     </div>
                 </div>
             </div>

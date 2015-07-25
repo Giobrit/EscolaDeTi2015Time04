@@ -1,12 +1,13 @@
 AppModule.controller("controllerFormAtendimentoEspecial", controllerFormAtendimentoEspecial);
 
 function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $location, growl, $timeout) {
-
+    $scope.example13model = [];
+    
     $scope.init = function () {
         $scope.preencherListDeMotivo();
         $scope.limparTela();
 
-        var idEditando = $routeParams.id;
+        idEditando = $routeParams.id;
 
     };
 
@@ -33,7 +34,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     function success() {
         growl.success("<b>Atendimento " + ($scope.editando === true ? "editado" : "salvo") + " com sucesso</b>");
     }
-    ;
+
 
     $scope.editar = function (id) {
         $http.get("/atendimento/especial/" + id).success(onSuccess).error(onError);
@@ -58,6 +59,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $scope.horaEspecial = new Date(data.data);
             $scope.atendimentoEspecial.matriculado = data.matriculado;
             $scope.matriculadoSelecionado = booleanToString(data.matriculado);
+            $scope.laudoMedicoSelecionado = booleanToString(data.laudomedico);
             //  $scope.setMatriculado(data.matriculado);
 
             selecionaMotivoNaTela(data.motivo);
@@ -74,7 +76,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         }
     }
 
-    $scope.preencherListDeMotivo = function() {
+    $scope.preencherListDeMotivo = function () {
         $http.get("/atendimento/deixarOCurso/motivo/listarAtivos").success(onSuccess).error(onError);
 
         function onSuccess(data) {
@@ -100,13 +102,17 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     };
 
 
-    $scope.setMotivo = function(data) {
+    $scope.setMotivo = function (data) {
         $scope.atendimentoEspecial.idMotivo = data.id;
     };
 
     $scope.setMatriculado = function (data) {
         $scope.atendimentoEspecial.matriculado = stringToBoolean(data);
     };
+
+    $scope.setLaudoMedico = function (data) {
+        $scope.atendimentoEspecial.laudoMedico = stringToBoolean(data);
+    }
 
     function setAtributosAluno(aluno) {
         $scope.atendimentoEspecial.nomeAluno = aluno.nome;
@@ -118,6 +124,25 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         $scope.atendimentoEspecial.matriculado = stringToBoolean(aluno.matriculado);
         $scope.matriculadoSelecionado = aluno.matriculado;
     }
+
+    $scope.example13data = [
+        {id: 1, label: "David"},
+        {id: 2, label: "Jhon"},
+        {id: 3, label: "Lisa"},
+        {id: 4, label: "Nicole"},
+        {id: 5, label: "Danny"}
+    ];
+
+    $scope.example13settings = {
+        smartButtonMaxItems: 3,
+        smartButtonTextConverter: function (itemText, originalItem) {
+            if (itemText === 'Jhon') {
+                return 'Jhonny!';
+            }
+
+            return itemText;
+        }
+    };
 
     function onError(data) {
         console.log(JSON.stringify(data));
@@ -184,7 +209,7 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
             }
         }
     };
-    $scope.alterarOrdenacao = function(coluna) {
+    $scope.alterarOrdenacao = function (coluna) {
         if (colunaOrdenacao === coluna.colunaOrdenacao) {
             $scope.ordenacaoCrescente = !$scope.ordenacaoCrescente;
         } else {
@@ -217,7 +242,7 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
 
         return colunasVisiveis;
     }
-    
+
     function onError(data) {
         growl.error(JSON.stringify(data));
     }
