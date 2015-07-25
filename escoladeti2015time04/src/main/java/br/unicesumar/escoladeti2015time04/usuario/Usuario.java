@@ -62,7 +62,7 @@ public class Usuario implements Serializable {
     )
     private Set<PerfilAcesso> perfisDeAcesso;
     
-    @OneToMany(mappedBy = "idusuario")
+    @OneToMany(mappedBy = "usuario")
     private Set<ItemAvulso> itensAvulsos;
 
     public Usuario() {
