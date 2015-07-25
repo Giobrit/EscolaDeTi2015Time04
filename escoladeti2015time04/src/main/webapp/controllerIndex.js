@@ -4,18 +4,18 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
     $scope.usuarioLogado = {};
     $scope.usuarioLogado;
     
-    $scope.icones = {
-        
-    };
+    $scope.icones = [];
 
     $scope.initSistema = function () {
         //inicializa a porra toda!
-//
-//        var now = new Date();
-//        $cookies.put('login', 1, {
-//            expires: new Date(now.getFullYear() + 11, now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 1)
-//        });
-//        
+
+        $scope.icones["Usuário"] = "fa-user";
+        $scope.icones["Perfil de Acesso"] = "fa-pencil-square-o";
+        $scope.icones["Atendimento"] = "fa-comment-o";
+        $scope.icones["Atendimento Preventivo"] = "fa-comment-o";
+        $scope.icones["Atendimento Especial"] = "fa-comment-o";
+        $scope.icones["Sistema"] = "fa-cogs";
+
         var cookie = $cookies.get('login');
 
         if (cookie) {

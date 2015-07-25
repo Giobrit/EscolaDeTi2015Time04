@@ -8,6 +8,7 @@ import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoDoMotivo
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcessoService;
 import br.unicesumar.escoladeti2015time04.perfilUsuario.ItemAvulso;
+import br.unicesumar.escoladeti2015time04.perfilUsuario.TipoItemAvulso;
 import br.unicesumar.escoladeti2015time04.perfilacesso.PerfilAcesso;
 import br.unicesumar.escoladeti2015time04.perfilacesso.PerfilAcessoService;
 import br.unicesumar.escoladeti2015time04.usuario.Senha;
@@ -32,6 +33,7 @@ public class Initializer {
     private AtendimentoMotivoService atendimentoMotivoService;
     @Autowired
     private DeixarOCursoObjetivoService deixarOCursoObjetivoService;
+    private ItemAcesso iaMenu;
 
     @PostConstruct
     public void initialize() {
@@ -44,7 +46,7 @@ public class Initializer {
 
     private void inicializarItensAcesso() {
         if (!itemAcessoService.existemItensAcesso()) {
-            final ItemAcesso iaMenu = new ItemAcesso("Menu", "/");
+            iaMenu = new ItemAcesso("Menu", "/");
             iaMenu.setSuperior(iaMenu);
 
             itemAcessoService.add(iaMenu);
@@ -94,8 +96,10 @@ public class Initializer {
         final Senha senha = new Senha("Adm123@");
         final Email email = new Email("administrador@naac.com");
         final Set<PerfilAcesso> perfisDeAcesso = new HashSet<>(perfilAcessoService.listar());
-        final Set<ItemAvulso> itensAvulsos = null;
+        final Set<ItemAvulso> itensAvulsos = new HashSet<>();
         final Usuario usuario = new Usuario("Administrador", "admin", senha, email, perfisDeAcesso, itensAvulsos);
+        itensAvulsos.add(new ItemAvulso(usuario,iaMenu, TipoItemAvulso.PERMISSAO));
+//                public ItemAvulso(Usuario usuario, ItemAcesso itemAcesso, TipoItemAvulso tipoItemAvulso) {
 
         usuarioService.criar(usuario);
     }
