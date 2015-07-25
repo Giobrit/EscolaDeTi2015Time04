@@ -1,5 +1,5 @@
-<form name="" novalidate ng-init="init()">
-    <div class="container-fluid formulario">
+<form name="perfilDeAcesso" class="pull-right col-md-10" novalidate ng-init="init()">
+    <div class="formulario">
         <div class="panel panel-info">
             <div class="panel-heading"><h3>Cadastro Perfil de Acesso</h3></div>
             <div class="panel-body">
@@ -38,7 +38,6 @@
                                 <select class="ac-select form-control" ac-model="itemAcessoSelecionado" ac-options="ia.descricao for ia in itensAcesso" 
                                         ac-settings="{ comboMode: true, loadOnOpen: true, minWidth: '300px' }" ac-change="selecionaPeloCombo(value)"></select>
                             </div>            
-
                         </div>                    
                     </div>                
                 </div>
@@ -67,7 +66,7 @@
                                             <td ng-show="!ia.grupo"> </td>
                                             <td ng-show="!ia.grupo">{{ia.descricao}}</td>
                                             <td ng-show="ia.grupo"> </td>
-                                            
+
                                             <!--<td><button type="button" ng-click="remover(ia)" class="btn btn-danger">Remover</button></td>-->
                                         </tr>
                                     </tbody>

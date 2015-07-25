@@ -2,7 +2,6 @@ AppModule.controller("controllerIndex", controllerIndex);
 var teste;
 function controllerIndex($scope, $http, $cookies, $location, growl) {
     $scope.usuarioLogado = {};
-    $scope.usuarioLogado;
     
     $scope.icones = [];
 
