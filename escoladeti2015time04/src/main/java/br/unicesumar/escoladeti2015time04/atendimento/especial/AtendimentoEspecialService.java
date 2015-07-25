@@ -1,7 +1,7 @@
 package br.unicesumar.escoladeti2015time04.atendimento.especial;
 
-import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivo;
-import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivoService;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivoService;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.usuario.UsuarioService;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class AtendimentoEspecialService extends Service<AtendimentoEspecial, AtendimentoEspecialRepository, AtendimentoEspecialCommandEditar> {
 
     @Autowired
-    private DeixarOCursoMotivoService deixarOCursoMotivoService;
+    private AtendimentoMotivoService deixarOCursoMotivoService;
 
     @Autowired
     private UsuarioService usuarioService;
@@ -40,7 +40,7 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
         fromDoSelect = super.montarFromListar();
 
         fromDoSelect += " inner join atendimento a on a.id = atendimentoEspecial.id";
-        fromDoSelect += " inner join deixarocursomotivo m on m.id = atendimentoEspecial.motivo";
+        fromDoSelect += " inner join atendimentomotivo m on m.id = atendimentoEspecial.motivo";
 
         return fromDoSelect + "  ";
     }
@@ -51,7 +51,7 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
     }
 
     public void criar(AtendimentoEspecialCommandInserir commandInserir) {
-        final DeixarOCursoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(commandInserir.getIdMotivo());
+        final AtendimentoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(commandInserir.getIdMotivo());
         final Usuario usuario = usuarioService.localizarObjeto(new Long(1));
 
         AtendimentoEspecial atendimentoEspecial = new AtendimentoEspecial(
@@ -79,7 +79,7 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
     @Override
     public void editar(AtendimentoEspecialCommandEditar command) {
         repository.getOne(command.getId());
-        final DeixarOCursoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(command.getIdMotivo());
+        final AtendimentoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(command.getIdMotivo());
 
         AtendimentoEspecial atendimentoEspecial = repository.getOne(command.getId());
         atendimentoEspecial.setData(command.getData());

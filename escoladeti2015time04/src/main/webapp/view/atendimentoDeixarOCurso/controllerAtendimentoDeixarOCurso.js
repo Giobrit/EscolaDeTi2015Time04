@@ -95,7 +95,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.preencherListDeMotivo = function () {
-        $http.get("/atendimento/deixarOCurso/motivo/listarAtivos").success(onSuccess).error(onError);
+        $http.get("/atendimento/motivo/listarAtivos/ATENDIMENTODEIXAROCURSO").success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
@@ -176,7 +176,7 @@ function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
                 {label: "Data", colunaOrdenacao: "data", propriedadeItem: "data", checked: true},
                 {label: "Hora", colunaOrdenacao: "data", propriedadeItem: "hora", checked: true},
                 {label: "RA", colunaOrdenacao: "ra", propriedadeItem: "ra", checked: false},
-                {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: false},
+                {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: true},
                 {label: "Curso", colunaOrdenacao: "curso", propriedadeItem: "curso", checked: false},
                 {label: "Série", colunaOrdenacao: "serieSemestre", propriedadeItem: "serieSemestre", checked: false},
                 {label: "Turno", colunaOrdenacao: "turno", propriedadeItem: "turno", checked: false},

@@ -73,7 +73,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
     }
 
     function preencherListDeMotivo() {
-        $http.post("/atendimento/preventivo/motivo/listar", {}).success(onSuccess).error(onError);
+        $http.get("/atendimento/motivo/listarAtivos/ATENDIMENTOPREVENTIVO").success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;

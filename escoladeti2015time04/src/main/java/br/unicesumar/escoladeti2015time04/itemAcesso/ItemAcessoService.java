@@ -34,14 +34,17 @@ public class ItemAcessoService {
     public List<Map<String, Object>> findAll() {
         List<Map<String, Object>> itensAcesso = repositorio.query("select id, "
                 + "descricao, "
-                + "rota from itemAcesso", new MapSqlParameterSource(), new MapRowMapper());
+                + "rota, "
+                + "grupo, "
+                + "superior "
+                + "from itemAcesso", new MapSqlParameterSource(), new MapRowMapper());
 
         return itensAcesso;
     }
 
     public List<Map<String, Object>> findAll(Collection<Long> ids) {
         if (ids.isEmpty()) {
-            throw new IllegalArgumentException("Devem ser passados ids para o find");
+            throw new IllegalArgumentException("Devem ser passado ao menos um id para o find");
         }
 
         String in = "(";
@@ -54,19 +57,25 @@ public class ItemAcessoService {
 
         List<Map<String, Object>> itensAcesso = repositorio.query("select id, "
                 + "descricao, "
-                + "rota from itemAcesso where id in" + in, new MapSqlParameterSource(), new MapRowMapper());
+                + "rota, "
+                + "grupo, "
+                + "superior "
+                + "from itemAcesso where id in" + in, new MapSqlParameterSource(), new MapRowMapper());
 
         return itensAcesso;
     }
 
-    public List<Map<String, Object>> findById(Long id) {
+    public Map<String, Object> findById(Long id) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
 
-        List<Map<String, Object>> itensAcesso = repositorio.query("select ia.id, "
+        Map<String, Object> itensAcesso = repositorio.queryForObject(""
+                + "select ia.id, "
                 + "ia.descricao, "
                 + "ia.rota, "
-                + "ia.superior from itemAcesso ia where ia.id = :id", params, new MapRowMapper());
+                + "ia.grupo, "
+                + "ia.superior "
+                + "from itemAcesso ia where ia.id = :id", params, new MapRowMapper());
 
         return itensAcesso;
     }
@@ -78,7 +87,9 @@ public class ItemAcessoService {
         List<Map<String, Object>> itensAcesso = repositorio.query("select ia.id, "
                 + "ia.descricao, "
                 + "ia.rota, "
-                + "ia.superior from itemAcesso ia where ia.superior = :idSuperior", params, new MapRowMapper());
+                + "ia.grupo, "
+                + "ia.superior "
+                + "from itemAcesso ia where ia.superior = :idSuperior", params, new MapRowMapper());
 
         return itensAcesso;
     }
@@ -94,6 +105,15 @@ public class ItemAcessoService {
 
         return conjunto;
     }
+    
+    public Set<ItemAcesso> findAllSet() {
+        Set<ItemAcesso> conjunto = new HashSet<>();
+
+        conjunto.addAll(itemAcessoRepository.findAll());
+
+        return conjunto;
+    }
+
 
     public List<Map<String, Object>> findAll(List<Map<String, Object>> mapIds) {
         List<Long> ids = new ArrayList<>();

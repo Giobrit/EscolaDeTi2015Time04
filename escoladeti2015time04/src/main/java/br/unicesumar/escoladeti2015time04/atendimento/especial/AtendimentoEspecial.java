@@ -1,7 +1,7 @@
 package br.unicesumar.escoladeti2015time04.atendimento.especial;
 
 import br.unicesumar.escoladeti2015time04.atendimento.Atendimento;
-import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.motivo.DeixarOCursoMotivo;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
@@ -36,7 +36,8 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
     @JoinColumn(name = "motivo", nullable = false)
     @ColunaListavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
     @ColunaLocalizavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
-    private DeixarOCursoMotivo motivo;
+    private AtendimentoMotivo motivo;
+    
 
     @ColunaListavel
     @ColunaLocalizavel
@@ -51,7 +52,7 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
     public AtendimentoEspecial() {
     }
 
-    public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, DeixarOCursoMotivo motivo, String encaminhadoPara, String solicitacao) {
+    public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, AtendimentoMotivo motivo, String encaminhadoPara, String solicitacao) {
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
         this.laudoMedico = laudoMedico;
@@ -60,7 +61,7 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
         this.solicitacao = solicitacao;
     }
 
-    public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, DeixarOCursoMotivo motivo, String encaminhadoPara, String solicitacao, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
+    public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, AtendimentoMotivo motivo, String encaminhadoPara, String solicitacao, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
         super(data, usuarioLogado, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
@@ -94,11 +95,11 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
         this.laudoMedico = laudoMedico;
     }
 
-    public DeixarOCursoMotivo getMotivo() {
+    public AtendimentoMotivo getMotivo() {
         return motivo;
     }
 
-    public void setMotivo(DeixarOCursoMotivo motivo) {
+    public void setMotivo(AtendimentoMotivo motivo) {
         this.motivo = motivo;
     }
 

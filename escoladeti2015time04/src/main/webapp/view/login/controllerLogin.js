@@ -1,30 +1,28 @@
-AppModule.controller("controllerLogin", controllerLogin);
-aaa = 1;
-function controllerLogin($scope, $http, $location) {
+AppModule.controller("controllerTelaLogin", controllerDoLogin);
+
+function controllerDoLogin($scope, $http, $location, $cookies, growl) {
 
     $scope.init = function () {
         limparTela();
     };
 
     $scope.logar = function () {
-        $http.post("/usuario/logar", $scope.login).success(onSuccess).error(onError);
-        
-        function onSuccess(data) {
-            if (data) {
-                alert("você logou");
-                window.location($location.host() + ":" + $location.port() + "/#/");
-                //$location.absUrl($location.host() + ":" + $location.port() + "/#/");
-            } else {
-                alert("Login ou sneha incorretos!");                
+        $http.post("/usuario/logar", $scope.login).success(onSuccess).error($scope.onError);
+
+        function onSuccess(usuario) {
+            if (usuario) {
+                $scope.usuarioLogado = usuario;
+                var now = new Date();
+                $cookies.put('login', usuario.id, {
+                    expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
+                });
+//                window.location($location.host() + ":" + $location.port() + "/#/");
+                location.reload();
             }
         }
-    }
+    };
 
     function limparTela() {
         $scope.login = {};
-    }
-
-    function onError(data) {
-        alert(JSON.stringify(data));
     }
 }
