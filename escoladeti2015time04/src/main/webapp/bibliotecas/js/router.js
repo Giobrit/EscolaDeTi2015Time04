@@ -9,6 +9,9 @@
 //        controller: 'controllerListAtendimentoEspecial'
 //=======
 (function () {
+    var idUsuario;
+    var listaRotas;
+
     AppModule.config(function ($routeProvider, $locationProvider) {
 
         //Rotas Avulsas
@@ -16,8 +19,12 @@
             resolve: {
                 sair: sairDoSistema
             }
-        })
+        }).otherwise({
+            redirectTo: '/404'
+        });
 
+        //Rotas 404
+        adicionarRota($routeProvider, '/404', 'view/notFound/notFound.html');
         //Rotas Login
         adicionarRota($routeProvider, '/Login', 'view/login/login.html', 'controllerTelaLogin');
         adicionarRota($routeProvider, '/', 'view/Home.html');
@@ -28,10 +35,10 @@
         adicionarRota($routeProvider, '/Usuario/form/alterarSenha/:id', 'view/usuario/alterarSenhaUsuario.html', 'controllerFormUsuario');
         //Rotas PerfilAcesso
         adicionarRota($routeProvider, '/PerfilAcesso/form', 'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
-        adicionarRota($routeProvider, '/PerfilAcesso/form/:id',  'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
+        adicionarRota($routeProvider, '/PerfilAcesso/form/:id', 'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
         adicionarRota($routeProvider, '/PerfilAcesso/list', 'view/perfilAcesso/listPerfilAcesso.html', 'controllerListPerfilAcesso');
         //Rotas PerfilUsuario
-        adicionarRota($routeProvider, '/PerfilUsuario/form', 'view/perfilAcesso/formPerfilUsuario.html', 'controllerFormPerfilUsuario');
+        adicionarRota($routeProvider, '/PerfilUsuario/form/:id', 'view/perfilAcesso/formPerfilUsuario.html', 'controllerFormPerfilUsuario');
         //Rotas Atendimento Deixar O Curso
         adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
         adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form/:id', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
@@ -54,26 +61,6 @@
         adicionarRota($routeProvider, '/AtendimentoEspecial/list', 'view/atendimentoEspecial/ListAtendimentoEspecial.html', 'controllerListAtendimentoEspecial');
         
 
-//       }).when('/AtendimentoDeixarOCurso/Motivo/form', {
-//            templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
-//            controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
-//        }).when('/AtendimentoDeixarOCurso/Motivo/list', {
-//            templateUrl: 'view/atendimentoDeixarOCurso/motivo/listagemMotivo.html',
-//            controller: 'controllerListMotivoAtendimentoDeixarOCurso'
-//        }).when('/AtendimentoDeixarOCurso/Motivo/form/:id', {
-//            templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
-//            controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
-//        }).when('/AtendimentoPreventivo/Motivo/form', {
-//            templateUrl: 'view/atendimentoPreventivo/motivo/cadastroMotivo.html',
-//            controller: 'controllerFormMotivoAtendimentoPreventivo'
-//        }).when('/AtendimentoPreventivo/Motivo/form/:id', {
-//            templateUrl: 'view/atendimentoPreventivo/motivo/cadastroMotivo.html',
-//            controller: 'controllerFormMotivoAtendimentoPreventivo'
-//        }).when('/AtendimentoPreventivo/Motivo/list', {
-//            templateUrl: 'view/atendimentoPreventivo/motivo/listagemMotivo.html',
-//            controller: 'controllerListMotivoAtendimentoPreventivo'
-//        });
-
         //verificar se é possível separar as rotas em módulos
 
         $locationProvider.html5Mode(false);
@@ -90,13 +77,23 @@
         });
     }
 
-    function validacaoLogin($q, $cookies, $location, growl) {
+    function validacaoLogin($q, $cookies, $http, $location, $timeout, growl) {
         var deferred = $q.defer();
 
 
         var cookie = $cookies.get('login');
 
 //            console.log(cookie);
+        if (!idUsuario) {
+            idUsuario = cookie;
+            carregaPermissao($http);
+        } else if (cookie !== idUsuario) {
+//            alert("irfuhre");
+            $cookies.remove('login');
+            location.reload();
+        }
+
+        deferred.resolve();
         if (!cookie) {
             deferred.resolve();
             $location.path("/Login");
@@ -111,9 +108,13 @@
             $cookies.put('login', cookie, {
                 expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
             });
-            if (!validarPermissoes(deferred)) {
+
+
+//            console.log(contemRota($location.path()));
+//
+            if (!contemRota($location.path(), $timeout)) {
                 growl.warning("Acesso Negado");
-                $location.path("/");
+                $location.path("/404");
             }
         }
 
@@ -122,13 +123,50 @@
     }
 
     function sairDoSistema($cookies) {
-        var cookie = $cookies.remove('login');//('login');
+        $cookies.remove('login');//('login');
         location.reload();
     }
 
-    function validarPermissoes(deferred) {
-        deferred.resolve();
 
-        return true;
+
+    function carregaPermissao(http) {
+        if (!listaRotas) {
+            return http.get("usuario/permissoes/listaRotas/" + idUsuario).then(onSuccess);
+        }
+
+        function onSuccess(data) {
+            listaRotas = data.data;
+        }
     }
+
+    function contemRota(item, timeout) {
+//        console.log(item);
+        item = item.replace(/0/gi,'');
+        item = item.replace(/1/gi,'');
+        item = item.replace(/2/gi,'');
+        item = item.replace(/3/gi,'');
+        item = item.replace(/4/gi,'');
+        item = item.replace(/5/gi,'');
+        item = item.replace(/6/gi,'');
+        item = item.replace(/7/gi,'');
+        item = item.replace(/8/gi,'');
+        item = item.replace(/9/gi,'');
+//        console.log(item);
+        if (!listaRotas) {
+            return timeout(validar, 500);
+        } else {
+            return validar();
+        }
+
+        function validar() {
+            if (!listaRotas) {
+                return false;
+            } else if (buscarEmArray(listaRotas, item, 'rota', ':id','') !== -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
 }());

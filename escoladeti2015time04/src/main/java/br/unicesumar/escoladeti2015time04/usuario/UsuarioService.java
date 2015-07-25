@@ -4,9 +4,7 @@ import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcessoService;
 import br.unicesumar.escoladeti2015time04.perfilacesso.PerfilAcessoService;
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
 import br.unicesumar.escoladeti2015time04.utils.excecoes.LoginFalhou;
-import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.utils.service.Service;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import javax.transaction.Transactional;
@@ -64,6 +62,58 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
         }
     }
 
+    public List<Map<String, Object>> localizarArvorePermissoes(Long id) {
+        String query = ""
+                + "select "
+                + "ia.*  "
+                + "from itemacesso ia "
+                + "inner join usuario u on u.id = :idUsuario "
+                + "inner join usuario_perfildeacesso upa on upa.idusuario = u.id "
+                + "inner join perfilacesso pa on pa.id = upa.idperfilacesso "
+                + "inner join perfilacesso_itemacesso paia on paia.idperfilacesso = pa.id and paia.iditemacesso = ia.id ";
+
+        String queryGrupo = query + "where ia.grupo is true";
+        String queryFolha = query + "where ia.grupo is false and ia.superior = :idSuperior";
+
+        MapSqlParameterSource paransGrupos = new MapSqlParameterSource();
+        paransGrupos.addValue("idUsuario", id);
+
+        List<Map<String, Object>> permissoes = jdbcTemplate.query(queryGrupo, paransGrupos, new MapRowMapper());
+
+        for (Map<String, Object> permissao : permissoes) {
+            MapSqlParameterSource paransFolhas = new MapSqlParameterSource();
+            paransFolhas.addValue("idUsuario", id);
+            paransFolhas.addValue("idSuperior", permissao.get("id"));
+
+            List<Map<String, Object>> folhas = jdbcTemplate.query(queryFolha, paransFolhas, new MapRowMapper());
+
+            permissao.put("inferiores", folhas);
+        }
+
+        return permissoes;
+    }
+
+    List<Map<String, Object>> localizarListaPermissoes(Long id) {
+        String query = ""
+                + "select "
+                + "ia.*  "
+                + "from itemacesso ia "
+                + "inner join usuario u on u.id = :idUsuario "
+                + "inner join usuario_perfildeacesso upa on upa.idusuario = u.id "
+                + "inner join perfilacesso pa on pa.id = upa.idperfilacesso "
+                + "inner join perfilacesso_itemacesso paia on paia.idperfilacesso = pa.id and paia.iditemacesso = ia.id ";
+
+        String queryRotas = query + "where ia.rota is not null";
+
+        MapSqlParameterSource paransGrupos = new MapSqlParameterSource();
+        paransGrupos.addValue("idUsuario", id);
+
+        List<Map<String, Object>> permissoes = jdbcTemplate.query(queryRotas, paransGrupos, new MapRowMapper());
+
+        
+        return permissoes;
+    }
+
     public void alterarSenha(UsuarioCommandEditarSenha usuarioAlterarSenha) {
         Usuario usuarioEditandoSenha = super.repository.findOne(usuarioAlterarSenha.getId());
         usuarioEditandoSenha.setSenha(usuarioAlterarSenha.getSenha());
@@ -81,7 +131,7 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
                 + "where upa.idusuario = :idUsuario";
 
         final List<Map<String, Object>> perfisDeAcesso = jdbcTemplate.query(sqlPerfilAcesso, parans, new MapRowMapper());
-        
+
         for (Map<String, Object> perfilAcesso : perfisDeAcesso) {
             List<Map<String, Object>> itemAcesso = perfilAcessoService.localizarItensAcesso((Long) perfilAcesso.get("id"));
 
@@ -109,4 +159,5 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
 
         return itensAvulsos;
     }
+
 }

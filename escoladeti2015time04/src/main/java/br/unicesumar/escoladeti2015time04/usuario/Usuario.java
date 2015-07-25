@@ -9,6 +9,7 @@ import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -21,6 +22,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Usuario implements Serializable {
@@ -52,6 +55,7 @@ public class Usuario implements Serializable {
     @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
     private Status status;
 
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany
     @JoinTable(
             name = "usuario_perfildeacesso",
@@ -61,7 +65,7 @@ public class Usuario implements Serializable {
                 @JoinColumn(name = "idperfilacesso")}
     )
     private Set<PerfilAcesso> perfisDeAcesso;
-    
+
     @OneToMany(mappedBy = "usuario")
     private Set<ItemAvulso> itensAvulsos;
 
@@ -84,7 +88,6 @@ public class Usuario implements Serializable {
         this.itensAvulsos = itensAvulsos;
     }
 
-    
     public Usuario(String nome, String login, Senha senha, Email email, Status status, Set<PerfilAcesso> perfisDeAcesso) {
         this.nome = nome;
         this.login = login;
