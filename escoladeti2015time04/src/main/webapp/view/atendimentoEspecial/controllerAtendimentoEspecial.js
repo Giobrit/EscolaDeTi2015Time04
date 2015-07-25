@@ -4,10 +4,11 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     $scope.example13model = [];
     
     $scope.init = function () {
-        $scope.preencherListDeMotivo();
+        
         $scope.limparTela();
 
         idEditando = $routeParams.id;
+        $scope.preencherListDeMotivo();
 
     };
 
@@ -77,7 +78,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     }
 
     $scope.preencherListDeMotivo = function () {
-        $http.get("/atendimento/deixarOCurso/motivo/listarAtivos").success(onSuccess).error(onError);
+        $http.get("atendimento/motivo/listarAtivos/ATENDIMENTOESPECIAL").success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;

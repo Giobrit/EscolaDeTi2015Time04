@@ -49,6 +49,9 @@
         adicionarRota($routeProvider, '/AtendimentoMotivo/form/:id', 'view/atendimentoMotivo/cadastroMotivo.html', 'controllerFormMotivoAtendimento');
         adicionarRota($routeProvider, '/AtendimentoMotivo/list', 'view/atendimentoMotivo/listagemMotivo.html', 'controllerListMotivoAtendimento');
         //Rotas Atendimento Especial
+        adicionarRota($routeProvider, '/AtendimentoEspecial/form', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
+        adicionarRota($routeProvider, '/AtendimentoEspecial/form/:id', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
+        adicionarRota($routeProvider, '/AtendimentoEspecial/list', 'view/atendimentoEspecial/ListAtendimentoEspecial.html', 'controllerListAtendimentoEspecial');
         
 
 //       }).when('/AtendimentoDeixarOCurso/Motivo/form', {
