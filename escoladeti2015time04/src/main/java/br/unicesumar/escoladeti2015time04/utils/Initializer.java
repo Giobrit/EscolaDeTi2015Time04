@@ -50,38 +50,45 @@ public class Initializer {
             iaMenu.setSuperior(iaMenu);
 
             itemAcessoService.add(iaMenu);
-            final ItemAcesso iaUsuario = new ItemAcesso("Usuário", iaMenu, true);
+
             //Rotas Usuario
+            final ItemAcesso iaUsuario = new ItemAcesso("Usuário", iaMenu, true);
             itemAcessoService.add(iaUsuario);
             itemAcessoService.add(new ItemAcesso("Cadastrar Usuário", "/Usuario/form", iaUsuario));
-            itemAcessoService.add(new ItemAcesso("Editar Usuário", "/Usuario/form/:id", iaUsuario));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Usuário", "/Usuario/form/:id", iaUsuario));
             itemAcessoService.add(new ItemAcesso("Listar Usuário", "/Usuario/list", iaUsuario));
-            itemAcessoService.add(new ItemAcesso("Alterar Senha Outros Usuários", "/Usuario/form/alterarSenha/:id", iaUsuario));
-
-            itemAcessoService.add(new ItemAcesso("Perfil Usuario", iaMenu, true));
-
-//        //Rotas Login
-//        adicionarRota($routeProvider, '/Login', 'view/login/login.html', 'controllerTelaLogin');
-//        adicionarRota($routeProvider, '/', 'view/Home.html');
-//        //Rotas PerfilAcesso
-//        adicionarRota($routeProvider, '/PerfilAcesso/form', 'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
-//        adicionarRota($routeProvider, '/PerfilAcesso/list', 'view/perfilAcesso/listPerfilAcesso.html', 'controllerListPerfilAcesso');
-//        adicionarRota($routeProvider, '/PerfilAcesso/edit/:id', 'view/PerfilAcesso.html', 'PerfilAcessoFormController');
-//        //Rotas PerfilUsuario
-//        adicionarRota($routeProvider, '/PerfilUsuario/form', 'view/perfilAcesso/formPerfilUsuario.html', 'controllerFormPerfilUsuario');
-//        //Rotas Atendimento Deixar O Curso
-//        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
-//        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form/:id', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
-//        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/list', 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html', 'controllerListAtendimentoDeixarOCurso');
-//        //Rotas Atendimento Deixar O Curso Objetivo
-//        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/Objetivo/form', 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html', 'controllerFormObjetivoDeixarOCurso');
-//        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/Objetivo/form/:id', 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html', 'controllerFormObjetivoDeixarOCurso');
-//        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/Objetivo/list', 'view/atendimentoDeixarOCurso/objetivo/listagemObjetivo.html', 'controllerListObjetivoDeixarOCurso');
-//        //Rotas Atendimento Preventivo
-//        adicionarRota($routeProvider, '/AtendimentoPreventivo/form', 'view/atendimentoPreventivo/cadastroAtendimentoPreventivo.html', 'controllerFormAtendimentoPreventivo');
-//        adicionarRota($routeProvider, '/AtendimentoPreventivo/form/:id', 'view/atendimentoPreventivo/cadastroAtendimentoPreventivo.html', 'controllerFormAtendimentoPreventivo');
-//        adicionarRota($routeProvider, '/AtendimentoPreventivo/list', 'view/atendimentoPreventivo/listagemAtendimentoPreventivo.html', 'controllerListAtendimentoPreventivo');
-//        //Rotas Atendimento Motivo
+            itemAcessoService.add(new ItemAcesso(false, "Alterar Senha Outros Usuários", "/Usuario/form/alterarSenha/:id", iaUsuario));
+            //Rotas PerfilUsuario
+            itemAcessoService.add(new ItemAcesso(false, "Alterar Perfil Usuario", "/PerfilUsuario/form/:id", iaUsuario));
+            //Rotas PerfilAcesso
+            final ItemAcesso iaPerfilAcesso = new ItemAcesso("Perfil de Acesso", iaMenu, true);
+            itemAcessoService.add(iaPerfilAcesso);
+            itemAcessoService.add(new ItemAcesso("Cadastrar Perfil", "/PerfilAcesso/form", iaPerfilAcesso));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Perfil", "/PerfilAcesso/form:id", iaPerfilAcesso));
+            itemAcessoService.add(new ItemAcesso("Listar Perfil", "/PerfilAcesso/list", iaPerfilAcesso));
+            //Rotas Atendimento Deixar O Curso
+            final ItemAcesso iaAtendimentoDeixarOCurso = new ItemAcesso("Atendimento", iaMenu, true);
+            itemAcessoService.add(iaAtendimentoDeixarOCurso);
+            itemAcessoService.add(new ItemAcesso("Cadastrar Atendimento", "/AtendimentoDeixarOCurso/form", iaAtendimentoDeixarOCurso));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Atendimento", "/AtendimentoDeixarOCurso/form:id", iaAtendimentoDeixarOCurso));
+            itemAcessoService.add(new ItemAcesso("Listar Atendimento", "/AtendimentoDeixarOCurso/list", iaAtendimentoDeixarOCurso));
+            //Rotas Atendimento Deixar O Curso Objetivo
+            itemAcessoService.add(new ItemAcesso(false, "Cadastrar Objetivo", "/AtendimentoDeixarOCurso/Objetivoform", iaAtendimentoDeixarOCurso));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/form:id", iaAtendimentoDeixarOCurso));
+            itemAcessoService.add(new ItemAcesso("Listar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/list", iaAtendimentoDeixarOCurso));
+            //Rotas Atendimento Preventivo
+            final ItemAcesso iaAtendimentoPreventivo = new ItemAcesso("Atendimento Preventivo", iaMenu, true);
+            itemAcessoService.add(iaAtendimentoPreventivo);
+            itemAcessoService.add(new ItemAcesso("Cadastrar Preventivo", "/AtendimentoPreventivo/form", iaAtendimentoPreventivo));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Preventivo", "/AtendimentoPreventivo/form:id", iaAtendimentoPreventivo));
+            itemAcessoService.add(new ItemAcesso("Listar Preventivo", "/AtendimentoPreventivo/list", iaAtendimentoPreventivo));
+            //Rotas Sistema
+            final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
+            itemAcessoService.add(iaSistema);
+            //Rotas Atendimento Motivo
+            itemAcessoService.add(new ItemAcesso(false, "Cadastrar Motivo", "/AtendimentoMotivo/form", iaSistema));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Motivo", "/AtendimentoMotivo/form:id", iaSistema));
+            itemAcessoService.add(new ItemAcesso("Listar Motivo", "/AtendimentoMotivo/list", iaSistema));
 //        adicionarRota($routeProvider, '/AtendimentoMotivo/form', 'view/atendimentoMotivo/cadastroMotivo.html', 'controllerFormMotivoAtendimento');
 //        adicionarRota($routeProvider, '/AtendimentoMotivo/form/:id', 'view/atendimentoMotivo/cadastroMotivo.html', 'controllerFormMotivoAtendimento');
 //        adicionarRota($routeProvider, '/AtendimentoMotivo/list', 'view/atendimentoMotivo/listagemMotivo.html', 'controllerListMotivoAtendimento');
@@ -98,7 +105,7 @@ public class Initializer {
         final Set<PerfilAcesso> perfisDeAcesso = new HashSet<>(perfilAcessoService.listar());
         final Set<ItemAvulso> itensAvulsos = new HashSet<>();
         final Usuario usuario = new Usuario("Administrador", "admin", senha, email, perfisDeAcesso, itensAvulsos);
-        itensAvulsos.add(new ItemAvulso(usuario,iaMenu, TipoItemAvulso.PERMISSAO));
+        itensAvulsos.add(new ItemAvulso(usuario, iaMenu, TipoItemAvulso.PERMISSAO));
 //                public ItemAvulso(Usuario usuario, ItemAcesso itemAcesso, TipoItemAvulso tipoItemAvulso) {
 
         usuarioService.criar(usuario);

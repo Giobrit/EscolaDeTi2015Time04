@@ -15,7 +15,7 @@
         <link href="bibliotecas/css/style.css" rel="stylesheet">
         <link href="bibliotecas/css/angular-datepicker.css" rel="stylesheet"/>
         <link href="bibliotecas/acute.select/acute.select.css" rel="stylesheet" type="text/css"/>
-        <link href="./view/atendimentoDeixarOCurso/atendimentoDeixarOCurso.css" rel="stylesheet">
+        <!--<link href="./view/atendimentoDeixarOCurso/atendimentoDeixarOCurso.css" rel="stylesheet">-->
         <link href="./view/perfilAcesso/formPerfilUsuario.css" rel="stylesheet">
         <link href="./css/atendimento.css" rel="stylesheet">
 
@@ -54,7 +54,7 @@
     <body ng-controller="controllerIndex" ng-init="initSistema()">
         <!--<div>-->
     <!--<ng-include src="usuarioLogado ? 'view/menu/header.html' :  null" ></ng-include>-->
-    <ng-include ng-if="usuarioLogado" src="'view/menu/header.html'" ></ng-include>
+    <ng-include ng-if="exibeMenu" src="'view/menu/header.html'" ></ng-include>
     <!--<ng-include src="'view/menu/header.html'" ></ng-include>-->
     <!--</div>-->
     <!--Start Container-->
@@ -127,7 +127,7 @@
             
             
             <!--<ng-include src="usuarioLogado ? 'view/menu/menuLateral.html' :  null" ></ng-include>-->
-            <ng-include ng-if="usuarioLogado" src="'view/menu/menuLateral.html'" ></ng-include>
+            <ng-include ng-if="exibeMenu" src="'view/menu/menuLateral.html'" ></ng-include>
             
             <div class="container col-xs-10 col-sm-10 col-md-10 pull-right">
                 <div growl></div>

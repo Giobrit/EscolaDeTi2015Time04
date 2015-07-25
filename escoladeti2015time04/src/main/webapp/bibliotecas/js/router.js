@@ -6,8 +6,12 @@
             resolve: {
                 sair: sairDoSistema
             }
-        })
+        }).otherwise({
+            redirectTo: '/404'
+        });
 
+        //Rotas 404
+        adicionarRota($routeProvider, '/404', 'view/notFound/notFound.html');
         //Rotas Login
         adicionarRota($routeProvider, '/Login', 'view/login/login.html', 'controllerTelaLogin');
         adicionarRota($routeProvider, '/', 'view/Home.html');
@@ -18,10 +22,10 @@
         adicionarRota($routeProvider, '/Usuario/form/alterarSenha/:id', 'view/usuario/alterarSenhaUsuario.html', 'controllerFormUsuario');
         //Rotas PerfilAcesso
         adicionarRota($routeProvider, '/PerfilAcesso/form', 'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
-        adicionarRota($routeProvider, '/PerfilAcesso/form/:id',  'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
+        adicionarRota($routeProvider, '/PerfilAcesso/form/:id', 'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
         adicionarRota($routeProvider, '/PerfilAcesso/list', 'view/perfilAcesso/listPerfilAcesso.html', 'controllerListPerfilAcesso');
         //Rotas PerfilUsuario
-        adicionarRota($routeProvider, '/PerfilUsuario/form', 'view/perfilAcesso/formPerfilUsuario.html', 'controllerFormPerfilUsuario');
+        adicionarRota($routeProvider, '/PerfilUsuario/form/:id', 'view/perfilAcesso/formPerfilUsuario.html', 'controllerFormPerfilUsuario');
         //Rotas Atendimento Deixar O Curso
         adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
         adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form/:id', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');

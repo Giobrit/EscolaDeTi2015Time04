@@ -1,9 +1,10 @@
 AppModule.controller("controllerIndex", controllerIndex);
 var teste;
 function controllerIndex($scope, $http, $cookies, $location, growl) {
+    $scope.exibeMenu = false;
     $scope.usuarioLogado = {};
-    $scope.usuarioLogado;
-    
+    $scope.permissoesUsuarioLogado = [];
+
     $scope.icones = [];
 
     $scope.initSistema = function () {
@@ -16,14 +17,20 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
         $scope.icones["Atendimento Especial"] = "fa-comment-o";
         $scope.icones["Sistema"] = "fa-cogs";
 
-        var cookie = $cookies.get('login');
+        var idUsuario = $cookies.get('login');
 
-        if (cookie) {
-            $http.get("usuario/" + cookie).success(onSuccess).error(onError);
+        if (idUsuario) {
+            $scope.exibeMenu = true;
+            localizarUsuarioLogado(idUsuario);
         } else {
             $location.path("/Login")
             $scope.usuarioLogado = undefined;
         }
+
+    };
+
+    function localizarUsuarioLogado(idUsuario) {
+        $http.get("usuario/" + idUsuario).success(onSuccess).error(onErrorAutenticacao);
 
         function onSuccess(usuario) {
             $scope.usuarioLogado = usuario;
@@ -32,15 +39,26 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
                 expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
             });
             teste = usuario;
+            recuperarPermissoesUsuarioLogado(usuario);
         }
 
-        function onError(oi) {
-            $scope.usuarioLogado = undefined;
-            console.log(oi);
-            $cookies.remove('login');
-        }
-    };
+    }
 
+    function recuperarPermissoesUsuarioLogado(usuario) {
+        $http.get("usuario/permissoes/" + usuario.id).success(onSuccess).error(onErrorAutenticacao);
+
+        function onSuccess(permissoes) {
+            $scope.permissoesUsuarioLogado = permissoes;
+        }
+    }
+
+
+    function onErrorAutenticacao(data) {
+        $scope.usuarioLogado = undefined;
+        $scope.permissoesUsuarioLogado = undefined;
+        $cookies.remove('login');
+        location.reaload();
+    }
 
     $scope.onError = function (data) {
         errorPadrao(data, growl);
