@@ -82,6 +82,12 @@ public class Initializer {
             itemAcessoService.add(new ItemAcesso("Cadastrar Preventivo", "/AtendimentoPreventivo/form", iaAtendimentoPreventivo));
             itemAcessoService.add(new ItemAcesso(false, "Editar Preventivo", "/AtendimentoPreventivo/form:id", iaAtendimentoPreventivo));
             itemAcessoService.add(new ItemAcesso("Listar Preventivo", "/AtendimentoPreventivo/list", iaAtendimentoPreventivo));
+            //Rotas Atendimento Especial
+            final ItemAcesso iaAtendimentoEspecial = new ItemAcesso("Atendimento Especial", iaMenu, true);
+            itemAcessoService.add(iaAtendimentoEspecial);
+            itemAcessoService.add(new ItemAcesso("Cadastrar Especial", "/AtendimentoEspecial/form", iaAtendimentoEspecial));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Especial", "/AtendimentoEspecial/form:id", iaAtendimentoEspecial));
+            itemAcessoService.add(new ItemAcesso("Listar Especial", "/AtendimentoEspecial/list", iaAtendimentoEspecial));
             //Rotas Sistema
             final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
             itemAcessoService.add(iaSistema);
@@ -89,9 +95,7 @@ public class Initializer {
             itemAcessoService.add(new ItemAcesso(false, "Cadastrar Motivo", "/AtendimentoMotivo/form", iaSistema));
             itemAcessoService.add(new ItemAcesso(false, "Editar Motivo", "/AtendimentoMotivo/form:id", iaSistema));
             itemAcessoService.add(new ItemAcesso("Listar Motivo", "/AtendimentoMotivo/list", iaSistema));
-//        adicionarRota($routeProvider, '/AtendimentoMotivo/form', 'view/atendimentoMotivo/cadastroMotivo.html', 'controllerFormMotivoAtendimento');
-//        adicionarRota($routeProvider, '/AtendimentoMotivo/form/:id', 'view/atendimentoMotivo/cadastroMotivo.html', 'controllerFormMotivoAtendimento');
-//        adicionarRota($routeProvider, '/AtendimentoMotivo/list', 'view/atendimentoMotivo/listagemMotivo.html', 'controllerListMotivoAtendimento');
+
         }
     }
 

@@ -16,7 +16,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
     @Column(nullable = false)
     private Long idMotivo;
 
-    private String encaminhamento;
+    private String encaminhadoPara;
     
     private String solicitacao;
 
@@ -35,7 +35,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
             @JsonProperty("protocolo") Long protocolo,
             @JsonProperty("coordenadorDiretor") String coordenadorDiretor,
             @JsonProperty("laudoMedico") boolean laudoMedico,
-            @JsonProperty("encaminhamento") String encaminhamento,
+            @JsonProperty("encaminhadoPara") String encaminhadoPara,
             @JsonProperty("solicitacao") String solicitacao,            
             @JsonProperty("idMotivo") Long idMotivo) {
         super(data, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
@@ -43,7 +43,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
         this.coordenadorDiretor = coordenadorDiretor;
         this.laudoMedico = laudoMedico;
         this.idMotivo = idMotivo;
-        this.encaminhamento = encaminhamento;
+        this.encaminhadoPara = encaminhadoPara;
         this.solicitacao = solicitacao;        
     }
 
@@ -79,12 +79,12 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
         this.idMotivo = idMotivo;
     }
 
-    public String getEncaminhamento() {
-        return encaminhamento;
+    public String getEncaminhadoPara() {
+        return encaminhadoPara;
     }
 
-    public void setEncaminhamento(String encaminhamento) {
-        this.encaminhamento = encaminhamento;
+    public void setEncaminhadoPara(String encaminhadoPara) {
+        this.encaminhadoPara = encaminhadoPara;
     }
 
     public String getSolicitacao() {
