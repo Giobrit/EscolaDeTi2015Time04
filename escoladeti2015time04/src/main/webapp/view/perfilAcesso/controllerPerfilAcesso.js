@@ -7,7 +7,10 @@ function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, grow
     $scope.itensAcesso = [];
     $scope.itemAcessoSelecionado = {};
     
-    $scope.nextPath = $scope.oldPath ? $scope.oldPath: "/PerfilAcesso/list";
+//    console.log($scope.useOldPath);
+    $scope.nextPath = $scope.useOldPath  ? $scope.oldPath : "/PerfilAcesso/list";
+//    console.log($scope.useOldPath);
+    $scope.setUseOldPath(false);
     
     $scope.perfilDeAcesso = {
         nome: "",

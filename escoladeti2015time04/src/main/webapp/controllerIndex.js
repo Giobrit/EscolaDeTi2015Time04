@@ -10,12 +10,12 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
 
     $scope.pilhaTelas = [];
 
+    $scope.useOldPath = false;
     $scope.newPath = "/Login";
     $scope.oldPath = "/Login";
 
     $scope.initSistema = function () {
         //inicializa a porra toda!
-
         $scope.icones["Usuário"] = "fa-user";
         $scope.icones["Perfil de Acesso"] = "fa-pencil-square-o";
         $scope.icones["Atendimento"] = "fa-comment-o";
@@ -66,7 +66,7 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
         location.reload();
     }
 
-    $scope.$on('$locationChangeSuccess', function (event, newPath, oldPath) {
+    $scope.$on('$locationChangeSuccess', function () {
         $scope.oldPath = $scope.newPath;
         $scope.newPath = $location.path();
     });
@@ -77,5 +77,9 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
         }
         errorPadrao(data, growl);
     };
+    
+    $scope.setUseOldPath =  function (value) {
+        $scope.useOldPath = value;
+    }
 
 }

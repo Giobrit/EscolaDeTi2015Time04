@@ -65,6 +65,7 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
     };
 
     $scope.criarNovoPerfilAcesso = function () {
+        $scope.setUseOldPath(true);
         $location.path("/PerfilAcesso/form");
     };
 
