@@ -68,10 +68,14 @@
                         <label>
                             <h4>Série</h4>
                         </label>
+                        <!--<input ng-model="atendimentoEspecial.serieSemestre"></input>-->
                         <div class="form-group">
-                            <!--                            <select class="form-control" ng-model="perfilSelecionado" ng-options="perfil.nome for perfil in perfisDeAcesso" ng-change="adicionarPerfil()">
-                                                        </select>-->
-                            <select class="form-control" ng-selected="atendimentoEspecial.serieSemestre" name="serieSemestre" ng-options="serie for serie in series" ng-class="{ 'has-error'  : formAtendimentoEspecial.serieSemestre.$invalid && !formAtendimentoEspecial.serieSemestre.$pristine}" id="sel1"  required> 
+                            <select class="form-control" name="serieSemestre" id="sel1" ng-model="atendimentoEspecial.serieSemestre" required> 
+                                <option value="1">1ª</option>
+                                <option value="2">2ª</option>
+                                <option value="3">3ª</option>
+                                <option value="4">4ª</option>
+                                <option value="5">5ª</option>
                             </select>
                         </div>
                     </div>

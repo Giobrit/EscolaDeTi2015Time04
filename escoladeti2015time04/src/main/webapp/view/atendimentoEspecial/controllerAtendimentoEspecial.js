@@ -5,8 +5,6 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         ra: ""
     };
     $scope.example13model = [];
-    
-    $scope.series = [1,2,3,4,5];
 
     $scope.init = function () {
 
@@ -53,7 +51,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $scope.atendimentoEspecial.nomeAluno = data.nomealuno;
             $scope.atendimentoEspecial.curso = data.curso;
             $scope.atendimentoEspecial.centro = data.centro;
-            $scope.atendimentoEspecial.serieSemestre = data.seriesemestre;
+            $scope.atendimentoEspecial.serieSemestre = "" + data.seriesemestre;;
             $scope.atendimentoEspecial.turno = data.turno;
             $scope.atendimentoEspecial.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoEspecial.laudoMedico = data.laudomedico;
