@@ -34,7 +34,7 @@
                                                 <tbody>
                                                     <tr ng-repeat="perfil in perfisDeAcessoSelecionados">
                                                         <td>{{perfil.nome}}</td>
-                                                        <td><button type="button" type="button" class="tooltip, btn btn-danger" title="Excluir"><i class="fa fa-trash-o fa-1x"></i></button></td>
+                                                        <td><button ng-click="removerPerfil(perfil)" type="button" type="button" class="tooltip, btn btn-danger" title="Excluir"><i class="fa fa-times fa-1x"></i></button></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -79,7 +79,7 @@
                                                             <button type="button" class="btn btn-success" ng-click="alterarStatus(nomeItem)"><i class="fa fa-thumbs-up"></i></button>
                                                             <button type="button" class="btn btn-danger" ng-click="alterarStatus(nomeItem)"><i class="fa fa-thumbs-down"></i></button>
                                                         </td>
-                                                        <td><button type="button" class="tooltip, btn btn-danger" title="Excluir"><i class="fa fa-trash-o fa-1x"></i></button></td>
+                                                        <td><button type="button" class="tooltip, btn btn-danger" title="Excluir"><i class="fa fa-times fa-1x"></i></button></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
