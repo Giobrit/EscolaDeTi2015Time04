@@ -35,7 +35,7 @@ function controllerFormMotivoAtendimento($scope, $http, $routeParams, $location,
             $location.path("/AtendimentoMotivo/list");
         }
         function success() {
-            growl.success("<b>Motivo cadastrado com sucesso!</b>");
+            growl.success("<b>Motivo salvo com sucesso!</b>");
         }
     };
 
