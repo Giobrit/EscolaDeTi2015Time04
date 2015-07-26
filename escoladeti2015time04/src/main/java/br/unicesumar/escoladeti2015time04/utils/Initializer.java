@@ -64,36 +64,36 @@ public class Initializer {
             final ItemAcesso iaPerfilAcesso = new ItemAcesso("Perfil de Acesso", iaMenu, true);
             itemAcessoService.add(iaPerfilAcesso);
             itemAcessoService.add(new ItemAcesso("Cadastrar Perfil", "/PerfilAcesso/form", iaPerfilAcesso));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Perfil", "/PerfilAcesso/form:id", iaPerfilAcesso));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Perfil", "/PerfilAcesso/form/:id", iaPerfilAcesso));
             itemAcessoService.add(new ItemAcesso("Listar Perfil", "/PerfilAcesso/list", iaPerfilAcesso));
             //Rotas Atendimento Deixar O Curso
             final ItemAcesso iaAtendimentoDeixarOCurso = new ItemAcesso("Atendimento", iaMenu, true);
             itemAcessoService.add(iaAtendimentoDeixarOCurso);
             itemAcessoService.add(new ItemAcesso("Cadastrar Atendimento", "/AtendimentoDeixarOCurso/form", iaAtendimentoDeixarOCurso));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Atendimento", "/AtendimentoDeixarOCurso/form:id", iaAtendimentoDeixarOCurso));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Atendimento", "/AtendimentoDeixarOCurso/form/:id", iaAtendimentoDeixarOCurso));
             itemAcessoService.add(new ItemAcesso("Listar Atendimento", "/AtendimentoDeixarOCurso/list", iaAtendimentoDeixarOCurso));
             //Rotas Atendimento Deixar O Curso Objetivo
             itemAcessoService.add(new ItemAcesso(false, "Cadastrar Objetivo", "/AtendimentoDeixarOCurso/Objetivoform", iaAtendimentoDeixarOCurso));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/form:id", iaAtendimentoDeixarOCurso));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/form/:id", iaAtendimentoDeixarOCurso));
             itemAcessoService.add(new ItemAcesso("Listar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/list", iaAtendimentoDeixarOCurso));
             //Rotas Atendimento Preventivo
             final ItemAcesso iaAtendimentoPreventivo = new ItemAcesso("Atendimento Preventivo", iaMenu, true);
             itemAcessoService.add(iaAtendimentoPreventivo);
             itemAcessoService.add(new ItemAcesso("Cadastrar Preventivo", "/AtendimentoPreventivo/form", iaAtendimentoPreventivo));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Preventivo", "/AtendimentoPreventivo/form:id", iaAtendimentoPreventivo));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Preventivo", "/AtendimentoPreventivo/form/:id", iaAtendimentoPreventivo));
             itemAcessoService.add(new ItemAcesso("Listar Preventivo", "/AtendimentoPreventivo/list", iaAtendimentoPreventivo));
             //Rotas Atendimento Especial
             final ItemAcesso iaAtendimentoEspecial = new ItemAcesso("Atendimento Especial", iaMenu, true);
             itemAcessoService.add(iaAtendimentoEspecial);
             itemAcessoService.add(new ItemAcesso("Cadastrar Especial", "/AtendimentoEspecial/form", iaAtendimentoEspecial));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Especial", "/AtendimentoEspecial/form:id", iaAtendimentoEspecial));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Especial", "/AtendimentoEspecial/form/:id", iaAtendimentoEspecial));
             itemAcessoService.add(new ItemAcesso("Listar Especial", "/AtendimentoEspecial/list", iaAtendimentoEspecial));
             //Rotas Sistema
             final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
             itemAcessoService.add(iaSistema);
             //Rotas Atendimento Motivo
             itemAcessoService.add(new ItemAcesso(false, "Cadastrar Motivo", "/AtendimentoMotivo/form", iaSistema));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Motivo", "/AtendimentoMotivo/form:id", iaSistema));
+            itemAcessoService.add(new ItemAcesso(false, "Editar Motivo", "/AtendimentoMotivo/form/:id", iaSistema));
             itemAcessoService.add(new ItemAcesso("Listar Motivo", "/AtendimentoMotivo/list", iaSistema));
 
         }
