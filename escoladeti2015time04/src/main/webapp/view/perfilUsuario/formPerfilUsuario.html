@@ -16,7 +16,7 @@
                                     </div>                                                        
                                 </div> 
                                 <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
-                                    <a href="#/PerfilAcesso/form" type="button" class="tooltip, btn btn-primary" title="Lista dos Perfis de Acesso"><i class="fa fa-plus-square-o fa-2x"></i></a>
+                                    <a href="#/PerfilAcesso/form" type="button" class="tooltip, btn btn-primary" title="Novo Perfil de Acesso"><i class="fa fa-plus-square-o fa-2x"></i></a>
                                 </div> 
                             </div>                            
 
@@ -53,9 +53,10 @@
                                 <div class="col-md-12">
                                     <div class="col-md-offset-0">
                                         <div class="form-group">
-                                            <select class="form-control" id="itensAcesso" ng-model="meuItem" ng-options="item.nomeItem for item in itens"> 
-                                                <option>{{item.nomeItem}}</option>
+                                            <select class="form-control" id="itensAcesso" ng-model="itemSelecionado" ng-options="item.descricao for item in itensAcesso" ng-change="adicionarItemAvulso()"> 
+                                                <!--<option>{{item.nomeItem}}</option>-->
                                             </select>
+                                            
                                         </div>                       
                                     </div>                    
                                 </div>                

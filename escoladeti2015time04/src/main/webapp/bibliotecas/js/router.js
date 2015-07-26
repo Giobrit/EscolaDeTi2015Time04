@@ -1,13 +1,3 @@
-//    }).when('/AtendimentoEspecial/form', {
-//        templateUrl: 'view/atendimentoEspecial/formAtendimentoEspecial.html',
-//        controller: 'controllerFormAtendimentoEspecial'
-//    }).when('/AtendimentoEspecial/form/:id', {
-//        templateUrl: 'view/atendimentoEspecial/formAtendimentoEspecial.html',
-//        controller: 'controllerFormAtendimentoEspecial'
-//    }).when('/AtendimentoEspecial/list', {
-//        templateUrl: 'view/atendimentoEspecial/ListAtendimentoEspecial.html',
-//        controller: 'controllerListAtendimentoEspecial'
-//=======
 (function () {
     var idUsuario;
     var listaRotas;
@@ -39,7 +29,7 @@
         adicionarRota($routeProvider, '/PerfilAcesso/form/:id', 'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
         adicionarRota($routeProvider, '/PerfilAcesso/list', 'view/perfilAcesso/listPerfilAcesso.html', 'controllerListPerfilAcesso');
         //Rotas PerfilUsuario
-        adicionarRota($routeProvider, '/PerfilUsuario/form/:id', 'view/perfilAcesso/formPerfilUsuario.html', 'controllerFormPerfilUsuario');
+        adicionarRota($routeProvider, '/PerfilUsuario/form/:id', 'view/perfilUsuario/formPerfilUsuario.html', 'controllerFormPerfilUsuario');
         //Rotas Atendimento Deixar O Curso
         adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
         adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form/:id', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
