@@ -69,12 +69,9 @@
                             <h4>Série</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="serieSemestre" ng-class="{ 'has-error'  : formAtendimentoEspecial.serieSemestre.$invalid && !formAtendimentoEspecial.serieSemestre.$pristine}" id="sel1"  ng-model="atendimentoEspecial.serieSemestre" required> 
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <!--                            <select class="form-control" ng-model="perfilSelecionado" ng-options="perfil.nome for perfil in perfisDeAcesso" ng-change="adicionarPerfil()">
+                                                        </select>-->
+                            <select class="form-control" ng-selected="atendimentoEspecial.serieSemestre" name="serieSemestre" ng-options="serie for serie in series" ng-class="{ 'has-error'  : formAtendimentoEspecial.serieSemestre.$invalid && !formAtendimentoEspecial.serieSemestre.$pristine}" id="sel1"  required> 
                             </select>
                         </div>
                     </div>
@@ -101,24 +98,24 @@
                         <label>
                             <h4>Matriculado</h4>
                         </label>
-                    <div class="form-group">
+                        <div class="form-group">
                             <select class="form-control" name="matriculado" ng-class="{ 'has-error'  : formAtendimentoEspecial.matriculado.$invalid && !formAtendimentoEspecial.matriculado.$pristine}" id="sel1" ng-model="matriculadoSelecionado" ng-change="setMatriculado(matriculadoSelecionado)" required>
                                 <option>Sim</option>
                                 <option>Não</option>
                             </select>
-                    </div></div>
-                        <div class="col-md-2">
-                            <label>
-                                <h4>Laudo Médico</h4>
-                            </label>
+                        </div></div>
+                    <div class="col-md-2">
+                        <label>
+                            <h4>Laudo Médico</h4>
+                        </label>
                         <div class="form-group">
                             <select class="form-control" name="laudoMedico" ng-class="{ 'has-error'  : formAtendimentoEspecial.laudoMedico.$invalid && !formAtendimentoEspecial.laudoMedico.$pristine}" id="sel1" ng-model="laudoMedicoSelecionado" ng-change="setLaudoMedico(laudoMedicoSelecionado)" required>
                                 <option>Sim</option>
                                 <option>Não</option>
                             </select>
                         </div></div>
-                    </div>
-               
+                </div>
+
                 <div class="row form-group">
                     <div class="col-md-12">
                         <label>

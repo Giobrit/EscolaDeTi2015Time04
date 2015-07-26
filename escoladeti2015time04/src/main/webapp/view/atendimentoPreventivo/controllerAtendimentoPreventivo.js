@@ -141,7 +141,7 @@ AppModule.controller("controllerListAtendimentoPreventivo", controllerListAtendi
 function controllerListAtendimentoPreventivo($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
-    $scope.numeroItensPorPagina = 8;
+    $scope.numeroItensPorPagina = 5;
     var colunaOrdenacao = "data";
     $scope.labelOrdenacao = "Data";
     var ordenacaoCrescente = true;

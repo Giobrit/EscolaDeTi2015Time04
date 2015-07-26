@@ -133,14 +133,10 @@ function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, grow
 
 function controllerListPerfilAcesso($scope, $http, $location, $routeParams, growl) {
 
-    $scope.init = function () {
-        $scope.listar();
-    };
-
     $scope.paginaAtual = 1;
-    $scope.numeroItensPorPagina = 8;
-    var colunaOrdenacao = "nome";
-    $scope.labelOrdenacao = "Nome";
+    $scope.numeroItensPorPagina = 5;
+    $scope.colunaOrdenacao = "nome";
+    $scope.ordenacaoCrescente = true;
 
     $scope.init = function () {
         $scope.listar();
@@ -150,7 +146,7 @@ function controllerListPerfilAcesso($scope, $http, $location, $routeParams, grow
         var requisicaoListagem = new RequisicaoListagem();
         requisicaoListagem.numeroItens = $scope.numeroItensPorPagina;
         requisicaoListagem.paginaAtual = $scope.paginaAtual;
-        requisicaoListagem.colunaOrdenacao = colunaOrdenacao;
+        requisicaoListagem.colunaOrdenacao = $scope.colunaOrdenacao;
         requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
 
@@ -162,14 +158,13 @@ function controllerListPerfilAcesso($scope, $http, $location, $routeParams, grow
     };
 
     $scope.alterarOrdenacao = function (coluna) {
-        if (colunaOrdenacao === coluna.colunaOrdenacao) {
+        if ($scope.colunaOrdenacao === coluna) {
             $scope.ordenacaoCrescente = !$scope.ordenacaoCrescente;
         } else {
             $scope.ordenacaoCrescente = true;
         }
 
-        colunaOrdenacao = coluna.colunaOrdenacao;
-        $scope.labelOrdenacao = coluna.label;
+        $scope.colunaOrdenacao = coluna;
         $scope.listar();
     };
 
@@ -185,6 +180,10 @@ function controllerListPerfilAcesso($scope, $http, $location, $routeParams, grow
         }
 
     }
+    function onError(data) {
+        growl.error(JSON.stringify(data));
+    }
+
 
 }
 
@@ -218,14 +217,14 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
     };
 
     $scope.removerPerfil = function (perfil) {
-         var posicao = buscarEmArray($scope.perfisDeAcessoSelecionados, perfil.id, "id");
+        var posicao = buscarEmArray($scope.perfisDeAcessoSelecionados, perfil.id, "id");
         $scope.perfisDeAcesso.push(perfil);
-        
+
         $scope.perfisDeAcessoSelecionados.splice(posicao, 1);
         atualizarTipoItensAcesso();
-        
+
     };
-    
+
     function atualizarTipoItensAcesso() {
         // TODO: fazer sa bagaça
     }

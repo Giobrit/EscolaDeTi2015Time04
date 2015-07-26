@@ -1,10 +1,15 @@
 AppModule.controller("controllerFormAtendimentoEspecial", controllerFormAtendimentoEspecial);
 
 function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $location, growl, $timeout) {
+    $scope.atendimentoEspecial = {
+        ra: ""
+    };
     $scope.example13model = [];
     
+    $scope.series = [1,2,3,4,5];
+
     $scope.init = function () {
-        
+
         $scope.limparTela();
 
         idEditando = $routeParams.id;
@@ -21,9 +26,9 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         $scope.atendimentoEspecial.data = prepararDataParaSalvar($scope.dataEspecial, $scope.horaEspecial);
 
         if ($scope.editando) {
-            $http.put("/atendimento/especial", $scope.atendimentoEspecial).success(onSuccess).error(onError);
+            $http.put("/atendimento/especial", $scope.atendimentoEspecial).success(onSuccess).error($scope.onError);
         } else {
-            $http.post("/atendimento/especial", $scope.atendimentoEspecial).success(onSuccess).error(onError);
+            $http.post("/atendimento/especial", $scope.atendimentoEspecial).success(onSuccess).error($scope.onError);
         }
 
         function onSuccess() {
@@ -38,7 +43,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
 
 
     $scope.editar = function (id) {
-        $http.get("/atendimento/especial/" + id).success(onSuccess).error(onError);
+        $http.get("/atendimento/especial/" + id).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
 
@@ -78,7 +83,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     }
 
     $scope.preencherListDeMotivo = function () {
-        $http.get("atendimento/motivo/listarAtivos/ATENDIMENTOESPECIAL").success(onSuccess).error(onError);
+        $http.get("atendimento/motivo/listarAtivos/ATENDIMENTOESPECIAL").success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
@@ -95,7 +100,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             return;
         }
 
-        $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error();
+        $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             setAtributosAluno(data);
@@ -120,6 +125,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         $scope.atendimentoEspecial.curso = aluno.curso;
         $scope.atendimentoEspecial.centro = aluno.centro;
         $scope.atendimentoEspecial.serieSemestre = aluno.serie;
+//        console.log($scope.atendimentoEspecial.serieSemestre);
         $scope.atendimentoEspecial.turno = aluno.turno;
         $scope.atendimentoEspecial.bolsaFinanciamento = aluno.bolsa;
         $scope.atendimentoEspecial.matriculado = stringToBoolean(aluno.matriculado);
@@ -145,10 +151,6 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         }
     };
 
-    function onError(data) {
-        console.log(JSON.stringify(data));
-        growl.error(JSON.stringify(data));
-    }
 
 }
 
@@ -156,7 +158,7 @@ AppModule.controller("controllerListAtendimentoEspecial", controllerListAtendime
 function controllerListAtendimentoEspecial($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
-    $scope.numeroItensPorPagina = 8;
+    $scope.numeroItensPorPagina = 5;
     var colunaOrdenacao = "protocolo";
     $scope.labelOrdenacao = "Protocolo";
     var ordenacaoCrescente = true;
