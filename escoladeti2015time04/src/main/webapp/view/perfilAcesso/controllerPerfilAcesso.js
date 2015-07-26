@@ -191,7 +191,7 @@ function controllerListPerfilAcesso($scope, $http, $location, $routeParams, grow
 
 function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
 
-    $scope.perfisDeAcesso = {};
+    $scope.perfisDeAcesso = [];
     $scope.perfilSelecionado = {};
     $scope.perfisDeAcessoSelecionados = [];
 
@@ -210,11 +210,22 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
 
     $scope.adicionarPerfil = function () {
 //        $scope.perfisDeAcesso.replace && newValue
+        var posicao = buscarEmArray($scope.perfisDeAcesso, $scope.perfilSelecionado.id, "id");
         $scope.perfisDeAcessoSelecionados.push($scope.perfilSelecionado);
         atualizarTipoItensAcesso();
+        $scope.perfisDeAcesso.splice(posicao, 1);
+        $scope.perfilSelecionado = {};
+    };
+
+    $scope.removerPerfil = function (perfil) {
+         var posicao = buscarEmArray($scope.perfisDeAcessoSelecionados, perfil.id, "id");
+        $scope.perfisDeAcesso.push(perfil);
+        
+        $scope.perfisDeAcessoSelecionados.splice(posicao, 1);
+        atualizarTipoItensAcesso();
+        
     };
     
-
     function atualizarTipoItensAcesso() {
         // TODO: fazer sa bagaça
     }
