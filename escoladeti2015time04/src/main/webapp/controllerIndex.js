@@ -7,8 +7,10 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
     $scope.permissoesUsuarioLogado = [];
 
     $scope.icones = [];
-    
+
     $scope.pilhaTelas = [];
+    
+    $scope.oldPath = "/Login";
 
     $scope.initSistema = function () {
         //inicializa a porra toda!
@@ -62,6 +64,10 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
         $cookies.remove('login');
         location.reload();
     }
+
+    $scope.$on('$locationChangeStart', function (event, newPath, oldPath) {
+        $scope.oldPath = oldPath;
+    });
 
     $scope.onError = function (data) {
         if (!data) {
