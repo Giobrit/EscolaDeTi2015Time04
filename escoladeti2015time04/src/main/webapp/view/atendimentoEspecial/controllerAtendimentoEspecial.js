@@ -139,7 +139,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     ];
 
     $scope.example13settings = {
-        smartButtonMaxItems: 3,
+        smartButtonMaxItems: 5,
         smartButtonTextConverter: function (itemText, originalItem) {
             if (itemText === 'Jhon') {
                 return 'Jhonny!';

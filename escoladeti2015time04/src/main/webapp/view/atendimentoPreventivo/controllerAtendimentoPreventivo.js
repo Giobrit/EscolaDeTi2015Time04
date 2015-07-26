@@ -44,7 +44,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
             $scope.atendimentoPreventivo.nomeAluno = data.nomealuno;
             $scope.atendimentoPreventivo.curso = data.curso;
             $scope.atendimentoPreventivo.centro = data.centro;
-            $scope.atendimentoPreventivo.serieSemestre = data.seriesemestre;
+            $scope.atendimentoPreventivo.serieSemestre = "" + data.seriesemestre;
             $scope.atendimentoPreventivo.turno = data.turno;
             $scope.atendimentoPreventivo.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoPreventivo.numeroReprovacoes = data.numeroreprovacoes;
@@ -103,7 +103,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
             return;
         }
 
-        $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error();
+        $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             setAtributosAluno(data);

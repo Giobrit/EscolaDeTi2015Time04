@@ -45,7 +45,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             $scope.atendimentoDeixarOCurso.nomeAluno = data.nomealuno;
             $scope.atendimentoDeixarOCurso.curso = data.curso;
             $scope.atendimentoDeixarOCurso.centro = data.centro;
-            $scope.atendimentoDeixarOCurso.serieSemestre = data.seriesemestre;
+            $scope.atendimentoDeixarOCurso.serieSemestre = "" + data.seriesemestre;
             $scope.atendimentoDeixarOCurso.turno = data.turno;
             $scope.atendimentoDeixarOCurso.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoDeixarOCurso.numeroReprovacoes = data.numeroreprovacoes;
@@ -124,7 +124,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             return;
         }
 
-        $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error();
+        $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             setAtributosAluno(data);
