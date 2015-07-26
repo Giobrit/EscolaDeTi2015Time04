@@ -11,6 +11,7 @@
 (function () {
     var idUsuario;
     var listaRotas;
+    var logado = false;
 
     AppModule.config(function ($routeProvider, $locationProvider) {
 
@@ -59,7 +60,7 @@
         adicionarRota($routeProvider, '/AtendimentoEspecial/form', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
         adicionarRota($routeProvider, '/AtendimentoEspecial/form/:id', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
         adicionarRota($routeProvider, '/AtendimentoEspecial/list', 'view/atendimentoEspecial/ListAtendimentoEspecial.html', 'controllerListAtendimentoEspecial');
-        
+
 
         //verificar se é possível separar as rotas em módulos
 
@@ -80,36 +81,38 @@
     function validacaoLogin($q, $cookies, $http, $location, $timeout, growl) {
         var deferred = $q.defer();
 
-        var cookie = $cookies.get('login');
+        idUsuario = $cookies.get('login');
 
-//            console.log(cookie);
         if (!idUsuario) {
-            idUsuario = cookie;
+            if (!logado) {
+                deferred.resolve();
+                $location.path("/Login");
+            } else {
+                location.reload();
+            }
+        } else {
+            deferred.resolve();
+            logado = true;
             carregaPermissao($http);
-        } else if (!cookie || cookie !== idUsuario) {
-//            alert("irfuhre");
-            $cookies.remove('login');
-            location.reload();
-        }
-        
-        deferred.resolve();
-
-        if (cookie) {
             var path = $location.path();
             if (path === "/Login") {
                 $location.path("/");
                 return deferred.promise;
             }
             var now = new Date();
-            $cookies.put('login', cookie, {
+            $cookies.put('login', idUsuario, {
                 expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
             });
 
+
+//            console.log(contemRota($location.path()));
+//
             if (!contemRota($location.path(), $timeout)) {
                 growl.warning("Acesso Negado");
                 $location.path("/404");
             }
         }
+
 
         return deferred.promise;
     }
@@ -133,16 +136,16 @@
 
     function contemRota(item, timeout) {
 //        console.log(item);
-        item = item.replace(/0/gi,'');
-        item = item.replace(/1/gi,'');
-        item = item.replace(/2/gi,'');
-        item = item.replace(/3/gi,'');
-        item = item.replace(/4/gi,'');
-        item = item.replace(/5/gi,'');
-        item = item.replace(/6/gi,'');
-        item = item.replace(/7/gi,'');
-        item = item.replace(/8/gi,'');
-        item = item.replace(/9/gi,'');
+        item = item.replace(/0/gi, '');
+        item = item.replace(/1/gi, '');
+        item = item.replace(/2/gi, '');
+        item = item.replace(/3/gi, '');
+        item = item.replace(/4/gi, '');
+        item = item.replace(/5/gi, '');
+        item = item.replace(/6/gi, '');
+        item = item.replace(/7/gi, '');
+        item = item.replace(/8/gi, '');
+        item = item.replace(/9/gi, '');
 //        console.log(item);
         if (!listaRotas) {
             return timeout(validar, 500);
@@ -153,7 +156,7 @@
         function validar() {
             if (!listaRotas) {
                 return false;
-            } else if (buscarEmArray(listaRotas, item, 'rota', ':id','') !== -1) {
+            } else if (buscarEmArray(listaRotas, item, 'rota', ':id', '') !== -1) {
                 return true;
             } else {
                 return false;
