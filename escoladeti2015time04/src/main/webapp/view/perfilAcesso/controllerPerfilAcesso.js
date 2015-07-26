@@ -176,7 +176,7 @@ function controllerListPerfilAcesso($scope, $http, $location, $routeParams, grow
         $http.delete("perfilAcesso/" + id).success(onSuccess).error($scope.onError());
 
         function onSuccess() {
-            console.log("uhul");
+            console.log("Deu certo");
         }
 
     }

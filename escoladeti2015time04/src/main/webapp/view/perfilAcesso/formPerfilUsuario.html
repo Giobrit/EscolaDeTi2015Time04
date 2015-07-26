@@ -9,15 +9,14 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-10">
-
                                     <div class="form-group">
                                         <select class="form-control" ng-model="perfilSelecionado" ng-options="perfil.nome for perfil in perfisDeAcesso" ng-change="adicionarPerfil()">
                                             <!--<option>{{perfil.nome}}</option>-->
                                         </select>
                                     </div>                                                        
                                 </div> 
-                                <div class="col-md-1">
-                                    <a href="#/PerfilAcesso/form" type="button" class="tooltip, btn btn-primary" title="Lista dos Perfis de Acesso"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+                                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                    <a href="#/PerfilAcesso/form" type="button" class="tooltip, btn btn-primary" title="Lista dos Perfis de Acesso"><i class="fa fa-plus-square-o fa-2x"></i></a>
                                 </div> 
                             </div>                            
 
@@ -35,7 +34,7 @@
                                                 <tbody>
                                                     <tr ng-repeat="perfil in perfisDeAcessoSelecionados">
                                                         <td>{{perfil.nome}}</td>
-                                                        <td><button type="button" class="btn btn-danger">Remover</button></td>
+                                                        <td><button type="button" type="button" class="tooltip, btn btn-danger" title="Excluir"><i class="fa fa-trash-o fa-1x"></i></button></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -43,8 +42,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -78,8 +75,11 @@
                                                 <tbody>
                                                     <tr ng-repeat="nomeItem in nomeItens">
                                                         <td>{{nomeItem.nome}}</td>
-                                                        <td><button type="button" class="btn btn-success">Permitido</button></td>
-                                                        <td><button type="button" class="btn btn-danger">Remover</button></td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-success" ng-click="alterarStatus(nomeItem)"><i class="fa fa-thumbs-up"></i></button>
+                                                            <button type="button" class="btn btn-danger" ng-click="alterarStatus(nomeItem)"><i class="fa fa-thumbs-down"></i></button>
+                                                        </td>
+                                                        <td><button type="button" class="tooltip, btn btn-danger" title="Excluir"><i class="fa fa-trash-o fa-1x"></i></button></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -94,10 +94,9 @@
 
             </div> 
             <div class="panel-info">
-                <div class="teste2">
+                <div class="teste2 pull-right">
                     <a href="#/PerfilAcesso/list" type="button" class="tooltip, btn btn-danger" title="Cancelar">Cancelar</a>
                     <button type="submit" ng-click="salvar()" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
-
                 </div>
             </div>    
         </div>
