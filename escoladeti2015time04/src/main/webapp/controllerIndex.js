@@ -9,7 +9,8 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
     $scope.icones = [];
 
     $scope.pilhaTelas = [];
-    
+
+    $scope.newPath = "/Login";
     $scope.oldPath = "/Login";
 
     $scope.initSistema = function () {
@@ -65,8 +66,9 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
         location.reload();
     }
 
-    $scope.$on('$locationChangeStart', function (event, newPath, oldPath) {
-        $scope.oldPath = oldPath;
+    $scope.$on('$locationChangeSuccess', function (event, newPath, oldPath) {
+        $scope.oldPath = $scope.newPath;
+        $scope.newPath = $location.path();
     });
 
     $scope.onError = function (data) {
