@@ -80,27 +80,23 @@
     function validacaoLogin($q, $cookies, $http, $location, $timeout, growl) {
         var deferred = $q.defer();
 
-
         var cookie = $cookies.get('login');
 
 //            console.log(cookie);
         if (!idUsuario) {
             idUsuario = cookie;
             carregaPermissao($http);
-        } else if (cookie !== idUsuario) {
+        } else if (!cookie || cookie !== idUsuario) {
 //            alert("irfuhre");
             $cookies.remove('login');
             location.reload();
         }
-
+        
         deferred.resolve();
-        if (!cookie) {
-            deferred.resolve();
-            $location.path("/Login");
-        } else {
+
+        if (cookie) {
             var path = $location.path();
             if (path === "/Login") {
-                deferred.resolve();
                 $location.path("/");
                 return deferred.promise;
             }
@@ -109,15 +105,11 @@
                 expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
             });
 
-
-//            console.log(contemRota($location.path()));
-//
             if (!contemRota($location.path(), $timeout)) {
                 growl.warning("Acesso Negado");
                 $location.path("/404");
             }
         }
-
 
         return deferred.promise;
     }
