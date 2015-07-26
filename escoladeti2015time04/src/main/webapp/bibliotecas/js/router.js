@@ -90,14 +90,12 @@
             } else {
                 location.reload();
             }
-
-
         } else {
+            deferred.resolve();
             logado = true;
             carregaPermissao($http);
             var path = $location.path();
             if (path === "/Login") {
-                deferred.resolve();
                 $location.path("/");
                 return deferred.promise;
             }
