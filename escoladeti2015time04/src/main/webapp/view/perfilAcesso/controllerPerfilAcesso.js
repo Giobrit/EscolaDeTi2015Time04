@@ -6,6 +6,9 @@ function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, grow
 
     $scope.itensAcesso = [];
     $scope.itemAcessoSelecionado = {};
+    
+    $scope.nextPath = $scope.oldPath ? $scope.oldPath: "/PerfilAcesso/list";
+    
     $scope.perfilDeAcesso = {
         nome: "",
         itensDeAcesso: []
@@ -36,7 +39,7 @@ function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, grow
             $http.post("/perfilAcesso", $scope.perfilDeAcesso).success(onSuccess).error($scope.onError);
         }
         function onSuccess() {
-            $location.path("/PerfilAcesso/list");
+            $location.path($scope.nextPath);
             growl.success("Perfil salvo com sucesso");
         }
     };
