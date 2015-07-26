@@ -158,7 +158,7 @@ AppModule.controller("controllerListAtendimentoEspecial", controllerListAtendime
 function controllerListAtendimentoEspecial($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
-    $scope.numeroItensPorPagina = 8;
+    $scope.numeroItensPorPagina = 5;
     var colunaOrdenacao = "protocolo";
     $scope.labelOrdenacao = "Protocolo";
     var ordenacaoCrescente = true;
