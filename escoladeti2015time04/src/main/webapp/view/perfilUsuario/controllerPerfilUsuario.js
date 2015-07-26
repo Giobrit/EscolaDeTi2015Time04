@@ -8,11 +8,14 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
 
     $scope.itensAcesso = [];
     $scope.itemSelecionado = {};
-    $scope.itensAcessoSelecionados = [];
+    $scope.itensAvulsos = [];
+
+    var idUsuario;
+    var usuario;
 
     $scope.init = function () {
         carregarPerfis();
-
+        idUsuario = $routeParams.id;
     };
 
     function carregarPerfis() {
@@ -28,15 +31,26 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
     function carregarItensAcesso() {
         $http.get("/itemAcesso", {}).success(success).error($scope.onError);
         function success(data) {
+            data.splice(0, 1);
             $scope.itensAcesso = data;
+
+            carregarUsuario();
         }
     }
 
+    function carregarUsuario() {
+        $http.get("/usuario/" + idUsuario).success(success).error($scope.onError);
+        function success(data) {
+            usuario = data;
+        }
+    }
+
+
+    // Perfil Acesso
     $scope.adicionarPerfil = function () {
-//        $scope.perfisDeAcesso.replace && newValue
         var posicao = buscarEmArray($scope.perfisDeAcesso, $scope.perfilSelecionado.id, "id");
         $scope.perfisDeAcessoSelecionados.push($scope.perfilSelecionado);
-        atualizarTipoItensAcesso();
+        atualizarTipoItensAvulsos();
         $scope.perfisDeAcesso.splice(posicao, 1);
         $scope.perfilSelecionado = {};
     };
@@ -46,19 +60,40 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
         $scope.perfisDeAcesso.push(perfil);
 
         $scope.perfisDeAcessoSelecionados.splice(posicao, 1);
-        atualizarTipoItensAcesso();
+        atualizarTipoItensAvulsos();
 
     };
 
-    function atualizarTipoItensAcesso() {
-        // TODO: fazer sa bagaça
+    // Atens Avulsos
+    $scope.adicionarItemAvulso = function () {
+        var posicao = buscarEmArray($scope.itensAcesso, $scope.itemSelecionado.id, "id");
+
+        var novoItemAvulso = new ItemAvulso();
+//        novoItemAvulso.usuario = usuario;
+        novoItemAvulso.itemAcesso = $scope.itemSelecionado;
+        novoItemAvulso.defineTipoItemAvulso();
+        console.log(novoItemAvulso);
+
+        $scope.itensAvulsos.push(novoItemAvulso);
+        console.log(JSON.stringify($scope.itensAvulsos));
+        $scope.itensAcesso.splice(posicao, 1);
+        $scope.itemSelecionado = {};
+    };
+
+    $scope.removerItemAvulso = function (perfil) {
+        var posicao = buscarEmArray($scope.perfisDeAcessoSelecionados, perfil.id, "id");
+        $scope.perfisDeAcesso.push(perfil);
+
+        $scope.perfisDeAcessoSelecionados.splice(posicao, 1);
+        atualizarTipoItensAvulsos();
+
+    };
+
+    function atualizarTipoItensAvulsos() {
+        $scope.itensAvulsos.forEach(function (itemAvulso) {
+            itemAvulso.defineTipoItemAvulso();
+        })
     }
 
-
-//    $scope.meuItem = $scope.itens[0];
-    $scope.nomeItens = [
-        {nome: 'Item Avulso 3'},
-        {nome: 'Item Avulso 4'}
-    ];
 
 }

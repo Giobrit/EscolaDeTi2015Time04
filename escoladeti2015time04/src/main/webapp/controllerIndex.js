@@ -7,6 +7,8 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
     $scope.permissoesUsuarioLogado = [];
 
     $scope.icones = [];
+    
+    $scope.pilhaTelas = [];
 
     $scope.initSistema = function () {
         //inicializa a porra toda!

@@ -72,8 +72,8 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
                 + "inner join perfilacesso pa on pa.id = upa.idperfilacesso "
                 + "inner join perfilacesso_itemacesso paia on paia.idperfilacesso = pa.id and paia.iditemacesso = ia.id ";
 
-        String queryGrupo = query + "where ia.grupo is true";
-        String queryFolha = query + "where ia.grupo is false and ia.superior = :idSuperior";
+        String queryGrupo = query + "where ia.grupo is true order by ia.id ";
+        String queryFolha = query + "where ia.grupo is false and ia.superior = :idSuperior order by ia.id";
 
         MapSqlParameterSource paransGrupos = new MapSqlParameterSource();
         paransGrupos.addValue("idUsuario", id);

@@ -1,8 +1,6 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
 import br.unicesumar.escoladeti2015time04.utils.listagem.ResultadoListagem;
-import br.unicesumar.escoladeti2015time04.utils.listagem.Filtro;
-import br.unicesumar.escoladeti2015time04.utils.listagem.PaginadorPostgreSQL;
 import br.unicesumar.escoladeti2015time04.utils.listagem.RequisicaoListagem;
 import java.util.List;
 import java.util.Map;
