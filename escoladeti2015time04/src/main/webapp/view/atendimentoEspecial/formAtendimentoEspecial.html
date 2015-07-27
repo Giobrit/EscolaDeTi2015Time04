@@ -133,27 +133,40 @@
 
             <div class="panel-heading" data-toggle="collapse" data-target="#demo3"><h3>Dados do Atendimento<span class="glyphicon glyphicon-edit pull-right" aria-hidden="true"></span></h3></div>
             <div id="demo3" class="panel-body collapse in"> 
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label>
-                            <h4>Encaminhado para</h4>
-                        </label>
-                        <input type="text" name="encaminhadoPara" ng-class="{ 'has-error'  : formAtendimentoEspecial.encaminhadoPara.$invalid && !formAtendimentoEspecial.encaminhadoPara.$pristine}" placeholder="Informe para onde será encaminhado" class="form-control" ng-model="atendimentoEspecial.encaminhadoPara" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label>
-                            <h4>Motivo</h4>
-                        </label>
-                        <div class="form-group opcao">
-                            <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : formAtendimentoEspecial.motivo.$invalid && !formAtendimentoEspecial.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
-                            </select>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label>
+                                <h4>Encaminhado para</h4>
+                            </label>
                         </div>
+                        <div class="col-md-6">
+                            <label>
+                                <h4>Motivo</h4>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <input type="text" name="encaminhadoPara" ng-class="{ 'has-error'  : formAtendimentoEspecial.encaminhadoPara.$invalid && !formAtendimentoEspecial.encaminhadoPara.$pristine}" placeholder="Informe para onde será encaminhado" class="form-control" ng-model="atendimentoEspecial.encaminhadoPara" required>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : formAtendimentoEspecial.motivo.$invalid && !formAtendimentoEspecial.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <a href="#/AtendimentoMotivo/form" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></a>
+                        </div>    
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-md-12">
                         <label>
-                            <h4>Descrição resumida</h4>
+                            <h4>Descrição Pública</h4>
                         </label>
                         <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoPublica.$invalid && !formAtendimentoEspecial.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPublica" required></textarea>
                     </div>
@@ -161,9 +174,9 @@
                 <div class="row form-group">
                     <div class="col-md-12">
                         <label>
-                            <h4>Descrição detalhada</h4>
+                            <h4>Descrição Privada</h4>
                         </label>
-                        <textarea class="form-control" name="descricaoDetalhada" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoPrivada.$invalid && !formAtendimentoEspecial.descricaoPrivada.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPrivada" required></textarea>
+                        <textarea class="form-control" name="descricaoDetalhada" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoPrivada.$invalid && !formAtendimentoEspecial.descricaoPrivada.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPrivada"></textarea>
                     </div>
                 </div> 
             </div>

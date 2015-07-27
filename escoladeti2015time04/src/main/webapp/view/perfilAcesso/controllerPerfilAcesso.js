@@ -5,6 +5,7 @@ AppModule.controller("controllerListPerfilAcesso", controllerListPerfilAcesso);
 function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, growl) {
 
     $scope.itensAcesso = [];
+    $scope.pesquisa = '';
     $scope.itemAcessoSelecionado = {};
     $scope.perfilDeAcesso = {
         nome: "",
