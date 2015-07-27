@@ -33,8 +33,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!--dir-paginate="perfil in perfis | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual"-->
-                                    <tr ng-repeat="perfil in perfisAcesso">
+                                    <tr dir-paginate="perfil in perfisAcesso | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
                                         <td>{{perfil.nome}}</td>
                                         <td>
                                             <span>

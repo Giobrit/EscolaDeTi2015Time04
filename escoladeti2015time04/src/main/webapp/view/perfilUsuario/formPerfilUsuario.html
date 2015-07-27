@@ -12,7 +12,7 @@
                                 <div class="row">
                                     <div class="col-md-11">
                                         <div class="form-group">
-                                            <select class="form-control" ng-model="perfilSelecionado" ng-options="perfil.nome for perfil in perfisDeAcesso" ng-change="adicionarPerfil()">
+                                            <select class="form-control" ng-model="perfilSelecionado" ng-options="perfil.nome for perfil in perfisDeAcesso" ng-change="adicionarPerfil(perfilSelecionado)">
                                                 <!--<option>{{perfil.nome}}</option>-->
                                             </select>
                                         </div>                                                        
