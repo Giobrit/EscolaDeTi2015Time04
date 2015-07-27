@@ -170,7 +170,7 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
 
     $scope.colunas =
             [
-                {label: "Protocolo", colunaOrdenacao: "protocolo", propriedadeItem: "protocolo", checked: false},
+                {label: "Protocolo", colunaOrdenacao: "protocolo", propriedadeItem: "protocolo", checked: true},
                 {label: "Data", colunaOrdenacao: "data", propriedadeItem: "data", checked: true},
                 {label: "Hora", colunaOrdenacao: "data", propriedadeItem: "hora", checked: true},
                 {label: "RA", colunaOrdenacao: "ra", propriedadeItem: "ra", checked: false},
