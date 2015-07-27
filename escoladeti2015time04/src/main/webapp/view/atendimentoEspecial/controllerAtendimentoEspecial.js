@@ -131,11 +131,18 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     }
 
     $scope.example13data = [
-        {id: 1, label: "David"},
-        {id: 2, label: "Jhon"},
-        {id: 3, label: "Lisa"},
-        {id: 4, label: "Nicole"},
-        {id: 5, label: "Danny"}
+        {id: 1, label: "Ledor"},
+        {id: 2, label: "Escriba"},
+        {id: 3, label: "Ampliação dos textos entregues (e da avaliação)"},
+        {id: 4, label: "Intérprete de Libras"},
+        {id: 5, label: "Sintetizador de voz"},
+        {id: 6, label: "Reglete"},
+        {id: 7, label: "Sorobã"},
+        {id: 8, label: "Livro didático adaptado"},
+        {id: 9, label: "Livro falado"},
+        {id: 10, label: "Tecnologias Assistivas"},
+        {id: 11, label: "Prazo estendido para elaboração de prova"},
+        {id: 12, label: "Outro(s)"},
     ];
 
     $scope.example13settings = {
