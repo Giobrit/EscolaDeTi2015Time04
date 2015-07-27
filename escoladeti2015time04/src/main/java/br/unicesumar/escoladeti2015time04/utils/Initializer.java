@@ -73,7 +73,7 @@ public class Initializer {
             itemAcessoService.add(new ItemAcesso(false, "Editar Atendimento", "/AtendimentoDeixarOCurso/form/:id", iaAtendimentoDeixarOCurso));
             itemAcessoService.add(new ItemAcesso("Listar Atendimento", "/AtendimentoDeixarOCurso/list", iaAtendimentoDeixarOCurso));
             //Rotas Atendimento Deixar O Curso Objetivo
-            itemAcessoService.add(new ItemAcesso(false, "Cadastrar Objetivo", "/AtendimentoDeixarOCurso/Objetivoform", iaAtendimentoDeixarOCurso));
+            itemAcessoService.add(new ItemAcesso(false, "Cadastrar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/form", iaAtendimentoDeixarOCurso));
             itemAcessoService.add(new ItemAcesso(false, "Editar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/form/:id", iaAtendimentoDeixarOCurso));
             itemAcessoService.add(new ItemAcesso("Listar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/list", iaAtendimentoDeixarOCurso));
             //Rotas Atendimento Preventivo

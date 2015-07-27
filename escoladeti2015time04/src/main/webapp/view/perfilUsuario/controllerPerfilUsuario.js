@@ -64,6 +64,11 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
 
     };
 
+    $scope.criarNovoPerfilAcesso = function () {
+        $scope.setUseOldPath(true);
+        $location.path("/PerfilAcesso/form");
+    };
+
     // Atens Avulsos
     $scope.adicionarItemAvulso = function () {
         var posicao = buscarEmArray($scope.itensAcesso, $scope.itemSelecionado.id, "id");
