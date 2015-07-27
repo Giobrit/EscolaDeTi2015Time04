@@ -42,14 +42,20 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
         $http.get("/usuario/" + idUsuario).success(success).error($scope.onError);
         function success(data) {
             usuario = data;
+            usuario.perfisDeAcesso.forEach(paraCadaPerfil);
+            
+            function paraCadaPerfil(perfilAcesso) { 
+//                console.log(perfilAcesso);
+                $scope.adicionarPerfil(perfilAcesso);
+            }
         }
     }
 
 
     // Perfil Acesso
-    $scope.adicionarPerfil = function () {
-        var posicao = buscarEmArray($scope.perfisDeAcesso, $scope.perfilSelecionado.id, "id");
-        $scope.perfisDeAcessoSelecionados.push($scope.perfilSelecionado);
+    $scope.adicionarPerfil = function (perfilAcesso) {
+        var posicao = buscarEmArray($scope.perfisDeAcesso, perfilAcesso.id, "id");
+        $scope.perfisDeAcessoSelecionados.push(perfilAcesso);
         atualizarTipoItensAvulsos();
         $scope.perfisDeAcesso.splice(posicao, 1);
         $scope.perfilSelecionado = {};
@@ -74,7 +80,7 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
         var posicao = buscarEmArray($scope.itensAcesso, $scope.itemSelecionado.id, "id");
 
         var novoItemAvulso = new ItemAvulso();
-//        novoItemAvulso.usuario = usuario;
+        novoItemAvulso.usuario = usuario;
         novoItemAvulso.itemAcesso = $scope.itemSelecionado;
         novoItemAvulso.defineTipoItemAvulso();
         console.log(novoItemAvulso);
