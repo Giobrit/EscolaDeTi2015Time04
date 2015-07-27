@@ -174,18 +174,18 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
                 {label: "Data", colunaOrdenacao: "data", propriedadeItem: "data", checked: true},
                 {label: "Hora", colunaOrdenacao: "data", propriedadeItem: "hora", checked: true},
                 {label: "RA", colunaOrdenacao: "ra", propriedadeItem: "ra", checked: false},
-                {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: false},
+                {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: true},
                 {label: "Curso", colunaOrdenacao: "curso", propriedadeItem: "curso", checked: false},
+                {label: "Centro", colunaOrdenacao: "centro", propriedadeItem: "centro", checked: false},
                 {label: "Série", colunaOrdenacao: "serieSemestre", propriedadeItem: "serieSemestre", checked: false},
                 {label: "Turno", colunaOrdenacao: "turno", propriedadeItem: "turno", checked: false},
                 {label: "Bolsa", colunaOrdenacao: "bolsaFinanciamento", propriedadeItem: "bolsaFinanciamento", checked: false},
-                {label: "Matriculado", colunaOrdenacao: "matriculado", propriedadeItem: "matriculado", checked: true},
+                {label: "Matriculado", colunaOrdenacao: "matriculado", propriedadeItem: "matriculado", checked: false},
                 {label: "Laudo Médico", colunaOrdenacao: "laudoMedico", propriedadeItem: "laudoMedico", checked: true},
-                {label: "Solicitação", colunaOrdenacao: "solicitacao", propriedadeItem: "solicitacao", checked: true},
+                {label: "Solicitação", colunaOrdenacao: "solicitacao", propriedadeItem: "solicitacao", checked: false},
                 {label: "Encaminhado Para", colunaOrdenacao: "encaminhadoPara", propriedadeItem: "encaminhadoPara", checked: true},
                 {label: "Motivo", colunaOrdenacao: "motivo", propriedadeItem: "motivo", checked: true},
-                {label: "Descrição Resumida", colunaOrdenacao: "descricaoPublica", propriedadeItem: "descricaoPublica", checked: true},
-                {label: "Descrição Detalhada", colunaOrdenacao: "descricaoPrivada", propriedadeItem: "descricaoPrivada", checked: true}
+                {label: "Descrição", colunaOrdenacao: "descricaoPublica", propriedadeItem: "descricaoPublica", checked: true}
             ];
 
     $scope.init = function () {
