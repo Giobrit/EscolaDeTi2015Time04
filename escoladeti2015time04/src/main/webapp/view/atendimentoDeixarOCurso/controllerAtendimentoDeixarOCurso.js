@@ -178,6 +178,7 @@ function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
                 {label: "RA", colunaOrdenacao: "ra", propriedadeItem: "ra", checked: false},
                 {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: true},
                 {label: "Curso", colunaOrdenacao: "curso", propriedadeItem: "curso", checked: false},
+                {label: "Centro", colunaOrdenacao: "centro", propriedadeItem: "centro", checked: false},
                 {label: "Série", colunaOrdenacao: "serieSemestre", propriedadeItem: "serieSemestre", checked: false},
                 {label: "Turno", colunaOrdenacao: "turno", propriedadeItem: "turno", checked: false},
                 {label: "Bolsa", colunaOrdenacao: "bolsaFinanciamento", propriedadeItem: "bolsaFinanciamento", checked: false},
