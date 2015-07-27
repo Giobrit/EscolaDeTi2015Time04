@@ -5,6 +5,7 @@ import br.unicesumar.escoladeti2015time04.perfilacesso.PerfilAcessoService;
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
 import br.unicesumar.escoladeti2015time04.utils.excecoes.LoginFalhou;
 import br.unicesumar.escoladeti2015time04.utils.service.Service;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import javax.transaction.Transactional;
@@ -93,7 +94,7 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
         return permissoes;
     }
 
-    List<Map<String, Object>> localizarListaPermissoes(Long id) {
+    public List<Map<String, Object>> localizarListaPermissoes(Long id) {
         String query = ""
                 + "select "
                 + "ia.*  "
@@ -113,12 +114,20 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
         
         return permissoes;
     }
-
+    
     public void alterarSenha(UsuarioCommandEditarSenha usuarioAlterarSenha) {
         Usuario usuarioEditandoSenha = super.repository.findOne(usuarioAlterarSenha.getId());
         usuarioEditandoSenha.setSenha(usuarioAlterarSenha.getSenha());
 
         super.repository.save(usuarioEditandoSenha);
+    }
+    
+    public void alterarPerfilUsuario(UsuarioCommandEditarPerfilUsuario usuarioCommandEditarPerfilUsuario) {
+        Usuario usuario = this.localizarObjeto(usuarioCommandEditarPerfilUsuario.getIdUsuario());
+        
+        usuario.setPerfisDeAcesso(new HashSet<> (perfilAcessoService.localizarObjetos(usuarioCommandEditarPerfilUsuario.getPerfisDeAceso())));
+        
+        repository.save(usuario);
     }
 
     private List<Map<String, Object>> localizarPerfisDoUsuario(Long id) {

@@ -1,24 +1,29 @@
 package br.unicesumar.escoladeti2015time04.usuario;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Set;
+import javax.persistence.Column;
+
 public class UsuarioCommandEditarPerfilUsuario {
 
-    private final Long id;
+    private final Long idUsuario;
 
     @Column(nullable = false)
-    private final Senha senha;
+    private final Set<Long> perfisDeAceso;
 
     @JsonCreator
-    public UsuarioCommandEditarSenha(@JsonProperty("id") Long id, @JsonProperty("senha") Senha senha) {
-        this.id = id;
-        this.senha = senha;
+    public UsuarioCommandEditarPerfilUsuario(@JsonProperty("idUsuario") Long idUsuario, @JsonProperty("perfisDeAceso") Set<Long> perfisDeAceso) {
+        this.idUsuario = idUsuario;
+        this.perfisDeAceso = perfisDeAceso;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public Senha getSenha() {
-        return senha;
+    public Set<Long> getPerfisDeAceso() {
+        return perfisDeAceso;
     }
 
 }

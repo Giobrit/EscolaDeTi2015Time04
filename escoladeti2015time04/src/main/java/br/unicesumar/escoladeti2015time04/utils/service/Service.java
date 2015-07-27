@@ -158,6 +158,10 @@ public abstract class Service<E, R extends JpaRepository, C> {
         return (E) repository.getOne(id);
     }
 
+    public List<E> localizarObjetos(Set<Long> ids) {
+        return repository.findAll(ids);
+    }
+
     public List<?> camposLocalizaveisInseridos(String campo, String valor) {
         for (Map.Entry<Field, ColunaLocalizavel> entrySet : colunasLocalizaveisEntidade.entrySet()) {
             Field field = entrySet.getKey();
