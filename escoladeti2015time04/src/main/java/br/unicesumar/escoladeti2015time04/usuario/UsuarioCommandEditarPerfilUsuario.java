@@ -10,20 +10,20 @@ public class UsuarioCommandEditarPerfilUsuario {
     private final Long idUsuario;
 
     @Column(nullable = false)
-    private final Set<Long> perfisDeAceso;
+    private final Set<Long> perfisDeAcesso;
 
     @JsonCreator
-    public UsuarioCommandEditarPerfilUsuario(@JsonProperty("idUsuario") Long idUsuario, @JsonProperty("perfisDeAceso") Set<Long> perfisDeAceso) {
+    public UsuarioCommandEditarPerfilUsuario(@JsonProperty("idUsuario") Long idUsuario, @JsonProperty("perfisDeAcesso") Set<Long> perfisDeAcesso) {
         this.idUsuario = idUsuario;
-        this.perfisDeAceso = perfisDeAceso;
+        this.perfisDeAcesso = perfisDeAcesso;
     }
 
     public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public Set<Long> getPerfisDeAceso() {
-        return perfisDeAceso;
+    public Set<Long> getPerfisDeAcesso() {
+        return perfisDeAcesso;
     }
 
 }

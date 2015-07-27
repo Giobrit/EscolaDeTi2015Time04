@@ -1,6 +1,6 @@
 AppModule.controller("controllerFormPerfilUsuario", controllerFormPerfilUsuario);
 
-function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
+function controllerFormPerfilUsuario($scope, $http, $routeParams, $location, growl) {
 
     $scope.perfisDeAcesso = [];
     $scope.perfilSelecionado = {};
@@ -43,8 +43,8 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
         function success(data) {
             usuario = data;
             usuario.perfisDeAcesso.forEach(paraCadaPerfil);
-            
-            function paraCadaPerfil(perfilAcesso) { 
+
+            function paraCadaPerfil(perfilAcesso) {
 //                console.log(perfilAcesso);
                 $scope.adicionarPerfil(perfilAcesso);
             }
@@ -52,7 +52,16 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
     }
 
     $scope.salvar = function () {
-        $http.post("usuario/")
+        var idsPerfisDeAcesso = getListaIdsPerfisSelecionados();
+        
+        console.log(idsPerfisDeAcesso);
+
+        $http.put("usuario/alterarPerfilUsuario", {idUsuario: usuario.id, perfisDeAcesso: idsPerfisDeAcesso}).success(onSccuss).error($scope.onError);
+
+        function onSccuss() {
+            growl.success("Perfil do Usuario " + $scope.usuarioLogado.nome + " salvo com sucesso");
+            $location.path("/Usuario/list");
+        }
     }
 
     // Perfil Acesso
@@ -77,6 +86,18 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
         $scope.setUseOldPath(true);
         $location.path("/PerfilAcesso/form");
     };
+
+    function getListaIdsPerfisSelecionados() {
+        var ids = [];
+
+        $scope.perfisDeAcessoSelecionados.forEach(paraCadaPerfil);
+
+        function paraCadaPerfil(perfil) {
+            ids.push(perfil.id);
+        }
+
+        return ids;
+    }
 
     // Atens Avulsos
     $scope.adicionarItemAvulso = function () {
