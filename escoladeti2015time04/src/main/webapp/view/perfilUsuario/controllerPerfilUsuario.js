@@ -51,6 +51,9 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
         }
     }
 
+    $scope.salvar = function () {
+        
+    }
 
     // Perfil Acesso
     $scope.adicionarPerfil = function (perfilAcesso) {

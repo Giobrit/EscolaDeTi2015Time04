@@ -84,7 +84,6 @@ public class Atendimento implements Serializable {
     @Column(name = "descricaopublica", length = 1000, nullable = false)
     protected String descricaoPublica;
 
-    @ColunaListavel
     @ColunaLocalizavel
     @Column(name = "descricaoprivada", length = 1000)
     protected String descricaoPrivada;
