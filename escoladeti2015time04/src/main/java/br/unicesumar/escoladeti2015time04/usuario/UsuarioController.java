@@ -57,6 +57,11 @@ public class UsuarioController {
     public void editarUsuario(@RequestBody UsuarioCommandEditarSenha usuarioAlterarSenha) {
         this.service.alterarSenha(usuarioAlterarSenha);
     }
+    
+    @RequestMapping(value = "/alterarSenha", method = RequestMethod.PUT)
+    public void editarPerfilUsuario(@RequestBody UsuarioCommandEditarSenha usuarioAlterarSenha) {
+        this.service.alterarSenha(usuarioAlterarSenha);
+    }
 
 
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)

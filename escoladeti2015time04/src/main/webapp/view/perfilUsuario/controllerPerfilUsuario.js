@@ -52,7 +52,7 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location) {
     }
 
     $scope.salvar = function () {
-        
+        $http.post("usuario/")
     }
 
     // Perfil Acesso
