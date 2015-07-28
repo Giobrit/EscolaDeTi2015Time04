@@ -55,7 +55,7 @@
                                     <td>{{u.login}}</td>
                                     <td>{{u.email}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status === 'INATIVO'" ng-click="alterarStatus(u)">Ativar</button>
+                                        <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status === 'INATIVO'" ng-click="init()">Ativar</button>
                                         <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="u.status === 'ATIVO'" ng-click="alterarStatus(u)">Inativar</button>
                                     </td>
                                     <td>

@@ -178,15 +178,15 @@ function controllerListPerfilAcesso($scope, $http, $location, $routeParams, grow
     };
 
     $scope.remover = function (id) {
-        $http.delete("perfilAcesso/" + id).success(onSuccess).error($scope.onError());
+        $http.delete("perfilAcesso/" + id).success(onSuccess).error(onError);
 
         function onSuccess() {
-            console.log("Deu certo");
+            growl.success("Perfil de Acesso removido com sucesso!");
         }
 
     }
     function onError(data) {
-        growl.error(JSON.stringify(data));
+        growl.error("Perfil de Acesso em uso!");
     }
 
 
