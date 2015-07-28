@@ -19,6 +19,7 @@ public class AtendimentoPreventivoCommandInserir extends AtendimentoCommandInser
 
     public AtendimentoPreventivoCommandInserir(
             @JsonProperty("data") Date data,
+            @JsonProperty("usuario") Long usuario,
             @JsonProperty("ra") String ra,
             @JsonProperty("centro") String centro,
             @JsonProperty("nomeAluno") String nomeAluno,
@@ -33,7 +34,7 @@ public class AtendimentoPreventivoCommandInserir extends AtendimentoCommandInser
             @JsonProperty("meioContato") String meioContato,
             @JsonProperty("encaminhamento") String encaminhamento,
             @JsonProperty("idMotivo") Long idMotivo) {
-        super(data, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
+        super(data, usuario, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
         this.numeroReprovacoes = numeroReprovacoes;
         this.meioContato = meioContato;
         this.encaminhamento = encaminhamento;

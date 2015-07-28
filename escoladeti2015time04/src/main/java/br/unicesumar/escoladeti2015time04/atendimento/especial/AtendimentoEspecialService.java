@@ -52,7 +52,7 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
 
     public void criar(AtendimentoEspecialCommandInserir commandInserir) {
         final AtendimentoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(commandInserir.getIdMotivo());
-        final Usuario usuario = usuarioService.localizarObjeto(new Long(1));
+        final Usuario usuario = usuarioService.localizarObjeto(commandInserir.getUsuario());
 
         AtendimentoEspecial atendimentoEspecial = new AtendimentoEspecial(
                 commandInserir.getProtocolo(),

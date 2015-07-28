@@ -54,8 +54,9 @@ public class ItemAcesso {
         this.superior = superior;
         this.grupo = grupo;
     }
-  public ItemAcesso(String descricao, String rota, ItemAcesso superior) {
-      this.descricao = descricao;
+
+    public ItemAcesso(String descricao, String rota, ItemAcesso superior) {
+        this.descricao = descricao;
         this.rota = rota;
         this.grupo = false;
         this.superior = superior;
@@ -64,6 +65,13 @@ public class ItemAcesso {
     public ItemAcesso(Boolean noMenu, String descricao, String rota, ItemAcesso superior) {
         this.descricao = descricao;
         this.rota = rota;
+        this.grupo = false;
+        this.superior = superior;
+        this.noMenu = noMenu;
+    }
+
+    public ItemAcesso(Boolean noMenu, String descricao, ItemAcesso superior) {
+        this.descricao = descricao;
         this.grupo = false;
         this.superior = superior;
         this.noMenu = noMenu;

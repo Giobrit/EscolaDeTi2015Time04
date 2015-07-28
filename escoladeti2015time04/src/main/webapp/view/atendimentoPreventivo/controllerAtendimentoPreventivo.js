@@ -8,7 +8,6 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
 
         idEditando = $routeParams.id;
 
-
     };
 
     $scope.limparTela = function () {
@@ -17,12 +16,13 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
     };
 
     $scope.salvar = function () {
+        $scope.atendimentoPreventivo.usuario = $scope.usuarioLogado.id;
         $scope.atendimentoPreventivo.data = prepararDataParaSalvar($scope.dataPreventivo, $scope.horaPreventivo);
 
         if ($scope.editando) {
-            $http.put("/atendimento/preventivo", $scope.atendimentoPreventivo).success(onSuccess).error(onError);
+            $http.put("/atendimento/preventivo", $scope.atendimentoPreventivo).success(onSuccess).error($scope.onError);
         } else {
-            $http.post("/atendimento/preventivo", $scope.atendimentoPreventivo).success(onSuccess).error(onError);
+            $http.post("/atendimento/preventivo", $scope.atendimentoPreventivo).success(onSuccess).error($scope.onError);
         }
 
         function onSuccess() {
@@ -36,7 +36,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
     }
 
     $scope.editar = function (id) {
-        $http.get("/atendimento/preventivo/" + id).success(onSuccess).error(onError);
+        $http.get("/atendimento/preventivo/" + id).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             $scope.atendimentoPreventivo.id = data.id;
@@ -60,6 +60,8 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
 
             selecionaMotivoNaTela(data.motivo);
             $scope.setMotivo($scope.motivoSelecionado);
+            
+            restaurarTela();
         }
     };
 
@@ -73,13 +75,15 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
     }
 
     function preencherListDeMotivo() {
-        $http.get("/atendimento/motivo/listarAtivos/ATENDIMENTOPREVENTIVO").success(onSuccess).error(onError);
+        $http.get("/atendimento/motivo/listarAtivos/ATENDIMENTOPREVENTIVO").success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
             if (idEditando) {
                 $scope.editando = true;
                 $scope.editar(idEditando);
+            } else {
+                restaurarTela();
             }
         }
     }
@@ -88,15 +92,15 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
         if (valor.length < 3) {
             return;
         }
-        
+
         return $http.get("/atendimento/preventivo/typeAHead/" + campo + "/" + valor).then(onSuccess);
 
         function onSuccess(result) {
             return result.data;
         }
     };
-    
-    
+
+
     $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
             setAtributosAluno({});
@@ -130,10 +134,42 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
         $scope.matriculadoSelecionado = aluno.matriculado;
     }
 
-    function onError(data) {
-        console.log(JSON.stringify(data));
-        growl.error(JSON.stringify(data));
+
+    function restaurarTela() {
+        if (!$scope.pilhaTelas) {
+            return;
+        }
+
+        $scope.atendimentoPreventivo = $scope.pilhaTelas.atendimentoPreventivo;
+        $scope.dataPreventivo = $scope.pilhaTelas.dataPreventivo;
+        $scope.horaPreventivo = $scope.pilhaTelas.horaPreventivo;
+        if ($scope.pilhaTelas.motivoSelecionado) {
+            selecionaMotivoNaTela($scope.pilhaTelas.motivoSelecionado.descricao);
+        }
+        if (typeof $scope.pilhaTelas.atendimentoPreventivo.matriculado !== "undefined") {
+            $scope.matriculadoSelecionado = booleanToString($scope.pilhaTelas.atendimentoPreventivo.matriculado);
+        }
+
+
+        $scope.pilhaTelas = undefined;
     }
+
+    $scope.cadastrarOutraTela = function (path) {
+        salvarTelaParaSerRefataurada();
+        $location.path(path);
+        $scope.setUseOldPath(true);
+    };
+
+    function salvarTelaParaSerRefataurada() {
+        var objeto = {};
+        objeto.atendimentoPreventivo = $scope.atendimentoPreventivo;
+        objeto.motivoSelecionado = $scope.motivoSelecionado;
+        objeto.dataPreventivo = $scope.dataPreventivo;
+        objeto.horaPreventivo = $scope.horaPreventivo;
+        objeto.path = $location.path();
+        $scope.setPilhaTelas(objeto);
+    }
+
 }
 
 AppModule.controller("controllerListAtendimentoPreventivo", controllerListAtendimentoPreventivo);
@@ -177,7 +213,7 @@ function controllerListAtendimentoPreventivo($scope, $http, growl) {
         requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
         requisicaoListagem.colunasVisiveis = colunasVisiveis();
-        $http.post("atendimento/preventivo/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.post("atendimento/preventivo/listar", requisicaoListagem).success(onSuccess).error($scope.onError);
         function onSuccess(data) {
             setDataHora(data.itens);
             $scope.atendimentos = data.itens;
@@ -229,8 +265,4 @@ function controllerListAtendimentoPreventivo($scope, $http, growl) {
         return colunasVisiveis;
     }
 
-    function onError(data) {
-        console.log(JSON.stringify(data));
-        growl.error(JSON.stringify(data));
-    }
 }

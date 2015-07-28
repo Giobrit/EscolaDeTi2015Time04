@@ -42,19 +42,22 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location, gro
         $http.get("/usuario/" + idUsuario).success(success).error($scope.onError);
         function success(data) {
             usuario = data;
-            usuario.perfisDeAcesso.forEach(paraCadaPerfil);
-
-            function paraCadaPerfil(perfilAcesso) {
-//                console.log(perfilAcesso);
-                $scope.adicionarPerfil(perfilAcesso);
+            if (!restaurarTela()) {
+                usuario.perfisDeAcesso.forEach($scope.adicionarPerfil);
             }
+
+//            function paraCadaPerfil(perfilAcesso) {
+////                console.log(perfilAcesso);
+//                $scope.adicionarPerfil(perfilAcesso);
+//            }
+
         }
     }
 
     $scope.salvar = function () {
         var idsPerfisDeAcesso = getListaIdsPerfisSelecionados();
-        
-        console.log(idsPerfisDeAcesso);
+
+//        console.log(idsPerfisDeAcesso);
 
         $http.put("usuario/alterarPerfilUsuario", {idUsuario: usuario.id, perfisDeAcesso: idsPerfisDeAcesso}).success(onSccuss).error($scope.onError);
 
@@ -83,6 +86,7 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location, gro
     };
 
     $scope.criarNovoPerfilAcesso = function () {
+        salvarTelaParaSerRefataurada();
         $scope.setUseOldPath(true);
         $location.path("/PerfilAcesso/form");
     };
@@ -107,10 +111,10 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location, gro
         novoItemAvulso.usuario = usuario;
         novoItemAvulso.itemAcesso = $scope.itemSelecionado;
         novoItemAvulso.defineTipoItemAvulso();
-        console.log(novoItemAvulso);
+//        console.log(novoItemAvulso);
 
         $scope.itensAvulsos.push(novoItemAvulso);
-        console.log(JSON.stringify($scope.itensAvulsos));
+//        console.log(JSON.stringify($scope.itensAvulsos));
         $scope.itensAcesso.splice(posicao, 1);
         $scope.itemSelecionado = {};
     };
@@ -127,7 +131,27 @@ function controllerFormPerfilUsuario($scope, $http, $routeParams, $location, gro
     function atualizarTipoItensAvulsos() {
         $scope.itensAvulsos.forEach(function (itemAvulso) {
             itemAvulso.defineTipoItemAvulso();
-        })
+        });
+    }
+
+    //cadastrar outro
+    function restaurarTela() {
+        if (!$scope.pilhaTelas) {
+            return false;
+        }
+
+        $scope.pilhaTelas.perfisDeAcessoSelecionados.forEach($scope.adicionarPerfil);
+       
+        $scope.pilhaTelas = undefined;
+
+        return true;
+    }
+
+    function salvarTelaParaSerRefataurada() {
+        var objeto = {};
+        objeto.perfisDeAcessoSelecionados = $scope.perfisDeAcessoSelecionados;
+        objeto.path = $location.path();
+        $scope.setPilhaTelas(objeto);
     }
 
 

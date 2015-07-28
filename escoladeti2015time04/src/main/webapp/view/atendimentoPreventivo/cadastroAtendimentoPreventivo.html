@@ -112,76 +112,73 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="panel-heading" data-toggle="collapse" data-target="#demo3"><h3>Dados do Atendimento<span class="glyphicon glyphicon-edit pull-right" aria-hidden="true"></span></h3></div>
+                            <div id="demo3" class="panel-body collapse in">    
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label>
+                                                <h4>Encaminhamento</h4>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>
+                                                <h4>Meio de contato</h4>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>
+                                                <h4>Motivo</h4>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <input type="text" name="encaminhamento" placeholder="Modo de encaminhamento" class="form-control" ng-model="atendimentoPreventivo.encaminhamento" data-animation="am-flip-x" bs-options="encaminhamento for encaminhamento in getCamposInseridos('encaminhamento', $viewValue)" bs-typeahead>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="meioContato" placeholder="Informe o meio de contato" class="form-control" ng-model="atendimentoPreventivo.meioContato" data-animation="am-flip-x" bs-options="meiocontato for meiocontato in getCamposInseridos('meioContato', $viewValue)" bs-typeahead>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group opcao">
+                                                <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.motivo.$invalid && !cadastroAtendimentoPreventivo.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button ng-click="cadastrarOutraTela('/AtendimentoMotivo/form')" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></button>
+                                        </div>    
+                                    </div>
 
-          <div class="panel-heading" data-toggle="collapse" data-target="#demo3"><h3>Dados do Atendimento<span class="glyphicon glyphicon-edit pull-right" aria-hidden="true"></span></h3></div>
-              <div id="demo3" class="panel-body collapse in">    
-                   <div class="row">
-                      <div class="form-group">
-                        <div class="col-md-3">
-                             <label>
-                                 <h4>Encaminhamento</h4>
-                             </label>
-                        </div>
-                        <div class="col-md-3">
-                             <label>
-                                 <h4>Meio de contato</h4>
-                             </label>
-                        </div>
-                        <div class="col-md-3">
-                            <label>
-                               <h4>Motivo</h4>
-                            </label>
-                        </div>
-                      </div>
-                   </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label>
+                                                <h4>Descrição Pública</h4>
+                                            </label>
+                                            <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.descricaoPublica.$invalid && !cadastroAtendimentoPreventivo.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoPreventivo.descricaoPublica" required></textarea>
+                                        </div>
+                                    </div>
 
-            <div class="row">
-               <div class="form-group">
-                   <div class="col-md-3">
-                       <input type="text" name="encaminhamento" placeholder="Modo de encaminhamento" class="form-control" ng-model="atendimentoPreventivo.encaminhamento" data-animation="am-flip-x" bs-options="encaminhamento for encaminhamento in getCamposInseridos('encaminhamento', $viewValue)" bs-typeahead>
-                   </div>
-                   <div class="col-md-3">
-                        <input type="text" name="meioContato" placeholder="Informe o meio de contato" class="form-control" ng-model="atendimentoPreventivo.meioContato" data-animation="am-flip-x" bs-options="meiocontato for meiocontato in getCamposInseridos('meioContato', $viewValue)" bs-typeahead>
-                   </div>
-                   <div class="col-md-5">
-                        <div class="form-group opcao">
-                            <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.motivo.$invalid && !cadastroAtendimentoPreventivo.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        <a href="#/AtendimentoMotivo/form" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></a>
-                    </div>    
-                </div>
-                
-                <div class="form-group">
-                    <div class="col-md-12">
-                       <label>
-                           <h4>Descrição Pública</h4>
-                       </label>
-                       <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.descricaoPublica.$invalid && !cadastroAtendimentoPreventivo.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoPreventivo.descricaoPublica" required></textarea>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>
-                            <h4>Descrição Privada</h4>
-                        </label>                
-                        <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoPreventivo.descricaoPrivada"></textarea>
-                    </div>
-                </div>                
-              </div>
-             </div>        
-        </div> 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-offset-7 pull-right">
-                            <a type="button" href="#/AtendimentoPreventivo/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
-                            <button type="submit" ng-click="salvar()" ng-disabled="(cadastroAtendimentoPreventivo.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
-                        </div>
-                    </div>	
-                </div>
-    </div>             
-
-</form>
+                                    <div class="form-group" ng-show="exibirDescricaoPrivada()">
+                                        <div class="col-md-12">
+                                            <label>
+                                                <h4>Descrição Privada</h4>
+                                            </label>                
+                                            <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoPreventivo.descricaoPrivada"></textarea>
+                                        </div>
+                                    </div>                
+                                </div>
+                            </div>        
+                            </div> 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-7 pull-right">
+                                        <a type="button" href="#/AtendimentoPreventivo/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
+                                        <button type="submit" ng-click="salvar()" ng-disabled="(cadastroAtendimentoPreventivo.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
+                                    </div>
+                                </div>	
+                            </div>
+                            </div>             
+                            </form>

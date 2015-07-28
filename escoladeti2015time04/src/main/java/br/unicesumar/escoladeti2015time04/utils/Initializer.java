@@ -95,6 +95,11 @@ public class Initializer {
             itemAcessoService.add(new ItemAcesso(false, "Cadastrar Motivo", "/AtendimentoMotivo/form", iaSistema));
             itemAcessoService.add(new ItemAcesso(false, "Editar Motivo", "/AtendimentoMotivo/form/:id", iaSistema));
             itemAcessoService.add(new ItemAcesso("Listar Motivo", "/AtendimentoMotivo/list", iaSistema));
+            //Permissoes Avulsas
+//            final ItemAcesso iaAvulsas = new ItemAcesso("Avulsas", iaMenu, true);
+//            itemAcessoService.add(iaAvulsas);
+            itemAcessoService.add(new ItemAcesso(false, "Aceso às Descrições Privadas dos Atendimentos", iaSistema));
+//            itemAcessoService.add(new ItemAcesso(false, "Aceso às Descrições Privadas dos Atendimentos Outros Centros", iaSistema));
 
         }
     }
