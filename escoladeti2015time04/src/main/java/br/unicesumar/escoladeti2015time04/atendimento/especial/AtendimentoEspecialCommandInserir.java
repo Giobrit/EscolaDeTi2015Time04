@@ -22,6 +22,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
 
     public AtendimentoEspecialCommandInserir(
             @JsonProperty("data") Date data,
+            @JsonProperty("usuario") Long usuario,
             @JsonProperty("ra") String ra,
             @JsonProperty("centro") String centro,
             @JsonProperty("nomeAluno") String nomeAluno,
@@ -38,7 +39,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
             @JsonProperty("encaminhadoPara") String encaminhadoPara,
             @JsonProperty("solicitacao") String solicitacao,            
             @JsonProperty("idMotivo") Long idMotivo) {
-        super(data, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
+        super(data, usuario, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
         this.laudoMedico = laudoMedico;

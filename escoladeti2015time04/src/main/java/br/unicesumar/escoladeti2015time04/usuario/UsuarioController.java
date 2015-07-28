@@ -30,7 +30,11 @@ public class UsuarioController {
     }
     @RequestMapping(value = "/permissoes/listaRotas/{id}", method = RequestMethod.GET)
     public @ResponseBody List<Map<String, Object>> localizarRotasPermissoes(@PathVariable Long id) {
-        return this.service.localizarListaPermissoes(id);
+        return this.service.localizarRotasPermissao(id);
+    }
+    @RequestMapping(value = "/permissoes/avulsas/{id}", method = RequestMethod.GET)
+    public @ResponseBody List<Map<String, Object>> localizarPermissoesAvulsas(@PathVariable Long id) {
+        return this.service.localizarPermissoesAvulsas(id);
     }
 
     @RequestMapping(value = "/listar", method = RequestMethod.POST)

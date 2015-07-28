@@ -53,7 +53,7 @@ public class AtendimentoPreventivoService extends Service<AtendimentoPreventivo,
     void criar(AtendimentoPreventivoCommandInserir commandInserir) {
         final AtendimentoMotivo motivo = motivoService.localizarObjeto(commandInserir.getIdMotivo());
 
-        final Usuario usuario = usuarioService.localizarObjeto(new Long(1));
+        final Usuario usuario = usuarioService.localizarObjeto(commandInserir.getUsuario());
 
         AtendimentoPreventivo atendimentoPreventivo = new AtendimentoPreventivo(
                 commandInserir.getNumeroReprovacoes(),

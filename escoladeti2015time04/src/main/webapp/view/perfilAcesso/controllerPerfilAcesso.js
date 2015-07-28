@@ -8,9 +8,7 @@ function controllerFormPerfilAcesso($scope, $http, $location, $routeParams, grow
     $scope.itemAcessoSelecionado = {};
     
     
-//    console.log($scope.useOldPath);
     $scope.nextPath = $scope.useOldPath  ? $scope.oldPath : "/PerfilAcesso/list";
-//    console.log($scope.useOldPath);
     $scope.setUseOldPath(false);
     
     $scope.perfilDeAcesso = {
@@ -178,16 +176,15 @@ function controllerListPerfilAcesso($scope, $http, $location, $routeParams, grow
     };
 
     $scope.remover = function (id) {
-        $http.delete("perfilAcesso/" + id).success(onSuccess).error(onError);
+        $http.delete("perfilAcesso/" + id).success(onSuccess).error(onErrorRemover);
 
         function onSuccess() {
             growl.success("Perfil de Acesso removido com sucesso!");
         }
-
+        
+        function onErrorRemover() {
+            growl.error("Perfil de Acesso vinculado à algum  usuário");
+        }
     }
-    function onError(data) {
-        growl.error("Perfil de Acesso em uso!");
-    }
-
 
 }

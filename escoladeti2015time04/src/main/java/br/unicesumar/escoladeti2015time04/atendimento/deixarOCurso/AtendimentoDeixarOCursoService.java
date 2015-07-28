@@ -63,7 +63,7 @@ public class AtendimentoDeixarOCursoService extends Service<AtendimentoDeixarOCu
     public void criar(AtendimentoDeixarOCursoCommandInserir commandInserir) {
         final AtendimentoMotivo motivo = deixarOCursoMotivoService.localizarObjeto(commandInserir.getIdMotivo());
         final DeixarOCursoObjetivo objetivo = deixarOCursoObjetivoService.localizarObjeto(commandInserir.getIdObjetivo());
-        final Usuario usuario = usuarioService.localizarObjeto(new Long(1));
+        final Usuario usuario = usuarioService.localizarObjeto(commandInserir.getUsuario());
 
         AtendimentoDeixarOCurso atendimentoDeixarOCurso = new AtendimentoDeixarOCurso(
                 commandInserir.getProtocolo(),

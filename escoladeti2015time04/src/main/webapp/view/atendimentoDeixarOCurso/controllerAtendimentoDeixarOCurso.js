@@ -17,11 +17,12 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.salvar = function () {
+        $scope.atendimentoDeixarOCurso.usuario = $scope.usuarioLogado.id;
         $scope.atendimentoDeixarOCurso.data = prepararDataParaSalvar($scope.dataDeixarOCurso, $scope.horaDeixarOCurso);
         if ($scope.editando) {
-            $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
+            $http.put("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error($scope.onError);
         } else {
-            $http.post("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error(onError);
+            $http.post("/atendimento/deixarOCurso", $scope.atendimentoDeixarOCurso).success(onSuccess).error($scope.onError);
         }
 
         function onSuccess() {
@@ -35,7 +36,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     }
 
     $scope.editar = function (id) {
-        $http.get("/atendimento/deixarOCurso/" + id).success(onSuccess).error(onError);
+        $http.get("/atendimento/deixarOCurso/" + id).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
 
@@ -63,6 +64,8 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             selecionaMotivoNaTela(data.motivo);
             $scope.setObjetivo($scope.objetivoSelecionado);
             $scope.setMotivo($scope.motivoSelecionado);
+
+            restaurarTela();
         }
     };
 
@@ -85,7 +88,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     }
 
     $scope.preencherListDeObjetivo = function () {
-        $http.get("/atendimento/deixarOCurso/objetivo/listarAtivos").success(onSuccess).error(onError);
+        $http.get("/atendimento/deixarOCurso/objetivo/listarAtivos").success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             $scope.objetivos = data.itens;
@@ -95,13 +98,15 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.preencherListDeMotivo = function () {
-        $http.get("/atendimento/motivo/listarAtivos/ATENDIMENTODEIXAROCURSO").success(onSuccess).error(onError);
+        $http.get("/atendimento/motivo/listarAtivos/ATENDIMENTODEIXAROCURSO").success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
             if (idEditando) {
                 $scope.editando = true;
                 $scope.editar(idEditando);
+            } else {
+                restaurarTela();
             }
         }
     };
@@ -155,13 +160,49 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.matriculadoSelecionado = aluno.matriculado;
     }
 
-    function onError(data) {
-        growl.error(JSON.stringify(data));
+    function restaurarTela() {
+        if (!$scope.pilhaTelas) {
+            return;
+        }
+
+        $scope.atendimentoDeixarOCurso = $scope.pilhaTelas.atendimentoDeixarOCurso;
+        $scope.dataDeixarOCurso = $scope.pilhaTelas.dataDeixarOCurso;
+        $scope.horaDeixarOCurso = $scope.pilhaTelas.horaDeixarOCurso;
+        if ($scope.pilhaTelas.objetivoSelecionado) {
+            selecionaObjetivoNaTela($scope.pilhaTelas.objetivoSelecionado.descricao);
+        }
+        if ($scope.pilhaTelas.motivoSelecionado) {
+            selecionaMotivoNaTela($scope.pilhaTelas.motivoSelecionado.descricao);
+        }
+        if (typeof $scope.pilhaTelas.atendimentoDeixarOCurso.matriculado !== "undefined") {
+            $scope.matriculadoSelecionado = booleanToString($scope.pilhaTelas.atendimentoDeixarOCurso.matriculado);
+        }
+
+
+        $scope.pilhaTelas = undefined;
+    }
+
+    $scope.cadastrarOutraTela = function (path) {
+        salvarTelaParaSerRefataurada();
+        $location.path(path);
+        $scope.setUseOldPath(true);
+    };
+    
+    function salvarTelaParaSerRefataurada() {
+        var objeto = {};
+        objeto.atendimentoDeixarOCurso = $scope.atendimentoDeixarOCurso;
+        objeto.objetivoSelecionado = $scope.objetivoSelecionado;
+        objeto.motivoSelecionado = $scope.motivoSelecionado;
+        objeto.dataDeixarOCurso = $scope.dataDeixarOCurso;
+        objeto.horaDeixarOCurso = $scope.horaDeixarOCurso;
+        objeto.path = $location.path();
+        $scope.setPilhaTelas(objeto);
     }
 
 }
 
 AppModule.controller("controllerListAtendimentoDeixarOCurso", controllerListAtendimentoDeixarOCurso);
+
 function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
@@ -203,7 +244,7 @@ function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
         requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
         requisicaoListagem.colunasVisiveis = colunasVisiveis();
-        $http.post("atendimento/deixarOCurso/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.post("atendimento/deixarOCurso/listar", requisicaoListagem).success(onSuccess).error($scope.onError);
         function onSuccess(data) {
             setDataHora(data.itens);
             $scope.atendimentos = data.itens;
@@ -234,10 +275,6 @@ function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
     $scope.alterarPagina = function () {
         $scope.listar();
     };
-    function onError(data) {
-        console.log(JSON.stringify(data));
-        growl.error(JSON.stringify(data));
-    }
 
     $scope.alterarCheckbox = function (coluna) {
         coluna.checked = !coluna.checked;
@@ -257,4 +294,5 @@ function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
 
         return colunasVisiveis;
     }
+
 }

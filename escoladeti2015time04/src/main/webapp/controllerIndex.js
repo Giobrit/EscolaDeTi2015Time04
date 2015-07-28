@@ -1,14 +1,15 @@
 AppModule.controller("controllerIndex", controllerIndex);
-var teste;
+//var teste;
 function controllerIndex($scope, $http, $cookies, $location, growl) {
     $scope.exibeMenu = false;
     $scope.usuarioLogado = {};
 
     $scope.permissoesUsuarioLogado = [];
+    $scope.permissoesAvulsasUsuarioLogado = [];
 
     $scope.icones = [];
 
-    $scope.pilhaTelas = [];
+    $scope.pilhaTelas;
 
     $scope.useOldPath = false;
     $scope.newPath = "/Login";
@@ -44,11 +45,20 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
             $cookies.put('login', usuario.id, {
                 expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
             });
-            teste = usuario;
+//            teste = usuario;
             recuperarRotasPermissoesUsuarioLogado(usuario);
+            recuperarPermissoesAvulsas(usuario);
 
         }
 
+    }
+
+    function recuperarPermissoesAvulsas(usuario) {
+        $http.get("usuario/permissoes/avulsas/" + usuario.id).success(onSuccess).error(onErrorAutenticacao);
+
+        function onSuccess(permissoes) {
+            $scope.permissoesAvulsasUsuarioLogado = permissoes;
+        }
     }
 
     function recuperarRotasPermissoesUsuarioLogado(usuario) {
@@ -69,6 +79,9 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
     $scope.$on('$locationChangeSuccess', function () {
         $scope.oldPath = $scope.newPath;
         $scope.newPath = $location.path();
+        if($scope.pilhaTelas && $scope.pilhaTelas.path !== $scope.newPath && $scope.pilhaTelas.path !== $scope.oldPath){
+            $scope.pilhaTelas = undefined;
+        }        
     });
 
     $scope.onError = function (data) {
@@ -77,9 +90,22 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
         }
         errorPadrao(data, growl);
     };
-    
-    $scope.setUseOldPath =  function (value) {
+
+    $scope.setUseOldPath = function (value) {
         $scope.useOldPath = value;
     }
+    
+    $scope.setPilhaTelas = function (value) {
+        $scope.pilhaTelas = value;
+    }
+    
 
+
+    //Permissoes Avulsas
+    $scope.exibirDescricaoPrivada = function () {
+        var posicao = buscarEmArray($scope.permissoesAvulsasUsuarioLogado, "Aceso às Descrições Privadas dos Atendimentos", "descricao");
+
+        return posicao === -1 ? false : true;
+    };
+    
 }
