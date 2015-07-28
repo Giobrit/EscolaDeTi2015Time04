@@ -9,6 +9,7 @@ import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -20,8 +21,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Usuario implements Serializable {
@@ -53,8 +55,8 @@ public class Usuario implements Serializable {
     @ColunaListavel(politicaFiltro = PoliticaFiltragem.VALOR_COMPLETO)
     private Status status;
 
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany
-    @ColunaLocalizavel
     @JoinTable(
             name = "usuario_perfildeacesso",
             joinColumns = {
@@ -64,7 +66,6 @@ public class Usuario implements Serializable {
     )
     private Set<PerfilAcesso> perfisDeAcesso;
 
-    @ColunaLocalizavel
     @OneToMany(mappedBy = "usuario")
     private Set<ItemAvulso> itensAvulsos;
 
@@ -76,6 +77,15 @@ public class Usuario implements Serializable {
         this.login = login;
         this.senha = senha;
         this.email = email;
+    }
+
+    public Usuario(String nome, String login, Senha senha, Email email, Set<PerfilAcesso> perfisDeAcesso, Set<ItemAvulso> itensAvulsos) {
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.email = email;
+        this.perfisDeAcesso = perfisDeAcesso;
+        this.itensAvulsos = itensAvulsos;
     }
 
     public Usuario(String nome, String login, Senha senha, Email email, Status status, Set<PerfilAcesso> perfisDeAcesso) {

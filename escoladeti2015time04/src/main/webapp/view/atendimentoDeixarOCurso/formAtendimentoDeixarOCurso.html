@@ -1,5 +1,5 @@
-<form name="formAtendimentoDeixarOCurso" novalidate ng-init="init()">
-    <div class="container-fluid formulario">
+<form name="formAtendimentoDeixarOCurso" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()">
+    <div class="formulario">
         <div class="row titulo">
             <h2>Cadastro de Atendimento</h2>
         </div>
@@ -22,10 +22,12 @@
                         </div>                        
                     </div>
                     <div class="col-md-2">
-                        <label>
-                            <h4>Hora</h4>
-                        </label>
-                        <input class="form-control" size="5" ng-model="horaDeixarOCurso" bs-timepicker data-time-format="HH:mm" data-length="1" data-minute-step="1" data-arrow-behavior="picker" type="text">                        
+                        <div class="form-group">
+                            <label>
+                                <h4>Hora</h4>
+                            </label>
+                            <input class="form-control" size="5" ng-model="horaDeixarOCurso" bs-timepicker data-time-format="HH:mm" data-length="1" data-minute-step="1" data-arrow-behavior="picker" type="text">                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -122,14 +124,14 @@
                         <label>
                             <h4>Instituição de Transferência</h4>
                         </label>
-                        <input type="text" name="transferencia" placeholder="Informe a instituição de transferência" class="form-control" ng-model="atendimentoDeixarOCurso.transferencia" data-animation="am-flip-x" bs-options="transferencia for transferencia in getRecuperarTransferencias()" bs-typeahead>
+                        <input type="text" name="transferencia" placeholder="Informe a instituição de transferência" class="form-control" ng-model="atendimentoDeixarOCurso.transferencia" data-animation="am-flip-x" bs-options="transferencia for transferencia in getCamposInseridos('transferencia', $viewValue)" bs-typeahead>
                     </div>
                     <div class="col-md-6">
                         <label>
                             <h4>Coordenador / Diretor</h4>
                         </label>                        
                         <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.coordenadorDiretor.$invalid && !formAtendimentoDeixarOCurso.coordenadorDiretor.$pristine}">
-                            <input type="text" name="coordenadorDiretor" placeholder="Informe o Coordenador / Diretor" class="form-control" ng-model="atendimentoDeixarOCurso.coordenadorDiretor" data-animation="am-flip-x" bs-options="coordenadorDiretor  for coordenadorDiretor in getRecuperarCoordenadores()" bs-typeahead>
+                            <input type="text" name="coordenadorDiretor" placeholder="Informe o Coordenador / Diretor" class="form-control" ng-model="atendimentoDeixarOCurso.coordenadorDiretor" data-animation="am-flip-x" bs-options="coordenadorDiretor  for coordenadorDiretor in getCamposInseridos('coordenadorDiretor', $viewValue)" bs-typeahead>
                             <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
                             <p ng-show="formAtendimentoDeixarOCurso.coordenadorDiretor.$error.maxlength" class="help-block">Nome no máximo 50 caracteres.</p>
                         </div>                        
@@ -139,30 +141,40 @@
 
             <div class="panel-heading" data-toggle="collapse" data-target="#demo3"><h3>Dados do Atendimento<span class="glyphicon glyphicon-edit pull-right" aria-hidden="true"></span></h3></div>
             <div id="demo3" class="panel-body collapse in"> 
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label>
-                            <h4>Objetivo</h4>
-                        </label>
-                        <div class="form-group opcao">
-                            <select class="form-control" id="sel1" name="objetivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.objetivo.$invalid && !formAtendimentoDeixarOCurso.objetivo.$pristine}" ng-change="setObjetivo(objetivoSelecionado)" ng-model="objetivoSelecionado" ng-options="o.descricao for o in objetivos" required> 
-                            </select>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label>Objetivo</label>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label>
-                            <h4>Motivo</h4>
-                        </label>
-                        <div class="form-group opcao">
-                            <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.motivo.$invalid && !formAtendimentoDeixarOCurso.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
-                            </select>
+                        <div class="col-md-6">
+                            <label>Motivo</label>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <select class="form-control" id="sel1" name="objetivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.objetivo.$invalid && !formAtendimentoDeixarOCurso.objetivo.$pristine}" ng-change="setObjetivo(objetivoSelecionado)" ng-model="objetivoSelecionado" ng-options="o.descricao for o in objetivos" required> 
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <a href="#/AtendimentoDeixarOCurso/Objetivo/form" type="button" class="tooltip, btn btn-primary" title="Novo Objetivo"><i class="fa fa-plus-square-o fa-2x"></i></a>
+                        </div>
+                        <div class="col-md-5">
+                            <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.motivo.$invalid && !formAtendimentoDeixarOCurso.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <a href="#/AtendimentoMotivo/form" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></a>
+                        </div>    
+                    </div> 
+                </div>    
+                    
+                  
                 <div class="row form-group">
                     <div class="col-md-12">
                         <label>
-                            <h4>Descrição resumida</h4>
+                            <h4>Descrição Pública</h4>
                         </label>
                         <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.descricaoPublica.$invalid && !formAtendimentoDeixarOCurso.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPublica" required></textarea>
                     </div>
@@ -170,9 +182,9 @@
                 <div class="row form-group">
                     <div class="col-md-12">
                         <label>
-                            <h4>Descrição detalhada</h4>
+                            <h4>Descrição Privada</h4>
                         </label>
-                        <textarea class="form-control" name="descricaoPrivada" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.descricaoPrivada.$invalid && !formAtendimentoDeixarOCurso.descricaoPrivada.$pristine}" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada" required></textarea>
+                        <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada"></textarea>
                     </div>
                 </div>                
             </div>

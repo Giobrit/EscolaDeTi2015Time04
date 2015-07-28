@@ -1,0 +1,183 @@
+<form name="cadastroAtendimentoPreventivo" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()">
+    <div class="formulario">
+        <div class="row titulo">
+            <h2> Cadastro de Atendimento Preventivo</h2>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo"><h3>Dados Básicos<span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"><span></h3></div>
+                            <div id="demo" class="panel-body collapse in">
+                                <div class="row form-group">
+                                    <div class="col-md-3">
+                                        <label>
+                                            <h4>Data</h4>
+                                        </label>
+                                        <div class="datepicker" date-format="dd/MM/yyyy">
+                                            <input type="text" class="form-control angular-datepicker-input" ng-model="dataPreventivo"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>
+                                            <h4>Hora</h4>
+                                        </label>
+                                        <input class="form-control" size="5" ng-model="horaPreventivo" bs-timepicker data-time-format="HH:mm" data-length="1" data-minute-step="1" data-arrow-behavior="picker" type="text">                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-heading"  data-toggle="collapse" data-target="#demo1"><h3>Dados do Aluno<span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span></h3></div>
+                            <div id="demo1" class="panel-body collapse in"> 
+                                <div class="row form-group">
+                                    <div class="col-md-2">
+                                        <label>
+                                            <h4>Ra</h4>
+                                        </label>
+                                        <input type="text" name="ra" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.ra.$invalid && !cadastroAtendimentoPreventivo.ra.$pristine}" class="form-control" ng-model="atendimentoPreventivo.ra" ng-keyup="carregarAluno(atendimentoPreventivo.ra)" maxlength="8" required>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label>
+                                            <h4>Aluno</h4>
+                                        </label>
+                                        <div class="form-group" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.nomeAluno.$invalid && !cadastroAtendimentoPreventivo.nomeAluno.$pristine}">
+                                            <input type="text" name="nomeAluno" placeholder="Informe o nome do aluno" class="form-control" ng-model="atendimentoPreventivo.nomeAluno" ng-minlength="2" ng-maxlength="79"  maxlength="80" required>
+                                            <p ng-show="cadastroAtendimentoPreventivo.nomeAluno.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
+                                            <p ng-show="cadastroAtendimentoPreventivo.nomeAluno.$error.maxlength" class="help-block">Nome no máximo 80 caracteres.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label>
+                                            <h4>Curso</h4>
+                                        </label>
+                                        <input type="text" name="curso" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.curso.$invalid && !cadastroAtendimentoPreventivo.curso.$pristine}" placeholder="Informe o curso do aluno" class="form-control" ng-model="atendimentoPreventivo.curso" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>
+                                            <h4>Centro</h4>
+                                        </label>
+                                        <input type="text" name="centro" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.centro.$invalid && !cadastroAtendimentoPreventivo.centro.$pristine}" placeholder="Informe o centro" class="form-control" ng-model="atendimentoPreventivo.centro" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>
+                                            <h4>Série</h4>
+                                        </label>
+                                        <div class="form-group">
+                                            <select class="form-control" name="serieSemestre" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.serieSemestre.$invalid && !cadastroAtendimentoPreventivo.serieSemestre.$pristine}" id="sel1"  ng-model="atendimentoPreventivo.serieSemestre" required> 
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>
+                                            <h4>Turno</h4>
+                                        </label>
+                                        <div class="form-group">
+                                            <select class="form-control" name="turno" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.turno.$invalid && !cadastroAtendimentoPreventivo.turno.$pristine}" id="sel1" ng-model="atendimentoPreventivo.turno" required>
+                                                <option>Matutino</option>
+                                                <option>Noturno</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label>
+                                            <h4>Bolsa</h4>
+                                        </label>
+                                        <input type="text" name="bolsaFinanciamento" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.bolsaFinanciamento.$invalid && !cadastroAtendimentoPreventivo.bolsaFinanciamento.$pristine}" placeholder="Informe se o aluno possui bolsa" class="form-control" ng-model="atendimentoPreventivo.bolsaFinanciamento" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>
+                                            <h4>Reprovações</h4>
+                                        </label>
+                                        <div class="form-group">
+                                            <input type="text" name="numeroReprovacoes" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.numeroReprovacoes.$invalid && !cadastroAtendimentoPreventivo.numeroReprovacoes.$pristine}" placeholder="Informe o número" class="form-control" ng-model="atendimentoPreventivo.numeroReprovacoes" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>
+                                            <h4>Matriculado</h4>
+                                        </label>
+                                        <div class="form-group">
+                                            <select class="form-control" name="matriculado" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.matriculado.$invalid && !cadastroAtendimentoPreventivo.matriculado.$pristine}" id="sel1" ng-model="matriculadoSelecionado" ng-change="setMatriculado(matriculadoSelecionado)" required>
+                                                <option>Sim</option>
+                                                <option>Não</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-heading" data-toggle="collapse" data-target="#demo3"><h3>Dados do Atendimento<span class="glyphicon glyphicon-edit pull-right" aria-hidden="true"></span></h3></div>
+                            <div id="demo3" class="panel-body collapse in">    
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label>
+                                                <h4>Encaminhamento</h4>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>
+                                                <h4>Meio de contato</h4>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>
+                                                <h4>Motivo</h4>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <input type="text" name="encaminhamento" placeholder="Modo de encaminhamento" class="form-control" ng-model="atendimentoPreventivo.encaminhamento" data-animation="am-flip-x" bs-options="encaminhamento for encaminhamento in getCamposInseridos('encaminhamento', $viewValue)" bs-typeahead>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="meioContato" placeholder="Informe o meio de contato" class="form-control" ng-model="atendimentoPreventivo.meioContato" data-animation="am-flip-x" bs-options="meiocontato for meiocontato in getCamposInseridos('meioContato', $viewValue)" bs-typeahead>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group opcao">
+                                                <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.motivo.$invalid && !cadastroAtendimentoPreventivo.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="#/AtendimentoMotivo/form" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></a>
+                                        </div>    
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label>
+                                                <h4>Descrição Pública</h4>
+                                            </label>
+                                            <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.descricaoPublica.$invalid && !cadastroAtendimentoPreventivo.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoPreventivo.descricaoPublica" required></textarea>
+                                        </div>
+                                    </div>        
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label>
+                                                <h4>Descrição Privada</h4>
+                                            </label>
+                                            <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoPreventivo.descricaoPrivada"></textarea>
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div> 
+                            <div class="row">	
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-7 pull-right">
+                                        <a type="button" href="#/AtendimentoPreventivo/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
+                                        <button type="submit" ng-click="salvar()" ng-disabled="(cadastroAtendimentoPreventivo.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
+                                    </div>
+                                </div>	
+                            </div>	
+                            </div>             
+                            </form>

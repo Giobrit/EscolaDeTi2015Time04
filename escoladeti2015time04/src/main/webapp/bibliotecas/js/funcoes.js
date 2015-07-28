@@ -43,7 +43,7 @@ function formatarHora(data) {
 }
 
 function converterDataBRParaAnoMesDia(data) {
-    dataSeparada = data.split("/"); 
+    dataSeparada = data.split("/");
     return dataSeparada[2] + "/" + dataSeparada[1] + "/" + dataSeparada[0];
 }
 
@@ -73,4 +73,38 @@ function booleanToString(boolean) {
 
 function stringToBoolean(string) {
     return string === "Sim" ? true : false;
+}
+
+function errorPadrao(data, growl) {
+    var mensagemConsole = data.mensagemConsole ? data.mensagemConsole : JSON.stringify(data);
+    var mensagemUsuario = data.mensagemUsuario ? data.mensagemUsuario : JSON.stringify(data);
+    console.log(mensagemConsole);
+    growl.error(mensagemUsuario);
+}
+
+function buscarEmArray(array, busca, propriedade, replace, newValue) {
+    var indexElemento = -1;
+    array.forEach(paraCadaElemento);
+
+    function paraCadaElemento(elemento, index) {
+        var achou;
+
+        if (propriedade) {
+            if (replace) {
+                elemento[propriedade] = elemento[propriedade].replace(":id", newValue);
+            }
+//            console.log(elemento[propriedade]);
+//            console.log(busca);
+            achou = elemento[propriedade] === busca;
+//            console.log(achou);
+        } else {
+            achou = elemento === busca;
+        }
+
+        if (achou) {
+            indexElemento = index;
+        }
+    }
+
+    return indexElemento;
 }

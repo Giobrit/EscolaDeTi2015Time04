@@ -75,10 +75,25 @@ public class PerfilAcessoService extends Service<PerfilAcesso, PerfilAcessoRepos
         parans.addValue("idPerfilAcesso", id);
 
         final List<Long> itensDeAcesso = jdbcTemplate.queryForList(query, parans, Long.class);
-        
+
         perfilAcesso.put("itensDeAcesso", itensDeAcesso);
-        
+
         return perfilAcesso; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Map<String, Object>> localizarItensAcesso(Long idPerfilAcesso) {
+        final String query = ""
+                + "select ia.* from perfilacesso_itemacesso paia\n"
+                + "inner join itemacesso ia on ia.id = paia.iditemacesso\n"
+                + "where paia.idperfilacesso = :idPerfilAcesso";
+
+        final MapSqlParameterSource parans = new MapSqlParameterSource();
+        parans.addValue("idPerfilAcesso", idPerfilAcesso);
+
+        final List<Map<String, Object>> itensDeAcesso = jdbcTemplate.query(query, parans, new MapRowMapper());
+
+
+        return itensDeAcesso; 
     }
 
     public void remover(Long id) {

@@ -1,0 +1,90 @@
+<form name="formAtendimentoEspecial" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()" >
+    <div class="listaAtendimento formulario"  ng-init="init()">
+        <div class="panel panel-info">
+            <div class="panel-heading"><h3>Lista de Atendimento Especial<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-offset-2 pull-right">
+                            <a href="#/AtendimentoEspecial/form" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar Novo Atendimento Especial">Adicionar Novo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row Pesquisa">
+                    <div class="col-md-11">
+                        <div class="">
+                            <div class="form-group">
+                                <input type="text" id="buscar" name="buscar" ng-change="listar()" placeholder="Informe o dado a ser pesquisado" class="form-control" ng-model="pesquisa" ng-maxlength="100" />                        
+                            </div>
+                        </div>	
+                    </div>       
+                    <div class="col-md-1 ">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-warning btn-lg permissao" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="overflow-x: auto;">
+                        <div class="col-md-offset-0" style="overflow-x: auto;">
+                            <table class="table table-hover table-condensed table-bordered table-responsive" style="white-space: nowrap;">
+                                <thead>
+                                    <tr>
+                                        <th ng-repeat="c in colunas" ng-click="alterarOrdenacao(c)"  ng-show="c.checked">
+                                            <i class="fa fa-circle-o" aria-hidden="true" ng-show="labelOrdenacao !== c.label"></i>
+                                            <i class="fa fa-arrow-circle-o-up" aria-hidden="true" ng-show="ordenacaoCrescente && labelOrdenacao === c.label"></i>
+                                            <i class="fa fa-arrow-circle-o-down" aria-hidden="true" ng-show="!ordenacaoCrescente && labelOrdenacao === c.label"></i>
+                                            {{c.label}}
+                                        </th>        
+                                        <th>Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="a in atendimentos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
+                                        <td ng-repeat="c in colunas" ng-show="c.checked"  style="white-space: normal ;">{{a[c.propriedadeItem.toLowerCase()]}}</td>
+                                        <td>
+                                            <span class="col-md-12">
+                                                <a href="#/AtendimentoEspecial/form/{{a.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoEspecial/paginacao.html"></dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<form>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Itens da tabela</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4" ng-repeat="c in colunas"  ng-click="alterarCheckbox(c)">
+                            <input class="col-md-1"  type="checkbox" ng-checked="c.checked" />
+                            <label>&nbsp{{c.label}}</label>
+                        </div>                                                                                    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

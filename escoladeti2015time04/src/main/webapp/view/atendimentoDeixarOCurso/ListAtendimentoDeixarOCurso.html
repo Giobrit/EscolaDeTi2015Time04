@@ -1,5 +1,5 @@
-<form name="formAtendimentoDeixarOCurso" novalidate ng-init="init()" >
-    <div class="container-fluid listaAtendimento formulario"  ng-init="init()">
+<form name="formAtendimentoDeixarOCurso" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()" >
+    <div class="listaAtendimento formulario"  ng-init="init()">
         <div class="panel panel-info">
             <div class="panel-heading"><h3>Lista de Atendimento<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
             <div class="panel-body">
@@ -23,43 +23,43 @@
                             <button type="button" class="btn btn-warning btn-lg permissao" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12" style="overflow-x: auto;">
-                            <div style="overflow-x: auto;">
-                                <table class="table table-hover table-condensed table-bordered table-responsive" style="white-space: nowrap;">
-                                    <thead>
-                                        <tr>
-                                            <th ng-repeat="c in colunas"  ng-click="alterarOrdenacao(c)"  ng-show="c.checked">
-                                                <i class="fa fa-circle-o" aria-hidden="true" ng-show="labelOrdenacao !== c.label"></i>
-                                                <i class="fa fa-arrow-circle-o-up" aria-hidden="true" ng-show="ordenacaoCrescente && labelOrdenacao === c.label"></i>
-                                                <i class="fa fa-arrow-circle-o-down" aria-hidden="true" ng-show="!ordenacaoCrescente && labelOrdenacao === c.label"></i>
-                                                {{c.label}}
-                                            </th>        
-                                            <th>Opções</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr dir-paginate="a in atendimentos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
-                                            <td ng-repeat="c in colunas" ng-show="c.checked"  style="white-space: normal ;">{{a[c.propriedadeItem.toLowerCase()]}}</td>
-                                            <td>
-                                                <span>
-                                                    <a href="#/AtendimentoDeixarOCurso/form/{{a.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="overflow-x: auto;">
+                        <div style="overflow-x: auto;">
+                            <table class="table table-hover table-condensed table-bordered table-responsive" style="white-space: nowrap;">
+                                <thead>
+                                    <tr>
+                                        <th ng-repeat="c in colunas"  ng-click="alterarOrdenacao(c)"  ng-show="c.checked">
+                                            <i class="fa fa-circle-o" aria-hidden="true" ng-show="labelOrdenacao !== c.label"></i>
+                                            <i class="fa fa-arrow-circle-o-up" aria-hidden="true" ng-show="ordenacaoCrescente && labelOrdenacao === c.label"></i>
+                                            <i class="fa fa-arrow-circle-o-down" aria-hidden="true" ng-show="!ordenacaoCrescente && labelOrdenacao === c.label"></i>
+                                            {{c.label}}
+                                        </th>        
+                                        <th>Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="a in atendimentos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
+                                        <td ng-repeat="c in colunas" ng-show="c.checked"  style="white-space: normal ;">{{a[c.propriedadeItem.toLowerCase()]}}</td>
+                                        <td>
+                                            <span class="col-md-12">
+                                                <a href="#/AtendimentoDeixarOCurso/form/{{a.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div> 
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="text-center">
-                                <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoDeixarOCurso/motivo/paginacao.html"></dir-pagination-controls>
-                            </div>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoMotivo/paginacao.html"></dir-pagination-controls>
                         </div>
                     </div>
-                </div>    
+                </div>
             </div>
         </div>
     </div>
@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class="col-md-4" ng-repeat="c in colunas"  ng-click="alterarCheckbox(c)">
                             <input class="col-md-1"  type="checkbox" ng-checked="c.checked" />
-                            <label>{{c.label}}</label>
+                            <label>&nbsp{{c.label}}</label>
                         </div>                                                                                    
                     </div>
                 </div>
