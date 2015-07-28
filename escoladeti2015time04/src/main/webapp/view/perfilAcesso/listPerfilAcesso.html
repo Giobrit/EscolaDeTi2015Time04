@@ -18,9 +18,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12 col-xs-12 col-sm-12">
+                    <div class="col-md-12 col-xs-12 col-sm-12" style="overflow-x: auto;">
                         <div>
-                            <table class="table table-hover table-condensed table-bordered table-responsive">
+                            <table class="table table-hover table-condensed table-bordered table-responsive" style="white-space: nowrap;">
                                 <thead>
                                     <tr>
                                         <th ng-click="alterarOrdenacao('nome')" class="col-md-11">
@@ -36,7 +36,7 @@
                                     <tr dir-paginate="perfil in perfisAcesso | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
                                         <td>{{perfil.nome}}</td>
                                         <td>
-                                            <span>
+                                            <span style="white-space: nowrap;">
                                                 <a href="#/PerfilAcesso/form/{{perfil.id}}"  type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                                                 <button ng-click="remover(perfil.id)" type="button" class="tooltip, btn btn-danger botaoEditar" title="Excluir"><i class="fa fa-times fa-1x"></i></button>
                                             </span>
