@@ -44,7 +44,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
             $scope.atendimentoPreventivo.nomeAluno = data.nomealuno;
             $scope.atendimentoPreventivo.curso = data.curso;
             $scope.atendimentoPreventivo.centro = data.centro;
-            $scope.atendimentoPreventivo.serieSemestre = data.seriesemestre;
+            $scope.atendimentoPreventivo.serieSemestre = "" + data.seriesemestre;
             $scope.atendimentoPreventivo.turno = data.turno;
             $scope.atendimentoPreventivo.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoPreventivo.numeroReprovacoes = data.numeroreprovacoes;
@@ -73,7 +73,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
     }
 
     function preencherListDeMotivo() {
-        $http.post("/atendimento/preventivo/motivo/listar", {}).success(onSuccess).error(onError);
+        $http.get("/atendimento/motivo/listarAtivos/ATENDIMENTOPREVENTIVO").success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
@@ -103,7 +103,7 @@ function controllerFormAtendimentoPreventivo($scope, $http, $routeParams, $locat
             return;
         }
 
-        $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error();
+        $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             setAtributosAluno(data);
@@ -141,7 +141,7 @@ AppModule.controller("controllerListAtendimentoPreventivo", controllerListAtendi
 function controllerListAtendimentoPreventivo($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
-    $scope.numeroItensPorPagina = 8;
+    $scope.numeroItensPorPagina = 5;
     var colunaOrdenacao = "data";
     $scope.labelOrdenacao = "Data";
     var ordenacaoCrescente = true;

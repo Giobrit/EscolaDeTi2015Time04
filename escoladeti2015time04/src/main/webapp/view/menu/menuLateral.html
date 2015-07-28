@@ -1,0 +1,85 @@
+<link href="../../bibliotecas/css/menu.css" rel="stylesheet" type="text/css"/>
+<script src="../../bibliotecas/jquery/jquery-2.1.0.min.js" type="text/javascript"></script>
+<script src="../../bibliotecas/jquery/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../bibliotecas/js/bootstrap.js" type="text/javascript"></script>
+<script src="../../bibliotecas/js/autocomplete.min.js" type="text/javascript"></script>
+<script src="../../bibliotecas/js/menu.js" type="text/javascript"></script>
+
+<div id="sidebar-left" class="col-xs-2 col-sm-2 col-md-2" style="position: fixed;">
+
+    <ul class="nav main-menu">
+        <li class="dropdown" ng-repeat="permissao in permissoesUsuarioLogado">
+
+            <a ng-if="true" href="#" class="dropdown-toggle">
+                <i class="fa {{icones[permissao.descricao]}}"></i>
+                <span class="hidden-xs">{{permissao.descricao}}</span>
+            </a>
+
+            <ul class="dropdown-menu">
+                <li ng-repeat="rota in permissao.inferiores">
+                    <!--{{rota}}-->
+                    <a ng-if="rota.nomenu" class="ajax-link" href="#{{rota.rota}}">{{rota.descricao}}</a>
+                </li>
+            </ul>
+        </li>
+<!--
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fa fa-pencil-square-o"></i>
+                <span class="hidden-xs">Perfil de Acesso</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="ajax-link" href="#/PerfilAcesso/form">Cadastrar Perfil</a></li>
+                <li><a class="ajax-link" href="#/PerfilAcesso/list">Listar Perfil</a></li>
+                <li><a class="ajax-link" href="#/PerfilUsuario/form">Cadastrar Perfil de Usuario</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fa fa-comment-o"></i>
+                <span class="hidden-xs">Atendimento</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="ajax-link" href="#/AtendimentoDeixarOCurso/form">Cadastrar</a></li>
+                <li><a class="ajax-link" href="#/AtendimentoDeixarOCurso/list">Listar</a></li>
+                <li><a class="ajax-link" href="#/AtendimentoDeixarOCurso/Objetivo/list">Objetivo</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fa fa-desktop"></i>
+                <span class="hidden-xs">Atendimento Preventivo</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="ajax-link" href="#/AtendimentoPreventivo/form">Cadastrar</a></li>
+                <li><a class="ajax-link" href="#/AtendimentoPreventivo/list">Listar</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fa fa-desktop"></i>
+                <span class="hidden-xs">Atendimento Especial</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class=ajax-link" href="#/AtendimentoEspecial/form">Cadastrar</a></li>
+                <li><a class=ajax-link" href="#/AtendimentoEspecial/list">Listar</a></li>
+            </ul>    
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fa fa-list"></i>
+                <span class="hidden-xs">Sistema</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="ajax-link" href="#/AtendimentoMotivo/list">Motivo</a></li>
+                <li><a href="view/login/login.html">Login</a></li>
+            </ul>
+        </li>-->
+    </ul>
+</div>
+<!--<link href="../../bibliotecas/css/menu.css" rel="stylesheet" type="text/css"/>
+<script src="../../bibliotecas/jquery/jquery-2.1.0.min.js" type="text/javascript"></script>
+<script src="../../bibliotecas/jquery/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../bibliotecas/js/bootstrap.js" type="text/javascript"></script>
+<script src="../../bibliotecas/js/autocomplete.min.js" type="text/javascript"></script>
+<script src="../../bibliotecas/js/menu.js" type="text/javascript"></script>-->

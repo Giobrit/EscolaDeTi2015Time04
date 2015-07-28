@@ -30,7 +30,7 @@ public class Atendimento implements Serializable {
 
     @ColunaListavel
     @ColunaLocalizavel
-    @Column(unique = true, nullable = false, columnDefinition = "timestamp with time zone not null")
+    @Column(nullable = false, columnDefinition = "timestamp with time zone not null")
     @Temporal(value = TemporalType.TIMESTAMP)
     protected Date data;
 
@@ -81,12 +81,11 @@ public class Atendimento implements Serializable {
 
     @ColunaListavel
     @ColunaLocalizavel
-    @Column(name = "descricaopublica", nullable = false)
+    @Column(name = "descricaopublica", length = 1000, nullable = false)
     protected String descricaoPublica;
 
-    @ColunaListavel
     @ColunaLocalizavel
-    @Column(name = "descricaoprivada", nullable = false)
+    @Column(name = "descricaoprivada", length = 1000)
     protected String descricaoPrivada;
 
     public Atendimento() {

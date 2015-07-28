@@ -21,7 +21,7 @@ public class ItemAcessoController {
     }
 
     @RequestMapping(value = "/findById")
-    public List<Map<String, Object>> getItensAcessoById(@RequestParam Long id) {
+    public Map<String, Object> getItensAcessoById(@RequestParam Long id) {
         return service.findById(id);
     }
 

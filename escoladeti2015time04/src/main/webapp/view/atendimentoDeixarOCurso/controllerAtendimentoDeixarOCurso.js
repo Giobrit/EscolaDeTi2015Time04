@@ -45,7 +45,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             $scope.atendimentoDeixarOCurso.nomeAluno = data.nomealuno;
             $scope.atendimentoDeixarOCurso.curso = data.curso;
             $scope.atendimentoDeixarOCurso.centro = data.centro;
-            $scope.atendimentoDeixarOCurso.serieSemestre = data.seriesemestre;
+            $scope.atendimentoDeixarOCurso.serieSemestre = "" + data.seriesemestre;
             $scope.atendimentoDeixarOCurso.turno = data.turno;
             $scope.atendimentoDeixarOCurso.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoDeixarOCurso.numeroReprovacoes = data.numeroreprovacoes;
@@ -95,7 +95,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
     };
 
     $scope.preencherListDeMotivo = function () {
-        $http.get("/atendimento/deixarOCurso/motivo/listarAtivos").success(onSuccess).error(onError);
+        $http.get("/atendimento/motivo/listarAtivos/ATENDIMENTODEIXAROCURSO").success(onSuccess).error(onError);
 
         function onSuccess(data) {
             $scope.motivos = data.itens;
@@ -124,7 +124,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
             return;
         }
 
-        $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error();
+        $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             setAtributosAluno(data);
@@ -165,19 +165,20 @@ AppModule.controller("controllerListAtendimentoDeixarOCurso", controllerListAten
 function controllerListAtendimentoDeixarOCurso($scope, $http, growl) {
 
     $scope.paginaAtual = 1;
-    $scope.numeroItensPorPagina = 8;
+    $scope.numeroItensPorPagina = 5;
     var colunaOrdenacao = "protocolo";
     $scope.labelOrdenacao = "Protocolo";
     var ordenacaoCrescente = true;
 
     $scope.colunas =
             [
-                {label: "Protocolo", colunaOrdenacao: "protocolo", propriedadeItem: "protocolo", checked: false},
+                {label: "Protocolo", colunaOrdenacao: "protocolo", propriedadeItem: "protocolo", checked: true},
                 {label: "Data", colunaOrdenacao: "data", propriedadeItem: "data", checked: true},
                 {label: "Hora", colunaOrdenacao: "data", propriedadeItem: "hora", checked: true},
                 {label: "RA", colunaOrdenacao: "ra", propriedadeItem: "ra", checked: false},
-                {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: false},
+                {label: "Nome Aluno", colunaOrdenacao: "nomeAluno", propriedadeItem: "nomeAluno", checked: true},
                 {label: "Curso", colunaOrdenacao: "curso", propriedadeItem: "curso", checked: false},
+                {label: "Centro", colunaOrdenacao: "centro", propriedadeItem: "centro", checked: false},
                 {label: "Série", colunaOrdenacao: "serieSemestre", propriedadeItem: "serieSemestre", checked: false},
                 {label: "Turno", colunaOrdenacao: "turno", propriedadeItem: "turno", checked: false},
                 {label: "Bolsa", colunaOrdenacao: "bolsaFinanciamento", propriedadeItem: "bolsaFinanciamento", checked: false},

@@ -1,82 +1,157 @@
-AppModule.config(function ($routeProvider, $locationProvider) {
+(function () {
+    var idUsuario;
+    var listaRotas;
+    var logado = false;
 
-    $routeProvider.when('/PerfilAcesso/form', {
-        templateUrl: 'view/PerfilAcesso.html',
-        controller: 'PerfilAcessoFormController'
-    }).when('/PerfilAcesso/edit/:id', {
-        templateUrl: 'view/PerfilAcesso.html',
-        controller: 'PerfilAcessoFormController'
-    }).when('/PerfilAcesso/lista', {
-        templateUrl: 'view/ListaPerfilAcesso.html',
-        controller: 'PerfilAcessoFormController'
-    }).when('/Usuario/form', {
-        templateUrl: 'view/usuario/cadastroUsuario.html',
-        controller: 'controllerFormUsuario'
-    }).when('/Usuario/form/:id', {
-        templateUrl: 'view/usuario/cadastroUsuario.html',
-        controller: 'controllerFormUsuario'
-    }).when('/Usuario/list', {
-        templateUrl: 'view/usuario/ListagemUsuario.html',
-        controller: 'controllerListUsuario'
-    }).when('/AtendimentoDeixarOCurso/list', {
-        templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
-        controller: ''    
-    }).when('/Usuario/login', {
-        templateUrl: 'view/login/login.html',
-        controller: ''
-    }).when('/Usuario/form/alterarSenha/:id', {
-        templateUrl: 'view/usuario/alterarSenhaUsuario.html',
-        controller: 'controllerFormUsuario'    
-    }).when('/AtendimentoDeixarOCurso/Objetivo/form', {
-        templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
-        controller: 'controllerFormObjetivoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/Objetivo/form/:id', {
-        templateUrl: 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html',
-        controller: 'controllerFormObjetivoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/Objetivo/list', {
-        templateUrl: 'view/atendimentoDeixarOCurso/objetivo/listagemObjetivo.html',
-        controller: 'controllerListObjetivoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/Motivo/form', {
-        templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
-        controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/Motivo/list', {
-        templateUrl: 'view/atendimentoDeixarOCurso/motivo/listagemMotivo.html',
-        controller: 'controllerListMotivoAtendimentoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/Motivo/form/:id', {
-        templateUrl: 'view/atendimentoDeixarOCurso/motivo/cadastroMotivo.html',
-        controller: 'controllerFormMotivoAtendimentoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/form', {
-        templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
-        controller: 'controllerFormAtendimentoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/form/:id', {
-        templateUrl: 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html',
-        controller: 'controllerFormAtendimentoDeixarOCurso'
-    }).when('/AtendimentoDeixarOCurso/list',{
-        templateUrl: 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html',
-        controller: 'controllerListAtendimentoDeixarOCurso'
-    }).when('/AtendimentoPreventivo/Motivo/form', {
-        templateUrl: 'view/atendimentoPreventivo/motivo/cadastroMotivo.html',
-        controller: 'controllerFormMotivoAtendimentoPreventivo'
-    }).when('/AtendimentoPreventivo/Motivo/form/:id', {
-        templateUrl: 'view/atendimentoPreventivo/motivo/cadastroMotivo.html',
-        controller: 'controllerFormMotivoAtendimentoPreventivo'
-    }).when('/AtendimentoPreventivo/Motivo/list', {
-        templateUrl: 'view/atendimentoPreventivo/motivo/listagemMotivo.html',
-        controller: 'controllerListMotivoAtendimentoPreventivo'
-    }).when('/AtendimentoPreventivo/form', {
-        templateUrl: 'view/atendimentoPreventivo/cadastroAtendimentoPreventivo.html',
-        controller: 'controllerFormAtendimentoPreventivo'
-    }).when('/AtendimentoPreventivo/list', {
-        templateUrl: 'view/atendimentoPreventivo/listagemAtendimentoPreventivo.html',
-        controller: 'controllerListAtendimentoPreventivo'
-    }).when('/AtendimentoPreventivo/form/:id', {
-        templateUrl: 'view/atendimentoPreventivo/cadastroAtendimentoPreventivo.html',
-        controller: 'controllerFormAtendimentoPreventivo'        
-    }).otherwise('/', {
-        templateUrl: 'view/Home.html'
+    AppModule.config(function ($routeProvider, $locationProvider) {
+
+        //Rotas Avulsas
+        $routeProvider.when('/Sair', {
+            resolve: {
+                sair: sairDoSistema
+            }
+        }).otherwise({
+            redirectTo: '/404'
+        });
+
+        //Rotas 404
+        adicionarRota($routeProvider, '/404', 'view/notFound/notFound.html');
+        //Rotas Login
+        adicionarRota($routeProvider, '/Login', 'view/login/login.html', 'controllerTelaLogin');
+        adicionarRota($routeProvider, '/', 'view/Home.html');
+        //Rotas Usuario
+        adicionarRota($routeProvider, '/Usuario/form', 'view/usuario/cadastroUsuario.html', 'controllerFormUsuario');
+        adicionarRota($routeProvider, '/Usuario/form/:id', 'view/usuario/cadastroUsuario.html', 'controllerFormUsuario');
+        adicionarRota($routeProvider, '/Usuario/list', 'view/usuario/ListagemUsuario.html', 'controllerListUsuario');
+        adicionarRota($routeProvider, '/Usuario/form/alterarSenha/:id', 'view/usuario/alterarSenhaUsuario.html', 'controllerFormUsuario');
+        //Rotas PerfilAcesso
+        adicionarRota($routeProvider, '/PerfilAcesso/form', 'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
+        adicionarRota($routeProvider, '/PerfilAcesso/form/:id', 'view/perfilAcesso/formPerfilAcesso.html', 'controllerFormPerfilAcesso');
+        adicionarRota($routeProvider, '/PerfilAcesso/list', 'view/perfilAcesso/listPerfilAcesso.html', 'controllerListPerfilAcesso');
+        //Rotas PerfilUsuario
+        adicionarRota($routeProvider, '/PerfilUsuario/form/:id', 'view/perfilUsuario/formPerfilUsuario.html', 'controllerFormPerfilUsuario');
+        //Rotas Atendimento Deixar O Curso
+        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
+        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/form/:id', 'view/atendimentoDeixarOCurso/formAtendimentoDeixarOCurso.html', 'controllerFormAtendimentoDeixarOCurso');
+        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/list', 'view/atendimentoDeixarOCurso/ListAtendimentoDeixarOCurso.html', 'controllerListAtendimentoDeixarOCurso');
+        //Rotas Atendimento Deixar O Curso Objetivo
+        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/Objetivo/form', 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html', 'controllerFormObjetivoDeixarOCurso');
+        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/Objetivo/form/:id', 'view/atendimentoDeixarOCurso/objetivo/cadastroObjetivo.html', 'controllerFormObjetivoDeixarOCurso');
+        adicionarRota($routeProvider, '/AtendimentoDeixarOCurso/Objetivo/list', 'view/atendimentoDeixarOCurso/objetivo/listagemObjetivo.html', 'controllerListObjetivoDeixarOCurso');
+        //Rotas Atendimento Preventivo
+        adicionarRota($routeProvider, '/AtendimentoPreventivo/form', 'view/atendimentoPreventivo/cadastroAtendimentoPreventivo.html', 'controllerFormAtendimentoPreventivo');
+        adicionarRota($routeProvider, '/AtendimentoPreventivo/form/:id', 'view/atendimentoPreventivo/cadastroAtendimentoPreventivo.html', 'controllerFormAtendimentoPreventivo');
+        adicionarRota($routeProvider, '/AtendimentoPreventivo/list', 'view/atendimentoPreventivo/listagemAtendimentoPreventivo.html', 'controllerListAtendimentoPreventivo');
+        //Rotas Atendimento Motivo
+        adicionarRota($routeProvider, '/AtendimentoMotivo/form', 'view/atendimentoMotivo/cadastroMotivo.html', 'controllerFormMotivoAtendimento');
+        adicionarRota($routeProvider, '/AtendimentoMotivo/form/:id', 'view/atendimentoMotivo/cadastroMotivo.html', 'controllerFormMotivoAtendimento');
+        adicionarRota($routeProvider, '/AtendimentoMotivo/list', 'view/atendimentoMotivo/listagemMotivo.html', 'controllerListMotivoAtendimento');
+        //Rotas Atendimento Especial
+        adicionarRota($routeProvider, '/AtendimentoEspecial/form', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
+        adicionarRota($routeProvider, '/AtendimentoEspecial/form/:id', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
+        adicionarRota($routeProvider, '/AtendimentoEspecial/list', 'view/atendimentoEspecial/ListAtendimentoEspecial.html', 'controllerListAtendimentoEspecial');
+
+
+        //verificar se é possível separar as rotas em módulos
+
+        $locationProvider.html5Mode(false);
+
     });
 
-    //verificar se é possível separar as rotas em módulos
+    function adicionarRota(routeProvider, rota, urlTemplate, controllerName) {
+        routeProvider.when(rota, {
+            templateUrl: urlTemplate,
+            controller: controllerName,
+            resolve: {
+                login: validacaoLogin
+            }
+        });
+    }
 
-    $locationProvider.html5Mode(false);
-});
+    function validacaoLogin($q, $cookies, $http, $location, $timeout, growl) {
+        var deferred = $q.defer();
+
+        idUsuario = $cookies.get('login');
+
+        if (!idUsuario) {
+            if (!logado) {
+                deferred.resolve();
+                $location.path("/Login");
+            } else {
+                location.reload();
+            }
+        } else {
+            deferred.resolve();
+            logado = true;
+            carregaPermissao($http);
+            var path = $location.path();
+            if (path === "/Login") {
+                $location.path("/");
+                return deferred.promise;
+            }
+            var now = new Date();
+            $cookies.put('login', idUsuario, {
+                expires: new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 30)
+            });
+
+
+//            console.log(contemRota($location.path()));
+//
+            if (!contemRota($location.path(), $timeout)) {
+                growl.warning("Acesso Negado");
+                $location.path("/404");
+            }
+        }
+
+
+        return deferred.promise;
+    }
+
+    function sairDoSistema($cookies) {
+        $cookies.remove('login');//('login');
+        location.reload();
+    }
+
+
+
+    function carregaPermissao(http) {
+        if (!listaRotas) {
+            return http.get("usuario/permissoes/listaRotas/" + idUsuario).then(onSuccess);
+        }
+
+        function onSuccess(data) {
+            listaRotas = data.data;
+        }
+    }
+
+    function contemRota(item, timeout) {
+//        console.log(item);
+        item = item.replace(/0/gi, '');
+        item = item.replace(/1/gi, '');
+        item = item.replace(/2/gi, '');
+        item = item.replace(/3/gi, '');
+        item = item.replace(/4/gi, '');
+        item = item.replace(/5/gi, '');
+        item = item.replace(/6/gi, '');
+        item = item.replace(/7/gi, '');
+        item = item.replace(/8/gi, '');
+        item = item.replace(/9/gi, '');
+//        console.log(item);
+        if (!listaRotas) {
+            return timeout(validar, 500);
+        } else {
+            return validar();
+        }
+
+        function validar() {
+            if (!listaRotas) {
+                return false;
+            } else if (buscarEmArray(listaRotas, item, 'rota', ':id', '') !== -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+}());
