@@ -158,14 +158,14 @@
                             </select>
                         </div>
                         <div class="col-md-1">
-                            <a href="#/AtendimentoDeixarOCurso/Objetivo/form" type="button" class="tooltip, btn btn-primary" title="Novo Objetivo"><i class="fa fa-plus-square-o fa-2x"></i></a>
+                            <button ng-click="cadastrarOutraTela('/AtendimentoDeixarOCurso/Objetivo/form')" type="button" class="tooltip, btn btn-primary" title="Novo Objetivo"><i class="fa fa-plus-square-o fa-2x"></i></button>
                         </div>
                         <div class="col-md-5">
                             <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.motivo.$invalid && !formAtendimentoDeixarOCurso.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
                             </select>
                         </div>
                         <div class="col-md-1">
-                            <a href="#/AtendimentoMotivo/form" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></a>
+                            <button ng-click="cadastrarOutraTela('/AtendimentoMotivo/form')" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></button>
                         </div>    
                     </div> 
                 </div>    
@@ -179,7 +179,7 @@
                         <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.descricaoPublica.$invalid && !formAtendimentoDeixarOCurso.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPublica" required></textarea>
                     </div>
                 </div>
-                <div class="row form-group">
+                <div class="row form-group" ng-show="exibirDescricaoPrivada()">
                     <div class="col-md-12">
                         <label>
                             <h4>Descrição Privada</h4>

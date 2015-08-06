@@ -9,6 +9,9 @@ public class AtendimentoCommandInserir {
     protected Date data;
 
     @Column(nullable = false)
+    protected Long usuario;
+
+    @Column(nullable = false)
     protected String ra;
 
     @Column(nullable = false)
@@ -41,8 +44,9 @@ public class AtendimentoCommandInserir {
     public AtendimentoCommandInserir() {
     }
 
-    public AtendimentoCommandInserir(Date data, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
+    public AtendimentoCommandInserir(Date data, Long usuario, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
         this.data = data;
+        this.usuario = usuario;
         this.ra = ra;
         this.centro = centro;
         this.nomeAluno = nomeAluno;
@@ -61,6 +65,10 @@ public class AtendimentoCommandInserir {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public Long getUsuario() {
+        return usuario;
     }
 
     public String getRa() {

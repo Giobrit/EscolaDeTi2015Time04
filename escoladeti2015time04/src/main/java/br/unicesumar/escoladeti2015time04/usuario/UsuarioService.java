@@ -94,7 +94,7 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
         return permissoes;
     }
 
-    public List<Map<String, Object>> localizarListaPermissoes(Long id) {
+    public List<Map<String, Object>> localizarRotasPermissao(Long id) {
         String query = ""
                 + "select "
                 + "ia.*  "
@@ -111,22 +111,44 @@ public class UsuarioService extends Service<Usuario, UsuarioRepository, UsuarioC
 
         List<Map<String, Object>> permissoes = jdbcTemplate.query(queryRotas, paransGrupos, new MapRowMapper());
 
-        
         return permissoes;
     }
-    
+
+    public List<Map<String, Object>> localizarPermissoesAvulsas(Long id) {
+        String query = ""
+                + "select  "
+                + "ia.*   "
+                + "from itemacesso ia "
+                + "inner join usuario u on u.id = 1 "
+                + "inner join usuario_perfildeacesso upa on upa.idusuario = u.id "
+                + "inner join perfilacesso pa on pa.id = upa.idperfilacesso "
+                + "inner join perfilacesso_itemacesso paia on paia.idperfilacesso = pa.id and paia.iditemacesso = ia.id "
+                + "where ia.grupo is false "
+                + "group by ia.id "
+                + "order by ia.id ";
+
+//        String queryRotas = query + "where ia.rota is not null";
+
+        MapSqlParameterSource paransGrupos = new MapSqlParameterSource();
+        paransGrupos.addValue("idUsuario", id);
+
+        List<Map<String, Object>> permissoes = jdbcTemplate.query(query, paransGrupos, new MapRowMapper());
+
+        return permissoes;
+    }
+
     public void alterarSenha(UsuarioCommandEditarSenha usuarioAlterarSenha) {
         Usuario usuarioEditandoSenha = super.repository.findOne(usuarioAlterarSenha.getId());
         usuarioEditandoSenha.setSenha(usuarioAlterarSenha.getSenha());
 
         super.repository.save(usuarioEditandoSenha);
     }
-    
+
     public void alterarPerfilUsuario(UsuarioCommandEditarPerfilUsuario usuarioCommandEditarPerfilUsuario) {
         Usuario usuario = this.localizarObjeto(usuarioCommandEditarPerfilUsuario.getIdUsuario());
-        
-        usuario.setPerfisDeAcesso(new HashSet<> (perfilAcessoService.localizarObjetos(usuarioCommandEditarPerfilUsuario.getPerfisDeAcesso())));
-        
+
+        usuario.setPerfisDeAcesso(new HashSet<>(perfilAcessoService.localizarObjetos(usuarioCommandEditarPerfilUsuario.getPerfisDeAcesso())));
+
         repository.save(usuario);
     }
 

@@ -4,6 +4,9 @@ AppModule.controller("controllerListObjetivoDeixarOCurso", controllerListObjetiv
 
 function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $location, growl, $timeout) {
 
+    $scope.nextPath = $scope.useOldPath ? $scope.oldPath : "/AtendimentoDeixarOCurso/Objetivo/list";
+    $scope.setUseOldPath(false);
+
     $scope.init = function () {
         limparTela();
 
@@ -16,22 +19,22 @@ function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $locati
 
     $scope.salvar = function () {
         if ($scope.editando) {
-            $http.put("atendimento/deixarOCurso/objetivo", $scope.objetivo).success(onSuccess).error(onError);
+            $http.put("atendimento/deixarOCurso/objetivo", $scope.objetivo).success(onSuccess).error($scope.onError);
         } else {
-            $http.post("atendimento/deixarOCurso/objetivo", $scope.objetivo).success(onSuccess).error(onError);
+            $http.post("atendimento/deixarOCurso/objetivo", $scope.objetivo).success(onSuccess).error($scope.onError);
         }
 
         function onSuccess() {
-            $timeout(success,100);
-            $location.path("AtendimentoDeixarOCurso/Objetivo/list");
+            $timeout(success, 100);
+            $location.path($scope.nextPath);
         }
-        function success(){
+        function success() {
             growl.success("Objetivo salvo com sucesso");
         }
     };
 
     $scope.editar = function (id) {
-        $http.get("atendimento/deixarOCurso/objetivo/" + id).success(onSuccess).error(onError);
+        $http.get("atendimento/deixarOCurso/objetivo/" + id).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             $scope.objetivo = data;
@@ -42,9 +45,6 @@ function controllerFormObjetivoDeixarOCurso($scope, $http, $routeParams, $locati
         $scope.objetivo = {};
     }
 
-    function onError(data) {
-        growl.error(JSON.stringify(data));
-    }
 }
 
 function controllerListObjetivoDeixarOCurso($scope, $http, growl) {
@@ -60,7 +60,7 @@ function controllerListObjetivoDeixarOCurso($scope, $http, growl) {
 
     $scope.alterarStatus = function (objetivo) {
         var status = objetivo.status === 'ATIVO' ? 'INATIVO' : 'ATIVO';
-        $http.put("atendimento/deixarOCurso/objetivo/" + objetivo.id + "/" + status).success(onSuccess).error(onError);
+        $http.put("atendimento/deixarOCurso/objetivo/" + objetivo.id + "/" + status).success(onSuccess).error($scope.onError);
 
         function onSuccess() {
             objetivo.status = status;
@@ -75,7 +75,7 @@ function controllerListObjetivoDeixarOCurso($scope, $http, growl) {
         requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
 
-        $http.post("atendimento/deixarOCurso/objetivo/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.post("atendimento/deixarOCurso/objetivo/listar", requisicaoListagem).success(onSuccess).error($scope.onError);
         function onSuccess(data) {
             $scope.objetivos = data.itens;
             $scope.totalRegistros = data.numeroTotalRegistros;
@@ -96,10 +96,6 @@ function controllerListObjetivoDeixarOCurso($scope, $http, growl) {
     $scope.alterarPagina = function () {
         $scope.listar();
     };
-
-    function onError(data) {
-        growl.error(JSON.stringify(data));
-    }
 
 }
 

@@ -18,8 +18,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12 col-xs-12 col-sm-12">
-                        <table class="table table-hover table-condensed table-bordered table-responsive">
+                    <div class="col-md-12 col-xs-12 col-sm-12" style="overflow-x: auto;">
+                        <table class="table table-hover table-condensed table-bordered table-responsive" style="white-space: nowrap;">
                             <thead>
                                 <tr>
                                     <th ng-click="alterarOrdenacao('nome')" class="col-md-4">
@@ -55,11 +55,11 @@
                                     <td>{{u.login}}</td>
                                     <td>{{u.email}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status === 'INATIVO'" ng-click="init()">Ativar</button>
+                                        <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="u.status === 'INATIVO'" ng-click="alterarStatus(u)">Ativar</button>
                                         <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="u.status === 'ATIVO'" ng-click="alterarStatus(u)">Inativar</button>
                                     </td>
                                     <td>
-                                        <span>
+                                        <span style="white-space: nowrap;">
                                             <a data-toggle="modal" data-target="#myModal" type="button" class="tooltip, btn btn-primary botaoEditar" title="Alterar senha" ng-click="setUsuarioAlterandoSenha(u)"><i class="fa fa-key"></i></a>
                                             <a href="#/PerfilUsuario/form/{{u.id}}" type="button" class="tooltip, btn btn-success botaoEditar" title="Editar"><span class="fa fa-lock" aria-hidden="true"></span></a>
                                             <a href="#/Usuario/form/{{u.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>

@@ -3,6 +3,8 @@ package br.unicesumar.escoladeti2015time04.perfilacesso;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcessoService;
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
+import br.unicesumar.escoladeti2015time04.utils.excecoes.CampoObrigatorio;
+import br.unicesumar.escoladeti2015time04.utils.excecoes.ExcecaoPadrao;
 import br.unicesumar.escoladeti2015time04.utils.service.Service;
 import java.util.HashSet;
 import java.util.List;
@@ -22,15 +24,15 @@ public class PerfilAcessoService extends Service<PerfilAcesso, PerfilAcessoRepos
 
     public void criar(PerfilAcessoCommandInserir command) {
         if (command.getNome() == null || command.getNome().isEmpty()) {
-            throw new IllegalArgumentException("É obrigatório informar um nome para o perfil.");
+            throw new CampoObrigatorio("É obrigatório informar um nome para o perfil.", "Nome");
         }
 
         if (existePerfil(command.getNome())) {
-            throw new IllegalArgumentException("Já existe Perfil de acesso com o mesmo nome.");
+            throw new ExcecaoPadrao("Já existe Perfil de acesso com o mesmo nome.", "Já existe Perfil de acesso com o mesmo nome.");
         }
 
         if (command.getConjuntoItemAcessoIds().isEmpty()) {
-            throw new IllegalArgumentException("O perfil deve possuir ao menos um item de acesso.");
+            throw new CampoObrigatorio("O perfil deve possuir ao menos um item de acesso.", "Itens de Acesso");
         }
 
         Set<ItemAcesso> lista = new HashSet<>();
@@ -48,7 +50,7 @@ public class PerfilAcessoService extends Service<PerfilAcesso, PerfilAcessoRepos
         }
 
         if (command.getItensDeAcesso().isEmpty()) {
-            throw new IllegalArgumentException("O perfil deve possuir ao menos um item de acesso.");
+            throw new CampoObrigatorio("O perfil deve possuir ao menos um item de acesso.", "Itens de Acesso");
         }
 
         Set<ItemAcesso> lista = new HashSet<>();

@@ -23,6 +23,7 @@ public class AtendimentoDeixarOCursoCommandInserir extends AtendimentoCommandIns
 
     public AtendimentoDeixarOCursoCommandInserir(
             @JsonProperty("data") Date data,
+            @JsonProperty("usuario") Long usuario,
             @JsonProperty("ra") String ra,
             @JsonProperty("centro") String centro,
             @JsonProperty("nomeAluno") String nomeAluno,
@@ -39,7 +40,7 @@ public class AtendimentoDeixarOCursoCommandInserir extends AtendimentoCommandIns
             @JsonProperty("numeroReprovacoes") int numeroReprovacoes,
             @JsonProperty("idMotivo") Long idMotivo,
             @JsonProperty("idObjetivo") Long idObjetivo) {
-        super(data, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
+        super(data, usuario, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
         this.transferencia = transferencia;

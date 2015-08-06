@@ -21,6 +21,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     };
 
     $scope.salvar = function () {
+        $scope.atendimentoEspecial.usuario = $scope.usuarioLogado.id;
         $scope.atendimentoEspecial.data = prepararDataParaSalvar($scope.dataEspecial, $scope.horaEspecial);
 
         if ($scope.editando) {
@@ -51,7 +52,8 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $scope.atendimentoEspecial.nomeAluno = data.nomealuno;
             $scope.atendimentoEspecial.curso = data.curso;
             $scope.atendimentoEspecial.centro = data.centro;
-            $scope.atendimentoEspecial.serieSemestre = "" + data.seriesemestre;;
+            $scope.atendimentoEspecial.serieSemestre = "" + data.seriesemestre;
+            ;
             $scope.atendimentoEspecial.turno = data.turno;
             $scope.atendimentoEspecial.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoEspecial.laudoMedico = data.laudomedico;
@@ -68,6 +70,8 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
 
             selecionaMotivoNaTela(data.motivo);
             $scope.setMotivo($scope.motivoSelecionado);
+            
+            restaurarTela();
         }
     };
 
@@ -88,6 +92,8 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             if (idEditando) {
                 $scope.editando = true;
                 $scope.editar(idEditando);
+            } else {
+                restaurarTela();
             }
         }
     };
@@ -156,6 +162,43 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         }
     };
 
+ function restaurarTela() {
+        if (!$scope.pilhaTelas) {
+            return;
+        }
+
+        $scope.atendimentoEspecial = $scope.pilhaTelas.atendimentoEspecial;
+        $scope.dataEspecial = $scope.pilhaTelas.dataEspecial;
+        $scope.horaEspecial = $scope.pilhaTelas.horaEspecial;
+        if ($scope.pilhaTelas.motivoSelecionado) {
+            selecionaMotivoNaTela($scope.pilhaTelas.motivoSelecionado.descricao);
+        }
+        if (typeof $scope.pilhaTelas.atendimentoEspecial.matriculado !== "undefined") {
+            $scope.matriculadoSelecionado = booleanToString($scope.pilhaTelas.atendimentoEspecial.matriculado);
+        }
+        if (typeof $scope.pilhaTelas.atendimentoEspecial.laudoMedico !== "undefined") {
+            $scope.laudoMedicoSelecionado = booleanToString($scope.pilhaTelas.atendimentoEspecial.laudoMedico);
+        }
+
+
+        $scope.pilhaTelas = undefined;
+    }
+
+    $scope.cadastrarOutraTela = function (path) {
+        salvarTelaParaSerRefataurada();
+        $location.path(path);
+        $scope.setUseOldPath(true);
+    };
+
+    function salvarTelaParaSerRefataurada() {
+        var objeto = {};
+        objeto.atendimentoEspecial = $scope.atendimentoEspecial;
+        objeto.motivoSelecionado = $scope.motivoSelecionado;
+        objeto.dataEspecial = $scope.dataEspecial;
+        objeto.horaEspecial = $scope.horaEspecial;
+        objeto.path = $location.path();
+        $scope.setPilhaTelas(objeto);
+    }
 
 }
 
@@ -200,7 +243,7 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
         requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
         requisicaoListagem.colunasVisiveis = colunasVisiveis();
-        $http.post("atendimento/especial/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.post("atendimento/especial/listar", requisicaoListagem).success(onSuccess).error($scope.onError);
         function onSuccess(data) {
             setDataHora(data.itens);
             $scope.atendimentos = data.itens;
@@ -251,7 +294,4 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
         return colunasVisiveis;
     }
 
-    function onError(data) {
-        growl.error(JSON.stringify(data));
-    }
 }

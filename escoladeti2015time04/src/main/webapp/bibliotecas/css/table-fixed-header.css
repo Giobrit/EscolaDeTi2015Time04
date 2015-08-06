@@ -22,7 +22,7 @@
 .fixed-table .table-content{
   display:block;
   position: relative;
-  height: 200px; /*FIX THE HEIGHT YOU NEED*/
+  height: 100px; /*FIX THE HEIGHT YOU NEED*/
   overflow-y: auto;
 }
 .fixed-table .header-copy{

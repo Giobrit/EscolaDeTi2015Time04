@@ -20,13 +20,13 @@
                     </div>       
                     <div class="col-md-1 ">
                         <div class="pull-right">
-                            <button type="button" class="btn btn-warning btn-lg permissao" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+                            <button type="button" class="btn btn-warning btn-lg permissao" data-toggle="modal" data-target="#myModal"><span class="fa fa-cog" aria-hidden="true"></span></button>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12" style="overflow-x: auto;">
-                        <div style="overflow-x: auto;">
+                        <div class="col-md-offset-0" style="overflow-x: auto;">
                             <table class="table table-hover table-condensed table-bordered table-responsive" style="white-space: nowrap;">
                                 <thead>
                                     <tr>
@@ -41,7 +41,7 @@
                                 </thead>
                                 <tbody>
                                     <tr dir-paginate="a in atendimentos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
-                                        <td ng-repeat="c in colunas" ng-show="c.checked"  style="white-space: normal ;">{{a[c.propriedadeItem.toLowerCase()]}}</td>
+                                        <td ng-repeat="c in colunas" ng-show="c.checked"  style="white-space: nowrap;">{{a[c.propriedadeItem.toLowerCase()]}}</td>
                                         <td>
                                             <span class="col-md-12">
                                                 <a href="#/AtendimentoDeixarOCurso/form/{{a.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>

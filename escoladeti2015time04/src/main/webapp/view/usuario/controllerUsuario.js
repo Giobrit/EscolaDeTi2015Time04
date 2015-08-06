@@ -17,9 +17,9 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location, growl
 
     $scope.salvar = function () {
         if ($scope.editando) {
-            $http.put("/usuario", $scope.usuario).success(onSuccess).error(onError);
+            $http.put("/usuario", $scope.usuario).success(onSuccess).error($scope.onError);
         } else {
-            $http.post("/usuario", $scope.usuario).success(onSuccess).error(onError);
+            $http.post("/usuario", $scope.usuario).success(onSuccess).error($scope.onError);
         }
 
         function onSuccess() {
@@ -29,7 +29,7 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location, growl
     };
 
     $scope.editar = function (id) {
-        $http.get("/usuario/" + id).success(onSuccess).error(onError);
+        $http.get("/usuario/" + id).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
             $scope.usuario = data;
@@ -43,7 +43,7 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location, growl
     $scope.alterarSenha = function () {
         $scope.usuarioCommandEditarSenha.id = $scope.usuario.id;
 
-        $http.put("/usuario/alterarSenha", $scope.usuarioCommandEditarSenha).success(onSuccess).error(onError);
+        $http.put("/usuario/alterarSenha", $scope.usuarioCommandEditarSenha).success(onSuccess).error($scope.onError);
 
         function onSuccess() {
             growl.success("Senha do usuario <b>" + $scope.usuario.nome + "</b> alterada com sucesso!")
@@ -55,9 +55,6 @@ function controllerFormularioFilho($scope, $http, $routeParams, $location, growl
         $scope.editando = false;
     }
 
-    function onError(data) {
-        errorPadrao(data, growl);
-    }
 }
 
 function controllerListagemFilho($scope, $http, growl) {
@@ -75,7 +72,7 @@ function controllerListagemFilho($scope, $http, growl) {
 
     $scope.alterarStatus = function (usuario) {
         var status = usuario.status === 'ATIVO' ? 'INATIVO' : 'ATIVO';
-        $http.put("/usuario/" + usuario.id + "/" + status).success(onSuccess).error(onError);
+        $http.put("/usuario/" + usuario.id + "/" + status).success(onSuccess).error($scope.onError);
 
         function onSuccess() {
             usuario.status = status;
@@ -90,7 +87,7 @@ function controllerListagemFilho($scope, $http, growl) {
         requisicaoListagem.ordenacaoCrescente = $scope.ordenacaoCrescente;
         requisicaoListagem.valorFiltragem = $scope.pesquisa;
 
-        $http.post("/usuario/listar", requisicaoListagem).success(onSuccess).error(onError);
+        $http.post("/usuario/listar", requisicaoListagem).success(onSuccess).error($scope.onError);
         function onSuccess(data) {
             $scope.usuarios = data.itens;
             $scope.totalRegistros = data.numeroTotalRegistros;
@@ -120,14 +117,11 @@ function controllerListagemFilho($scope, $http, growl) {
     $scope.alterarSenha = function () {
         $scope.usuarioCommandEditarSenha.id = $scope.usuarioAlterandoSenha.id;
 
-        $http.put("/usuario/alterarSenha", $scope.usuarioCommandEditarSenha).success(onSuccess).error(onError);
+        $http.put("/usuario/alterarSenha", $scope.usuarioCommandEditarSenha).success(onSuccess).error($scope.onError);
 
         function onSuccess() {
             growl.success("Senha do usuario <b>" + $scope.usuarioAlterandoSenha.nome + "</b> alterada com sucesso!")
         }
     };
 
-    function onError(data) {
-        errorPadrao(data, growl);
-    }
 }
