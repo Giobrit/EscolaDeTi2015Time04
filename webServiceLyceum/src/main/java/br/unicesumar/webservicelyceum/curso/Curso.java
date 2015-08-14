@@ -18,13 +18,17 @@ public class Curso implements Serializable{
     public Curso() {
     }
 
-    public Curso(String codigo, String nome) {
+    public Curso( String codigo, String nome) {    
         this.codigo = codigo;
         this.nome = nome;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCodigo() {
@@ -45,8 +49,8 @@ public class Curso implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.id);
         return hash;
     }
 

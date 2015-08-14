@@ -36,8 +36,7 @@ public class Initializer {
     private NotasAlunoDisciplinaService notasAlunoService;
     
     @PostConstruct
-    public void initialize(){
-        System.out.println("Passei por aqui!");
+    public void initialize(){        
         inicializarBolsa();
         inicializarCurso();
         inicializarAluno();
@@ -46,8 +45,7 @@ public class Initializer {
         inicializarNotasAlunos();        
     }    
     
-    private void inicializarBolsa(){
-        System.out.println("Criando as bolsas!");   
+    private void inicializarBolsa(){        
         Calendar ano = Calendar.getInstance();
         ano.set(2013, 01, 01);
         Calendar inicio = Calendar.getInstance();
@@ -62,14 +60,12 @@ public class Initializer {
         bolsaService.criar(new Bolsa(ano,inicio,fim, 50.0, "Fies", "Nada Consta" ));        
     }
     
-    private void inicializarCurso() {
-        System.out.println("Criando cursos!");
+    private void inicializarCurso() {        
         cursoService.criar(new Curso("CST_ADSIS", "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas"));
         cursoService.criar(new Curso("CST_SISIN", "Superior de Tecnologia de Sistemas para Internet"));
     }
 
-    private void inicializarAluno() {
-        System.out.println("Criando alunos!");
+    private void inicializarAluno() {        
         Calendar anoInicio = Calendar.getInstance();
         anoInicio.set(2013, 01, 01);        
         

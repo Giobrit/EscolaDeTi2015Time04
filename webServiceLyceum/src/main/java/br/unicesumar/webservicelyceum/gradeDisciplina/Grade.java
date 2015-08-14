@@ -36,8 +36,7 @@ public class Grade implements Serializable{
     public Grade() {
     }
 
-    public Grade(Long idGrade, Aluno aluno, Disciplina disciplina, Turma turma, Double notaFinal, Double frequencia, Double cargaHoraria, String situacao) {
-        this.idGrade = idGrade;
+    public Grade( Aluno aluno, Disciplina disciplina, Turma turma, Double notaFinal, Double frequencia, Double cargaHoraria, String situacao) {        
         this.aluno = aluno;
         this.disciplina = disciplina;
         this.turma = turma;
@@ -49,6 +48,10 @@ public class Grade implements Serializable{
 
     public Long getIdGrade() {
         return idGrade;
+    }
+
+    public void setIdGrade(Long idGrade) {
+        this.idGrade = idGrade;
     }
 
     public Aluno getAluno() {
@@ -109,8 +112,8 @@ public class Grade implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.idGrade);
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.idGrade);
         return hash;
     }
 
@@ -133,8 +136,5 @@ public class Grade implements Serializable{
     public String toString() {
         return "Grade{" + "idGrade=" + idGrade + ", aluno=" + aluno + ", disciplina=" + disciplina + ", turma=" + turma + ", notaFinal=" + notaFinal + ", frequencia=" + frequencia + ", cargaHoraria=" + cargaHoraria + ", situacao=" + situacao + '}';
     }
-    
-    
-    
-    
+
 }

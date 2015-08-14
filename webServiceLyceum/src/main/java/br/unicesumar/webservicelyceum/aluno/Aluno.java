@@ -39,12 +39,11 @@ public class Aluno implements Serializable{
     private Curso curso;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Bolsa> bolsas;
-    
-       
+
     public Aluno() {
     }
 
-    public Aluno(String ra, String nome, String centro, String matriculado, Integer reprovacao, String periodo, Calendar anoInicio, String situacao, Curso curso, List<Bolsa> bolsas) {
+    public Aluno(String ra, String nome, String centro, String matriculado, Integer reprovacao, String periodo, Calendar anoInicio, String situacao, Curso curso, List<Bolsa> bolsas) {        
         this.ra = ra;
         this.nome = nome;
         this.centro = centro;
@@ -59,6 +58,10 @@ public class Aluno implements Serializable{
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRa() {
@@ -140,13 +143,11 @@ public class Aluno implements Serializable{
     public void setBolsas(List<Bolsa> bolsas) {
         this.bolsas = bolsas;
     }
-    
-    
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -167,8 +168,7 @@ public class Aluno implements Serializable{
 
     @Override
     public String toString() {
-        return "Aluno{" + "id=" + id + ", ra=" + ra + ", nome=" + nome + ", centro=" + centro + ", matriculado=" + matriculado + ", reprovacao=" + reprovacao + ", periodo=" + periodo + ", anoInicio=" + anoInicio + ", situacao=" + situacao + ", curso=" + curso + '}';
+        return "Aluno{" + "id=" + id + ", ra=" + ra + ", nome=" + nome + ", centro=" + centro + ", matriculado=" + matriculado + ", reprovacao=" + reprovacao + ", periodo=" + periodo + ", anoInicio=" + anoInicio + ", situacao=" + situacao + ", curso=" + curso + ", bolsas=" + bolsas + '}';
     }
-    
     
 }

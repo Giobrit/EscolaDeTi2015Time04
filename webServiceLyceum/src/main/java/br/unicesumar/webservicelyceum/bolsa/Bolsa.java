@@ -23,7 +23,7 @@ public class Bolsa implements Serializable{
     public Bolsa() {
     }
 
-    public Bolsa(Calendar data, Calendar inicio, Calendar fim, double valor, String bolsa, String irmaos) {
+    public Bolsa(Calendar data, Calendar inicio, Calendar fim, double valor, String bolsa, String irmaos) {        
         this.data = data;
         this.inicio = inicio;
         this.fim = fim;
@@ -34,6 +34,10 @@ public class Bolsa implements Serializable{
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Calendar getData() {
@@ -86,8 +90,8 @@ public class Bolsa implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 73 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -110,7 +114,5 @@ public class Bolsa implements Serializable{
     public String toString() {
         return "Bolsa{" + "id=" + id + ", data=" + data + ", inicio=" + inicio + ", fim=" + fim + ", valor=" + valor + ", bolsa=" + bolsa + ", irmaos=" + irmaos + '}';
     }
-    
-    
-    
+
 }

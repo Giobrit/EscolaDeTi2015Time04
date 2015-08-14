@@ -20,7 +20,7 @@ public class Disciplina implements Serializable{
     public Disciplina() {
     }
 
-    public Disciplina(String codigo, String nome, String situacao, double cargaHoraria) {        
+    public Disciplina( String codigo, String nome, String situacao, double cargaHoraria) {        
         this.codigo = codigo;
         this.nome = nome;
         this.situacao = situacao;
@@ -70,7 +70,7 @@ public class Disciplina implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -92,5 +92,7 @@ public class Disciplina implements Serializable{
     @Override
     public String toString() {
         return "Disciplina{" + "id=" + id + ", codigo=" + codigo + ", nome=" + nome + ", situacao=" + situacao + ", cargaHoraria=" + cargaHoraria + '}';
-    }   
+    }
+
+       
 }
