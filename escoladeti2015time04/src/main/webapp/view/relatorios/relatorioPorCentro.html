@@ -1,0 +1,53 @@
+<form name="relatorioPorCentro" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()">
+    <div class="relatorioResumido formulario" ng-init="init()">
+        <div class="panel panel-info">
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo"><h3>Relatório Por Centro<span class="glyphicon glyphicon-list-alt pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo" class="panel-body collapse in">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Selecione o Centro</label>
+                            <div class="form-group">
+                                <select class="form-control" name="centro" id="sel1" required>
+                                    <option>CBS</option>
+                                    <option>CETA</option>
+                                    <option>CHSA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Selecione o Tipo de Relatório</label>
+                            <div class="form-group">
+                                <select class="form-control" name="tipoRelatorio" id="sel1" required>
+                                    <option>Relatório por curso</option>
+                                    <option>Relatório resumido de permanencia</option>
+                                    <option>Relatório resumido</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--Irá ser habilitado se o usuario selecionar por curso-->
+                        <div class="col-md-4" ng-disabled>
+                            <label>Selecione o Curso</label>
+                            <div class="form-group">
+                                <select class="form-control" name="curso" id="sel1" required>
+                                    <option>c in cursos</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-offset-2">
+                           <button type="submit" ng-click="gerar()" ng-disabled="(relatorioPorCentro.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Gerar os relatórios" >Gerar Relatório</button>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo1"><h3>Relatório Por Centro<span class="glyphicon glyphicon-list-alt pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo1" class="panel-body collapse in">
+                <div id="piechart"></div>
+            </div>
+        </div>
+    </div>
+</form>
