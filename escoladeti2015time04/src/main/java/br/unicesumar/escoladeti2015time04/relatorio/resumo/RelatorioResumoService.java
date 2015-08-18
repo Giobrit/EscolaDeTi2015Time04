@@ -8,19 +8,19 @@ import org.springframework.stereotype.Component;
 @Transactional
 public class RelatorioResumoService {
 
-    private Map<String,Object> getResumoCursoAtendimento() {
+    public Map<String,Object> getResumoCursoAtendimentos() {
         return null;
     }
 
-    private Map<String,Object> getResumoCursoAlunos() {
+    public Map<String,Object> getResumoCursoAlunos() {
         return null;
     }
     
-    private Map<String,Object> getResumoMotivos(){
+    public Map<String,Object> getResumoMotivos(){
         return null;
     }
     
-    private Map<String,Object> getMotivos(){
+    public Map<String,Object> getMotivos(){
         return null;
     }
 }
