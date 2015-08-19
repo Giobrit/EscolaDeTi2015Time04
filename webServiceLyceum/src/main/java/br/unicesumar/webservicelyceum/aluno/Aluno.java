@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,38 +18,63 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "aluno")
+@SequenceGenerator(name = "seqAluno", sequenceName = "seq_aluno", initialValue = 1, allocationSize = 1)
+@SuppressWarnings("PersistenceUnitPresent")
 public class Aluno implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private Long id;    
+    
+    @Column(name = "id")
     private String ra;
+    
+    @Column(name = "id")
     private String nome;
+    
+    @Column(name = "id")
     private String centro;    
+    
+    @Column(name = "id")
     private String matriculado;    
+    
+    @Column(name = "id")
     private Integer reprovacao;    
+    
     @Column(name = "periodo", length = 255)
     private String periodo;
+    
+    @Column(name = "anoInicio")
     @Temporal(TemporalType.DATE)   
     private Calendar anoInicio;
-    private String situacao;
+    
+    @Column(name = "situacao")
+    @Enumerated(EnumType.STRING)
+    private AlunoSituacao situacao;
+    
     @ManyToOne
     @JoinColumn(name = "idCurso")
     private Curso curso;
+    
     @ManyToOne
     @JoinColumn(name = "idTurma")
     private Turma turma;
+    
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Bolsa> bolsas;
 
     public Aluno() {
     }
 
-    public Aluno(String ra, String nome, String centro, String matriculado, Integer reprovacao, String periodo, Calendar anoInicio, String situacao, Curso curso, Turma turma, List<Bolsa> bolsas) {
+    public Aluno(String ra, String nome, String centro, String matriculado, Integer reprovacao, String periodo, Calendar anoInicio, AlunoSituacao situacao, Curso curso, Turma turma, List<Bolsa> bolsas) {
         this.ra = ra;
         this.nome = nome;
         this.centro = centro;
@@ -125,11 +152,11 @@ public class Aluno implements Serializable{
         this.anoInicio = anoInicio;
     }
 
-    public String getSituacao() {
+    public AlunoSituacao getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(String situacao) {
+    public void setSituacao(AlunoSituacao situacao) {
         this.situacao = situacao;
     }
 
@@ -159,8 +186,8 @@ public class Aluno implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 61 * hash + Objects.hashCode(this.id);
         return hash;
     }
 

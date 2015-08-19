@@ -2,25 +2,41 @@ package br.unicesumar.webservicelyceum.curso;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "curso")
+@SequenceGenerator(name = "seqCurso", sequenceName = "seq_Curso", initialValue =  1, allocationSize = 1)
+@SuppressWarnings("PersistenceUnitPresent")
 public class Curso implements Serializable{
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private Long id;
+    
+    @Column(name = "codigo")
     private String codigo;
+    
+    @Column(name = "nome")
     private String nome;
+    
+    @Column(name = "unidade")
+    private String unidade;
 
     public Curso() {
     }
 
-    public Curso( String codigo, String nome) {    
+    public Curso(String codigo, String nome, String unidade) {    
         this.codigo = codigo;
         this.nome = nome;
+        this.unidade = unidade;
     }
 
     public Long getId() {
@@ -47,6 +63,14 @@ public class Curso implements Serializable{
         this.nome = nome;
     }
 
+    public String getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(String unidade) {
+        this.unidade = unidade;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -71,7 +95,9 @@ public class Curso implements Serializable{
 
     @Override
     public String toString() {
-        return "Curso{" + "id=" + id + ", codigo=" + codigo + ", nome=" + nome + '}';
+        return "Curso{" + "id=" + id + ", codigo=" + codigo + ", nome=" + nome + ", unidade=" + unidade + '}';
     }
+
+    
     
 }

@@ -3,31 +3,58 @@ package br.unicesumar.webservicelyceum.turma;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "turma")
+@SequenceGenerator(name = "seqTurma", sequenceName = "seq_turma", initialValue = 1, allocationSize = 1)
+@SuppressWarnings("PersistenceUnitPresent")
 public class Turma implements Serializable {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private Long id;
+    
+    @Column(name = "codigo")
     private String codigo;
+    
+    @Column(name = "anoInicio")
+    @Temporal(TemporalType.DATE)
     private Calendar anoInicio;
+    
+    @Column(name = "anoFim")
+    @Temporal(TemporalType.DATE)
     private Calendar anoFim;
+    
+    @Column(name = "turno")
     private String turno;
+    
+    @Column(name = "serie")
     private Integer serie;
-    private String situacao;
+    
+    @Column(name = "situacao")
+    @Enumerated(EnumType.STRING)
+    private TurmaSituacao situacao;
 
     public Turma() {
     }
 
-    public Turma(String codigo, Calendar anoInicio, Calendar anoFim, String periodo, Integer serie, String situacao) {        
+    public Turma(String codigo, Calendar anoInicio, Calendar anoFim, String turno, Integer serie, TurmaSituacao situacao) {
         this.codigo = codigo;
         this.anoInicio = anoInicio;
         this.anoFim = anoFim;
-        this.turno = periodo;
+        this.turno = turno;
         this.serie = serie;
         this.situacao = situacao;
     }
@@ -64,14 +91,6 @@ public class Turma implements Serializable {
         this.anoFim = anoFim;
     }
 
-    public String getPeriodo() {
-        return turno;
-    }
-
-    public void setPeriodo(String periodo) {
-        this.turno = periodo;
-    }
-
     public String getTurno() {
         return turno;
     }
@@ -87,11 +106,19 @@ public class Turma implements Serializable {
     public void setSerie(Integer serie) {
         this.serie = serie;
     }
-    
+
+    public TurmaSituacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(TurmaSituacao situacao) {
+        this.situacao = situacao;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 19 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -112,7 +139,8 @@ public class Turma implements Serializable {
 
     @Override
     public String toString() {
-        return "Turma{" + "id=" + id + ", codigo=" + codigo + ", anoInicio=" + anoInicio + ", anoFim=" + anoFim + ", periodo=" + turno + ", serie= " + serie +   '}';
+        return "Turma{" + "id=" + id + ", codigo=" + codigo + ", anoInicio=" + anoInicio + ", anoFim=" + anoFim + ", turno=" + turno + ", serie=" + serie + ", situacao=" + situacao + '}';
     }
+
     
 }

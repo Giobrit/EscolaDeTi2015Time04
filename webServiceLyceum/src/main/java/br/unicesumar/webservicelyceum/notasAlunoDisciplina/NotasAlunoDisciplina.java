@@ -4,48 +4,86 @@ import br.unicesumar.webservicelyceum.aluno.Aluno;
 import br.unicesumar.webservicelyceum.disciplina.Disciplina;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "notasAlunoDisciplina")
+@SequenceGenerator(name = "seqNotasAlunoDisciplina", sequenceName = "seq_notas_alunos_disciplina", initialValue = 1, allocationSize = 1)
+@SuppressWarnings("PersistenceUnitPresent")
 public class NotasAlunoDisciplina implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private Long id;
+    
     @ManyToOne
     private Disciplina disciplina;
+    
     @ManyToOne
     private Aluno aluno;
-    private double Bimestre1;
-    private double Bimestre2;
-    private double Sub1;
-    private double Bimestre3;
-    private double Bimestre4;
-    private double Sub2;
+    
+    @Column(name = "bimestre1")
+    private double bimestre1;
+    
+    @Column(name = "bimestre2")
+    private double bimestre2;
+    
+    @Column(name = "sub1")
+    private double sub1;
+    
+    @Column(name = "bimestre3")
+    private double bimestre3;
+    
+    @Column(name = "bimestre4")
+    private double bimestre4;
+    
+    @Column(name = "sub2")
+    private double sub2;
+    
+    @Column(name = "mediaCalculada")
     private double mediaCalculada;
+    
+    @Column(name = "mediaLyceum")
     private double mediaLyceum;
+    
+    @Column(name = "notaQueFalta")
     private double notaQueFalta;
+    
+    @Column(name = "totalFaltas")
     private int totalFaltas;
+    
+    @Column(name = "aulasDadas")
     private int aulasDadas;
+    
+    @Column(name = "frequencia")
     private double frequencia;
-    private String situacao; 
+    
+    @Column(name = "situacao")
+    @Enumerated(EnumType.STRING)
+    private DisciplinaAlunoSituacao situacao; 
 
     public NotasAlunoDisciplina() {
     }
 
-    public NotasAlunoDisciplina(Aluno aluno, Disciplina disciplina, double Bimestre1, double Bimestre2, double Sub1, double Bimestre3, double Bimestre4, double Sub2, double mediaCalculada, double mediaLyceum, double notaQueFalta, int totalFaltas, int aulasDadas, double frequencia, String situacao) {    
-        this.disciplina = disciplina;
+    public NotasAlunoDisciplina( Aluno aluno, Disciplina disciplina, double bimestre1, double bimestre2, double sub1, double bimestre3, double bimestre4, double sub2, double mediaCalculada, double mediaLyceum, double notaQueFalta, int totalFaltas, int aulasDadas, double frequencia, DisciplinaAlunoSituacao situacao) {
         this.aluno = aluno;
-        this.Bimestre1 = Bimestre1;
-        this.Bimestre2 = Bimestre2;
-        this.Sub1 = Sub1;
-        this.Bimestre3 = Bimestre3;
-        this.Bimestre4 = Bimestre4;
-        this.Sub2 = Sub2;
+        this.disciplina = disciplina;
+        this.bimestre1 = bimestre1;
+        this.bimestre2 = bimestre2;
+        this.sub1 = sub1;
+        this.bimestre3 = bimestre3;
+        this.bimestre4 = bimestre4;
+        this.sub2 = sub2;
         this.mediaCalculada = mediaCalculada;
         this.mediaLyceum = mediaLyceum;
         this.notaQueFalta = notaQueFalta;
@@ -80,51 +118,51 @@ public class NotasAlunoDisciplina implements Serializable{
     }
 
     public double getBimestre1() {
-        return Bimestre1;
+        return bimestre1;
     }
 
-    public void setBimestre1(double Bimestre1) {
-        this.Bimestre1 = Bimestre1;
+    public void setBimestre1(double bimestre1) {
+        this.bimestre1 = bimestre1;
     }
 
     public double getBimestre2() {
-        return Bimestre2;
+        return bimestre2;
     }
 
-    public void setBimestre2(double Bimestre2) {
-        this.Bimestre2 = Bimestre2;
+    public void setBimestre2(double bimestre2) {
+        this.bimestre2 = bimestre2;
     }
 
     public double getSub1() {
-        return Sub1;
+        return sub1;
     }
 
-    public void setSub1(double Sub1) {
-        this.Sub1 = Sub1;
+    public void setSub1(double sub1) {
+        this.sub1 = sub1;
     }
 
     public double getBimestre3() {
-        return Bimestre3;
+        return bimestre3;
     }
 
-    public void setBimestre3(double Bimestre3) {
-        this.Bimestre3 = Bimestre3;
+    public void setBimestre3(double bimestre3) {
+        this.bimestre3 = bimestre3;
     }
 
     public double getBimestre4() {
-        return Bimestre4;
+        return bimestre4;
     }
 
-    public void setBimestre4(double Bimestre4) {
-        this.Bimestre4 = Bimestre4;
+    public void setBimestre4(double bimestre4) {
+        this.bimestre4 = bimestre4;
     }
 
     public double getSub2() {
-        return Sub2;
+        return sub2;
     }
 
-    public void setSub2(double Sub2) {
-        this.Sub2 = Sub2;
+    public void setSub2(double sub2) {
+        this.sub2 = sub2;
     }
 
     public double getMediaCalculada() {
@@ -175,18 +213,18 @@ public class NotasAlunoDisciplina implements Serializable{
         this.frequencia = frequencia;
     }
 
-    public String getSituacao() {
+    public DisciplinaAlunoSituacao getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(String situacao) {
+    public void setSituacao(DisciplinaAlunoSituacao situacao) {
         this.situacao = situacao;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 31 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -207,7 +245,7 @@ public class NotasAlunoDisciplina implements Serializable{
 
     @Override
     public String toString() {
-        return "NotasAlunoDisciplina{" + "id=" + id + ", disciplina=" + disciplina + ", aluno=" + aluno + ", Bimestre1=" + Bimestre1 + ", Bimestre2=" + Bimestre2 + ", Sub1=" + Sub1 + ", Bimestre3=" + Bimestre3 + ", Bimestre4=" + Bimestre4 + ", Sub2=" + Sub2 + ", mediaCalculada=" + mediaCalculada + ", mediaLyceum=" + mediaLyceum + ", notaQueFalta=" + notaQueFalta + ", totalFaltas=" + totalFaltas + ", aulasDadas=" + aulasDadas + ", frequencia=" + frequencia + ", situacao=" + situacao + '}';
+        return "NotasAlunoDisciplina{" + "id=" + id + ", disciplina=" + disciplina + ", aluno=" + aluno + ", bimestre1=" + bimestre1 + ", bimestre2=" + bimestre2 + ", sub1=" + sub1 + ", bimestre3=" + bimestre3 + ", bimestre4=" + bimestre4 + ", sub2=" + sub2 + ", mediaCalculada=" + mediaCalculada + ", mediaLyceum=" + mediaLyceum + ", notaQueFalta=" + notaQueFalta + ", totalFaltas=" + totalFaltas + ", aulasDadas=" + aulasDadas + ", frequencia=" + frequencia + ", situacao=" + situacao + '}';
     }
     
 }

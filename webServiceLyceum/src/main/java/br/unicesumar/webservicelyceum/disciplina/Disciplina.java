@@ -2,25 +2,43 @@ package br.unicesumar.webservicelyceum.disciplina;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "disciplina")
+@SequenceGenerator(name = "seqDisciplina", sequenceName = "seq_disciplina", initialValue = 1, allocationSize = 1)
+@SuppressWarnings("PersistenceUnitPresent")
 public class Disciplina implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")    
     private Long id;
+    
+    @Column(name = "codigo")
     private String codigo;
-    private String nome;    
-    private String situacao;    
+    
+    @Column(name = "nome")
+    private String nome;
+    
+    @Column(name = "situacao")
+    @Enumerated(EnumType.STRING)
+    private DisciplinaSituacao situacao;    
+    
+    @Column(name = "cargaHoraria")
     private double cargaHoraria;    
 
     public Disciplina() {
     }
 
-    public Disciplina( String codigo, String nome, String situacao, double cargaHoraria) {        
+    public Disciplina(String codigo, String nome, DisciplinaSituacao situacao, double cargaHoraria) {
         this.codigo = codigo;
         this.nome = nome;
         this.situacao = situacao;
@@ -51,11 +69,11 @@ public class Disciplina implements Serializable{
         this.nome = nome;
     }
 
-    public String getSituacao() {
+    public DisciplinaSituacao getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(String situacao) {
+    public void setSituacao(DisciplinaSituacao situacao) {
         this.situacao = situacao;
     }
 
@@ -69,8 +87,8 @@ public class Disciplina implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -93,6 +111,5 @@ public class Disciplina implements Serializable{
     public String toString() {
         return "Disciplina{" + "id=" + id + ", codigo=" + codigo + ", nome=" + nome + ", situacao=" + situacao + ", cargaHoraria=" + cargaHoraria + '}';
     }
-
        
 }

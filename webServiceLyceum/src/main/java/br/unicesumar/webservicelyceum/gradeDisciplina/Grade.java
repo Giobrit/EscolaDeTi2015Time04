@@ -1,42 +1,61 @@
 package br.unicesumar.webservicelyceum.gradeDisciplina;
 
+import br.unicesumar.webservicelyceum.notasAlunoDisciplina.DisciplinaAlunoSituacao;
 import br.unicesumar.webservicelyceum.aluno.Aluno;
 import br.unicesumar.webservicelyceum.disciplina.Disciplina;
 import br.unicesumar.webservicelyceum.turma.Turma;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Grade")
+@SequenceGenerator(name = "seqgrade", sequenceName = "seq_grade", initialValue = 1, allocationSize = 1)
+@SuppressWarnings("PersistenceUnitPresent")
 public class Grade implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long idGrade;
     
     @ManyToOne
-    @JoinColumn(name = "idAluno")
+    @JoinColumn(name = "idAluno")    
     private Aluno aluno;
+    
     @ManyToOne
     @JoinColumn(name = "idDisciplina")
     private Disciplina disciplina;
+    
     @ManyToOne
     @JoinColumn(name = "idTurma")
     private Turma turma;
     
+    @Column(name = "notaFinal")
     private Double notaFinal;
+    
+    @Column(name = "frequencia")
     private Double frequencia;
+    
+    @Column(name = "cargaHoraria")
     private Double cargaHoraria;
-    private String situacao;
+    
+    @Column(name = "situacao")
+    @Enumerated(EnumType.STRING)
+    private DisciplinaAlunoSituacao situacao;
 
     public Grade() {
     }
 
-    public Grade( Aluno aluno, Disciplina disciplina, Turma turma, Double notaFinal, Double frequencia, Double cargaHoraria, String situacao) {        
+    public Grade(Aluno aluno, Disciplina disciplina, Turma turma, Double notaFinal, Double frequencia, Double cargaHoraria, DisciplinaAlunoSituacao situacao) {
         this.aluno = aluno;
         this.disciplina = disciplina;
         this.turma = turma;
@@ -102,18 +121,18 @@ public class Grade implements Serializable{
         this.cargaHoraria = cargaHoraria;
     }
 
-    public String getSituacao() {
+    public DisciplinaAlunoSituacao getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(String situacao) {
+    public void setSituacao(DisciplinaAlunoSituacao situacao) {
         this.situacao = situacao;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.idGrade);
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.idGrade);
         return hash;
     }
 

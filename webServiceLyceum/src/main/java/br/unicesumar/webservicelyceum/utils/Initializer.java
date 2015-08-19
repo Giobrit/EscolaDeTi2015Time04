@@ -2,14 +2,18 @@ package br.unicesumar.webservicelyceum.utils;
 
 import br.unicesumar.webservicelyceum.aluno.Aluno;
 import br.unicesumar.webservicelyceum.aluno.AlunoService;
+import br.unicesumar.webservicelyceum.aluno.AlunoSituacao;
 import br.unicesumar.webservicelyceum.bolsa.Bolsa;
 import br.unicesumar.webservicelyceum.bolsa.BolsaService;
 import br.unicesumar.webservicelyceum.curso.Curso;
 import br.unicesumar.webservicelyceum.curso.CursoService;
 import br.unicesumar.webservicelyceum.disciplina.Disciplina;
 import br.unicesumar.webservicelyceum.disciplina.DisciplinaService;
+import br.unicesumar.webservicelyceum.disciplina.DisciplinaSituacao;
+import br.unicesumar.webservicelyceum.notasAlunoDisciplina.DisciplinaAlunoSituacao;
 import br.unicesumar.webservicelyceum.notasAlunoDisciplina.NotasAlunoDisciplina;
 import br.unicesumar.webservicelyceum.notasAlunoDisciplina.NotasAlunoDisciplinaService;
+import br.unicesumar.webservicelyceum.turma.TurmaSituacao;
 import br.unicesumar.webservicelyceum.turma.Turma;
 import br.unicesumar.webservicelyceum.turma.TurmaService;
 import java.util.Calendar;
@@ -61,8 +65,8 @@ public class Initializer {
     }
     
     private void inicializarCurso() {        
-        cursoService.criar(new Curso("CST_ADSIS", "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas"));
-        cursoService.criar(new Curso("CST_SISIN", "Superior de Tecnologia de Sistemas para Internet"));
+        cursoService.criar(new Curso("CST_ADSIS", "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas", "Cesumar - Centro Universitário de Maringá"));
+        cursoService.criar(new Curso("CST_SISIN", "Superior de Tecnologia de Sistemas para Internet","Cesumar - Centro Universitário de Maringá"));
     }
 
     private void inicializarAluno() {        
@@ -71,14 +75,14 @@ public class Initializer {
         
         List<Bolsa> bolsas  = bolsaService.buscarTodos();
         
-        alunoService.criar(new Aluno("13002602", "Giovanni De Ganello Dias", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L), turmaService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("13097992", "Renato Kenji","CETA","SIM", 0,"Noturno", anoInicio, "Ativo" , cursoService.buscar(1L), turmaService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("13002702", "Roney Cesar de Campos ", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("11002782", "Luiz Gustavo Sabaine Fagundes", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(2L),turmaService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("13078102", "Willian Zanuto Oliveira", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(2L),turmaService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("13089252", "Filipe Martins Maldonado", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("13003052", "Liz Regina Okuzono", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("13097572", "Rodrigo Ferreira de Souza", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13002602", "Giovanni De Ganello Dias", "CETA","SIM", 0,"Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L), turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13097992", "Renato Kenji","CETA","SIM", 0,"Noturno", anoInicio, AlunoSituacao.ATIVO , cursoService.buscar(1L), turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13002702", "Roney Cesar de Campos ", "CETA","SIM", 0,"Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("11002782", "Luiz Gustavo Sabaine Fagundes", "CETA","SIM", 0,"Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(2L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13078102", "Willian Zanuto Oliveira", "CETA","SIM", 0,"Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(2L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13089252", "Filipe Martins Maldonado", "CETA","SIM", 0,"Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13003052", "Liz Regina Okuzono", "CETA","SIM", 0,"Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13097572", "Rodrigo Ferreira de Souza", "CETA","SIM", 0,"Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
     } 
     
     private void inicializarTurma() {
@@ -88,35 +92,35 @@ public class Initializer {
         Calendar anoFim = Calendar.getInstance();
         anoFim.set(2015, 0, 12);
         
-        turmaService.criar(new Turma("CTS_ADSIS", anoInicio, anoFim, "Noturno", 1, "Ativo"));
-        turmaService.criar(new Turma("CTS_ADSIS", anoInicio, anoFim, "Noturno", 2, "Ativo"));
-        turmaService.criar(new Turma("CTS_ADSIS", anoInicio, anoFim, "Noturno", 3, "Ativo"));
-        turmaService.criar(new Turma("CTS_SISIN", anoInicio, anoFim, "Noturno", 1, "Ativo"));
-        turmaService.criar(new Turma("CTS_SISIN", anoInicio, anoFim, "Noturno", 2, "Ativo"));
-        turmaService.criar(new Turma("CTS_SISIN", anoInicio, anoFim, "Noturno", 3, "Ativo"));
+        turmaService.criar(new Turma("CTS_ADSIS", anoInicio, anoFim, "Noturno", 1, TurmaSituacao.ATIVA));
+        turmaService.criar(new Turma("CTS_ADSIS", anoInicio, anoFim, "Noturno", 2, TurmaSituacao.ATIVA));
+        turmaService.criar(new Turma("CTS_ADSIS", anoInicio, anoFim, "Noturno", 3, TurmaSituacao.ATIVA));
+        turmaService.criar(new Turma("CTS_SISIN", anoInicio, anoFim, "Noturno", 1, TurmaSituacao.ATIVA));
+        turmaService.criar(new Turma("CTS_SISIN", anoInicio, anoFim, "Noturno", 2, TurmaSituacao.ATIVA));
+        turmaService.criar(new Turma("CTS_SISIN", anoInicio, anoFim, "Noturno", 3, TurmaSituacao.ATIVA));
     }
 
     private void inicializarDisciplina() {
-        disciplinaService.criar(new Disciplina("NGER160_007","algoritmos e lógica de programação","Curricular",160));
-        disciplinaService.criar(new Disciplina("NGER160_009","fundamentos e arquitetura de computadores","Curricular",160));
-        disciplinaService.criar(new Disciplina("NGER160_008","matemática para computação","Curricular",160));
-        disciplinaService.criar(new Disciplina("NGER160_004","metodologia da pesquisa científica","Curricular",160));
-        disciplinaService.criar(new Disciplina("NGER160_052","processos de negócio","Curricular",80));
-        disciplinaService.criar(new Disciplina("NGER160_050","programação I","Curricular",80));
-        disciplinaService.criar(new Disciplina("NGER160_054","sistemas operacionais","Curricular",80));
-        disciplinaService.criar(new Disciplina("NGER160_010","banco de dados i","Curricular",160));
-        disciplinaService.criar(new Disciplina("NGER160_055","design de interação","Curricular",80));
-        disciplinaService.criar(new Disciplina("NGER160_012","engenharia de software i","Curricular",160));
-        disciplinaService.criar(new Disciplina("NGER160_013","estrutura de dados","Curricular",160));
-        disciplinaService.criar(new Disciplina("NGER160_001","formação sociocultural e ética","Curricular",80));
-        disciplinaService.criar(new Disciplina("NGER160_051","fundamentos de redes de computadores","Curricular",160));
-        disciplinaService.criar(new Disciplina("NGER160_011","programação ii","Curricular",160));
-        disciplinaService.criar(new Disciplina("NGER160_037","programação avançada","Curricular",160));
-        disciplinaService.criar(new Disciplina("NGER160_038","empreendedorismo","Curricular",80));
-        disciplinaService.criar(new Disciplina("NGER160_039","projeto de sistemas","Curricular",80));
-        disciplinaService.criar(new Disciplina("NGER160_036","projeto integrador - escola de ti","Curricular",320));
-        disciplinaService.criar(new Disciplina("NGER160_032","gerenciamento de projetos","Curricular",80));
-        disciplinaService.criar(new Disciplina("NGER160_032","tópicos especiais em ads","Curricular",80));        
+        disciplinaService.criar(new Disciplina("NGER160_007","algoritmos e lógica de programação",DisciplinaSituacao.CURRICULAR,160));
+        disciplinaService.criar(new Disciplina("NGER160_009","fundamentos e arquitetura de computadores",DisciplinaSituacao.CURRICULAR,160));
+        disciplinaService.criar(new Disciplina("NGER160_008","matemática para computação",DisciplinaSituacao.CURRICULAR,160));
+        disciplinaService.criar(new Disciplina("NGER160_004","metodologia da pesquisa científica",DisciplinaSituacao.CURRICULAR,160));
+        disciplinaService.criar(new Disciplina("NGER160_052","processos de negócio",DisciplinaSituacao.CURRICULAR,80));
+        disciplinaService.criar(new Disciplina("NGER160_050","programação I",DisciplinaSituacao.CURRICULAR,80));
+        disciplinaService.criar(new Disciplina("NGER160_054","sistemas operacionais",DisciplinaSituacao.CURRICULAR,80));
+        disciplinaService.criar(new Disciplina("NGER160_010","banco de dados i",DisciplinaSituacao.CURRICULAR,160));
+        disciplinaService.criar(new Disciplina("NGER160_055","design de interação",DisciplinaSituacao.CURRICULAR,80));
+        disciplinaService.criar(new Disciplina("NGER160_012","engenharia de software i",DisciplinaSituacao.CURRICULAR,160));
+        disciplinaService.criar(new Disciplina("NGER160_013","estrutura de dados",DisciplinaSituacao.CURRICULAR,160));
+        disciplinaService.criar(new Disciplina("NGER160_001","formação sociocultural e ética",DisciplinaSituacao.CURRICULAR,80));
+        disciplinaService.criar(new Disciplina("NGER160_051","fundamentos de redes de computadores",DisciplinaSituacao.CURRICULAR,160));
+        disciplinaService.criar(new Disciplina("NGER160_011","programação ii",DisciplinaSituacao.CURRICULAR,160));
+        disciplinaService.criar(new Disciplina("NGER160_037","programação avançada",DisciplinaSituacao.CURRICULAR,160));
+        disciplinaService.criar(new Disciplina("NGER160_038","empreendedorismo",DisciplinaSituacao.CURRICULAR,80));
+        disciplinaService.criar(new Disciplina("NGER160_039","projeto de sistemas",DisciplinaSituacao.CURRICULAR,80));
+        disciplinaService.criar(new Disciplina("NGER160_036","projeto integrador - escola de ti",DisciplinaSituacao.CURRICULAR,320));
+        disciplinaService.criar(new Disciplina("NGER160_032","gerenciamento de projetos",DisciplinaSituacao.CURRICULAR,80));
+        disciplinaService.criar(new Disciplina("NGER160_032","tópicos especiais em ads",DisciplinaSituacao.CURRICULAR,80));        
     }
     
     private void inicializarNotasAlunos(){                
@@ -139,7 +143,7 @@ public class Initializer {
         int faltasNaDisciplina = geraFaltas(gerador);
         int aulasDadas = 40;
         double frequencia = calculaFrequencia(faltasNaDisciplina, aulasDadas);
-        String situacao = verificaAprovacao(media);
+        DisciplinaAlunoSituacao situacao = verificaAprovacao(media);
         return new NotasAlunoDisciplina(aluno, disciplina, notas[0],notas[1],notas[2],notas[3],notas[4],notas[5], 
                 media, media, notaQueFalta, faltasNaDisciplina, aulasDadas, frequencia, situacao);
     }
@@ -197,11 +201,11 @@ public class Initializer {
         return resultado;
     }
 
-    private String verificaAprovacao(double media) {
+    private DisciplinaAlunoSituacao verificaAprovacao(double media) {
         if(media >= 6.0){
-            return "Aprovado";
+            return DisciplinaAlunoSituacao.APROVADO;
         }
-        return "Reprovado";
+        return DisciplinaAlunoSituacao.REPROVADO;
     }
     
     
