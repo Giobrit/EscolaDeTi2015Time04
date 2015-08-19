@@ -49,12 +49,12 @@ public class AlunoService {
 //    public Aluno pegarAluno(Long id) {
 //        return repository.getOne(id);
 //        if (id == 13002602) {
-    //            aluno.ra      = "13002602";
-    //            aluno.nome    = "Giovanni De Ganello Dias";
-    //            aluno.centro  = "CETA";
-    //            aluno.curso   = "ADS";
-    //            aluno.serie   = "3";
-    //            aluno.turno   = "Noturno";
+//            aluno.ra      = "13002602";
+//            aluno.nome    = "Giovanni De Ganello Dias";
+//            aluno.centro  = "CETA";
+//            aluno.curso   = "ADS";
+//            aluno.serie   = "3";
+//            aluno.turno   = "Noturno";
 //            aluno.matriculado = "Sim";
 //            aluno.bolsa       = "50% funcionário";
 //            aluno.reprovacao  = "0";
