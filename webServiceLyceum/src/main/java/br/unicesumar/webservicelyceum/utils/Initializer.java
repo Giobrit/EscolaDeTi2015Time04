@@ -38,9 +38,9 @@ public class Initializer {
     @PostConstruct
     public void initialize(){        
         inicializarBolsa();
+        inicializarTurma();
         inicializarCurso();
         inicializarAluno();
-        inicializarTurma();
         inicializarDisciplina();
         inicializarNotasAlunos();        
     }    
@@ -71,14 +71,14 @@ public class Initializer {
         
         List<Bolsa> bolsas  = bolsaService.buscarTodos();
         
-        alunoService.criar(new Aluno("13002602", "Giovanni De Ganello Dias", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("13097992", "Renato Kenji","CETA","SIM", 0,"Noturno", anoInicio, "Ativo" , cursoService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("13002702", "Roney Cesar de Campos ", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("11002782", "Luiz Gustavo Sabaine Fagundes", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(2L), bolsas));
-        alunoService.criar(new Aluno("13078102", "Willian Zanuto Oliveira", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(2L), bolsas));
-        alunoService.criar(new Aluno("13089252", "Filipe Martins Maldonado", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("13003052", "Liz Regina Okuzono", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L), bolsas));
-        alunoService.criar(new Aluno("13097572", "Rodrigo Ferreira de Souza", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13002602", "Giovanni De Ganello Dias", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L), turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13097992", "Renato Kenji","CETA","SIM", 0,"Noturno", anoInicio, "Ativo" , cursoService.buscar(1L), turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13002702", "Roney Cesar de Campos ", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("11002782", "Luiz Gustavo Sabaine Fagundes", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(2L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13078102", "Willian Zanuto Oliveira", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(2L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13089252", "Filipe Martins Maldonado", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13003052", "Liz Regina Okuzono", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
+        alunoService.criar(new Aluno("13097572", "Rodrigo Ferreira de Souza", "CETA","SIM", 0,"Noturno", anoInicio, "Ativo", cursoService.buscar(1L),turmaService.buscar(1L), bolsas));
     } 
     
     private void inicializarTurma() {

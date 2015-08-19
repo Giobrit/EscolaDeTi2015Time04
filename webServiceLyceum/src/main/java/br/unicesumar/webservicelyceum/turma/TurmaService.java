@@ -11,4 +11,8 @@ public class TurmaService {
     public void criar(Turma turma){
         repository.save(turma);
     }
+    
+    public Turma buscar(Long id){
+        return repository.getOne(id);
+    }
 }

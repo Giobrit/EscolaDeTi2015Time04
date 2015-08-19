@@ -2,10 +2,10 @@ package br.unicesumar.webservicelyceum.aluno;
 
 import br.unicesumar.webservicelyceum.bolsa.Bolsa;
 import br.unicesumar.webservicelyceum.utils.MapRowMapper;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -19,16 +19,27 @@ public class AlunoService {
     private NamedParameterJdbcTemplate jdbcTemplate;
     
     public List<Map<String, Object>> pegarAluno(String ra){
-        String sql = "SELECT "
-                + "aluno.id, aluno.ano_inicio, "
-                + "aluno.centro, aluno.matriculado, "
-                + "aluno.nome, aluno.periodo, "
-                + "aluno.ra, aluno.reprovacao, \n" 
-                + "aluno.situacao, curso.nome\n" 
-                + " FROM aluno INNER JOIN curso ON aluno.id_curso = curso.id"
-                + " WHERE aluno.ra LIKE '" + ra + "'";
+        String sql = "SELECT DISTINCT ON (aluno.nome) "
+                        + "aluno.ra AS ra,"
+                        + "aluno.nome AS nome,"
+                        + "aluno.centro AS centro,"
+                        + "CONCAT(curso.codigo,' - ',curso.nome) AS curso,"
+                        + "turma.serie AS serie,"
+                        + "turma.turno AS turno,"
+                        + "aluno.matriculado AS matriculado,"
+                        + "bolsa.bolsa AS bolsa,"
+                        + "aluno.reprovacao AS reprovacao"
+                    + " FROM "
+                        + "curso INNER JOIN aluno ON curso.id = aluno.id_curso "
+                        + "INNER JOIN turma ON aluno.id_turma = turma.id "
+                        + "INNER JOIN aluno_bolsas ON aluno.id = aluno_bolsas.aluno_id "
+                        + "INNER JOIN bolsa ON aluno_bolsas.bolsas_id = bolsa.id "
+                        + "WHERE aluno.ra = :ra";
         
-        List<Map<String, Object>> alunos = jdbcTemplate.query(sql, new MapSqlParameterSource(), new MapRowMapper());
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("ra", ra);        
+        
+        List<Map<String, Object>> alunos = jdbcTemplate.query(sql, parameters, new MapRowMapper());
         
         return alunos;
     }

@@ -2,6 +2,7 @@ package br.unicesumar.webservicelyceum.aluno;
 
 import br.unicesumar.webservicelyceum.bolsa.Bolsa;
 import br.unicesumar.webservicelyceum.curso.Curso;
+import br.unicesumar.webservicelyceum.turma.Turma;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
@@ -37,13 +38,16 @@ public class Aluno implements Serializable{
     @ManyToOne
     @JoinColumn(name = "idCurso")
     private Curso curso;
+    @ManyToOne
+    @JoinColumn(name = "idTurma")
+    private Turma turma;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Bolsa> bolsas;
 
     public Aluno() {
     }
 
-    public Aluno(String ra, String nome, String centro, String matriculado, Integer reprovacao, String periodo, Calendar anoInicio, String situacao, Curso curso, List<Bolsa> bolsas) {        
+    public Aluno(String ra, String nome, String centro, String matriculado, Integer reprovacao, String periodo, Calendar anoInicio, String situacao, Curso curso, Turma turma, List<Bolsa> bolsas) {
         this.ra = ra;
         this.nome = nome;
         this.centro = centro;
@@ -53,6 +57,7 @@ public class Aluno implements Serializable{
         this.anoInicio = anoInicio;
         this.situacao = situacao;
         this.curso = curso;
+        this.turma = turma;
         this.bolsas = bolsas;
     }
 
@@ -136,6 +141,14 @@ public class Aluno implements Serializable{
         this.curso = curso;
     }
 
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
     public List<Bolsa> getBolsas() {
         return bolsas;
     }
@@ -147,7 +160,7 @@ public class Aluno implements Serializable{
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 43 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -168,7 +181,7 @@ public class Aluno implements Serializable{
 
     @Override
     public String toString() {
-        return "Aluno{" + "id=" + id + ", ra=" + ra + ", nome=" + nome + ", centro=" + centro + ", matriculado=" + matriculado + ", reprovacao=" + reprovacao + ", periodo=" + periodo + ", anoInicio=" + anoInicio + ", situacao=" + situacao + ", curso=" + curso + ", bolsas=" + bolsas + '}';
+        return "Aluno{" + "id=" + id + ", ra=" + ra + ", nome=" + nome + ", centro=" + centro + ", matriculado=" + matriculado + ", reprovacao=" + reprovacao + ", periodo=" + periodo + ", anoInicio=" + anoInicio + ", situacao=" + situacao + ", curso=" + curso + ", turma=" + turma + ", bolsas=" + bolsas + '}';
     }
     
 }
