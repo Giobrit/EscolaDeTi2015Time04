@@ -12,17 +12,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "notasAlunoDisciplina")
-@SequenceGenerator(name = "seqNotasAlunoDisciplina", sequenceName = "seq_notas_alunos_disciplina", initialValue = 1, allocationSize = 1)
 @SuppressWarnings("PersistenceUnitPresent")
 public class NotasAlunoDisciplina implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private Long id;
     

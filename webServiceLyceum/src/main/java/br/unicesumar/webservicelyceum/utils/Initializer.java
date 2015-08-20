@@ -45,7 +45,7 @@ public class Initializer {
         inicializarTurma();
         inicializarCurso();
         inicializarAluno();
-        inicializarDisciplina();
+//        inicializarDisciplina();
         inicializarNotasAlunos();        
     }    
     
@@ -65,8 +65,10 @@ public class Initializer {
     }
     
     private void inicializarCurso() {        
+        System.out.println("Criando Cursos!");
         cursoService.criar(new Curso("CST_ADSIS", "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas", "Cesumar - Centro Universitário de Maringá"));
         cursoService.criar(new Curso("CST_SISIN", "Superior de Tecnologia de Sistemas para Internet","Cesumar - Centro Universitário de Maringá"));
+        System.out.println("Cursos criados com sucesso!");        
     }
 
     private void inicializarAluno() {        
@@ -100,28 +102,28 @@ public class Initializer {
         turmaService.criar(new Turma("CTS_SISIN", anoInicio, anoFim, "Noturno", 3, TurmaSituacao.ATIVA));
     }
 
-    private void inicializarDisciplina() {
-        disciplinaService.criar(new Disciplina("NGER160_007","algoritmos e lógica de programação",DisciplinaSituacao.CURRICULAR,160));
-        disciplinaService.criar(new Disciplina("NGER160_009","fundamentos e arquitetura de computadores",DisciplinaSituacao.CURRICULAR,160));
-        disciplinaService.criar(new Disciplina("NGER160_008","matemática para computação",DisciplinaSituacao.CURRICULAR,160));
-        disciplinaService.criar(new Disciplina("NGER160_004","metodologia da pesquisa científica",DisciplinaSituacao.CURRICULAR,160));
-        disciplinaService.criar(new Disciplina("NGER160_052","processos de negócio",DisciplinaSituacao.CURRICULAR,80));
-        disciplinaService.criar(new Disciplina("NGER160_050","programação I",DisciplinaSituacao.CURRICULAR,80));
-        disciplinaService.criar(new Disciplina("NGER160_054","sistemas operacionais",DisciplinaSituacao.CURRICULAR,80));
-        disciplinaService.criar(new Disciplina("NGER160_010","banco de dados i",DisciplinaSituacao.CURRICULAR,160));
-        disciplinaService.criar(new Disciplina("NGER160_055","design de interação",DisciplinaSituacao.CURRICULAR,80));
-        disciplinaService.criar(new Disciplina("NGER160_012","engenharia de software i",DisciplinaSituacao.CURRICULAR,160));
-        disciplinaService.criar(new Disciplina("NGER160_013","estrutura de dados",DisciplinaSituacao.CURRICULAR,160));
-        disciplinaService.criar(new Disciplina("NGER160_001","formação sociocultural e ética",DisciplinaSituacao.CURRICULAR,80));
-        disciplinaService.criar(new Disciplina("NGER160_051","fundamentos de redes de computadores",DisciplinaSituacao.CURRICULAR,160));
-        disciplinaService.criar(new Disciplina("NGER160_011","programação ii",DisciplinaSituacao.CURRICULAR,160));
-        disciplinaService.criar(new Disciplina("NGER160_037","programação avançada",DisciplinaSituacao.CURRICULAR,160));
-        disciplinaService.criar(new Disciplina("NGER160_038","empreendedorismo",DisciplinaSituacao.CURRICULAR,80));
-        disciplinaService.criar(new Disciplina("NGER160_039","projeto de sistemas",DisciplinaSituacao.CURRICULAR,80));
-        disciplinaService.criar(new Disciplina("NGER160_036","projeto integrador - escola de ti",DisciplinaSituacao.CURRICULAR,320));
-        disciplinaService.criar(new Disciplina("NGER160_032","gerenciamento de projetos",DisciplinaSituacao.CURRICULAR,80));
-        disciplinaService.criar(new Disciplina("NGER160_032","tópicos especiais em ads",DisciplinaSituacao.CURRICULAR,80));        
-    }
+//    private void inicializarDisciplina() {
+//        disciplinaService.criar(new Disciplina("NGER160_007","algoritmos e lógica de programação",DisciplinaSituacao.CURRICULAR,160));
+//        disciplinaService.criar(new Disciplina("NGER160_009","fundamentos e arquitetura de computadores",DisciplinaSituacao.CURRICULAR,160));
+//        disciplinaService.criar(new Disciplina("NGER160_008","matemática para computação",DisciplinaSituacao.CURRICULAR,160));
+//        disciplinaService.criar(new Disciplina("NGER160_004","metodologia da pesquisa científica",DisciplinaSituacao.CURRICULAR,160));
+//        disciplinaService.criar(new Disciplina("NGER160_052","processos de negócio",DisciplinaSituacao.CURRICULAR,80));
+//        disciplinaService.criar(new Disciplina("NGER160_050","programação I",DisciplinaSituacao.CURRICULAR,80));
+//        disciplinaService.criar(new Disciplina("NGER160_054","sistemas operacionais",DisciplinaSituacao.CURRICULAR,80));
+//        disciplinaService.criar(new Disciplina("NGER160_010","banco de dados i",DisciplinaSituacao.CURRICULAR,160));
+//        disciplinaService.criar(new Disciplina("NGER160_055","design de interação",DisciplinaSituacao.CURRICULAR,80));
+//        disciplinaService.criar(new Disciplina("NGER160_012","engenharia de software i",DisciplinaSituacao.CURRICULAR,160));
+//        disciplinaService.criar(new Disciplina("NGER160_013","estrutura de dados",DisciplinaSituacao.CURRICULAR,160));
+//        disciplinaService.criar(new Disciplina("NGER160_001","formação sociocultural e ética",DisciplinaSituacao.CURRICULAR,80));
+//        disciplinaService.criar(new Disciplina("NGER160_051","fundamentos de redes de computadores",DisciplinaSituacao.CURRICULAR,160));
+//        disciplinaService.criar(new Disciplina("NGER160_011","programação ii",DisciplinaSituacao.CURRICULAR,160));
+//        disciplinaService.criar(new Disciplina("NGER160_037","programação avançada",DisciplinaSituacao.CURRICULAR,160));
+//        disciplinaService.criar(new Disciplina("NGER160_038","empreendedorismo",DisciplinaSituacao.CURRICULAR,80));
+//        disciplinaService.criar(new Disciplina("NGER160_039","projeto de sistemas",DisciplinaSituacao.CURRICULAR,80));
+//        disciplinaService.criar(new Disciplina("NGER160_036","projeto integrador - escola de ti",DisciplinaSituacao.CURRICULAR,320));
+//        disciplinaService.criar(new Disciplina("NGER160_032","gerenciamento de projetos",DisciplinaSituacao.CURRICULAR,80));
+//        disciplinaService.criar(new Disciplina("NGER160_032","tópicos especiais em ads",DisciplinaSituacao.CURRICULAR,80));        
+//    }
     
     private void inicializarNotasAlunos(){                
         List<Aluno> alunos = alunoService.buscarTodos();

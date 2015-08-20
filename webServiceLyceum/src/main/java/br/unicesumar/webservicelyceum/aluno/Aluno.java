@@ -18,35 +18,33 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "aluno")
-@SequenceGenerator(name = "seqAluno", sequenceName = "seq_aluno", initialValue = 1, allocationSize = 1)
 @SuppressWarnings("PersistenceUnitPresent")
 public class Aluno implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private Long id;    
     
-    @Column(name = "id")
+    @Column(name = "ra")
     private String ra;
     
-    @Column(name = "id")
+    @Column(name = "nome")
     private String nome;
     
-    @Column(name = "id")
+    @Column(name = "centro")
     private String centro;    
     
-    @Column(name = "id")
+    @Column(name = "matriculado")
     private String matriculado;    
     
-    @Column(name = "id")
+    @Column(name = "reprovacao")
     private Integer reprovacao;    
     
     @Column(name = "periodo", length = 255)
