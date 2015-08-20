@@ -1,6 +1,5 @@
 package br.unicesumar.escoladeti2015time04.relatorio.centro;
 
-import br.unicesumar.escoladeti2015time04.relatorio.resumo.RelatorioResumoService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,23 +13,23 @@ public class RelatorioCentroController {
     @Autowired
     private RelatorioCentroService service;
     
-    @RequestMapping(value = "/relatorioCentroCursoAtendimento", method = RequestMethod.GET)    
-    public Map<RelatorioResumoService,Object> listarCentroCursoAtendimento(){
-        return null;
+    @RequestMapping(value = "/relatorioCentroCursoAtendimentos", method = RequestMethod.GET)    
+    public Map<String,Object> listarCentroCursoAtendimento(){
+        return service.getCentroCursoAtendimento(null);
     }
     
     @RequestMapping(value = "/relatorioCentroCursoAlunos", method = RequestMethod.GET)    
-    public Map<RelatorioResumoService,Object> listarCentroCursoAlunos(){
-        return null;
+    public Map<String,Object> listarCentroCursoAlunos(){
+        return service.getCentroCursoAlunos();
     } 
     
     @RequestMapping(value = "/relatorioCentroMotivosPorCurso", method = RequestMethod.GET)    
-    public Map<RelatorioResumoService,Object> listarCentroMotivosPorCurso(){
-        return null;
+    public Map<String,Object> listarCentroMotivosPorCurso(){
+        return service.getCentroMotivosPorCurso();
     }
     
     @RequestMapping(value = "/relatorioCentroResumoMotivos", method = RequestMethod.GET)    
-    public Map<RelatorioResumoService,Object> listarCentroResumoMotivos(){
-        return null;
+    public Map<String,Object> listarCentroResumoMotivos(){
+        return service.getCentroResumoMotivos();
     }
 }
