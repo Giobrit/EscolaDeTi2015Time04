@@ -22,7 +22,7 @@ public class Bolsa implements Serializable{
     @Column(name = "id")
     private Long id;    
     
-    @Column(name = "dataInicio")
+    @Column(name = "datainicio")
     @Temporal(TemporalType.DATE)
     private Calendar dataInicio;
     

@@ -27,11 +27,11 @@ public class Turma implements Serializable {
     @Column(name = "codigo")
     private String codigo;
     
-    @Column(name = "anoInicio")
+    @Column(name = "anoinicio")
     @Temporal(TemporalType.DATE)
     private Calendar anoInicio;
     
-    @Column(name = "anoFim")
+    @Column(name = "anofim")
     @Temporal(TemporalType.DATE)
     private Calendar anoFim;
     

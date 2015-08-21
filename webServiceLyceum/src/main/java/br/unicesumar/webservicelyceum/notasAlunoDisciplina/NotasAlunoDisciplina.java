@@ -11,11 +11,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "notasAlunoDisciplina")
+@Table(name = "notasalunodisciplina")
 @SuppressWarnings("PersistenceUnitPresent")
 public class NotasAlunoDisciplina implements Serializable{
 
@@ -25,10 +26,20 @@ public class NotasAlunoDisciplina implements Serializable{
     private Long id;
     
     @ManyToOne
-    private Disciplina disciplina;
+    @JoinColumn(name = "idaluno")
+    private Aluno aluno;
     
     @ManyToOne
-    private Aluno aluno;
+    @JoinColumn(name = "iddisciplina")
+    private Disciplina disciplina;
+        
+    @Column(name = "situacaodisciplina")
+    @Enumerated(EnumType.STRING)
+    private SituacaoDisciplina situacaoDisciplina;
+    
+    @Column(name = "resultadoparcial")
+    @Enumerated(EnumType.STRING)
+    private ResultadoParcial resultadoParcial;
     
     @Column(name = "bimestre1")
     private double bimestre1;
@@ -48,19 +59,19 @@ public class NotasAlunoDisciplina implements Serializable{
     @Column(name = "sub2")
     private double sub2;
     
-    @Column(name = "mediaCalculada")
+    @Column(name = "mediacalculada")
     private double mediaCalculada;
     
-    @Column(name = "mediaLyceum")
+    @Column(name = "medialyceum")
     private double mediaLyceum;
     
-    @Column(name = "notaQueFalta")
+    @Column(name = "notaquefalta")
     private double notaQueFalta;
     
-    @Column(name = "totalFaltas")
+    @Column(name = "totalfaltas")
     private int totalFaltas;
     
-    @Column(name = "aulasDadas")
+    @Column(name = "aulasdadas")
     private int aulasDadas;
     
     @Column(name = "frequencia")
@@ -69,13 +80,16 @@ public class NotasAlunoDisciplina implements Serializable{
     @Column(name = "situacao")
     @Enumerated(EnumType.STRING)
     private DisciplinaAlunoSituacao situacao; 
-
+    
+    
     public NotasAlunoDisciplina() {
     }
 
-    public NotasAlunoDisciplina( Aluno aluno, Disciplina disciplina, double bimestre1, double bimestre2, double sub1, double bimestre3, double bimestre4, double sub2, double mediaCalculada, double mediaLyceum, double notaQueFalta, int totalFaltas, int aulasDadas, double frequencia, DisciplinaAlunoSituacao situacao) {
+    public NotasAlunoDisciplina(Aluno aluno, Disciplina disciplina, SituacaoDisciplina situacaoDisciplina, ResultadoParcial resultadoParcial, double bimestre1, double bimestre2, double sub1, double bimestre3, double bimestre4, double sub2, double mediaCalculada, double mediaLyceum, double notaQueFalta, int totalFaltas, int aulasDadas, double frequencia, DisciplinaAlunoSituacao situacao) {
         this.aluno = aluno;
         this.disciplina = disciplina;
+        this.situacaoDisciplina = situacaoDisciplina;
+        this.resultadoParcial = resultadoParcial;
         this.bimestre1 = bimestre1;
         this.bimestre2 = bimestre2;
         this.sub1 = sub1;
@@ -99,6 +113,14 @@ public class NotasAlunoDisciplina implements Serializable{
         this.id = id;
     }
 
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
     public Disciplina getDisciplina() {
         return disciplina;
     }
@@ -107,12 +129,20 @@ public class NotasAlunoDisciplina implements Serializable{
         this.disciplina = disciplina;
     }
 
-    public Aluno getAluno() {
-        return aluno;
+    public SituacaoDisciplina getSituacaoDisciplina() {
+        return situacaoDisciplina;
     }
 
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+    public void setSituacaoDisciplina(SituacaoDisciplina situacaoDisciplina) {
+        this.situacaoDisciplina = situacaoDisciplina;
+    }
+
+    public ResultadoParcial getResultadoParcial() {
+        return resultadoParcial;
+    }
+
+    public void setResultadoParcial(ResultadoParcial resultadoParcial) {
+        this.resultadoParcial = resultadoParcial;
     }
 
     public double getBimestre1() {
@@ -221,8 +251,8 @@ public class NotasAlunoDisciplina implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -243,7 +273,7 @@ public class NotasAlunoDisciplina implements Serializable{
 
     @Override
     public String toString() {
-        return "NotasAlunoDisciplina{" + "id=" + id + ", disciplina=" + disciplina + ", aluno=" + aluno + ", bimestre1=" + bimestre1 + ", bimestre2=" + bimestre2 + ", sub1=" + sub1 + ", bimestre3=" + bimestre3 + ", bimestre4=" + bimestre4 + ", sub2=" + sub2 + ", mediaCalculada=" + mediaCalculada + ", mediaLyceum=" + mediaLyceum + ", notaQueFalta=" + notaQueFalta + ", totalFaltas=" + totalFaltas + ", aulasDadas=" + aulasDadas + ", frequencia=" + frequencia + ", situacao=" + situacao + '}';
+        return "NotasAlunoDisciplina{" + "id=" + id + ", aluno=" + aluno + ", disciplina=" + disciplina + ", situacaoDisciplina=" + situacaoDisciplina + ", resultadoParcial=" + resultadoParcial + ", bimestre1=" + bimestre1 + ", bimestre2=" + bimestre2 + ", sub1=" + sub1 + ", bimestre3=" + bimestre3 + ", bimestre4=" + bimestre4 + ", sub2=" + sub2 + ", mediaCalculada=" + mediaCalculada + ", mediaLyceum=" + mediaLyceum + ", notaQueFalta=" + notaQueFalta + ", totalFaltas=" + totalFaltas + ", aulasDadas=" + aulasDadas + ", frequencia=" + frequencia + ", situacao=" + situacao + '}';
     }
     
 }

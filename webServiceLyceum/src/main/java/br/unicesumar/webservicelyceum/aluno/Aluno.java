@@ -2,6 +2,7 @@ package br.unicesumar.webservicelyceum.aluno;
 
 import br.unicesumar.webservicelyceum.bolsa.Bolsa;
 import br.unicesumar.webservicelyceum.curso.Curso;
+import br.unicesumar.webservicelyceum.disciplina.Disciplina;
 import br.unicesumar.webservicelyceum.turma.Turma;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -16,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -50,7 +52,7 @@ public class Aluno implements Serializable{
     @Column(name = "periodo", length = 255)
     private String periodo;
     
-    @Column(name = "anoInicio")
+    @Column(name = "anoinicio")
     @Temporal(TemporalType.DATE)   
     private Calendar anoInicio;
     
@@ -59,15 +61,17 @@ public class Aluno implements Serializable{
     private AlunoSituacao situacao;
     
     @ManyToOne
-    @JoinColumn(name = "idCurso")
+    @JoinColumn(name = "idcurso")
     private Curso curso;
     
     @ManyToOne
-    @JoinColumn(name = "idTurma")
+    @JoinColumn(name = "idturma")
     private Turma turma;
     
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "alunobolsas")
     private List<Bolsa> bolsas;
+    
 
     public Aluno() {
     }
@@ -83,7 +87,7 @@ public class Aluno implements Serializable{
         this.situacao = situacao;
         this.curso = curso;
         this.turma = turma;
-        this.bolsas = bolsas;
+        this.bolsas = bolsas;        
     }
 
     public Long getId() {
@@ -182,6 +186,7 @@ public class Aluno implements Serializable{
         this.bolsas = bolsas;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 7;
