@@ -46,51 +46,62 @@ public class RelatorioCentroService {
         Map<String, Object> retorno = new HashMap<String, Object>();
 
         List<Map<String, Object>> atendimentos = jdbcTemplate.query(queryTotalAtenditmentos, new MapRowMapper());
-        retorno.put("atendimentos", atendimentos);        
-        List<Map<String, Object>> trancamentosCancelamentosTransferencias = jdbcTemplate.query(queryTrancamentosCancelamentosTransferencias, new MapRowMapper());        
-        retorno.put("trancamentosCancelamentosTransferencias", trancamentosCancelamentosTransferencias);        
+        retorno.put("atendimentos", atendimentos);
+        List<Map<String, Object>> trancamentosCancelamentosTransferencias = jdbcTemplate.query(queryTrancamentosCancelamentosTransferencias, new MapRowMapper());
+        retorno.put("trancamentosCancelamentosTransferencias", trancamentosCancelamentosTransferencias);
         List<Map<String, Object>> permanencias = jdbcTemplate.query(queryPermanencias, new MapRowMapper());
-        retorno.put("permanencias", permanencias);        
-        
+        retorno.put("permanencias", permanencias);
+
         System.out.print(retorno.toString());
 
         return null;
     }
 
     public Map<String, Object> getCentroCursoAlunos() {
+        String queryTotalAlunos = "select count(*) as alunos"
+                + "from alunos_atendimento_deixarocurso aad "
+                + "inner join atendimentodeixarocurso atdc on aad.id = atdc.id "
+                + "where aad.centro = :centro "
+                + "group by aad.centro";
 
+        String queryTrancamentosCancelamentosTransferencias = "select count(*) as alunos "
+                + "from alunos_atendimento_deixarocurso aad "
+                + "inner join atendimentodeixarocurso atdc on aad.id = atdc.id "
+                + "inner join deixarocursoobjetivo dco on dco.id = adct.objetivo "
+                + "where dco.descricao in('Trancamento', 'Cancelamento', 'Tranferência') "
+                + "and  aad.centro = :centro "
+                + "group by aad.centro";
+
+        String queryPermanencias = "select count(*) as permanencias "
+                + "from atendialunos_atendimento_deixarocursomento add "
+                + "inner join atendimentodeixarocurso atdc on aad.id = atdc.id "
+                + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
+                + "where descricao = 'Permanencia' "
+                + "and add.centro = :centro "
+                + "group by aad.centro";
         return null;
     }
 
     public Map<String, Object> getCentroMotivosPorCurso() {
-        String queryMotivosPorCurso = "select ";
 
-
-
-
-        //String queryMotivosPorCurso = "select count(*) as motivos "
-        //       + "from atendimento att "
-        //        + "inner join atendimentodeixarocurso atdc on att.id = atdc.id "
-        //        + "inner join deixarcursoobjetivo dco on dco.motivo = att.id "
-        //        + "where att.centro = :centro "
-        //        + "and att.curso = :curso "
-        //        + "group by att.centro, atdc.motivo ";
-
+        String queryCentroMotivosPorCurso = "select count(*) as motivos "
+                + "from atendimento att "
+                + "inner join atendimentodeixarocurso atdc on att.id = atdc.id "
+                + "inner join deixarcursoobjetivo dco on dco.motivo = att.id "
+                + "where att.centro = :centro "
+                + "and att.curso = :curso "
+                + "group by att.centro, atdc.motivo ";
         return null;
     }
 
     public Map<String, Object> getCentroResumoMotivos() {
-        String queryResumoMotivos = "select ";
 
-
-
-        //String queryResumoMotivos = "select count (*) as motivos "
-        //        + "from atendimento att "
-        //        + "inner join atendimentodeixarocurso atdc on att.id = atdc.id "
-        //        + "inner join deixarocursoobjetivo dco on dco.motivo = att.id "
-        //        + "where att.centro = :centro "
-        //        + "group by atdc.motivo";
-
+        String queryCentroResumoMotivos = "select count (*) as motivos "
+                + "from atendimento att "
+                + "inner join atendimentodeixarocurso atdc on att.id = atdc.id "
+                + "inner join deixarocursoobjetivo dco on dco.motivo = att.id "
+                + "where att.centro = :centro "
+                + "group by atdc.motivo";
         return null;
     }
 }
