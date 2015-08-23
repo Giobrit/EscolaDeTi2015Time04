@@ -25,7 +25,7 @@ public class RelatorioCentroService {
                 + "from antedimento  att "
                 + "inner join atendimentodeixarocurso atdc on att.id = atdc.id "
                 + "where centro = :centro"
-                + "group by att.centro ";
+                + "group by att.curso ";
 
         String queryTrancamentosCancelamentosTransferencias = "select count(*)"
                 + "as trancamentoscancelamentostransferencias "
@@ -34,7 +34,7 @@ public class RelatorioCentroService {
                 + "inner join deixarocursoobjetivo dco on dco.id = adct.objetivo "
                 + "where dco.descricao in('Trancamento', 'Cancelamento', 'Tranferência') "
                 + "and  att.centro = :centro "
-                + "group by att.centro";
+                + "group by att.curso";
 
         String queryPermanencias = "select count(*) as permanencias "
                 + "from atendimento att "
@@ -42,7 +42,7 @@ public class RelatorioCentroService {
                 + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
                 + "where descricao = 'Permanencia' "
                 + "and att.centro = :centro "
-                + "group by att.centro";
+                + "group by att.curso";
         Map<String, Object> retorno = new HashMap<String, Object>();
 
         List<Map<String, Object>> atendimentos = jdbcTemplate.query(queryTotalAtenditmentos, new MapRowMapper());
@@ -62,7 +62,7 @@ public class RelatorioCentroService {
                 + "from alunos_atendimento_deixarocurso aad "
                 + "inner join atendimentodeixarocurso atdc on aad.id = atdc.id "
                 + "where aad.centro = :centro "
-                + "group by aad.centro";
+                + "group by aad.curso";
 
         String queryTrancamentosCancelamentosTransferencias = "select count(*) as alunos "
                 + "from alunos_atendimento_deixarocurso aad "
@@ -70,7 +70,7 @@ public class RelatorioCentroService {
                 + "inner join deixarocursoobjetivo dco on dco.id = adct.objetivo "
                 + "where dco.descricao in('Trancamento', 'Cancelamento', 'Tranferência') "
                 + "and  aad.centro = :centro "
-                + "group by aad.centro";
+                + "group by aad.curso";
 
         String queryPermanencias = "select count(*) as permanencias "
                 + "from atendialunos_atendimento_deixarocursomento add "
@@ -78,7 +78,7 @@ public class RelatorioCentroService {
                 + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
                 + "where descricao = 'Permanencia' "
                 + "and add.centro = :centro "
-                + "group by aad.centro";
+                + "group by aad.curso";
         return null;
     }
 
