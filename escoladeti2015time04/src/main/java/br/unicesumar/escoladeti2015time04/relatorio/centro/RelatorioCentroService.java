@@ -79,7 +79,17 @@ public class RelatorioCentroService {
                 + "where descricao = 'Permanencia' "
                 + "and add.centro = :centro "
                 + "group by aad.curso";
-        return null;
+
+        Map<String, Object> retorno = new HashMap<String, Object>();
+
+        List<Map<String, Object>> alunos = jdbcTemplate.query(queryTotalAlunos, new MapRowMapper());
+        retorno.put("alunos", alunos);
+        List<Map<String, Object>> trancamentosCancelamentosTransferencias = jdbcTemplate.query(queryTrancamentosCancelamentosTransferencias, new MapRowMapper());
+        retorno.put("trancamentosCancelamentosTransferencias", trancamentosCancelamentosTransferencias);
+        List<Map<String, Object>> permanencias = jdbcTemplate.query(queryPermanencias, new MapRowMapper());
+        retorno.put("permanencias", permanencias);
+
+        return retorno;
     }
 
     public Map<String, Object> getCentroMotivosPorCurso() {
@@ -91,7 +101,13 @@ public class RelatorioCentroService {
                 + "where att.centro = :centro "
                 + "and att.curso = :curso "
                 + "group by att.centro, atdc.motivo ";
-        return null;
+
+        Map<String, Object> retorno = new HashMap<String, Object>();
+
+        List<Map<String, Object>> centroMotivos = jdbcTemplate.query(queryCentroMotivosPorCurso, new MapRowMapper());
+        retorno.put("centroMotivos", centroMotivos);
+
+        return retorno;
     }
 
     public Map<String, Object> getCentroResumoMotivos() {
@@ -102,6 +118,12 @@ public class RelatorioCentroService {
                 + "inner join deixarocursoobjetivo dco on dco.motivo = att.id "
                 + "where att.centro = :centro "
                 + "group by atdc.motivo";
-        return null;
+
+        Map<String, Object> retorno = new HashMap<String, Object>();
+
+        List<Map<String, Object>> motivos = jdbcTemplate.query(queryCentroResumoMotivos, new MapRowMapper());
+        retorno.put("motivos", motivos);
+
+        return retorno;
     }
 }

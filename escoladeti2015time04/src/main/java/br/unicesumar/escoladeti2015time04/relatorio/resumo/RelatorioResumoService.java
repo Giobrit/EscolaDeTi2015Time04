@@ -74,7 +74,7 @@ public class RelatorioResumoService {
         List<Map<String, Object>> atendimentos = jdbcTemplate.query(queryTotalAtendimento, new MapRowMapper());
         retorno.put("atendimentos", atendimentos);
         List<Map<String, Object>> trancamentosCancelamentosTransferencias = jdbcTemplate.query(queryTrancamentosCancelamentosTransferencias, new MapRowMapper());
-        retorno.put("trancamentosCancelamentosTransferencias", trancamentosCancelamentosTransferencias);
+            retorno.put("trancamentosCancelamentosTransferencias", trancamentosCancelamentosTransferencias);
         List<Map<String, Object>> permanencias = jdbcTemplate.query(queryPermanencias, new MapRowMapper());
         retorno.put("permanencias", permanencias);
 
