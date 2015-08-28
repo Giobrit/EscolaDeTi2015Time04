@@ -8,25 +8,21 @@
                         <div class="col-md-4">
                             <label>Selecione o Centro</label>
                             <div class="form-group">
-                                <select class="form-control" name="centro" id="sel1" required>
-                                    <option>CBS</option>
-                                    <option>CETA</option>
-                                    <option>CHSA</option>
+                                <select class="form-control" ng-model="centroSelecionado" ng-options="centro for centro in getCentros()" ng-change="selecionouUmCentro(centroSelecionado)">
+                                    <!--<option>{{perfil.nome}}</option>-->
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label>Selecione o Tipo de Relatório</label>
                             <div class="form-group">
-                                <select class="form-control" name="tipoRelatorio" id="sel1" required>
-                                    <option>Relatório por curso</option>
-                                    <option>Relatório resumido de permanencia</option>
-                                    <option>Relatório resumido</option>
+                                <select class="form-control" ng-model="tipoSelecionado" ng-options="tipo for tipo in getTipoRelatorio()" ng-change="selecionouUmTipo(tipoSelecionado)">
+                                    <!--<option>{{perfil.nome}}</option>-->
                                 </select>
                             </div>
                         </div>
                         <!--Irá ser habilitado se o usuario selecionar por curso-->
-                        <div class="col-md-4" ng-disabled>
+                        <div class="col-md-4" ng-disabled="">
                             <label>Selecione o Curso</label>
                             <div class="form-group">
                                 <select class="form-control" name="curso" id="sel1" required>
@@ -36,21 +32,35 @@
                         </div>
                     </div>    
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-offset-10 pull-right">
-                            <button type="submit" ng-click="gerar()" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Gerar os relatórios" >Gerar Relatório</button>
-                        </div>    
-                    </div>
-                </div>
             </div>
             <div class="panel-heading" data-toggle="collapse" data-target="#demo1"><h3>Relatório Por Centro<span class="glyphicon glyphicon-list-alt pull-right" aria-hidden="true"></span></h3></div>
             <div id="demo1" class="panel-body collapse in">
-                <div class="col-md-6">
-                    <div id="pie5"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="pie5"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="pie6"></div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <div id="pie6"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="pie7"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="pie8"></div>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div id="pie9"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="pie10"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="pie11"></div>
+                    </div>
                 </div>
             </div>
         </div>
