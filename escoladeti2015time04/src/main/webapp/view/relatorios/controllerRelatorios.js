@@ -331,35 +331,137 @@ function controllerRelatorioResumido($scope) {
 function controllerRelatorioPorCentro($scope) {
 
     $scope.init = function () {
+        $scope.getCentros();
+        $scope.getTipoRelatorio();
+        habilitaDesabilitaSelecaoPorCurso(true);
     };
-    
-    $scope.centroSelcionado = {};
-    
-    $scope.getCentros = function(){
-        return ["CBS","CETA","CHSA"];
+
+    $scope.centroSelecionado = {};
+
+    $scope.getCentros = function () {
+        $scope.centros = [];
+        $scope.centros = [{id: 1, descricao: "CBS"},
+            {id: 2, descricao: "CETA"},
+            {id: 3, descricao: "CHSA"}];
+
     };
-    $scope.getTipoRelatorio = function(){
-        return ["Relatório por curso","Relatório resumido de permanencia","Relatório resumido"];
+
+    $scope.getTipoRelatorio = function () {
+        $scope.tiposRelatorio = [];
+        $scope.tiposRelatorio = [{id: 1, descricao: "Relatório geral"},
+            {id: 2, descricao: "Relatório de permanencia"},
+            {id: 3, descricao: "Relatório de motivos por curso"}];
+
     };
-    
-    $scope.selecionouUmCentro = function(centro){
-        if(centro === "CBS"){
-          $scope.grafico();
-        }else if(centro === "CETA"){
-            $scope.grafico2();
-        }else if(centro === "CHSA"){
-            $scope.grafico3();
+
+    $scope.getCursosRelatorio = function (centro) {
+        $scope.cursos = [];
+        switch (centro.id) {
+            case 1 ://CBS
+            {
+                $scope.cursos = [{id: 1, descricao: "Biomedicina"},
+                    {id: 2, descricao: "Medicina"}];
+                break;
+            }
+            case 2 ://CETA
+            {
+                $scope.cursos = [{id: 1, descricao: "Analise e desenvolvimento de sistemas"},
+                    {id: 2, descricao: "Engenharia civil"}];
+                break;
+            }
+            case 3 ://CHSA
+            {
+                $scope.cursos = [{id: 1, descricao: "Administração"},
+                    {id: 2, descricao: "Direito"}];
+                break;
+            }
+            default :
+            {
+                $scope.cursos = [];
+                break;
+            }
+        }
+        ;
+    };
+
+    $scope.selecionouUmCentro = function (centro) {
+        $scope.getCursosRelatorio(centro);
+
+        switch (centro.id) {
+            case 1 ://CBS
+            {
+                break;
+            }
+            case 2 ://CETA
+            {
+                break;
+            }
+            case 3 ://CHSA
+            {
+                break;
+            }
+        }
+//        if (centro === "CBS") {
+//            $scope.grafico();
+//        } else if (centro === "CETA") {
+//            $scope.grafico2();
+//        } else if (centro === "CHSA") {
+//            $scope.grafico3();
+//        }
+    };
+
+    $scope.selecionouUmTipo = function (tipo) {
+        habilitaDesabilitaSelecaoPorCurso(true);
+        switch (tipo.id) {
+            case 1 ://Relatório geral
+            {
+                break;
+            }
+            case 2 ://Relatório de permanencia
+            {
+                break;
+            }
+            case 3 ://Relatório de motivos por curso
+            {
+                habilitaDesabilitaSelecaoPorCurso(false);
+                break;
+            }
+        }
+//        if (tipo === "Relatório resumido de permanencia") {
+//            $scope.permanencia();
+//        } else if (tipo === "Relatório resumido") {
+//            $scope.resumo();
+//        }
+    };
+
+    function habilitaDesabilitaSelecaoPorCurso(data) {
+        document.getElementById("selectPorCurso").disabled = data;
+    }
+
+    $scope.gerarRelatorio = function () {
+        //Os graficos estão confusos!!!
+        switch ($scope.tipoSelecionado.id) {
+            case 1 ://Relatório geral
+            {                
+                $scope.grafico();//Grafico pizza resumo motivo
+                $scope.grafico2();//Grafico em colunas
+                $scope.grafico3();//Grafico pizza resumo motivo?
+                break;
+            }
+            case 2 ://Relatório de permanencia
+            {
+                $scope.permanencia();
+                break;
+            }
+            case 3 ://Relatório de motivos por curso
+            {
+                $scope.resumo();
+                break;
+            }
         }
     };
-    $scope.selecionouUmTipo = function(tipo){
-      if(tipo === "Relatório resumido de permanencia"){
-          $scope.permanencia();
-      }else if(tipo === "Relatório resumido"){
-          $scope.resumo();
-      }  
-    };
-    
-    $scope.grafico = function(){
+
+    $scope.grafico = function () {
         $(function () {
 
             $(document).ready(function () {
@@ -374,7 +476,7 @@ function controllerRelatorioPorCentro($scope) {
                     },
                     title: {
                         text: 'Resumo motivos'
-                   },
+                    },
                     credits: {
                         enabled: false
                     },
@@ -439,15 +541,15 @@ function controllerRelatorioPorCentro($scope) {
                                 }, {
                                     name: "Transferencia para outra instituição",
                                     y: 213
-                               }]
+                                }]
                         }]
                 });
             });
         });
     };
-    
-    $scope.grafico2 = function(){
-         $(function () {
+
+    $scope.grafico2 = function () {
+        $(function () {
             $('#pie6').highcharts({
                 chart: {
                     plotBackgroundColor: null,
@@ -505,7 +607,8 @@ function controllerRelatorioPorCentro($scope) {
             });
         });
     };
-    $scope.grafico3 = function(){
+
+    $scope.grafico3 = function () {
         $(function () {
 
             $(document).ready(function () {
@@ -520,7 +623,7 @@ function controllerRelatorioPorCentro($scope) {
                     },
                     title: {
                         text: 'Resumo motivos'
-                   },
+                    },
                     credits: {
                         enabled: false
                     },
@@ -585,13 +688,14 @@ function controllerRelatorioPorCentro($scope) {
                                 }, {
                                     name: "Transferencia para outra instituição",
                                     y: 213
-                               }]
+                                }]
                         }]
                 });
             });
         });
     };
-    $scope.permanencia = function(){
+
+    $scope.permanencia = function () {
         $(function () {
 
             $(document).ready(function () {
@@ -641,7 +745,8 @@ function controllerRelatorioPorCentro($scope) {
             });
         });
     };
-    $scope.resumo = function(){
+
+    $scope.resumo = function () {
         $(function () {
             $('#pie9').highcharts({
                 chart: {
@@ -796,7 +901,5 @@ function controllerRelatorioPorCentro($scope) {
             });
         });
     };
-    
-    
-   
+
 }
