@@ -386,28 +386,9 @@ function controllerRelatorioPorCentro($scope) {
 
     $scope.selecionouUmCentro = function (centro) {
         $scope.getCursosRelatorio(centro);
+    };
 
-        switch (centro.id) {
-            case 1 ://CBS
-            {
-                break;
-            }
-            case 2 ://CETA
-            {
-                break;
-            }
-            case 3 ://CHSA
-            {
-                break;
-            }
-        }
-//        if (centro === "CBS") {
-//            $scope.grafico();
-//        } else if (centro === "CETA") {
-//            $scope.grafico2();
-//        } else if (centro === "CHSA") {
-//            $scope.grafico3();
-//        }
+    $scope.selecionouUmCurso = function (curso) {
     };
 
     $scope.selecionouUmTipo = function (tipo) {
@@ -427,11 +408,6 @@ function controllerRelatorioPorCentro($scope) {
                 break;
             }
         }
-//        if (tipo === "Relatório resumido de permanencia") {
-//            $scope.permanencia();
-//        } else if (tipo === "Relatório resumido") {
-//            $scope.resumo();
-//        }
     };
 
     function habilitaDesabilitaSelecaoPorCurso(data) {
@@ -442,10 +418,9 @@ function controllerRelatorioPorCentro($scope) {
         //Os graficos estão confusos!!!
         switch ($scope.tipoSelecionado.id) {
             case 1 ://Relatório geral
-            {                
-                $scope.grafico();//Grafico pizza resumo motivo
+            {
+                criarTabela();
                 $scope.grafico2();//Grafico em colunas
-                $scope.grafico3();//Grafico pizza resumo motivo?
                 break;
             }
             case 2 ://Relatório de permanencia
@@ -455,11 +430,85 @@ function controllerRelatorioPorCentro($scope) {
             }
             case 3 ://Relatório de motivos por curso
             {
-                $scope.resumo();
+//                $scope.resumo();
+                criarTabela();
                 break;
             }
         }
     };
+
+    function criarTabela() {
+        var html = "";
+        
+        //Porquice mas foi feito para teste!!!
+        //FUNCIONA!!!
+        html += '<table class="table table-hover table-bordered">';
+        html += '<thead>';
+        html += '<th>Cursos</th>';
+        html += '<th>Atendimentos</th>';
+        html += '<th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>';
+        html += '<th colspan="2">Permanências</th>';
+        html += '</thead>';
+        html += '<tbody>';
+        html += '<tr>';
+        html += '<td>CBS - Saúde</td>';
+        html += '<td>382</td>';
+        html += '<td>341</td>';
+        html += '<td>89,2%</td>';
+        html += '<td>41</td>';
+        html += '<td>10,73%</td>';
+        html += '</tr>';
+        html += '<tr>';
+        html += '<td>CETA - Exatas</td>';
+        html += '<td>418</td>';
+        html += '<td>361</td>';
+        html += '<td>86,2%</td>';
+        html += '<td>57</td>';
+        html += '<td>13,73%</td>';
+        html += '</tr>';
+        html += '<tr>';
+        html += '<td>CHSA - Humanas</td>';
+        html += '<td>364</td>';
+        html += '<td>305</td>';
+        html += '<td>83,2%</td>';
+        html += '<td>59</td>';
+        html += '<td>16,73%</td>';
+        html += '</tr>';
+        html += '</tbody>';
+        html += '<tfoot>';
+        html += '<tr>';
+        html += '<td><b>TOTAL</b></td>';
+        html += '<td><b>1164</b></td>';
+        html += '<td><b>1007</b></td>';
+        html += '<td><b>86,51%</b></td>';
+        html += '<td><b>157</b></td>';
+        html += '<td><b>13,49%</b></td>';
+        html += '</tr>';
+        html += '</tfoot>';
+        html += '</table>';
+        
+        document.getElementById('tabela').innerHTML = html;
+    }
+
+//Cria tabela de forma dinamica
+//    function criarTabela() {
+//        var linha = 3;
+//        var coluna = 4;
+//        var conteudo = 1;
+//        var html = "";
+//        
+//        html += '<table border>';
+//        for (var x = 1; x <= linha; x++) {
+//            html += '<tr>';
+//            for (var y = 1; y <= coluna; y++) {
+//                html += '<td>' + conteudo + '</td>';
+//                conteudo++;
+//            }
+//            html += '</tr>';
+//        }
+//        html += '</table>';
+//        document.getElementById('tabela').innerHTML = html;
+//    }
 
     $scope.grafico = function () {
         $(function () {
