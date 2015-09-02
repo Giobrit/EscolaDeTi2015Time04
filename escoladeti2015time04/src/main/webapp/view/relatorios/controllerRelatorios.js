@@ -418,188 +418,163 @@ function controllerRelatorioPorCentro($scope) {
         //Os graficos estão confusos!!!
         switch ($scope.tipoSelecionado.id) {
             case 1 ://Relatório geral
-            {
-                criarTabela();
-                $scope.grafico2();//Grafico em colunas
+            {                
+                $scope.graficoRelatorioGeral();//Grafico em colunas
                 break;
             }
             case 2 ://Relatório de permanencia
-            {
+            {                
                 $scope.permanencia();
                 break;
             }
             case 3 ://Relatório de motivos por curso
-            {
-//                $scope.resumo();
-                criarTabela();
+            {             
+                $scope.resumoMotivo();
                 break;
             }
         }
     };
 
+    function apagaTabela() {
+        document.getElementById('tabela').innerHTML = "";
+    }
+
     function criarTabela() {
         var html = "";
-        
-        //Porquice mas foi feito para teste!!!
-        //FUNCIONA!!!
-        html += '<table class="table table-hover table-bordered">';
-        html += '<thead>';
-        html += '<th>Cursos</th>';
-        html += '<th>Atendimentos</th>';
-        html += '<th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>';
-        html += '<th colspan="2">Permanências</th>';
-        html += '</thead>';
-        html += '<tbody>';
-        html += '<tr>';
-        html += '<td>CBS - Saúde</td>';
-        html += '<td>382</td>';
-        html += '<td>341</td>';
-        html += '<td>89,2%</td>';
-        html += '<td>41</td>';
-        html += '<td>10,73%</td>';
-        html += '</tr>';
-        html += '<tr>';
-        html += '<td>CETA - Exatas</td>';
-        html += '<td>418</td>';
-        html += '<td>361</td>';
-        html += '<td>86,2%</td>';
-        html += '<td>57</td>';
-        html += '<td>13,73%</td>';
-        html += '</tr>';
-        html += '<tr>';
-        html += '<td>CHSA - Humanas</td>';
-        html += '<td>364</td>';
-        html += '<td>305</td>';
-        html += '<td>83,2%</td>';
-        html += '<td>59</td>';
-        html += '<td>16,73%</td>';
-        html += '</tr>';
-        html += '</tbody>';
-        html += '<tfoot>';
-        html += '<tr>';
-        html += '<td><b>TOTAL</b></td>';
-        html += '<td><b>1164</b></td>';
-        html += '<td><b>1007</b></td>';
-        html += '<td><b>86,51%</b></td>';
-        html += '<td><b>157</b></td>';
-        html += '<td><b>13,49%</b></td>';
-        html += '</tr>';
-        html += '</tfoot>';
-        html += '</table>';
-        
+
+        html += '<table class="table table-hover table-bordered">' +
+                '   <thead>' +
+                '       <th>Cursos</th>' +
+                '       <th>Atendimentos</th>' +
+                '       <th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>' +
+                '       <th colspan="2">Permanências</th>' +
+                '</thead>' +
+                '   <tbody>' +
+                '       <tr>' +
+                '           <td>Biomedicina</td>' +
+                '           <td>382</td>' +
+                '           <td>341</td>' +
+                '           <td>89,2%</td>' +
+                '           <td>41</td>' +
+                '           <td>10,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Ciências Biológicas</td>' +
+                '           <td>418</td>' +
+                '           <td>361</td>' +
+                '           <td>86,2%</td>' +
+                '           <td>57</td>' +
+                '           <td>13,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Educação Física</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Enfermagem</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Estética e Cosmética</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Farmácia</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Fisioterapia</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Fonoaudiologia</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Medicina</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Nutrição</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Odontologia</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Psicologia</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '       <tr>' +
+                '           <td>Veterinária</td>' +
+                '           <td>364</td>' +
+                '           <td>305</td>' +
+                '           <td>83,2%</td>' +
+                '           <td>59</td>' +
+                '           <td>16,73%</td>' +
+                '       </tr>' +
+                '   </tbody>' +
+                '   <tfoot>' +
+                '       <tr>' +
+                '           <td><b>TOTAL</b></td>' +
+                '           <td><b>1164</b></td>' +
+                '           <td><b>1007</b></td>' +
+                '           <td><b>86,51%</b></td>' +
+                '           <td><b>157</b></td>' +
+                '           <td><b>13,49%</b></td>' +
+                '       </tr>' +
+                '   </tfoot>' +
+                '</table>';
+
         document.getElementById('tabela').innerHTML = html;
     }
 
-//Cria tabela de forma dinamica
-//    function criarTabela() {
-//        var linha = 3;
-//        var coluna = 4;
-//        var conteudo = 1;
-//        var html = "";
-//        
-//        html += '<table border>';
-//        for (var x = 1; x <= linha; x++) {
-//            html += '<tr>';
-//            for (var y = 1; y <= coluna; y++) {
-//                html += '<td>' + conteudo + '</td>';
-//                conteudo++;
-//            }
-//            html += '</tr>';
-//        }
-//        html += '</table>';
-//        document.getElementById('tabela').innerHTML = html;
-//    }
-
-    $scope.grafico = function () {
+    $scope.graficoRelatorioGeral = function () {
+        criarTabela();
+        
         $(function () {
-
-            $(document).ready(function () {
-
-                // Build the chart
-                $('#pie5').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'Resumo motivos'
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                            name: "Percentual",
-                            colorByPoint: true,
-                            data: [{
-                                    name: "Aprendizagem",
-                                    y: 7
-                                }, {
-                                    name: "Distância",
-                                    y: 14
-                                },
-                                {
-                                    name: "Doença",
-                                    y: 25
-                                },
-                                {
-                                    name: "Financeiro",
-                                    y: 286
-                                },
-                                {
-                                    name: "Frequência",
-                                    y: 1
-                                },
-                                {
-                                    name: "Gravides",
-                                    y: 7
-                                },
-                                {
-                                    name: "Mudança de cidade",
-                                    y: 127
-                                },
-                                {
-                                    name: "Não indentificação com o curso",
-                                    y: 76
-                                },
-                                {
-                                    name: "Notas baixas",
-                                    y: 11
-                                },
-                                {
-                                    name: "Outros",
-                                    y: 177
-                                },
-                                {
-                                    name: "Trabalho",
-                                    y: 64
-                                }, {
-                                    name: "Transferencia para outra instituição",
-                                    y: 213
-                                }]
-                        }]
-                });
-            });
-        });
-    };
-
-    $scope.grafico2 = function () {
-        $(function () {
-            $('#pie6').highcharts({
+            $('#grafico1').highcharts({
                 chart: {
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
@@ -654,16 +629,14 @@ function controllerRelatorioPorCentro($scope) {
                     }
                 }
             });
-        });
-    };
 
-    $scope.grafico3 = function () {
+        });
         $(function () {
 
             $(document).ready(function () {
 
                 // Build the chart
-                $('#pie7').highcharts({
+                $('#grafico2').highcharts({
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
@@ -671,7 +644,7 @@ function controllerRelatorioPorCentro($scope) {
                         type: 'pie'
                     },
                     title: {
-                        text: 'Resumo motivos'
+                        text: ''
                     },
                     credits: {
                         enabled: false
@@ -690,53 +663,113 @@ function controllerRelatorioPorCentro($scope) {
                         }
                     },
                     series: [{
-                            name: "Percentual",
+                            name: "Brands",
                             colorByPoint: true,
                             data: [{
-                                    name: "Aprendizagem",
-                                    y: 7
+                                    name: "Biomedicina",
+                                    y: 341
                                 }, {
-                                    name: "Distância",
-                                    y: 14
-                                },
-                                {
-                                    name: "Doença",
-                                    y: 25
-                                },
-                                {
-                                    name: "Financeiro",
-                                    y: 286
-                                },
-                                {
-                                    name: "Frequência",
-                                    y: 1
-                                },
-                                {
-                                    name: "Gravides",
-                                    y: 7
-                                },
-                                {
-                                    name: "Mudança de cidade",
-                                    y: 127
-                                },
-                                {
-                                    name: "Não indentificação com o curso",
-                                    y: 76
-                                },
-                                {
-                                    name: "Notas baixas",
-                                    y: 11
-                                },
-                                {
-                                    name: "Outros",
-                                    y: 177
-                                },
-                                {
-                                    name: "Trabalho",
-                                    y: 64
+                                    name: "Ciências Biológicas",
+                                    y: 361
                                 }, {
-                                    name: "Transferencia para outra instituição",
-                                    y: 213
+                                    name: "Educação Física",
+                                    y: 305
+                                }, {
+                                    name: "Enfermagem",
+                                    y: 305
+                                }, {
+                                    name: "Estética e cosmética",
+                                    y: 305
+                                }, {
+                                    name: "Farmácia",
+                                    y: 305
+                                }, {
+                                    name: "Fisioterapia",
+                                    y: 305
+                                }, {
+                                    name: "Fonoaudioterapia",
+                                    y: 305
+                                }, {
+                                    name: "Medicina",
+                                    y: 305
+                                }, {
+                                    name: "Psicologia",
+                                    y: 305
+                                }, {
+                                    name: "Veterinaria",
+                                    y: 305
+                                }]
+                        }]
+                });
+            });
+        });
+        $(function () {
+
+            $(document).ready(function () {
+
+                // Build the chart
+                $('#grafico3').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                            name: "Brands",
+                            colorByPoint: true,
+                            data: [{
+                                    name: "Biomedicina",
+                                    y: 341
+                                }, {
+                                    name: "Ciências Biológicas",
+                                    y: 361
+                                }, {
+                                    name: "Educação Física",
+                                    y: 305
+                                }, {
+                                    name: "Enfermagem",
+                                    y: 305
+                                }, {
+                                    name: "Estética e cosmética",
+                                    y: 305
+                                }, {
+                                    name: "Farmácia",
+                                    y: 305
+                                }, {
+                                    name: "Fisioterapia",
+                                    y: 305
+                                }, {
+                                    name: "Fonoaudioterapia",
+                                    y: 305
+                                }, {
+                                    name: "Medicina",
+                                    y: 305
+                                }, {
+                                    name: "Psicologia",
+                                    y: 305
+                                }, {
+                                    name: "Veterinaria",
+                                    y: 305
                                 }]
                         }]
                 });
@@ -745,12 +778,14 @@ function controllerRelatorioPorCentro($scope) {
     };
 
     $scope.permanencia = function () {
+//        apagaTabela();
+        
         $(function () {
 
             $(document).ready(function () {
 
                 // Build the chart
-                $('#pie8').highcharts({
+                $('#grafico1').highcharts({
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
@@ -758,7 +793,7 @@ function controllerRelatorioPorCentro($scope) {
                         type: 'pie'
                     },
                     title: {
-                        text: 'Percentual Permanência'
+                        text: ''
                     },
                     credits: {
                         enabled: false
@@ -780,13 +815,37 @@ function controllerRelatorioPorCentro($scope) {
                             name: "Percentual",
                             colorByPoint: true,
                             data: [{
-                                    name: "CBS - Saúde",
+                                    name: "APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)",
                                     y: 41
                                 }, {
-                                    name: "CETA - Exatas",
+                                    name: "DISTÂNCIA (distância entre Insituição de Ensino e casa)",
                                     y: 57
                                 }, {
-                                    name: "CHSA - Humanas",
+                                    name: "DOENÇA (pessoal ou familiar)",
+                                    y: 59
+                                }, {
+                                    name: "FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)",
+                                    y: 59
+                                }, {
+                                    name: "FREQUÊNCIA (igual ou maior que 5 faltas)",
+                                    y: 59
+                                }, {
+                                    name: "GRAVIDEZ (afastamento dos estudos para gestação)",
+                                    y: 59
+                                }, {
+                                    name: "MUDANÇA DE CIDADE (por trabalho ou pessoal)",
+                                    y: 59
+                                }, {
+                                    name: "NÃO IDENTIFICAÇÃO COM O CURSO ",
+                                    y: 59
+                                }, {
+                                    name: "NOTAS BAIXAS (abaixo da média 6,0)",
+                                    y: 59
+                                }, {
+                                    name: "TRABALHO (dificuldade em conciliar estudos com o trabalho)",
+                                    y: 59
+                                }, {
+                                    name: "TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)",
                                     y: 59
                                 }]
                         }]
@@ -795,7 +854,9 @@ function controllerRelatorioPorCentro($scope) {
         });
     };
 
-    $scope.resumo = function () {
+    $scope.resumoMotivo = function () {
+//        apagaTabela();
+        
         $(function () {
             $('#pie9').highcharts({
                 chart: {
@@ -950,5 +1011,5 @@ function controllerRelatorioPorCentro($scope) {
             });
         });
     };
-
+    
 }
