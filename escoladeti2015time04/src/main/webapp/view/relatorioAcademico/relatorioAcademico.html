@@ -1,0 +1,117 @@
+<form name="relatorioAcademico" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()">
+    <div class="formulario">
+        <div class="row titulo">
+            <h2>Dados Aluno</h2>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading" data-target="#demo1">
+
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label><h3>RA:</h3></label>    
+                        <input type="text" name="ra" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.ra.$invalid && !formAtendimentoDeixarOCurso.ra.$pristine}" class="form-control" ng-model="atendimentoDeixarOCurso.ra" ng-keyup="carregarAluno(atendimentoDeixarOCurso.ra)" maxlength="8" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <img src="https://s3-sa-east-1.amazonaws.com/medias.ciranda.me/profiles/215/images/215_9e4aa1ed1aca22d514ce0cc0c65b8931f4bf25a6.jpg" alt="..." class="img-circle col-md-2">
+                <label>Aluno:</label>
+            </div>
+            <div class="form-group">
+                <div class="col-md-5">
+                    <label>Curso:</label>
+                </div>
+                <div class="col-md-2">
+                    <label>Centro:</label>
+                </div>
+                <div class="col-md-1">
+                    <label>Série:</label>
+                </div>
+                <div class="col-md-1">
+                    <label>Turma:</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-5">
+                    <label>Bolsa:</label>
+                </div>
+                <div class="col-md-2">
+                    <label>Reprovações:</label>
+                </div>
+                <div class="col-md-1">
+                    <label>Matriculado:</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-5">
+                    <label>Instituição de Transferência:</label>
+                </div>
+                <div class="col-md-3">
+                    <label>Coordenador / Diretor:</label>
+                </div>
+            </div>
+            <div class="row form-group"></div>
+            <div class="titulo">
+                <h2>Relatórios</h2>
+            </div>
+            <div class="row form-group"></div>
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo3"><h3>Dados do Atendimento<span class="glyphicon glyphicon-edit pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo3" class="panel-body collapse in"> 
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label>Objetivo</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Motivo</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <select class="form-control" id="sel1" name="objetivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.objetivo.$invalid && !formAtendimentoDeixarOCurso.objetivo.$pristine}" ng-change="setObjetivo(objetivoSelecionado)" ng-model="objetivoSelecionado" ng-options="o.descricao for o in objetivos" required> 
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <button ng-click="cadastrarOutraTela('/AtendimentoDeixarOCurso/Objetivo/form')" type="button" class="tooltip, btn btn-primary" title="Novo Objetivo"><i class="fa fa-plus-square-o fa-2x"></i></button>
+                        </div>
+                        <div class="col-md-5">
+                            <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.motivo.$invalid && !formAtendimentoDeixarOCurso.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <button ng-click="cadastrarOutraTela('/AtendimentoMotivo/form')" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></button>
+                        </div>    
+                    </div> 
+                </div>    
+
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label>
+                            <h4>Descrição Pública</h4>
+                        </label>
+                        <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.descricaoPublica.$invalid && !formAtendimentoDeixarOCurso.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPublica" required></textarea>
+                    </div>
+                </div>
+                <div class="row form-group" ng-show="exibirDescricaoPrivada()">
+                    <div class="col-md-12">
+                        <label>
+                            <h4>Descrição Privada</h4>
+                        </label>
+                        <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada"></textarea>
+                    </div>
+                </div>                
+            </div>
+        </div>        
+        <div class="row">	
+            <div class="col-md-12">
+                <div class="col-md-offset-7 pull-right">
+                    <a type="button" href="#/AtendimentoDeixarOCurso/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
+                    <button type="submit" ng-click="salvar()" ng-disabled="(formAtendimentoDeixarOCurso.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
+                </div>
+            </div>	
+        </div>	
+    </div>    
+</form>

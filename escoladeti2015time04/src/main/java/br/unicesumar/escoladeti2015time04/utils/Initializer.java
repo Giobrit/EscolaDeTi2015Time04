@@ -88,6 +88,10 @@ public class Initializer {
             itemAcessoService.add(new ItemAcesso("Cadastrar Especial", "/AtendimentoEspecial/form", iaAtendimentoEspecial));
             itemAcessoService.add(new ItemAcesso(false, "Editar Especial", "/AtendimentoEspecial/form/:id", iaAtendimentoEspecial));
             itemAcessoService.add(new ItemAcesso("Listar Especial", "/AtendimentoEspecial/list", iaAtendimentoEspecial));
+            //Rotas Relatorio Academico
+            final ItemAcesso iaAluno = new ItemAcesso("Aluno", iaMenu, true);
+            itemAcessoService.add(iaAluno);
+            itemAcessoService.add(new ItemAcesso("Filtrar Aluno", "/RelatorioAcademico/form", iaAluno));
             //Rotas Sistema
             final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
             itemAcessoService.add(iaSistema);
