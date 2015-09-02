@@ -418,161 +418,312 @@ function controllerRelatorioPorCentro($scope) {
         //Os graficos estão confusos!!!
         switch ($scope.tipoSelecionado.id) {
             case 1 ://Relatório geral
-            {                
+            {
                 $scope.graficoRelatorioGeral();//Grafico em colunas
                 break;
             }
             case 2 ://Relatório de permanencia
-            {                
+            {
                 $scope.permanencia();
                 break;
             }
             case 3 ://Relatório de motivos por curso
-            {             
+            {
                 $scope.resumoMotivo();
                 break;
             }
         }
     };
 
-    function apagaTabela() {
+    function limpaGraficos() {
         document.getElementById('tabela').innerHTML = "";
+        document.getElementById('grafico1').innerHTML = "";
+        document.getElementById('grafico2').innerHTML = "";
+        document.getElementById('grafico3').innerHTML = "";
     }
 
-    function criarTabela() {
+    function criarTabela(tipo) {
         var html = "";
-
-        html += '<table class="table table-hover table-bordered">' +
-                '   <thead>' +
-                '       <th>Cursos</th>' +
-                '       <th>Atendimentos</th>' +
-                '       <th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>' +
-                '       <th colspan="2">Permanências</th>' +
-                '</thead>' +
-                '   <tbody>' +
-                '       <tr>' +
-                '           <td>Biomedicina</td>' +
-                '           <td>382</td>' +
-                '           <td>341</td>' +
-                '           <td>89,2%</td>' +
-                '           <td>41</td>' +
-                '           <td>10,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Ciências Biológicas</td>' +
-                '           <td>418</td>' +
-                '           <td>361</td>' +
-                '           <td>86,2%</td>' +
-                '           <td>57</td>' +
-                '           <td>13,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Educação Física</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Enfermagem</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Estética e Cosmética</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Farmácia</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Fisioterapia</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Fonoaudiologia</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Medicina</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Nutrição</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Odontologia</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Psicologia</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td>Veterinária</td>' +
-                '           <td>364</td>' +
-                '           <td>305</td>' +
-                '           <td>83,2%</td>' +
-                '           <td>59</td>' +
-                '           <td>16,73%</td>' +
-                '       </tr>' +
-                '   </tbody>' +
-                '   <tfoot>' +
-                '       <tr>' +
-                '           <td><b>TOTAL</b></td>' +
-                '           <td><b>1164</b></td>' +
-                '           <td><b>1007</b></td>' +
-                '           <td><b>86,51%</b></td>' +
-                '           <td><b>157</b></td>' +
-                '           <td><b>13,49%</b></td>' +
-                '       </tr>' +
-                '   </tfoot>' +
-                '</table>';
+        switch (tipo) {
+            case "relatorioGeral":
+                {
+                    html += '<table class="table table-hover table-bordered">' +
+                            '   <thead>' +
+                            '       <th>Cursos</th>' +
+                            '       <th>Atendimentos</th>' +
+                            '       <th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>' +
+                            '       <th colspan="2">Permanências</th>' +
+                            '</thead>' +
+                            '   <tbody>' +
+                            '       <tr>' +
+                            '           <td>Biomedicina</td>' +
+                            '           <td>382</td>' +
+                            '           <td>341</td>' +
+                            '           <td>89,2%</td>' +
+                            '           <td>41</td>' +
+                            '           <td>10,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Ciências Biológicas</td>' +
+                            '           <td>418</td>' +
+                            '           <td>361</td>' +
+                            '           <td>86,2%</td>' +
+                            '           <td>57</td>' +
+                            '           <td>13,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Educação Física</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Enfermagem</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Estética e Cosmética</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Farmácia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Fisioterapia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Fonoaudiologia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Medicina</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Nutrição</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Odontologia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Psicologia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Veterinária</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '   </tbody>' +
+                            '   <tfoot>' +
+                            '       <tr>' +
+                            '           <td><b>TOTAL</b></td>' +
+                            '           <td><b>1164</b></td>' +
+                            '           <td><b>1007</b></td>' +
+                            '           <td><b>86,51%</b></td>' +
+                            '           <td><b>157</b></td>' +
+                            '           <td><b>13,49%</b></td>' +
+                            '       </tr>' +
+                            '   </tfoot>' +
+                            '</table>';
+                }
+                break;
+            case "relatorioPermanencia" :
+            {
+                {
+                    html += '<table class="table table-hover table-bordered">' +
+                            '<thead> ' +
+                            '</thead>' +
+                            '<tbody>' +
+                            '    <tr>' +
+                            '        <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>' +
+                            '        <td><b>Justificativa apresentadas na solicitação</b></td>' +
+                            '        <td><b>Quantidade</b></td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
+                            '        <td style="text-align: center">7</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
+                            '        <td style="text-align: center">14</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>DOENÇA (pessoal ou familiar)</td>' +
+                            '        <td style="text-align: center">25</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
+                            '        <td style="text-align: center">286</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
+                            '        <td style="text-align: center">1</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
+                            '        <td style="text-align: center">7</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
+                            '        <td style="text-align: center">127</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
+                            '        <td style="text-align: center">76</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
+                            '        <td style="text-align: center">11</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
+                            '        <td style="text-align: center">177</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
+                            '        <td style="text-align: center">64</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
+                            '        <td style="text-align: center">213</td>' +
+                            '    </tr>' +
+                            '</tbody>' +
+                            '<tfoot>' +
+                            '    <tr>' +
+                            '        <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
+                            '        <td style="text-align: center"><b>1007</b></td>' +
+                            '    </tr>' +
+                            '</tfoot>' +
+                            '</table>';
+                }
+                break;
+            }
+            case  "relatorioMotivo" :
+            {
+                {
+                    html += '<table class="table table-hover table-bordered">' +
+                            '<thead> ' +
+                            '</thead>' +
+                            '<tbody>' +
+                            '    <tr>' +
+                            '        <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>' +
+                            '        <td><b>Justificativa apresentadas na solicitação</b></td>' +
+                            '        <td><b>Quantidade</b></td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
+                            '        <td style="text-align: center">7</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
+                            '        <td style="text-align: center">14</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>DOENÇA (pessoal ou familiar)</td>' +
+                            '        <td style="text-align: center">25</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
+                            '        <td style="text-align: center">286</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
+                            '        <td style="text-align: center">1</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
+                            '        <td style="text-align: center">7</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
+                            '        <td style="text-align: center">127</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
+                            '        <td style="text-align: center">76</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
+                            '        <td style="text-align: center">11</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
+                            '        <td style="text-align: center">177</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
+                            '        <td style="text-align: center">64</td>' +
+                            '    </tr>' +
+                            '    <tr>' +
+                            '        <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
+                            '        <td style="text-align: center">213</td>' +
+                            '    </tr>' +
+                            '</tbody>' +
+                            '<tfoot>' +
+                            '    <tr>' +
+                            '        <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
+                            '        <td style="text-align: center"><b>1007</b></td>' +
+                            '    </tr>' +
+                            '</tfoot>' +
+                            '</table>';
+                }
+                break;
+            }
+        }
 
         document.getElementById('tabela').innerHTML = html;
     }
 
     $scope.graficoRelatorioGeral = function () {
-        criarTabela();
-        
+        limpaGraficos();
+        criarTabela("relatorioGeral");
+
         $(function () {
             $('#grafico1').highcharts({
                 chart: {
@@ -590,7 +741,7 @@ function controllerRelatorioPorCentro($scope) {
                 xAxis: {
                     type: 'category',
                     labels: {
-                        rotation: 0,
+                        rotation: -65,
                         style: {
                             fontSize: '13px',
                             fontFamily: 'Verdana, sans-serif'
@@ -611,9 +762,19 @@ function controllerRelatorioPorCentro($scope) {
                 series: [{
                         name: "Atendimentos",
                         data: [
-                            ['CBS - Saúde', 382],
-                            ['CETA - Exatas', 418],
-                            ['CHSA - Humanas', 364]
+                            ['Biomedicina', 382],
+                            ['Ciências Biológicas', 418],
+                            ['Educação Física', 364],
+                            ['Enfermagem', 364],
+                            ['Estética e Cosmética', 364],
+                            ['Farmácia', 364],
+                            ['Fisioterapia', 364],
+                            ['Fonoaudiologia', 364],
+                            ['Medicina', 364],
+                            ['Nutrição', 364],
+                            ['Odontologia', 364],
+                            ['Psicologia', 364],
+                            ['Veterinária', 364]
                         ]
                     }],
                 dataLabels: {
@@ -778,8 +939,9 @@ function controllerRelatorioPorCentro($scope) {
     };
 
     $scope.permanencia = function () {
-//        apagaTabela();
-        
+        limpaGraficos();
+        criarTabela("relatorioPermanencia");
+
         $(function () {
 
             $(document).ready(function () {
@@ -855,71 +1017,15 @@ function controllerRelatorioPorCentro($scope) {
     };
 
     $scope.resumoMotivo = function () {
-//        apagaTabela();
-        
-        $(function () {
-            $('#pie9').highcharts({
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'column'
-                },
-                title: {
-                    text: ''
-                },
-                legend: {
-                    enabled: false
-                },
-                xAxis: {
-                    type: 'category',
-                    labels: {
-                        rotation: 0,
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }},
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Atendimentos'
-                    }
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y}</b>'
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                        name: "Atendimentos",
-                        data: [
-                            ['CBS - Saúde', 382],
-                            ['CETA - Exatas', 418],
-                            ['CHSA - Humanas', 364]
-                        ]
-                    }],
-                dataLabels: {
-                    enabled: true,
-                    rotation: -90,
-                    color: '#FFFFFF',
-                    align: 'right',
-                    format: '{point.y:.1f}', // one decimal
-                    y: 10, // 10 pixels down from the top
-                    style: {
-                        fontSize: '13px',
-                        fontFamily: 'Verdana, sans-serif'
-                    }
-                }
-            });
-        });
+        limpaGraficos();
+        criarTabela("relatorioMotivo");
+
         $(function () {
 
             $(document).ready(function () {
 
                 // Build the chart
-                $('#pie10').highcharts({
+                $('#grafico1').highcharts({
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
@@ -927,7 +1033,7 @@ function controllerRelatorioPorCentro($scope) {
                         type: 'pie'
                     },
                     title: {
-                        text: 'Percentual Trancamento/Cancelamento/Transferência'
+                        text: ''
                     },
                     credits: {
                         enabled: false
@@ -946,64 +1052,40 @@ function controllerRelatorioPorCentro($scope) {
                         }
                     },
                     series: [{
-                            name: "Brands",
+                            name: "Percentual",
                             colorByPoint: true,
                             data: [{
-                                    name: "CBS - Saúde",
-                                    y: 341
-                                }, {
-                                    name: "CETA - Exatas",
-                                    y: 361
-                                }, {
-                                    name: "CHSA - Humanas",
-                                    y: 305
-                                }]
-                        }]
-                });
-            });
-        });
-        $(function () {
-
-            $(document).ready(function () {
-
-                // Build the chart
-                $('#pie11').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'Percentual Permanência'
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                            name: "Brands",
-                            colorByPoint: true,
-                            data: [{
-                                    name: "CBS - Saúde",
+                                    name: "APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)",
                                     y: 41
                                 }, {
-                                    name: "CETA - Exatas",
+                                    name: "DISTÂNCIA (distância entre Insituição de Ensino e casa)",
                                     y: 57
                                 }, {
-                                    name: "CHSA - Humanas",
+                                    name: "DOENÇA (pessoal ou familiar)",
+                                    y: 59
+                                }, {
+                                    name: "FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)",
+                                    y: 59
+                                }, {
+                                    name: "FREQUÊNCIA (igual ou maior que 5 faltas)",
+                                    y: 59
+                                }, {
+                                    name: "GRAVIDEZ (afastamento dos estudos para gestação)",
+                                    y: 59
+                                }, {
+                                    name: "MUDANÇA DE CIDADE (por trabalho ou pessoal)",
+                                    y: 59
+                                }, {
+                                    name: "NÃO IDENTIFICAÇÃO COM O CURSO ",
+                                    y: 59
+                                }, {
+                                    name: "NOTAS BAIXAS (abaixo da média 6,0)",
+                                    y: 59
+                                }, {
+                                    name: "TRABALHO (dificuldade em conciliar estudos com o trabalho)",
+                                    y: 59
+                                }, {
+                                    name: "TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)",
                                     y: 59
                                 }]
                         }]
@@ -1011,5 +1093,5 @@ function controllerRelatorioPorCentro($scope) {
             });
         });
     };
-    
+
 }
