@@ -1,0 +1,59 @@
+<form name="relatorioPorCentro" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()">
+    <div class="relatorioResumido formulario">
+        <div class="panel panel-info">
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo"><h3>Relatório Por Centro<span class="glyphicon glyphicon-list-alt pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo" class="panel-body collapse in">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Selecione o Centro</label>
+                            <div class="form-group">
+                                <select class="form-control" ng-model="centroSelecionado" ng-options="centro.descricao for centro in centros" ng-change="selecionouUmCentro(centroSelecionado)">
+                                    <!--<option>{{perfil.nome}}</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Selecione o Tipo de Relatório</label>
+                            <div class="form-group">
+                                <select class="form-control" ng-model="tipoSelecionado" ng-options="tipo.descricao for tipo in tiposRelatorio" ng-change="selecionouUmTipo(tipoSelecionado)">
+                                    <!--<option>{{perfil.nome}}</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <!--Irá ser habilitado se o usuario selecionar por curso-->
+                        <div class="col-md-4">
+                            <label>Selecione o Curso</label>
+                            <div class="form-group">
+                                <select class="form-control" id="selectPorCurso" ng-model="cursoSelecionado" ng-options="curso.descricao for curso in cursos" ng-change="selecionouUmCurso(cursoSelecionado)">                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <button class="btn btn-success" ng-click="gerarRelatorio()">Gerar relatório</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo1"><h3>Relatório Por Centro<span class="glyphicon glyphicon-list-alt pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo1" class="panel-body collapse in">
+                <div class="row">
+                    <div id="tabela" class="col-md-6"></div>
+                    <div class="col-md-6" >
+                        <div id="grafico1" style="padding-top: 90px;"></div>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-md-6">
+                        <div id="grafico2"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="grafico3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
