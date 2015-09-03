@@ -13,11 +13,11 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group formulario">
                 <img src="https://s3-sa-east-1.amazonaws.com/medias.ciranda.me/profiles/215/images/215_9e4aa1ed1aca22d514ce0cc0c65b8931f4bf25a6.jpg" alt="..." class="img-circle col-md-2">
-                <label>Aluno:</label>
-            </div>
-            <div class="form-group">
+                <div class="col-md-6">
+                    <label>Nome:</label> 
+                </div>
                 <div class="col-md-5">
                     <label>Curso:</label>
                 </div>
@@ -43,75 +43,187 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <label>Instituição de Transferência:</label>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label>Coordenador / Diretor:</label>
                 </div>
+                <div class="col-md-12 formulario">
+                    <h2>Relatórios</h2>
+                </div>
             </div>
-            <div class="row form-group"></div>
-            <div class="titulo">
-                <h2>Relatórios</h2>
-            </div>
-            <div class="row form-group"></div>
-            <div class="panel-heading" data-toggle="collapse" data-target="#demo3"><h3>Dados do Atendimento<span class="glyphicon glyphicon-edit pull-right" aria-hidden="true"></span></h3></div>
-            <div id="demo3" class="panel-body collapse in"> 
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <label>Objetivo</label>
+            <div class="row form-group">
+                <div class="btn-group-justified col-md-12 form-group formulario">
+                    <div class="btn-group col-md-2" role="group">
+                        <div class="col-md-4">
+                            <button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Médias e Faltas</button>
                         </div>
-                        <div class="col-md-6">
-                            <label>Motivo</label>
+                        <div class="col-md-4">
+                            <button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Histórico Geral</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Nada Consta</button>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-md-5">
-                            <select class="form-control" id="sel1" name="objetivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.objetivo.$invalid && !formAtendimentoDeixarOCurso.objetivo.$pristine}" ng-change="setObjetivo(objetivoSelecionado)" ng-model="objetivoSelecionado" ng-options="o.descricao for o in objetivos" required> 
-                            </select>
-                        </div>
-                        <div class="col-md-1">
-                            <button ng-click="cadastrarOutraTela('/AtendimentoDeixarOCurso/Objetivo/form')" type="button" class="tooltip, btn btn-primary" title="Novo Objetivo"><i class="fa fa-plus-square-o fa-2x"></i></button>
-                        </div>
-                        <div class="col-md-5">
-                            <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.motivo.$invalid && !formAtendimentoDeixarOCurso.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
-                            </select>
-                        </div>
-                        <div class="col-md-1">
-                            <button ng-click="cadastrarOutraTela('/AtendimentoMotivo/form')" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></button>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading" data-target="#demo1">
+                    <div class="form-inline">
+                        <div class="form-group">
                         </div>    
-                    </div> 
+                    </div>    
                 </div>    
-
-
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <label>
-                            <h4>Descrição Pública</h4>
-                        </label>
-                        <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.descricaoPublica.$invalid && !formAtendimentoDeixarOCurso.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPublica" required></textarea>
-                    </div>
-                </div>
-                <div class="row form-group" ng-show="exibirDescricaoPrivada()">
-                    <div class="col-md-12">
-                        <label>
-                            <h4>Descrição Privada</h4>
-                        </label>
-                        <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoDeixarOCurso.descricaoPrivada"></textarea>
-                    </div>
-                </div>                
             </div>
-        </div>        
-        <div class="row">	
-            <div class="col-md-12">
-                <div class="col-md-offset-7 pull-right">
-                    <a type="button" href="#/AtendimentoDeixarOCurso/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
-                    <button type="submit" ng-click="salvar()" ng-disabled="(formAtendimentoDeixarOCurso.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Page header -->
+                    <div class="page-header">
+                        <h2>Timeline <small>using Bootstrap's <code>.panel</code>.</small></h2>
+                    </div>
+                    <!-- /Page header -->
+
+                    <!-- Timeline -->
+                    <div class="timeline">
+
+                        <!-- Line component -->
+                        <div class="line text-muted"></div>
+
+                        <!-- Separator -->
+                        <div class="separator text-muted">
+                            <time>26. 3. 2015</time>
+                        </div>
+                        <!-- /Separator -->
+
+                        <!-- Panel -->
+                        <article class="panel panel-danger panel-outline">
+
+                            <!-- Icon -->
+                            <div class="panel-heading icon">
+                                <i class="glyphicon glyphicon-heart"></i>
+                            </div>
+                            <!-- /Icon -->
+
+                            <!-- Body -->
+                            <div class="panel-body">
+                                <strong>Someone</strong> favourited your photo.
+                            </div>
+                            <!-- /Body -->
+
+                        </article>
+                        <!-- /Panel -->
+
+                        <!-- Panel -->
+                        <article class="panel panel-default panel-outline">
+
+                            <!-- Icon -->
+                            <div class="panel-heading icon">
+                                <i class="glyphicon glyphicon-picture"></i>
+                            </div>
+                            <!-- /Icon -->
+
+                            <!-- Body -->
+                            <div class="panel-body">
+                                <img class="img-responsive img-rounded" src="//placehold.it/350x150" />
+                            </div>
+                            <!-- /Body -->
+
+                        </article>
+                        <!-- /Panel -->
+
+                        <!-- Panel -->
+                        <article class="panel panel-primary">
+
+                            <!-- Icon -->
+                            <div class="panel-heading icon">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </div>
+                            <!-- /Icon -->
+
+                            <!-- Heading -->
+                            <div class="panel-heading">
+                                <h2 class="panel-title">New content added</h2>
+                            </div>
+                            <!-- /Heading -->
+
+                            <!-- Body -->
+                            <div class="panel-body">
+                                Some new content has been added.
+                            </div>
+                            <!-- /Body -->
+
+                            <!-- Footer -->
+                            <div class="panel-footer">
+                                <small>Footer is also supported!</small>
+                            </div>
+                            <!-- /Footer -->
+
+                        </article>
+                        <!-- /Panel -->
+
+                        <!-- Separator -->
+                        <div class="separator text-muted">
+                            <time>25. 3. 2015</time>
+                        </div>
+                        <!-- /Separator -->
+
+                        <!-- Panel -->
+                        <article class="panel panel-success">
+
+                            <!-- Icon -->
+                            <div class="panel-heading icon">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </div>
+                            <!-- /Icon -->
+
+                            <!-- Heading -->
+                            <div class="panel-heading">
+                                <h2 class="panel-title">New content added</h2>
+                            </div>
+                            <!-- /Heading -->
+
+                            <!-- Body -->
+                            <div class="panel-body">
+                                Anything you can do with <code>.panel</code>, can be done in timeline too!
+                            </div>
+                            <!-- /Body -->
+
+                            <!-- List group -->
+                            <ul class="list-group">
+                                <li class="list-group-item">Like</li>
+                                <li class="list-group-item">list</li>
+                                <li class="list-group-item">groups</li>
+                                <li class="list-group-item">and</li>
+                                <li class="list-group-item">tables</li>
+                            </ul>
+
+                        </article>
+                        <!-- /Panel -->
+
+                        <!-- Panel -->
+                        <article class="panel panel-info panel-outline">
+
+                            <!-- Icon -->
+                            <div class="panel-heading icon">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                            </div>
+                            <!-- /Icon -->
+
+                            <!-- Body -->
+                            <div class="panel-body">
+                                That is all.
+                            </div>
+                            <!-- /Body -->
+
+                        </article>
+                        <!-- /Panel -->
+
+                    </div>
+                    <!-- /Timeline -->
                 </div>
-            </div>	
-        </div>	
-    </div>    
+            </div>
+        </div>
+    </div>
+</div>
 </form>
