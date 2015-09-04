@@ -1,9 +1,43 @@
 AppModule.controller("controllerRelatorioResumido", controllerRelatorioResumido);
 AppModule.controller("controllerRelatorioPorCentro", controllerRelatorioPorCentro);
 
-function controllerRelatorioResumido($scope) {
+function controllerRelatorioResumido($scope, $http) {
 
     $scope.init = function () {
+        $scope.centro = [];
+        
+        $http.get("/relatorio/resumo/relatorioResumoCursoAtendimentos").success(onSucess).error(onError);
+
+        function onSucess(data) {            
+            console.log(data);
+                                    
+            $scope.qtdeAtendimentoCETA = 0;
+            $scope.qtdeAtendimentoCBS = 0;
+            $scope.qtdeAtendimentoCHSA = 0;
+            var sair = false;
+            var contador = 0;
+            for(contador = 0; contador < 2; contador++){
+                switch (data.atendimentos[contador].centro){
+                    case "CETA" : {
+                        $scope.qtdeAtendimentoCETA = data.atendimentos[contador].atendimentos;
+                        break;
+                    }
+                    case "CBS" : {
+                        $scope.qtdeAtendimentoCBS = data.atendimentos[contador].atendimentos;    
+                        break;
+                    }
+                    case "CHSA" : {
+                        $scope.qtdeAtendimentoCHSA = data.atendimentos[contador].atendimentos;    
+                        break;
+                    }
+                }                                
+            }
+            console.log($scope.qtdeAtendimentoCETA +" - "+ $scope.qtdeAtendimentoCBS);
+        };
+
+        function onError(data) {
+
+        }
         $(function () {
             $('#container').highcharts({
                 chart: {
