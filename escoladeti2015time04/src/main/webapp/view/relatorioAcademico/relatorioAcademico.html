@@ -1,4 +1,4 @@
-<form name="relatorioAcademico" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()">
+<form name="formRelatorioAcademico" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()">
     <div class="formulario">
         <div class="row titulo">
             <h2>Dados Aluno</h2>
@@ -9,7 +9,7 @@
                 <div class="form-inline">
                     <div class="form-group">
                         <label><h3>RA:</h3></label>    
-                        <input type="text" name="ra" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.ra.$invalid && !formAtendimentoDeixarOCurso.ra.$pristine}" class="form-control" ng-model="atendimentoDeixarOCurso.ra" ng-keyup="carregarAluno(atendimentoDeixarOCurso.ra)" maxlength="8" required>
+                        <input type="text" name="ra" ng-class="{ 'has-error'  : formRelatorioAcademico.ra.$invalid && !formRelatorioAcademico.ra.$pristine}" class="form-control" ng-model="relatorioAcademico.ra" ng-keyup="carregarAluno(relatorioAcademico.ra)" maxlength="8" required>
                     </div>
                 </div>
             </div>
@@ -17,6 +17,7 @@
                 <img src="https://s3-sa-east-1.amazonaws.com/medias.ciranda.me/profiles/215/images/215_9e4aa1ed1aca22d514ce0cc0c65b8931f4bf25a6.jpg" alt="..." class="img-circle col-md-2">
                 <div class="col-md-6">
                     <label>Nome:</label> 
+                    <span>{{relatorioAcademico.nomeAluno}}</span>
                 </div>
                 <div class="col-md-5">
                     <label>Curso:</label>

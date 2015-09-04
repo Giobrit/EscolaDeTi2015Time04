@@ -52,7 +52,7 @@
         adicionarRota($routeProvider, '/AtendimentoEspecial/list', 'view/atendimentoEspecial/ListAtendimentoEspecial.html', 'controllerListAtendimentoEspecial');
         //Rotas Relatorio Academico
         adicionarRota($routeProvider, '/RelatorioAcademico/form', 'view/relatorioAcademico/relatorioAcademico.html', 'controllerRelatorioAcademico');
-
+        adicionarRota($routeProvider, '/RelatorioAcademico/form/:id', 'view/relatorioAcademico/relatorioAcademico.html', 'controllerRelatorioAcademico');
         //verificar se é possível separar as rotas em módulos
 
         $locationProvider.html5Mode(false);
