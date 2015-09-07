@@ -4,40 +4,128 @@ AppModule.controller("controllerRelatorioPorCentro", controllerRelatorioPorCentr
 function controllerRelatorioResumido($scope, $http) {
 
     $scope.init = function () {
-        $scope.centro = [];
-        
+        $scope.buscarRelatorioResumoCursoAtendimentos();
+        $scope.buscarRelatorioResumoMotivo();
+        $scope.buscarRelatorioMotivos();
+        $scope.gerarRelatorioResumido();
+    };
+
+    $scope.buscarRelatorioResumoCursoAtendimentos = function () {
         $http.get("/relatorio/resumo/relatorioResumoCursoAtendimentos").success(onSucess).error(onError);
 
-        function onSucess(data) {            
-            console.log(data);
-                                    
-            $scope.qtdeAtendimentoCETA = 0;
-            $scope.qtdeAtendimentoCBS = 0;
-            $scope.qtdeAtendimentoCHSA = 0;
-            var sair = false;
-            var contador = 0;
-            for(contador = 0; contador < 2; contador++){
-                switch (data.atendimentos[contador].centro){
-                    case "CETA" : {
-                        $scope.qtdeAtendimentoCETA = data.atendimentos[contador].atendimentos;
-                        break;
-                    }
-                    case "CBS" : {
-                        $scope.qtdeAtendimentoCBS = data.atendimentos[contador].atendimentos;    
-                        break;
-                    }
-                    case "CHSA" : {
-                        $scope.qtdeAtendimentoCHSA = data.atendimentos[contador].atendimentos;    
-                        break;
-                    }
-                }                                
-            }
-            console.log($scope.qtdeAtendimentoCETA +" - "+ $scope.qtdeAtendimentoCBS);
-        };
-
-        function onError(data) {
-
+        function onSucess(data) {
+            $scope.armazenarDadosRelatorioResumoCursoAtendimentos(data);
         }
+    };
+
+    $scope.buscarRelatorioResumoMotivo = function () {
+        $http.get("/relatorio/resumo/relatorioResumoMotivo").success(onSucess).error(onError);
+        function onSucess(data) {
+            $scope.armazenarDadosRelatorioResumoMotivo(data);
+        }
+    };
+
+    $scope.buscarRelatorioMotivos = function () {
+        $http.get("/relatorio/resumo/relatorioMotivos").success(onSucess).error(onError);
+        function onSucess(data) {
+            $scope.armazenarDadosRelatorioMotivos(data);
+        }
+    };
+
+    $scope.armazenarDadosRelatorioResumoCursoAtendimentos = function (data) {
+        $scope.qtdeAtendimentoCETA = 0;
+        $scope.qtdeAtendimentoCBS = 0;
+        $scope.qtdeAtendimentoCHSA = 0;
+        $scope.totalAtendimentos = 0;
+
+        $scope.qtdePermanenciasCETA = 0;
+        $scope.qtdePermanenciasCBS = 0;
+        $scope.qtdePermanenciasCHSA = 0;
+        $scope.totalPermanencias = 0;
+
+        $scope.qtdeTrancamentosCancelamentosTransferenciasCETA = 0;
+        $scope.qtdeTrancamentosCancelamentosTransferenciasCBS = 0;
+        $scope.qtdeTrancamentosCancelamentosTransferenciasCHSA = 0;
+        $scope.totalTrancamentosCancelamentosTransferencias = 0;
+
+        //Atendimentos
+        var contador = 0;
+        for (contador = 0; contador < data.atendimentos.length; contador++) {
+            switch (data.atendimentos[contador].centro) {
+                case "CETA" :
+                {
+                    $scope.qtdeAtendimentoCETA = data.atendimentos[contador].atendimentos;
+                    break;
+                }
+                case "CBS" :
+                {
+                    $scope.qtdeAtendimentoCBS = data.atendimentos[contador].atendimentos;
+                    break;
+                }
+                case "CHSA" :
+                {
+                    $scope.qtdeAtendimentoCHSA = data.atendimentos[contador].atendimentos;
+                    break;
+                }
+            }
+            $scope.totalAtendimentos += data.atendimentos[contador].atendimentos;
+        }
+
+        //Permanencias
+        for (contador = 0; contador < data.permanencias.length; contador++) {
+            switch (data.permanencias[contador].centro) {
+                case "CETA" :
+                {
+                    $scope.qtdePermanenciasCETA = data.permanencias[contador].permanencias;
+                    break;
+                }
+                case "CBS" :
+                {
+                    $scope.qtdePermanenciasCBS = data.permanencias[contador].permanencias;
+                    break;
+                }
+                case "CHSA" :
+                {
+                    $scope.qtdePermanenciasCHSA = data.permanencias[contador].permanencias;
+                    break;
+                }
+            }
+            $scope.totalPermanencias += data.permanencias[contador].permanencias;
+        }
+
+        //Trancamentos - Cancelamentos - Transferencias
+        for (contador = 0; contador < data.trancamentosCancelamentosTransferencias.length; contador++) {
+            switch (data.trancamentosCancelamentosTransferencias[contador].centro) {
+                case "CETA" :
+                {
+                    $scope.qtdeTrancamentosCancelamentosTransferenciasCETA = data.trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
+                    break;
+                }
+                case "CBS" :
+                {
+                    $scope.qtdeTrancamentosCancelamentosTransferenciasCBS = data.trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
+                    break;
+                }
+                case "CHSA" :
+                {
+                    $scope.qtdeTrancamentosCancelamentosTransferenciasCHSA = data.trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
+                    break;
+                }
+            }
+            $scope.totalTrancamentosCancelamentosTransferencias += data.trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
+        }
+
+    };
+    
+    $scope.armazenarDadosRelatorioResumoMotivo = function (data){
+        
+    };
+
+    $scope.armazenarDadosRelatorioMotivos = function (data){
+        
+    };
+
+    $scope.gerarRelatorioResumido = function () {
         $(function () {
             $('#container').highcharts({
                 chart: {
@@ -76,9 +164,9 @@ function controllerRelatorioResumido($scope, $http) {
                 series: [{
                         name: "Atendimentos",
                         data: [
-                            ['CBS - Saúde', 382],
-                            ['CETA - Exatas', 418],
-                            ['CHSA - Humanas', 364]
+                            ['CBS - Saúde', $scope.qtdeAtendimentoCBS],
+                            ['CETA - Exatas', $scope.qtdeAtendimentoCETA],
+                            ['CHSA - Humanas', $scope.qtdeAtendimentoCHSA]
                         ]
                     }],
                 dataLabels: {
@@ -131,13 +219,13 @@ function controllerRelatorioResumido($scope, $http) {
                             colorByPoint: true,
                             data: [{
                                     name: "CBS - Saúde",
-                                    y: 341
+                                    y: $scope.qtdeTrancamentosCancelamentosTransferenciasCBS
                                 }, {
                                     name: "CETA - Exatas",
-                                    y: 361
+                                    y: $scope.qtdeTrancamentosCancelamentosTransferenciasCETA
                                 }, {
                                     name: "CHSA - Humanas",
-                                    y: 305
+                                    y: $scope.qtdeTrancamentosCancelamentosTransferenciasCHSA
                                 }]
                         }]
                 });
@@ -179,18 +267,19 @@ function controllerRelatorioResumido($scope, $http) {
                             colorByPoint: true,
                             data: [{
                                     name: "CBS - Saúde",
-                                    y: 41
+                                    y: $scope.qtdePermanenciasCBS
                                 }, {
                                     name: "CETA - Exatas",
-                                    y: 57
+                                    y: $scope.qtdePermanenciasCETA
                                 }, {
                                     name: "CHSA - Humanas",
-                                    y: 59
+                                    y: $scope.qtdePermanenciasCHSA
                                 }]
                         }]
                 });
             });
         });
+        //
         $(function () {
 
             $(document).ready(function () {
@@ -360,6 +449,10 @@ function controllerRelatorioResumido($scope, $http) {
             });
         });
     };
+
+    function onError() {
+        //Mensagem de erro
+    }
 }
 
 function controllerRelatorioPorCentro($scope) {
