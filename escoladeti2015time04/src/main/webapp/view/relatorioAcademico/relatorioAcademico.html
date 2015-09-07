@@ -8,7 +8,9 @@
 
                 <div class="form-inline">
                     <div class="form-group">
-                        <label><h3>RA:</h3></label>    
+                        <label class="academico"><h3>RA:</h3></label>    
+                    </div>
+                    <div class="form-group">
                         <input type="text" name="ra" ng-class="{ 'has-error'  : formRelatorioAcademico.ra.$invalid && !formRelatorioAcademico.ra.$pristine}" class="form-control" ng-model="relatorioAcademico.ra" ng-keyup="carregarAluno(relatorioAcademico.ra)" maxlength="8" required>
                     </div>
                 </div>
@@ -21,35 +23,36 @@
                 </div>
                 <div class="col-md-5">
                     <label>Curso:</label>
+                    <span>{{relatorioAcademico.curso}}</span>
                 </div>
                 <div class="col-md-2">
                     <label>Centro:</label>
+                    <span>{{relatorioAcademico.centro}}</span>
                 </div>
                 <div class="col-md-1">
                     <label>Série:</label>
+                    <span>{{relatorioAcademico.serieSemestre}}</span>
                 </div>
-                <div class="col-md-1">
-                    <label>Turma:</label>
+                <div class="col-md-2">
+                    <label>Turno:</label>
+                    <span>{{relatorioAcademico.turno}}</span>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-5">
                     <label>Bolsa:</label>
+                    <span>{{relatorioAcademico.bolsaFinanciamento}}</span>
                 </div>
                 <div class="col-md-2">
                     <label>Reprovações:</label>
+                    <span>{{relatorioAcademico.numeroReprovacoes}}</span>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <label>Matriculado:</label>
+                    <span>{{relatorioAcademico.matriculado}}</span>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-6">
-                    <label>Instituição de Transferência:</label>
-                </div>
-                <div class="col-md-4">
-                    <label>Coordenador / Diretor:</label>
-                </div>
                 <div class="col-md-12 formulario">
                     <h2>Relatórios</h2>
                 </div>
