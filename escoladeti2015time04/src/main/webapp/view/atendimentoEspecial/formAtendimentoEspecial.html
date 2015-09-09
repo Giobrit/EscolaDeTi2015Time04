@@ -103,23 +103,18 @@
                             <h4>Matriculado</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="matriculado" ng-class="{ 'has-error'  : formAtendimentoEspecial.matriculado.$invalid && !formAtendimentoEspecial.matriculado.$pristine}" id="sel1" ng-model="matriculadoSelecionado" ng-change="setMatriculado(matriculadoSelecionado)" required>
-                                <option>Sim</option>
-                                <option>Não</option>
-                            </select>
-                        </div></div>
+                             <div toggle-switch class="switch-primary" ng-model="atendimentoEspecial.matriculado"></div> 
+                        </div>
+                    </div>
                     <div class="col-md-2">
                         <label>
                             <h4>Laudo Médico</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="laudoMedico" ng-class="{ 'has-error'  : formAtendimentoEspecial.laudoMedico.$invalid && !formAtendimentoEspecial.laudoMedico.$pristine}" id="sel1" ng-model="laudoMedicoSelecionado" ng-change="setLaudoMedico(laudoMedicoSelecionado)" required>
-                                <option>Sim</option>
-                                <option>Não</option>
-                            </select>
-                        </div></div>
+                            <div toggle-switch class="switch-primary" ng-model="atendimentoEspecial.laudoMedico"></div>
+                        </div>
+                    </div>
                 </div>
-
                 <div class="row form-group">
                     <div class="col-md-12">
                         <label>

@@ -112,9 +112,9 @@
                             <h4>Matriculado</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="matriculado" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.matriculado.$invalid && !formAtendimentoDeixarOCurso.matriculado.$pristine}" id="sel1" ng-model="matriculadoSelecionado" ng-change="setMatriculado(matriculadoSelecionado)" required>
-                                <option>Sim</option>
-                                <option>Não</option>
+                            <div class="form-group">
+                             <div toggle-switch class="switch-primary" ng-model="atendimentoDeixarOCurso.matriculado"></div> 
+                        </div>
                             </select>
                         </div>
                     </div>
