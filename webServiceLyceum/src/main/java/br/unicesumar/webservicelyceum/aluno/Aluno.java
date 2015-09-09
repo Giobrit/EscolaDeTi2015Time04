@@ -52,6 +52,9 @@ public class Aluno implements Serializable{
     @Column(name = "periodo", length = 255)
     private String periodo;
     
+    @Column(name = "situacaoaluno")
+    private String situacaoAluno;
+    
     @Column(name = "anoinicio")
     @Temporal(TemporalType.DATE)   
     private Calendar anoInicio;
@@ -59,6 +62,9 @@ public class Aluno implements Serializable{
     @Column(name = "situacao")
     @Enumerated(EnumType.STRING)
     private AlunoSituacao situacao;
+    
+    @Column(name = "estrangeiro")
+    private String estrangeiro;
     
     @ManyToOne
     @JoinColumn(name = "idcurso")
@@ -76,7 +82,7 @@ public class Aluno implements Serializable{
     public Aluno() {
     }
 
-    public Aluno(String ra, String nome, String centro, String matriculado, Integer reprovacao, String periodo, Calendar anoInicio, AlunoSituacao situacao, Curso curso, Turma turma, List<Bolsa> bolsas) {
+    public Aluno(String ra, String nome, String centro, String matriculado, Integer reprovacao, String periodo, Calendar anoInicio, AlunoSituacao situacao, Curso curso, Turma turma, List<Bolsa> bolsas, String estrangeiro, String situacaoAluno) {
         this.ra = ra;
         this.nome = nome;
         this.centro = centro;
@@ -87,7 +93,9 @@ public class Aluno implements Serializable{
         this.situacao = situacao;
         this.curso = curso;
         this.turma = turma;
-        this.bolsas = bolsas;        
+        this.bolsas = bolsas;
+        this.estrangeiro = estrangeiro;
+        this.situacaoAluno = situacaoAluno;
     }
 
     public Long getId() {
@@ -186,6 +194,21 @@ public class Aluno implements Serializable{
         this.bolsas = bolsas;
     }
 
+    public String getEstrangeiro() {
+        return estrangeiro;
+    }
+
+    public void setEstrangeiro(String estrangeiro) {
+        this.estrangeiro = estrangeiro;
+    }
+
+    public String getSituacaoAluno() {
+        return situacaoAluno;
+    }
+
+    public void setSituacaoAluno(String situacaoAluno) {
+        this.situacaoAluno = situacaoAluno;
+    }
     
     @Override
     public int hashCode() {
