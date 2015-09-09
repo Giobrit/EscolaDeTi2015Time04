@@ -24,7 +24,7 @@ angular.module('toggle-switch', ['ng']).directive('toggleSwitch', ['$compile', f
 				attrs.onLabel = 'Sim';
 			}
 			if (angular.isUndefined(attrs.offLabel)) {
-				attrs.offLabel = 'Nao';
+				attrs.offLabel = 'Não';
 			}
 			if (angular.isUndefined(attrs.knobLabel)) {
 				attrs.knobLabel = '\u00a0';
