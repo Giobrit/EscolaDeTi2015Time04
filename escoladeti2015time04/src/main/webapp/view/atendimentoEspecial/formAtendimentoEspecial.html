@@ -113,12 +113,9 @@
                             <h4>Laudo Médico</h4>
                         </label>
                         <div class="form-group">
-                            <select class="form-control" name="laudoMedico" ng-class="{ 'has-error'  : formAtendimentoEspecial.laudoMedico.$invalid && !formAtendimentoEspecial.laudoMedico.$pristine}" id="sel1" ng-model="laudoMedicoSelecionado" ng-change="setLaudoMedico(laudoMedicoSelecionado)" required>
-                                <option>Sim</option>
-                                <option>Não</option>
-                            </select>
+                            <div toggle-switch class="switch-primary" ng-model="switchStatus"></div>
                         </div></div>
-                </div>
+                    </div>
 
                 <div class="row form-group">
                     <div class="col-md-12">
