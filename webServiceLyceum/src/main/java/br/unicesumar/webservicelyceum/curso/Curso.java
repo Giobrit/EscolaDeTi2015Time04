@@ -1,5 +1,6 @@
 package br.unicesumar.webservicelyceum.curso;
 
+import br.unicesumar.webservicelyceum.departamento.Departamento;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,14 +29,18 @@ public class Curso implements Serializable{
     
     @Column(name = "unidade")
     private String unidade;
+    
+    @ManyToOne
+    private Departamento departamento;
 
     public Curso() {
     }
 
-    public Curso(String codigo, String nome, String unidade) {    
+    public Curso(String codigo, String nome, String unidade, Departamento departamento) {    
         this.codigo = codigo;
         this.nome = nome;
         this.unidade = unidade;
+        this.departamento = departamento;
     }
 
     public Long getId() {
@@ -68,6 +74,14 @@ public class Curso implements Serializable{
     public void setUnidade(String unidade) {
         this.unidade = unidade;
     }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
     
     @Override
     public int hashCode() {
@@ -95,7 +109,5 @@ public class Curso implements Serializable{
     public String toString() {
         return "Curso{" + "id=" + id + ", codigo=" + codigo + ", nome=" + nome + ", unidade=" + unidade + '}';
     }
-
-    
-    
+   
 }

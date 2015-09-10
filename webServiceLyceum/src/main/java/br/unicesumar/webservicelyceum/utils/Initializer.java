@@ -12,6 +12,8 @@ import br.unicesumar.webservicelyceum.curso.Curso;
 import br.unicesumar.webservicelyceum.curso.CursoService;
 import br.unicesumar.webservicelyceum.dadosEnade.DadosEnade;
 import br.unicesumar.webservicelyceum.dadosEnade.DadosEnadeService;
+import br.unicesumar.webservicelyceum.departamento.Departamento;
+import br.unicesumar.webservicelyceum.departamento.DepartamentoService;
 import br.unicesumar.webservicelyceum.disciplina.Disciplina;
 import br.unicesumar.webservicelyceum.disciplina.DisciplinaService;
 import br.unicesumar.webservicelyceum.notasAlunoDisciplina.SituacaoDisciplina;
@@ -52,11 +54,15 @@ public class Initializer {
     private AlunoDisciplinaService alunoDisciplinaService;
     @Autowired
     private PendenciaAlunoService pendenciaAlunoService;
+    @Autowired
+    private DepartamentoService departamentoService;
+    
     
     @PostConstruct
     public void initialize(){        
         inicializarBolsa();
         inicializarTurma();
+        inicializarDepartamento();
         inicializarCurso();
         inicializarAluno();                
         inicializarDisciplina();
@@ -64,7 +70,12 @@ public class Initializer {
         inicializarNotasAlunos();  
         inicializarDadosEnade();
         inicializarPendenciaAluno();
+        
     }    
+    
+    private void inicializarDepartamento(){
+        departamentoService.criarDepartamento(new Departamento("CETA","Ciências Exatas, Tecnológicas e Agrárias"));
+    }
     
     private void inicializarPendenciaAluno(){
         List<Aluno> alunos = alunoService.buscarTodos();
@@ -88,9 +99,9 @@ public class Initializer {
         bolsaService.criar(new Bolsa(ano,inicio,fim, 50.0, "Fies", "Nada Consta" ));        
     }
     
-    private void inicializarCurso() {                
-        cursoService.criar(new Curso("CST_ADSIS", "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas", "Cesumar - Centro Universitário de Maringá"));
-        cursoService.criar(new Curso("CST_SISIN", "Superior de Tecnologia de Sistemas para Internet","Cesumar - Centro Universitário de Maringá"));
+    private void inicializarCurso() {                        
+        cursoService.criar(new Curso("CST_ADSIS", "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas", "Cesumar - Centro Universitário de Maringá",departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CST_SISIN", "Superior de Tecnologia de Sistemas para Internet","Cesumar - Centro Universitário de Maringá",departamentoService.buscarDepartamento(1L)));
     }
 
     private void inicializarAluno() {        
