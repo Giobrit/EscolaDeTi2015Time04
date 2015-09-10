@@ -45,75 +45,85 @@ public class Initializer {
     }
 
     private void inicializarItensAcesso() {
-        if (!itemAcessoService.existemItensAcesso()) {
-            iaMenu = new ItemAcesso("Menu", "/");
-            iaMenu.setSuperior(iaMenu);
+        if (itemAcessoService.existemItensAcesso()) {
+            return;
+        }
 
-            itemAcessoService.add(iaMenu);
+        iaMenu = new ItemAcesso("Menu", "/");
+        iaMenu.setSuperior(iaMenu);
 
-            //Rotas Usuario
-            final ItemAcesso iaUsuario = new ItemAcesso("Usuário", iaMenu, true);
-            itemAcessoService.add(iaUsuario);
-            itemAcessoService.add(new ItemAcesso("Cadastrar Usuário", "/Usuario/form", iaUsuario));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Usuário", "/Usuario/form/:id", iaUsuario));
-            itemAcessoService.add(new ItemAcesso("Listar Usuário", "/Usuario/list", iaUsuario));
-            itemAcessoService.add(new ItemAcesso(false, "Alterar Senha Outros Usuários", "/Usuario/form/alterarSenha/:id", iaUsuario));
-            //Rotas PerfilUsuario
-            itemAcessoService.add(new ItemAcesso(false, "Alterar Perfil Usuario", "/PerfilUsuario/form/:id", iaUsuario));
-            //Rotas PerfilAcesso
-            final ItemAcesso iaPerfilAcesso = new ItemAcesso("Perfil de Acesso", iaMenu, true);
-            itemAcessoService.add(iaPerfilAcesso);
-            itemAcessoService.add(new ItemAcesso("Cadastrar Perfil", "/PerfilAcesso/form", iaPerfilAcesso));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Perfil", "/PerfilAcesso/form/:id", iaPerfilAcesso));
-            itemAcessoService.add(new ItemAcesso("Listar Perfil", "/PerfilAcesso/list", iaPerfilAcesso));
-            //Rotas Atendimento Deixar O Curso
-            final ItemAcesso iaAtendimentoDeixarOCurso = new ItemAcesso("Atendimento", iaMenu, true);
-            itemAcessoService.add(iaAtendimentoDeixarOCurso);
-            itemAcessoService.add(new ItemAcesso("Cadastrar Atendimento", "/AtendimentoDeixarOCurso/form", iaAtendimentoDeixarOCurso));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Atendimento", "/AtendimentoDeixarOCurso/form/:id", iaAtendimentoDeixarOCurso));
-            itemAcessoService.add(new ItemAcesso("Listar Atendimento", "/AtendimentoDeixarOCurso/list", iaAtendimentoDeixarOCurso));
-            //Rotas Atendimento Deixar O Curso Objetivo
-            itemAcessoService.add(new ItemAcesso(false, "Cadastrar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/form", iaAtendimentoDeixarOCurso));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/form/:id", iaAtendimentoDeixarOCurso));
-            itemAcessoService.add(new ItemAcesso("Listar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/list", iaAtendimentoDeixarOCurso));
-            //Rotas Atendimento Preventivo
-            final ItemAcesso iaAtendimentoPreventivo = new ItemAcesso("Atendimento Preventivo", iaMenu, true);
-            itemAcessoService.add(iaAtendimentoPreventivo);
-            itemAcessoService.add(new ItemAcesso("Cadastrar Preventivo", "/AtendimentoPreventivo/form", iaAtendimentoPreventivo));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Preventivo", "/AtendimentoPreventivo/form/:id", iaAtendimentoPreventivo));
-            itemAcessoService.add(new ItemAcesso("Listar Preventivo", "/AtendimentoPreventivo/list", iaAtendimentoPreventivo));
-            //Rotas Atendimento Especial
-            final ItemAcesso iaAtendimentoEspecial = new ItemAcesso("Atendimento Especial", iaMenu, true);
-            itemAcessoService.add(iaAtendimentoEspecial);
-            itemAcessoService.add(new ItemAcesso("Cadastrar Especial", "/AtendimentoEspecial/form", iaAtendimentoEspecial));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Especial", "/AtendimentoEspecial/form/:id", iaAtendimentoEspecial));
-            itemAcessoService.add(new ItemAcesso("Listar Especial", "/AtendimentoEspecial/list", iaAtendimentoEspecial));
-            //Rotas Relatórios
-            final ItemAcesso iaRelatorio = new ItemAcesso("Relatórios", iaMenu, true);
-            itemAcessoService.add(iaRelatorio);
-            itemAcessoService.add(new ItemAcesso("Relatorio resumido", "/Relatorios/resumido", iaRelatorio));
-            itemAcessoService.add(new ItemAcesso("Relatorio por centro", "/Relatorios/porCentro", iaRelatorio));
-            //Rotas Sistema
-            final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
-            itemAcessoService.add(iaSistema);
-            //Rotas Atendimento Motivo
-            itemAcessoService.add(new ItemAcesso(false, "Cadastrar Motivo", "/AtendimentoMotivo/form", iaSistema));
-            itemAcessoService.add(new ItemAcesso(false, "Editar Motivo", "/AtendimentoMotivo/form/:id", iaSistema));
-            itemAcessoService.add(new ItemAcesso("Listar Motivo", "/AtendimentoMotivo/list", iaSistema));
-            //Permissoes Avulsas
+        itemAcessoService.add(iaMenu);
+
+        //Rotas Usuario
+        final ItemAcesso iaUsuario = new ItemAcesso("Usuário", iaMenu, true);
+        itemAcessoService.add(iaUsuario);
+        itemAcessoService.add(new ItemAcesso("Cadastrar Usuário", "/Usuario/form", iaUsuario));
+        itemAcessoService.add(new ItemAcesso(false, "Editar Usuário", "/Usuario/form/:id", iaUsuario));
+        itemAcessoService.add(new ItemAcesso("Listar Usuário", "/Usuario/list", iaUsuario));
+        itemAcessoService.add(new ItemAcesso(false, "Alterar Senha Outros Usuários", "/Usuario/form/alterarSenha/:id", iaUsuario));
+        //Rotas PerfilUsuario
+        itemAcessoService.add(new ItemAcesso(false, "Alterar Perfil Usuario", "/PerfilUsuario/form/:id", iaUsuario));
+        //Rotas PerfilAcesso
+        final ItemAcesso iaPerfilAcesso = new ItemAcesso("Perfil de Acesso", iaMenu, true);
+        itemAcessoService.add(iaPerfilAcesso);
+        itemAcessoService.add(new ItemAcesso("Cadastrar Perfil", "/PerfilAcesso/form", iaPerfilAcesso));
+        itemAcessoService.add(new ItemAcesso(false, "Editar Perfil", "/PerfilAcesso/form/:id", iaPerfilAcesso));
+        itemAcessoService.add(new ItemAcesso("Listar Perfil", "/PerfilAcesso/list", iaPerfilAcesso));
+        //Rotas Atendimento Deixar O Curso
+        final ItemAcesso iaAtendimentoDeixarOCurso = new ItemAcesso("Atendimento", iaMenu, true);
+        itemAcessoService.add(iaAtendimentoDeixarOCurso);
+        itemAcessoService.add(new ItemAcesso("Cadastrar Atendimento", "/AtendimentoDeixarOCurso/form", iaAtendimentoDeixarOCurso));
+        itemAcessoService.add(new ItemAcesso(false, "Editar Atendimento", "/AtendimentoDeixarOCurso/form/:id", iaAtendimentoDeixarOCurso));
+        itemAcessoService.add(new ItemAcesso("Listar Atendimento", "/AtendimentoDeixarOCurso/list", iaAtendimentoDeixarOCurso));
+        //Rotas Atendimento Deixar O Curso Objetivo
+        itemAcessoService.add(new ItemAcesso(false, "Cadastrar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/form", iaAtendimentoDeixarOCurso));
+        itemAcessoService.add(new ItemAcesso(false, "Editar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/form/:id", iaAtendimentoDeixarOCurso));
+        itemAcessoService.add(new ItemAcesso("Listar Objetivo", "/AtendimentoDeixarOCurso/Objetivo/list", iaAtendimentoDeixarOCurso));
+        //Rotas Atendimento Preventivo
+        final ItemAcesso iaAtendimentoPreventivo = new ItemAcesso("Atendimento Preventivo", iaMenu, true);
+        itemAcessoService.add(iaAtendimentoPreventivo);
+        itemAcessoService.add(new ItemAcesso("Cadastrar Preventivo", "/AtendimentoPreventivo/form", iaAtendimentoPreventivo));
+        itemAcessoService.add(new ItemAcesso(false, "Editar Preventivo", "/AtendimentoPreventivo/form/:id", iaAtendimentoPreventivo));
+        itemAcessoService.add(new ItemAcesso("Listar Preventivo", "/AtendimentoPreventivo/list", iaAtendimentoPreventivo));
+        //Rotas Atendimento Especial
+        final ItemAcesso iaAtendimentoEspecial = new ItemAcesso("Atendimento Especial", iaMenu, true);
+        itemAcessoService.add(iaAtendimentoEspecial);
+        itemAcessoService.add(new ItemAcesso("Cadastrar Especial", "/AtendimentoEspecial/form", iaAtendimentoEspecial));
+        itemAcessoService.add(new ItemAcesso(false, "Editar Especial", "/AtendimentoEspecial/form/:id", iaAtendimentoEspecial));
+        itemAcessoService.add(new ItemAcesso("Listar Especial", "/AtendimentoEspecial/list", iaAtendimentoEspecial));
+        //Rotas Relatórios
+        final ItemAcesso iaRelatorio = new ItemAcesso("Relatórios", iaMenu, true);
+        itemAcessoService.add(iaRelatorio);
+        itemAcessoService.add(new ItemAcesso("Relatorio resumido", "/Relatorios/resumido", iaRelatorio));
+        itemAcessoService.add(new ItemAcesso("Relatorio por centro", "/Relatorios/porCentro", iaRelatorio));
+        //Rotas Sistema
+        final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
+        itemAcessoService.add(iaSistema);
+        //Rotas Atendimento Motivo
+        itemAcessoService.add(new ItemAcesso(false, "Cadastrar Motivo", "/AtendimentoMotivo/form", iaSistema));
+        itemAcessoService.add(new ItemAcesso(false, "Editar Motivo", "/AtendimentoMotivo/form/:id", iaSistema));
+        itemAcessoService.add(new ItemAcesso("Listar Motivo", "/AtendimentoMotivo/list", iaSistema));
+        //Permissoes Avulsas
 //            final ItemAcesso iaAvulsas = new ItemAcesso("Avulsas", iaMenu, true);
 //            itemAcessoService.add(iaAvulsas);
-            itemAcessoService.add(new ItemAcesso(false, "Aceso às Descrições Privadas dos Atendimentos", iaSistema));
+        itemAcessoService.add(new ItemAcesso(false, "Aceso às Descrições Privadas dos Atendimentos", iaSistema));
 //            itemAcessoService.add(new ItemAcesso(false, "Aceso às Descrições Privadas dos Atendimentos Outros Centros", iaSistema));
 
-        }
     }
 
     private void inicializarPerfilAcessoAdministrador() {
+        if (!perfilAcessoService.listar().isEmpty()) {
+            return;
+        }
+
         perfilAcessoService.criar(new PerfilAcesso("Administrador", itemAcessoService.findAllSet()));
     }
 
     private void inicializarAdministrador() {
+        if (!usuarioService.listar().isEmpty()) {
+            return;
+        }
+
         final Senha senha = new Senha("Adm123@");
         final Email email = new Email("administrador@naac.com");
         final Set<PerfilAcesso> perfisDeAcesso = new HashSet<>(perfilAcessoService.listar());
@@ -126,6 +136,10 @@ public class Initializer {
     }
 
     private void inicializarAtendimentoMotivo() {
+        if(!atendimentoMotivoService.listar().isEmpty()) {
+            return;
+        }
+        
         Set<AtendimentoDoMotivo> atendimentosDoMotivoDeixarOCurso = new HashSet<>();
         Set<AtendimentoDoMotivo> atendimentosDoMotivoPreventivo = new HashSet<>();
         Set<AtendimentoDoMotivo> atendimentosDoMotivoDeixarOCursoEPreventivo = new HashSet<>();
@@ -159,6 +173,10 @@ public class Initializer {
     }
 
     private void inicializarAtendimentoDeixarOCursoObjetivo() {
+        if (!deixarOCursoObjetivoService.listar().isEmpty()) {
+            return;
+        }
+        
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Trancamento"));
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Transferência"));
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Transferência EAD"));
