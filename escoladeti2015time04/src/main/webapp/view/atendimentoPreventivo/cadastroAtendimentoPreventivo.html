@@ -148,27 +148,31 @@
                                             <button ng-click="cadastrarOutraTela('/AtendimentoMotivo/form')" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></button>
                                         </div>    
                                     </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <label>
-                                                <h4>Descrição Pública</h4>
-                                            </label>
-                                            <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : cadastroAtendimentoPreventivo.descricaoPublica.$invalid && !cadastroAtendimentoPreventivo.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoPreventivo.descricaoPublica" required></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group" ng-show="exibirDescricaoPrivada()">
-                                        <div class="col-md-12">
-                                            <label>
-                                                <h4>Descrição Privada</h4>
-                                            </label>                
-                                            <textarea class="form-control" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoPreventivo.descricaoPrivada"></textarea>
-                                        </div>
-                                    </div>                
                                 </div>
-                            </div>        
-                            </div> 
+
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label>
+                                            <h4>Descrição Pública</h4>
+                                        </label>
+                                        <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : formAtendimentoPreventivo.descricaoPublica.$invalid && !formAtendimentoPreventivo.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoPreventivo.descricaoPublica" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row form-group">
+                                    <div class="col-md-12" data-toggle="collapse" data-target="#demo4" ng-show="exibirDescricaoPrivada()">
+                                        <label>
+                                            <h4>Descrição Privada</h4>
+                                        </label>
+                                        <!--<button type="button" class="btn btn-danger"><span class="fa fa-unlock-alt" aria-hidden="true"></span></button>-->
+                                        <button type="button" class="btn btn-success"><span class="fa fa-lock" aria-hidden="true"></span></button>
+                                    </div>
+                                </div>
+                                <textarea id="demo4" class="form-control panel-body collapse" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoPreventivo.descricaoPrivada"></textarea>
+                            </div>
+            </div>
+                            </div>      
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-offset-7 pull-right">
@@ -176,6 +180,5 @@
                                         <button type="submit" ng-click="salvar()" ng-disabled="(cadastroAtendimentoPreventivo.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
                                     </div>
                                 </div>	
-                            </div>
-                            </div>             
+                            </div>	
                             </form>
