@@ -2,12 +2,12 @@ AppModule.controller("controllerRelatorioResumido", controllerRelatorioResumido)
 AppModule.controller("controllerRelatorioPorCentro", controllerRelatorioPorCentro);
 
 function controllerRelatorioResumido($scope, $http) {
-
-    $scope.init = function () {
-        $scope.buscarRelatorioResumoCursoAtendimentos();
-        $scope.buscarRelatorioResumoMotivo();
-        $scope.buscarRelatorioMotivos();
-        $scope.gerarRelatorioResumido();
+    
+    $scope.init = function () {        
+        $scope.buscarRelatorioResumoCursoAtendimentos();        
+//        $scope.buscarRelatorioResumoMotivo();
+//        $scope.buscarRelatorioMotivos();
+        $scope.gerarRelatorioResumido();        
     };
 
     $scope.buscarRelatorioResumoCursoAtendimentos = function () {
@@ -33,6 +33,7 @@ function controllerRelatorioResumido($scope, $http) {
     };
 
     $scope.armazenarDadosRelatorioResumoCursoAtendimentos = function (data) {
+        
         $scope.qtdeAtendimentoCETA = 0;
         $scope.qtdeAtendimentoCBS = 0;
         $scope.qtdeAtendimentoCHSA = 0;
@@ -114,18 +115,41 @@ function controllerRelatorioResumido($scope, $http) {
             }
             $scope.totalTrancamentosCancelamentosTransferencias += data.trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
         }
-
+//        console.log("$scope.qtdeAtendimentoCETA: "+ $scope.qtdeAtendimentoCETA +"\n"+
+//        "$scope.qtdeAtendimentoCBS: "+ $scope.qtdeAtendimentoCBS +"\n"+
+//        "$scope.qtdeAtendimentoCHSA: "+ $scope.qtdeAtendimentoCHSA +"\n"+
+//        "$scope.totalAtendimentos: "+ $scope.totalAtendimentos +"\n"+
+//        "$scope.qtdePermanenciasCETA: "+ $scope.qtdePermanenciasCETA +"\n"+
+//        "$scope.qtdePermanenciasCBS: "+ $scope.qtdePermanenciasCBS +"\n"+
+//        "$scope.qtdePermanenciasCHSA: "+ $scope.qtdePermanenciasCHSA +"\n"+
+//        "$scope.totalPermanencias: "+ $scope.totalPermanencias +"\n"+
+//        "$scope.qtdeTrancamentosCancelamentosTransferenciasCETA: "+ $scope.qtdeTrancamentosCancelamentosTransferenciasCETA +"\n"+
+//        "$scope.qtdeTrancamentosCancelamentosTransferenciasCBS: "+ $scope.qtdeTrancamentosCancelamentosTransferenciasCBS +"\n"+
+//        "$scope.qtdeTrancamentosCancelamentosTransferenciasCHSA: "+ $scope.qtdeTrancamentosCancelamentosTransferenciasCHSA +"\n"+
+//        "$scope.totalTrancamentosCancelamentosTransferencias: "+ $scope.totalTrancamentosCancelamentosTransferencias);
     };
     
     $scope.armazenarDadosRelatorioResumoMotivo = function (data){
-        
+        console.log(data);
     };
 
     $scope.armazenarDadosRelatorioMotivos = function (data){
-        
+        console.log(data);
     };
 
     $scope.gerarRelatorioResumido = function () {
+        console.log("$scope.qtdeAtendimentoCETA: "+ $scope.qtdeAtendimentoCETA +"\n"+
+        "$scope.qtdeAtendimentoCBS: "+ $scope.qtdeAtendimentoCBS +"\n"+
+        "$scope.qtdeAtendimentoCHSA: "+ $scope.qtdeAtendimentoCHSA +"\n"+
+        "$scope.totalAtendimentos: "+ $scope.totalAtendimentos +"\n"+
+        "$scope.qtdePermanenciasCETA: "+ $scope.qtdePermanenciasCETA +"\n"+
+        "$scope.qtdePermanenciasCBS: "+ $scope.qtdePermanenciasCBS +"\n"+
+        "$scope.qtdePermanenciasCHSA: "+ $scope.qtdePermanenciasCHSA +"\n"+
+        "$scope.totalPermanencias: "+ $scope.totalPermanencias +"\n"+
+        "$scope.qtdeTrancamentosCancelamentosTransferenciasCETA: "+ $scope.qtdeTrancamentosCancelamentosTransferenciasCETA +"\n"+
+        "$scope.qtdeTrancamentosCancelamentosTransferenciasCBS: "+ $scope.qtdeTrancamentosCancelamentosTransferenciasCBS +"\n"+
+        "$scope.qtdeTrancamentosCancelamentosTransferenciasCHSA: "+ $scope.qtdeTrancamentosCancelamentosTransferenciasCHSA +"\n"+
+        "$scope.totalTrancamentosCancelamentosTransferencias: "+ $scope.totalTrancamentosCancelamentosTransferencias);        
         $(function () {
             $('#container').highcharts({
                 chart: {
@@ -448,8 +472,8 @@ function controllerRelatorioResumido($scope, $http) {
                 });
             });
         });
-    };
-
+    };        
+    
     function onError() {
         //Mensagem de erro
     }
