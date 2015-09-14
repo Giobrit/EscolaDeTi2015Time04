@@ -4,6 +4,7 @@ AppModule.controller("controllerRelatorioPorCentro", controllerRelatorioPorCentr
 function controllerRelatorioResumido($scope, $http) {
 
     $scope.init = function () {
+
         $scope.buscarRelatorioResumoCursoAtendimentos();
         $scope.buscarRelatorioResumoMotivo();
 //        $scope.buscarRelatorioMotivos();
@@ -274,65 +275,106 @@ function controllerRelatorioResumido($scope, $http) {
         });
     };
 
-    $scope.armazenarDadosRelatorioResumoMotivo = function (data) {        
-        for (var contador = 0; contador < data.resumoMotivos.length; contador++) {
-            switch (data.resumoMotivos[contador].idmotivo) {
-                case 1 :
+    $scope.armazenarDadosRelatorioResumoMotivo = function (data) {
+        $scope.relatorioResumoMotivo = data;
+        console.log($scope.relatorioResumoMotivo);        
+
+        $scope.gerarRelatorioResumoMotivo($scope.relatorioResumoMotivo);
+    };
+
+    $scope.gerarRelatorioResumoMotivo = function (relatorioResumoMotivo) {
+        
+        var qtdeAprendizagemResumoMotivo = 0;
+        var qtdeGravidezResumoMotivo = 0;
+        var qtdeNotasBaixasResumoMotivo = 0;
+        var qtdeOutrosResumoMotivo = 0;
+        var qtdeDistanciaResumoMotivo = 0;
+        var qtdeDoencaResumoMotivo = 0;
+        var qtdeFinanceiroResumoMotivo = 0;
+        var qtdeMudancaDeCidadeResumoMotivo = 0;
+        var qtdeNaoIndentificacaoComOCursoResumoMotivo = 0;
+        var qtdeTrabalhoResumoMotivo = 0;
+        var qtdeTransferenciaResumoMotivo = 0;
+        var qtdeFrequenciaResumoMotivo = 0;
+        
+        for (var contador = 0; contador < relatorioResumoMotivo.resumoMotivos.length; contador++) {
+            switch (relatorioResumoMotivo.resumoMotivos[contador].motivo) {
+                case "Aprendizagem" :
                 {
-                    $scope.qtdeAprendizagemResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeAprendizagemResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 2 :
+                case "Gravidez" :
                 {
-                    $scope.qtdeGravidezResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeGravidezResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 3 :
+                case "Notas baixas" :
                 {
-                    $scope.qtdeNotasBaixasResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeNotasBaixasResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 4 :
+                case "Outros" :
                 {
-                    $scope.qtdeOutrosResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeOutrosResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 5 :
+                case "Distância" :
                 {
-                    $scope.qtdeDistanciaResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeDistanciaResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 6 :
+                case "Doença" :
                 {
-                    $scope.qtdeDoencaResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeDoencaResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 7 :
+                case "Financeiro" :
                 {
-                    $scope.qtdeFinanceiroResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeFinanceiroResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 8 :
+                case "Mudança de Cidade" :
                 {
-                    $scope.qtdeMudancaDeCidadeResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeMudancaDeCidadeResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 9 :
+                case "Não Identificação com o Curso" :
                 {
-                    $scope.qtdeNaoIndentificacaoComOCursoResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeNaoIndentificacaoComOCursoResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 10 :
+                case "Trabalho" :
                 {
-                    $scope.qtdeTrabalhoResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeTrabalhoResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 11 :
+                case "Transferência para outra IES" :
                 {
-                    $scope.qtdeTransferenciaResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeTransferenciaResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
-                case 17 :
+                case "Frequência baixa" :
                 {
-                    $scope.qtdeFrequenciaResumoMotivo = data.resumoMotivos[contador].atendimentos;
+                    qtdeFrequenciaResumoMotivo = relatorioResumoMotivo.resumoMotivos[contador].atendimentos;
+                    break;
                 }
             }
         }
         
-        $scope.gerarRelatorioResumoMotivo();
-    };
-
-    $scope.gerarRelatorioResumoMotivo = function () {
-        console.log($scope.qtdeDistanciaResumoMotivo);
+        console.log(qtdeAprendizagemResumoMotivo +","+
+        qtdeGravidezResumoMotivo +","+
+        qtdeNotasBaixasResumoMotivo +","+
+        qtdeOutrosResumoMotivo +","+
+        qtdeDistanciaResumoMotivo +","+
+        qtdeDoencaResumoMotivo +","+
+        qtdeFinanceiroResumoMotivo +","+
+        qtdeMudancaDeCidadeResumoMotivo +","+
+        qtdeNaoIndentificacaoComOCursoResumoMotivo +","+
+        qtdeTrabalhoResumoMotivo +","+
+        qtdeTransferenciaResumoMotivo +","+
+        qtdeFrequenciaResumoMotivo);
+        
         $(function () {
 
             $(document).ready(function () {
@@ -369,49 +411,49 @@ function controllerRelatorioResumido($scope, $http) {
                             colorByPoint: true,
                             data: [{
                                     name: "Aprendizagem",
-                                    y: $scope.qtdeAprendizagemResumoMotivo
+                                    y: qtdeAprendizagemResumoMotivo
                                 }, {
                                     name: "Distância",
-                                    y: $scope.qtdeDistanciaResumoMotivo
+                                    y: qtdeDistanciaResumoMotivo
                                 },
                                 {
                                     name: "Doença",
-                                    y: $scope.qtdeDoencaResumoMotivo
+                                    y: qtdeDoencaResumoMotivo
                                 },
                                 {
                                     name: "Financeiro",
-                                    y: $scope.qtdeFinanceiroResumoMotivo
+                                    y: qtdeFinanceiroResumoMotivo
                                 },
                                 {
                                     name: "Frequência",
-                                    y: $scope.qtdeFrequenciaResumoMotivo
+                                    y: qtdeFrequenciaResumoMotivo
                                 },
                                 {
                                     name: "Gravidez",
-                                    y: $scope.qtdeGravidezResumoMotivo
+                                    y: qtdeGravidezResumoMotivo
                                 },
                                 {
                                     name: "Mudança de cidade",
-                                    y: $scope.qtdeMudancaDeCidadeResumoMotivo
+                                    y: qtdeMudancaDeCidadeResumoMotivo
                                 },
                                 {
                                     name: "Não indentificação com o curso",
-                                    y: $scope.qtdeNaoIndentificacaoComOCursoResumoMotivo
+                                    y: qtdeNaoIndentificacaoComOCursoResumoMotivo
                                 },
                                 {
                                     name: "Notas baixas",
-                                    y: $scope.qtdeNotasBaixasResumoMotivo
+                                    y: qtdeNotasBaixasResumoMotivo
                                 },
                                 {
                                     name: "Outros",
-                                    y: $scope.qtdeOutrosResumoMotivo
+                                    y: qtdeOutrosResumoMotivo
                                 },
                                 {
                                     name: "Trabalho",
-                                    y: $scope.qtdeTrabalhoResumoMotivo
+                                    y: qtdeTrabalhoResumoMotivo
                                 }, {
                                     name: "Transferencia para outra instituição",
-                                    y: $scope.qtdeTransferenciaResumoMotivo
+                                    y: qtdeTransferenciaResumoMotivo
                                 }]
                         }]
                 });
