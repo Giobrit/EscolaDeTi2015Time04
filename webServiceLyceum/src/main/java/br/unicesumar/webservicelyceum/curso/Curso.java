@@ -32,14 +32,17 @@ public class Curso implements Serializable{
     
     @ManyToOne
     private Departamento departamento;
+    
+    private String und;
 
     public Curso() {
     }
 
-    public Curso(String codigo, String nome, String unidade, Departamento departamento) {    
+    public Curso(String codigo, String nome, String unidade, String und, Departamento departamento) {    
         this.codigo = codigo;
         this.nome = nome;
         this.unidade = unidade;
+        this.und = und;
         this.departamento = departamento;
     }
 
@@ -81,6 +84,14 @@ public class Curso implements Serializable{
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
+    }
+
+    public String getUnd() {
+        return und;
+    }
+
+    public void setUnd(String und) {
+        this.und = und;
     }
     
     @Override

@@ -2,6 +2,7 @@ package br.unicesumar.webservicelyceum.alunoDisciplina;
 
 import br.unicesumar.webservicelyceum.aluno.Aluno;
 import br.unicesumar.webservicelyceum.disciplina.Disciplina;
+import br.unicesumar.webservicelyceum.turma.Turma;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -25,9 +26,14 @@ public class AlunoDisciplina implements Serializable{
     @ManyToOne
     @JoinColumn(name = "idaluno")
     private Aluno aluno;
+    
     @ManyToOne
     @JoinColumn(name = "iddisciplina")
     private Disciplina disciplina;
+    
+    @ManyToOne
+    @JoinColumn(name = "idturma")
+    private Turma turma;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -36,9 +42,10 @@ public class AlunoDisciplina implements Serializable{
     public AlunoDisciplina() {
     }
 
-    public AlunoDisciplina(Aluno aluno, Disciplina disciplina, StatusDisciplina status) {
+    public AlunoDisciplina(Aluno aluno, Disciplina disciplina, Turma turma, StatusDisciplina status) {
         this.aluno = aluno;
         this.disciplina = disciplina;
+        this.turma = turma;
         this.status = status;
     }
 
@@ -66,6 +73,14 @@ public class AlunoDisciplina implements Serializable{
         this.disciplina = disciplina;
     }
 
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+    
     public StatusDisciplina getStatus() {
         return status;
     }
@@ -98,8 +113,10 @@ public class AlunoDisciplina implements Serializable{
 
     @Override
     public String toString() {
-        return "AlunoDisciplina{" + "id=" + id + ", aluno=" + aluno + ", disciplina=" + disciplina + ", status=" + status + '}';
+        return "AlunoDisciplina{" + "id=" + id + ", aluno=" + aluno + ", disciplina=" + disciplina + ", turma=" + turma + ", status=" + status + '}';
     }
+
+    
     
     
     

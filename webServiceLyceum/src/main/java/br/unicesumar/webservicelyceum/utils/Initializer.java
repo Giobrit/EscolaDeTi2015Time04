@@ -100,8 +100,8 @@ public class Initializer {
     }
     
     private void inicializarCurso() {                        
-        cursoService.criar(new Curso("CST_ADSIS", "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas", "Cesumar - Centro Universitário de Maringá",departamentoService.buscarDepartamento(1L)));
-        cursoService.criar(new Curso("CST_SISIN", "Superior de Tecnologia de Sistemas para Internet","Cesumar - Centro Universitário de Maringá",departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CST_ADSIS", "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas", "Cesumar - Centro Universitário de Maringá","Cesumar",departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CST_SISIN", "Superior de Tecnologia de Sistemas para Internet","Cesumar - Centro Universitário de Maringá","Cesumar",departamentoService.buscarDepartamento(1L)));
     }
 
     private void inicializarAluno() {        
@@ -274,10 +274,13 @@ public class Initializer {
     private void inicializarAlunoDisciplina() {
         List<Aluno> alunos = alunoService.buscarTodos();
         List<Disciplina> disciplinas = disciplinaService.buscarTodos();
+        List<Turma> turmas = turmaService.buscarTodos();
         
         for(Aluno aluno: alunos){
             for(Disciplina disciplina: disciplinas){
-                alunoDisciplinaService.criar(new AlunoDisciplina(aluno, disciplina, StatusDisciplina.COMPLETA));
+                for(Turma turma: turmas){
+                   alunoDisciplinaService.criar(new AlunoDisciplina(aluno, disciplina, turma, StatusDisciplina.COMPLETA));
+                }
             }
         }
         
