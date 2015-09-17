@@ -38,12 +38,6 @@ public class AtendimentoDeixarOCurso extends Atendimento implements Serializable
     private int numeroReprovacoes;
 
     @ManyToOne
-    @ColunaListavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
-    @ColunaLocalizavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
-    @JoinColumn(name = "motivo", nullable = false)
-    private AtendimentoMotivo motivo;
-
-    @ManyToOne
     @ColunaListavel(campoNaQuery = "o.descricao", aliasNaQuery = "objetivo")
     @ColunaLocalizavel(campoNaQuery = "o.descricao", aliasNaQuery = "objetivo")
     @JoinColumn(name = "objetivo", nullable = false)
@@ -52,12 +46,11 @@ public class AtendimentoDeixarOCurso extends Atendimento implements Serializable
     public AtendimentoDeixarOCurso() {
     }
 
-    public AtendimentoDeixarOCurso(Long protocolo, String coordenadorDiretor, String transferencia, int numeroReprovacoes, AtendimentoMotivo motivo, DeixarOCursoObjetivo objetivo) {
+    public AtendimentoDeixarOCurso(Long protocolo, String coordenadorDiretor, String transferencia, int numeroReprovacoes, DeixarOCursoObjetivo objetivo) {
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
         this.transferencia = transferencia;
         this.numeroReprovacoes = numeroReprovacoes;
-        this.motivo = motivo;
         this.objetivo = objetivo;
     }
 

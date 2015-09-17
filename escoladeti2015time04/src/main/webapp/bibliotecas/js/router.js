@@ -53,6 +53,10 @@
         //Rotas Relatorio Academico
         adicionarRota($routeProvider, '/RelatorioAcademico/form', 'view/relatorioAcademico/relatorioAcademico.html', 'controllerRelatorioAcademico');
         adicionarRota($routeProvider, '/RelatorioAcademico/form/:id', 'view/relatorioAcademico/relatorioAcademico.html', 'controllerRelatorioAcademico');
+        //Rotas Relatorios
+        adicionarRota($routeProvider, '/Relatorios/resumido', 'view/relatorios/relatorioResumido.html', 'controllerRelatorioResumido');
+        adicionarRota($routeProvider, '/Relatorios/porCentro', 'view/relatorios/relatorioPorCentro.html', 'controllerRelatorioPorCentro');
+
         //verificar se é possível separar as rotas em módulos
 
         $locationProvider.html5Mode(false);

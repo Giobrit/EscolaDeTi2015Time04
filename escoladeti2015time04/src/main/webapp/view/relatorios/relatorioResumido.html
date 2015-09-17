@@ -1,0 +1,221 @@
+<form name="relatorioResumido" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()">
+    <div class="relatorioResumido formulario">
+        <div class="panel panel-info">
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo"><h3>Relatório Resumido<span class="glyphicon glyphicon-list-alt pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo" class="panel-body collapse in">
+                <center> <h4>ATENDIMENTOS / TRANCAMENTOS - CANCELAMENTOS - TRANSFERENCIAS / PERMANENCIAS</h4></center>
+                <div class="row">
+                    <div class="col-md-6" style="padding-top: 80px;">                       
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <th>Cursos</th>
+                            <th>Atendimentos</th>
+                            <th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>
+                            <th colspan="2">Permanências</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>CBS - Saúde</td>
+                                    <td>382</td>
+                                    <td>341</td>
+                                    <td>89,2%</td>
+                                    <td>41</td>
+                                    <td>10,73%</td>
+                                </tr>
+                                <tr>
+                                    <td>CETA - Exatas</td>
+                                    <td>418</td>
+                                    <td>361</td>
+                                    <td>86,2%</td>
+                                    <td>57</td>
+                                    <td>13,73%</td>
+                                </tr> 
+                                <tr>
+                                    <td>CHSA - Humanas</td>
+                                    <td>364</td>
+                                    <td>305</td>
+                                    <td>83,2%</td>
+                                    <td>59</td>
+                                    <td>16,73%</td>
+                                </tr>    
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><b>TOTAL</b></td>
+                                    <td><b>1164</b></td>
+                                    <td><b>1007</b></td>
+                                    <td><b>86,51%</b></td>
+                                    <td><b>157</b></td>
+                                    <td><b>13,49%</b></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>    
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <div id="container" style="min-width: 500px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="pie" style="min-width: 500px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="pie1" style="min-width: 500px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                    </div>
+                </div>                
+            </div>
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo2"><h3>Resumo motivo<span class="glyphicon glyphicon-list-alt pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo2" class="panel-body collapse in">
+                <div class="col-md-6">
+                    <table class="table table-hover table-bordered">
+                        <thead> 
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>
+                                <td><b>Justificativa apresentadas na solicitação</b></td>
+                                <td><b>Quantidade</b></td>
+                            </tr>
+                            <tr>
+                                <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>
+                                <td style="text-align: center">7</td>
+                            </tr>
+                            <tr>
+                                <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>
+                                <td style="text-align: center">14</td>
+                            </tr>
+                            <tr>
+                                <td>DOENÇA (pessoal ou familiar)</td>
+                                <td style="text-align: center">25</td>
+                            </tr>
+                            <tr>
+                                <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>
+                                <td style="text-align: center">286</td>
+                            </tr>
+                            <tr>
+                                <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>
+                                <td style="text-align: center">1</td>
+                            </tr>
+                            <tr>
+                                <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>
+                                <td style="text-align: center">7</td>
+                            </tr>
+                            <tr>
+                                <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>
+                                <td style="text-align: center">127</td>
+                            </tr>
+                            <tr>
+                                <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>
+                                <td style="text-align: center">76</td>
+                            </tr>
+                            <tr>
+                                <td>NOTAS BAIXAS (abaixo da média 6,0) </td>
+                                <td style="text-align: center">11</td>
+                            </tr>
+                            <tr>
+                                <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>
+                                <td style="text-align: center">177</td>
+                            </tr>
+                            <tr>
+                                <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>
+                                <td style="text-align: center">64</td>
+                            </tr>
+                            <tr>
+                                <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>
+                                <td style="text-align: center">213</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" style="text-align: center"><b>TOTAL</b></td>
+
+                                <td style="text-align: center"><b>1007</b></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-6">
+                        <div id="pie2" style="min-width: 500px; height: 450px; max-width: 600px; margin: 0 auto; margin-top: 150px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo3"><h3>Resumo motivo de permanência<span class="glyphicon glyphicon-list-alt pull-right" aria-hidden="true"></span></h3></div>
+            <div id="demo3" class="panel-body collapse in">
+                <div class="col-md-6">
+                    <table class="table table-hover table-bordered">
+                        <thead> 
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>
+                                <td><b>Justificativa apresentadas na solicitação</b></td>
+                                <td><b>Quantidade</b></td>
+                            </tr>
+                            <tr>
+                                <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>
+                                <td style="text-align: center">3</td>
+                            </tr>
+                            <tr>
+                                <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>
+                                <td style="text-align: center">12</td>
+                            </tr>
+                            <tr>
+                                <td>DOENÇA (pessoal ou familiar)</td>
+                                <td style="text-align: center">1</td>
+                            </tr>
+                            <tr>
+                                <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>
+                                <td style="text-align: center">52</td>
+                            </tr>
+                            <tr>
+                                <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>
+                                <td style="text-align: center">2</td>
+                            </tr>
+                            <tr>
+                                <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>
+                                <td style="text-align: center">3</td>
+                            </tr>
+                            <tr>
+                                <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>
+                                <td style="text-align: center">5</td>
+                            </tr>
+                            <tr>
+                                <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>
+                                <td style="text-align: center">16</td>
+                            </tr>
+                            <tr>
+                                <td>NOTAS BAIXAS (abaixo da média 6,0) </td>
+                                <td style="text-align: center">4</td>
+                            </tr>
+                            <tr>
+                                <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>
+                                <td style="text-align: center">32</td>
+                            </tr>
+                            <tr>
+                                <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>
+                                <td style="text-align: center">23</td>
+                            </tr>
+                            <tr>
+                                <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>
+                                <td style="text-align: center">4</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" style="text-align: center"><b>TOTAL</b></td>
+
+                                <td style="text-align: center"><b>157</b></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-6">
+                        <div id="pie3" style="min-width: 500px; height: 450px; max-width: 600px; margin: 0 auto; margin-top: 150px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
