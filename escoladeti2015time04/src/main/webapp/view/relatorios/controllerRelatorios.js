@@ -1,13 +1,15 @@
 AppModule.controller("controllerRelatorioResumido", controllerRelatorioResumido);
 AppModule.controller("controllerRelatorioPorCentro", controllerRelatorioPorCentro);
 
-function controllerRelatorioResumido($scope, $http) {
+function controllerRelatorioResumido($scope, $http, growl) {
 
     $scope.init = function () {
-
+        document.getElementById('tabela1').innerHTML = "";
+        document.getElementById('tabela2').innerHTML = "";
+        document.getElementById('tabela3').innerHTML = "";
         $scope.buscarRelatorioResumoCursoAtendimentos();
         $scope.buscarRelatorioMotivos();
-        $scope.buscarRelatorioResumoMotivo();        
+        $scope.buscarRelatorioResumoMotivo();
     };
 
     $scope.buscarRelatorioResumoCursoAtendimentos = function () {
@@ -34,92 +36,144 @@ function controllerRelatorioResumido($scope, $http) {
 
     $scope.armazenarDadosRelatorioResumoCursoAtendimentos = function (data) {
 
-        $scope.qtdeAtendimentoCETA = 0;
-        $scope.qtdeAtendimentoCBS = 0;
-        $scope.qtdeAtendimentoCHSA = 0;
-        $scope.totalAtendimentos = 0;
+        $scope.atendimentos = data.atendimentos;
+        $scope.permanencias = data.permanencias;
+        $scope.trancamentosCancelamentosTransferencias = data.trancamentosCancelamentosTransferencias;
 
-        $scope.qtdePermanenciasCETA = 0;
-        $scope.qtdePermanenciasCBS = 0;
-        $scope.qtdePermanenciasCHSA = 0;
-        $scope.totalPermanencias = 0;
+        $scope.gerarRelatorioResumoCursoAtendimentos($scope.atendimentos, $scope.permanencias, $scope.trancamentosCancelamentosTransferencias);
+    };
 
-        $scope.qtdeTrancamentosCancelamentosTransferenciasCETA = 0;
-        $scope.qtdeTrancamentosCancelamentosTransferenciasCBS = 0;
-        $scope.qtdeTrancamentosCancelamentosTransferenciasCHSA = 0;
-        $scope.totalTrancamentosCancelamentosTransferencias = 0;
+    $scope.gerarRelatorioResumoCursoAtendimentos = function (atendimentos, permanencias, trancamentosCancelamentosTransferencias) {
+
+        var qtdeAtendimentoCETA = 0;
+        var qtdeAtendimentoCBS = 0;
+        var qtdeAtendimentoCHSA = 0;
+        var totalAtendimentos = 0;
+
+        var qtdePermanenciasCETA = 0;
+        var qtdePermanenciasCBS = 0;
+        var qtdePermanenciasCHSA = 0;
+        var totalPermanencias = 0;
+
+        var qtdeTrancamentosCancelamentosTransferenciasCETA = 0;
+        var qtdeTrancamentosCancelamentosTransferenciasCBS = 0;
+        var qtdeTrancamentosCancelamentosTransferenciasCHSA = 0;
+        var totalTrancamentosCancelamentosTransferencias = 0;
 
         //Atendimentos
-        var contador = 0;
-        for (contador = 0; contador < data.atendimentos.length; contador++) {
-            switch (data.atendimentos[contador].centro) {
+        for (var contador = 0; contador < atendimentos.length; contador++) {
+            switch (atendimentos[contador].centro) {
                 case "CETA" :
                 {
-                    $scope.qtdeAtendimentoCETA = data.atendimentos[contador].atendimentos;
+                    qtdeAtendimentoCETA = atendimentos[contador].atendimentos;
                     break;
                 }
                 case "CBS" :
                 {
-                    $scope.qtdeAtendimentoCBS = data.atendimentos[contador].atendimentos;
+                    qtdeAtendimentoCBS = atendimentos[contador].atendimentos;
                     break;
                 }
                 case "CHSA" :
                 {
-                    $scope.qtdeAtendimentoCHSA = data.atendimentos[contador].atendimentos;
+                    qtdeAtendimentoCHSA = atendimentos[contador].atendimentos;
                     break;
                 }
             }
-            $scope.totalAtendimentos += data.atendimentos[contador].atendimentos;
+            totalAtendimentos += atendimentos[contador].atendimentos;
         }
 
         //Permanencias
-        for (contador = 0; contador < data.permanencias.length; contador++) {
-            switch (data.permanencias[contador].centro) {
+        for (var contador = 0; contador < permanencias.length; contador++) {
+            switch (permanencias[contador].centro) {
                 case "CETA" :
                 {
-                    $scope.qtdePermanenciasCETA = data.permanencias[contador].permanencias;
+                    qtdePermanenciasCETA = permanencias[contador].permanencias;
                     break;
                 }
                 case "CBS" :
                 {
-                    $scope.qtdePermanenciasCBS = data.permanencias[contador].permanencias;
+                    qtdePermanenciasCBS = permanencias[contador].permanencias;
                     break;
                 }
                 case "CHSA" :
                 {
-                    $scope.qtdePermanenciasCHSA = data.permanencias[contador].permanencias;
+                    qtdePermanenciasCHSA = permanencias[contador].permanencias;
                     break;
                 }
             }
-            $scope.totalPermanencias += data.permanencias[contador].permanencias;
+            totalPermanencias += permanencias[contador].permanencias;
         }
 
         //Trancamentos - Cancelamentos - Transferencias
-        for (contador = 0; contador < data.trancamentosCancelamentosTransferencias.length; contador++) {
-            switch (data.trancamentosCancelamentosTransferencias[contador].centro) {
+        for (var contador = 0; contador < trancamentosCancelamentosTransferencias.length; contador++) {
+            switch (trancamentosCancelamentosTransferencias[contador].centro) {
                 case "CETA" :
                 {
-                    $scope.qtdeTrancamentosCancelamentosTransferenciasCETA = data.trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
+                    qtdeTrancamentosCancelamentosTransferenciasCETA = trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
                     break;
                 }
                 case "CBS" :
                 {
-                    $scope.qtdeTrancamentosCancelamentosTransferenciasCBS = data.trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
+                    qtdeTrancamentosCancelamentosTransferenciasCBS = trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
                     break;
                 }
                 case "CHSA" :
                 {
-                    $scope.qtdeTrancamentosCancelamentosTransferenciasCHSA = data.trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
+                    qtdeTrancamentosCancelamentosTransferenciasCHSA = trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
                     break;
                 }
             }
-            $scope.totalTrancamentosCancelamentosTransferencias += data.trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
+            totalTrancamentosCancelamentosTransferencias += trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
         }
 
-        $scope.gerarRelatorioResumoCursoAtendimentos();
-    };
+        //CRIAR TABELA1
+        var htmlTagTable = '<table id="tabela1" class="table table-hover table-bordered">';
+        var htmlTHead = '<thead>' +
+                '   <th>Cursos</th>' +
+                '   <th>Atendimentos</th>' +
+                '   <th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>' +
+                '   <th colspan="2">Permanências</th>' +
+                '</thead>';
+        var htmlTBody = '<tbody>' +
+                '   <tr>' +
+                '      <td>CBS - Saúde</td>' +
+                '      <td>' + qtdeAtendimentoCBS + '</td>' +
+                '      <td>' + qtdeTrancamentosCancelamentosTransferenciasCBS + '</td>' +
+                '      <td>' + ((qtdeTrancamentosCancelamentosTransferenciasCBS * 100) / qtdeAtendimentoCBS) + '%</td>' +
+                '      <td>' + qtdePermanenciasCBS + '</td>' +
+                '      <td>' + ((qtdePermanenciasCBS * 100) / qtdeAtendimentoCBS) + '%</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '      <td>CETA - Exatas</td>' +
+                '      <td>' + qtdeAtendimentoCETA + '</td>' +
+                '      <td>' + qtdeTrancamentosCancelamentosTransferenciasCETA + '</td>' +
+                '      <td>' + ((qtdeTrancamentosCancelamentosTransferenciasCETA * 100) / qtdeAtendimentoCETA) + '%</td>' +
+                '      <td>' + qtdePermanenciasCETA + '</td>' +
+                '      <td>' + ((qtdePermanenciasCETA * 100) / qtdeAtendimentoCETA) + '%</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '      <td>CHSA - Humanas</td>' +
+                '      <td>' + qtdeAtendimentoCHSA + '</td>' +
+                '      <td>' + qtdeTrancamentosCancelamentosTransferenciasCHSA + '</td>' +
+                '      <td>' + ((qtdeTrancamentosCancelamentosTransferenciasCHSA * 100) / qtdeAtendimentoCHSA) + '%</td>' +
+                '      <td>' + qtdePermanenciasCHSA + '</td>' +
+                '      <td>' + ((qtdePermanenciasCHSA * 100) / qtdeAtendimentoCHSA) + '%</td>' +
+                '   </tr>' +
+                '</tbody>';
+        var htmlTagFoot = '<tfoot>' +
+                '   <tr>' +
+                '      <td><b>TOTAL</b></td>' +
+                '      <td><b>' + totalAtendimentos + '</b></td>' +
+                '      <td><b>' + totalTrancamentosCancelamentosTransferencias + '</b></td>' +
+                '      <td><b>' + ((totalTrancamentosCancelamentosTransferencias * 100) / totalAtendimentos) + '%</b></td>' +
+                '      <td><b>' + totalPermanencias + '</b></td>' +
+                '      <td><b>' + ((totalPermanencias * 100) / totalAtendimentos) + '%</b></td>' +
+                '   </tr>' +
+                '</tfoot>';
+        var htmlTagFechaTable = '</table>';
 
-    $scope.gerarRelatorioResumoCursoAtendimentos = function () {
+        document.getElementById('tabela1').innerHTML = htmlTagTable + htmlTHead + htmlTBody + htmlTagFoot + htmlTagFechaTable;
+
         $(function () {
             $('#container').highcharts({
                 chart: {
@@ -158,9 +212,9 @@ function controllerRelatorioResumido($scope, $http) {
                 series: [{
                         name: "Atendimentos",
                         data: [
-                            ['CBS - Saúde', $scope.qtdeAtendimentoCBS],
-                            ['CETA - Exatas', $scope.qtdeAtendimentoCETA],
-                            ['CHSA - Humanas', $scope.qtdeAtendimentoCHSA]
+                            ['CBS - Saúde', qtdeAtendimentoCBS],
+                            ['CETA - Exatas', qtdeAtendimentoCETA],
+                            ['CHSA - Humanas', qtdeAtendimentoCHSA]
                         ]
                     }],
                 dataLabels: {
@@ -213,13 +267,13 @@ function controllerRelatorioResumido($scope, $http) {
                             colorByPoint: true,
                             data: [{
                                     name: "CBS - Saúde",
-                                    y: $scope.qtdeTrancamentosCancelamentosTransferenciasCBS
+                                    y: qtdeTrancamentosCancelamentosTransferenciasCBS
                                 }, {
                                     name: "CETA - Exatas",
-                                    y: $scope.qtdeTrancamentosCancelamentosTransferenciasCETA
+                                    y: qtdeTrancamentosCancelamentosTransferenciasCETA
                                 }, {
                                     name: "CHSA - Humanas",
-                                    y: $scope.qtdeTrancamentosCancelamentosTransferenciasCHSA
+                                    y: qtdeTrancamentosCancelamentosTransferenciasCHSA
                                 }]
                         }]
                 });
@@ -261,13 +315,13 @@ function controllerRelatorioResumido($scope, $http) {
                             colorByPoint: true,
                             data: [{
                                     name: "CBS - Saúde",
-                                    y: $scope.qtdePermanenciasCBS
+                                    y: qtdePermanenciasCBS
                                 }, {
                                     name: "CETA - Exatas",
-                                    y: $scope.qtdePermanenciasCETA
+                                    y: qtdePermanenciasCETA
                                 }, {
                                     name: "CHSA - Humanas",
-                                    y: $scope.qtdePermanenciasCHSA
+                                    y: qtdePermanenciasCHSA
                                 }]
                         }]
                 });
@@ -276,13 +330,13 @@ function controllerRelatorioResumido($scope, $http) {
     };
 
     $scope.armazenarDadosRelatorioResumoMotivo = function (data) {
-        $scope.relatorioResumoMotivo = data;        
+        $scope.relatorioResumoMotivo = data;
 
         $scope.gerarRelatorioResumoMotivo($scope.relatorioResumoMotivo);
     };
 
     $scope.gerarRelatorioResumoMotivo = function (relatorioResumoMotivo) {
-        
+
         var qtdeAprendizagemResumoMotivo = 0;
         var qtdeGravidezResumoMotivo = 0;
         var qtdeNotasBaixasResumoMotivo = 0;
@@ -295,7 +349,7 @@ function controllerRelatorioResumido($scope, $http) {
         var qtdeTrabalhoResumoMotivo = 0;
         var qtdeTransferenciaResumoMotivo = 0;
         var qtdeFrequenciaResumoMotivo = 0;
-        
+
         for (var contador = 0; contador < relatorioResumoMotivo.resumoMotivos.length; contador++) {
             switch (relatorioResumoMotivo.resumoMotivos[contador].motivo) {
                 case "Aprendizagem" :
@@ -360,7 +414,89 @@ function controllerRelatorioResumido($scope, $http) {
                 }
             }
         }
-        
+
+        //CRIAR TABELA3
+        var total = qtdeAprendizagemResumoMotivo +
+                qtdeGravidezResumoMotivo +
+                qtdeNotasBaixasResumoMotivo +
+                qtdeOutrosResumoMotivo +
+                qtdeDistanciaResumoMotivo +
+                qtdeDoencaResumoMotivo +
+                qtdeFinanceiroResumoMotivo +
+                qtdeMudancaDeCidadeResumoMotivo +
+                qtdeNaoIndentificacaoComOCursoResumoMotivo +
+                qtdeTrabalhoResumoMotivo +
+                qtdeTransferenciaResumoMotivo +
+                qtdeFrequenciaResumoMotivo;
+
+        var htmlTagTableTabela3 = '<table class="table table-hover table-bordered">';
+        var htmlTHeadTabela3 = '<thead>' +
+                '</thead>';
+        var htmlTBodyTabela3 = '<tbody>' +
+                '   <tr>' +
+                '      <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>' +
+                '      <td><b>Justificativa apresentadas na solicitação</b></td>' +
+                '      <td><b>Quantidade</b></td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '      <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
+                '      <td style="text-align: center">' + qtdeAprendizagemResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
+                '       <td style="text-align: center">' + qtdeDistanciaResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>DOENÇA (pessoal ou familiar)</td>' +
+                '       <td style="text-align: center">' + qtdeDoencaResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
+                '       <td style="text-align: center">' + qtdeFinanceiroResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
+                '       <td style="text-align: center">' + qtdeFrequenciaResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
+                '       <td style="text-align: center">' + qtdeGravidezResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
+                '       <td style="text-align: center">' + qtdeMudancaDeCidadeResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
+                '       <td style="text-align: center">' + qtdeNaoIndentificacaoComOCursoResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
+                '       <td style="text-align: center">' + qtdeNotasBaixasResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '      <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
+                '       <td style="text-align: center">' + qtdeOutrosResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
+                '       <td style="text-align: center">' + qtdeTrabalhoResumoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
+                '       <td style="text-align: center">' + qtdeTransferenciaResumoMotivo + '</td>' +
+                '   </tr>' +
+                '</tbody>';
+        var htmlTFootTabela3 = '<tfoot>' +
+                '   <tr>' +
+                '       <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
+                '       <td style="text-align: center"><b>' + total + '</b></td>' +
+                '   </tr>' +
+                '</tfoot>';
+        var htmlTagTableFechaTabela3 = '</table>';
+
+        document.getElementById('tabela3').innerHTML = htmlTagTableTabela3 + htmlTHeadTabela3 + htmlTBodyTabela3 + htmlTFootTabela3 + htmlTagTableFechaTabela3;
+
         $(function () {
 
             $(document).ready(function () {
@@ -448,13 +584,13 @@ function controllerRelatorioResumido($scope, $http) {
     };
 
     $scope.armazenarDadosRelatorioMotivos = function (data) {
-        $scope.relatorioMotivos = data;        
+        $scope.relatorioMotivos = data;
 
         $scope.gerarRelatorioMotivo($scope.relatorioMotivos);
     };
 
     $scope.gerarRelatorioMotivo = function (relatorioMotivos) {
-        
+
         var qtdeAprendizagemMotivo = 0;
         var qtdeGravidezMotivo = 0;
         var qtdeNotasBaixasMotivo = 0;
@@ -467,71 +603,153 @@ function controllerRelatorioResumido($scope, $http) {
         var qtdeTrabalhoMotivo = 0;
         var qtdeTransferenciaMotivo = 0;
         var qtdeFrequenciaMotivo = 0;
-        
+
         for (var contador = 0; contador < relatorioMotivos.motivos.length; contador++) {
             switch (relatorioMotivos.motivos[contador].motivo) {
                 case "Aprendizagem" :
                 {
-                    qtdeAprendizagemResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeAprendizagemMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Gravidez" :
                 {
-                    qtdeGravidezResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeGravidezMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Notas baixas" :
                 {
-                    qtdeNotasBaixasResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeNotasBaixasMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Outros" :
                 {
-                    qtdeOutrosResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeOutrosMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Distância" :
                 {
-                    qtdeDistanciaResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeDistanciaMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Doença" :
                 {
-                    qtdeDoencaResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeDoencaMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Financeiro" :
                 {
-                    qtdeFinanceiroResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeFinanceiroMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Mudança de Cidade" :
                 {
-                    qtdeMudancaDeCidadeResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeMudancaDeCidadeMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Não Identificação com o Curso" :
                 {
-                    qtdeNaoIndentificacaoComOCursoResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeNaoIndentificacaoComOCursoMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Trabalho" :
                 {
-                    qtdeTrabalhoResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeTrabalhoMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Transferência para outra IES" :
                 {
-                    qtdeTransferenciaResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeTransferenciaMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
                 case "Frequência baixa" :
                 {
-                    qtdeFrequenciaResumoMotivo = relatorioMotivos.motivos[contador].atendimentos;
+                    qtdeFrequenciaMotivo = relatorioMotivos.motivos[contador].atendimentos;
                     break;
                 }
             }
         }
+
+        //CRIAR TABELA2
+        var total = qtdeAprendizagemMotivo +
+                qtdeGravidezMotivo +
+                qtdeNotasBaixasMotivo +
+                qtdeOutrosMotivo +
+                qtdeDistanciaMotivo +
+                qtdeDoencaMotivo +
+                qtdeFinanceiroMotivo +
+                qtdeMudancaDeCidadeMotivo +
+                qtdeNaoIndentificacaoComOCursoMotivo +
+                qtdeTrabalhoMotivo +
+                qtdeTransferenciaMotivo +
+                qtdeFrequenciaMotivo;
+
+        var htmlTagTableTabela2 = '<table class="table table-hover table-bordered">';
+        var htmlTHeadTabela2 = '<thead>' +
+                '</thead>';
+        var htmlTBodyTabela2 = '<tbody>' +
+                '   <tr>' +
+                '      <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>' +
+                '      <td><b>Justificativa apresentadas na solicitação</b></td>' +
+                '      <td><b>Quantidade</b></td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '      <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
+                '      <td style="text-align: center">' + qtdeAprendizagemMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
+                '       <td style="text-align: center">' + qtdeDistanciaMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>DOENÇA (pessoal ou familiar)</td>' +
+                '       <td style="text-align: center">' + qtdeDoencaMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
+                '       <td style="text-align: center">' + qtdeFinanceiroMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
+                '       <td style="text-align: center">' + qtdeFrequenciaMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
+                '       <td style="text-align: center">' + qtdeGravidezMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
+                '       <td style="text-align: center">' + qtdeMudancaDeCidadeMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
+                '       <td style="text-align: center">' + qtdeNaoIndentificacaoComOCursoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
+                '       <td style="text-align: center">' + qtdeNotasBaixasMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '      <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
+                '       <td style="text-align: center">' + qtdeOutrosMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
+                '       <td style="text-align: center">' + qtdeTrabalhoMotivo + '</td>' +
+                '   </tr>' +
+                '   <tr>' +
+                '       <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
+                '       <td style="text-align: center">' + qtdeTransferenciaMotivo + '</td>' +
+                '   </tr>' +
+                '</tbody>';
+        var htmlTFootTabela2 = '<tfoot>' +
+                '   <tr>' +
+                '       <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
+                '       <td style="text-align: center"><b>' + total + '</b></td>' +
+                '   </tr>' +
+                '</tfoot>';
+        var htmlTagTableFechaTabela2 = '</table>';
+
+        document.getElementById('tabela2').innerHTML = htmlTagTableTabela2 + htmlTHeadTabela2 + htmlTBodyTabela2 + htmlTFootTabela2 + htmlTagTableFechaTabela2;
 
         $(function () {
 
@@ -620,11 +838,11 @@ function controllerRelatorioResumido($scope, $http) {
     };
 
     function onError() {
-        //Mensagem de erro
+        growl.error("<b>Erro ao carregar relatório</b>");
     }
 }
 
-function controllerRelatorioPorCentro($scope) {
+function controllerRelatorioPorCentro($scope, $http, growl) {
 
     $scope.init = function () {
         $scope.getCentros();
@@ -712,10 +930,14 @@ function controllerRelatorioPorCentro($scope) {
 
     $scope.gerarRelatorio = function () {
         //Os graficos estão confusos!!!
+        console.log($scope.centroSelecionado.descricao);
         switch ($scope.tipoSelecionado.id) {
             case 1 ://Relatório geral
             {
-                $scope.graficoRelatorioGeral();//Grafico em colunas
+                $http.get("/relatorio/porcentro/relatorioCentroCursoAtendimentos/" + $scope.centroSelecionado.descricao).success(onSuccess).error(onError);
+                function onSuccess() {
+                    $scope.graficoRelatorioGeral(); //Grafico em colunas
+                }
                 break;
             }
             case 2 ://Relatório de permanencia
@@ -749,7 +971,7 @@ function controllerRelatorioPorCentro($scope) {
                             '       <th>Atendimentos</th>' +
                             '       <th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>' +
                             '       <th colspan="2">Permanências</th>' +
-                            '</thead>' +
+                            '   </thead>' +
                             '   <tbody>' +
                             '       <tr>' +
                             '           <td>Biomedicina</td>' +
@@ -1390,4 +1612,7 @@ function controllerRelatorioPorCentro($scope) {
         });
     };
 
+    function onError() {
+        growl.error("<b>Erro ao carregar relatório</b>");
+    }
 }

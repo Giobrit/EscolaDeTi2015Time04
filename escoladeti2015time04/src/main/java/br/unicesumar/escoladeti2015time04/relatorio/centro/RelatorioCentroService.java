@@ -50,11 +50,9 @@ public class RelatorioCentroService {
         List<Map<String, Object>> trancamentosCancelamentosTransferencias = jdbcTemplate.query(queryTrancamentosCancelamentosTransferencias, new MapRowMapper());
         retorno.put("trancamentosCancelamentosTransferencias", trancamentosCancelamentosTransferencias);
         List<Map<String, Object>> permanencias = jdbcTemplate.query(queryPermanencias, new MapRowMapper());
-        retorno.put("permanencias", permanencias);
+        retorno.put("permanencias", permanencias);       
 
-        System.out.print(retorno.toString());
-
-        return null;
+        return retorno;
     }
 
     public Map<String, Object> getCentroCursoAlunos() {
