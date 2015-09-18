@@ -10,22 +10,29 @@ import org.springframework.stereotype.Component;
 @Component
 @Transactional
 public class AlunoService {
-    
+
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-    
-    public Map<String, Object> getAtendimentosAluno(String ra){
+
+    public Map<String, Object> getAtendimentosAluno(String ra) {
         MapSqlParameterSource parans = new MapSqlParameterSource();
         parans.addValue(":ra", ra);
-        
-        String queryAtendimentoDeixarOCurso = "select data,  descricao, descricaopublica "
-            +"from atendimento att"
-            +"inner join atendimentodeixarocurso atdc on att.id = atdc.id"
-            +"inner join atendimentomotivo atm on atdc.motivo = atm.id"
-            +"where att.ra = '13002702'"
-            +"order by data desc";
-        
-        
+
+        String queryAtendimentoDeixarOCurso = "select "
+                + "att.data, att.descricaopublica as descricao, atm.descricao as motivo,"
+                + "case"
+                + "when ate.id is not null then 'Atendimento Especial'"
+                + "when atdc.id is not null then 'Atendimento Deixar o Curso'"
+                + "when atp.id is not null then 'Atendimento Preventivo'"
+                + "end"
+                + "from atendimento att"
+                + "left join atendimentodeixarocurso atdc on att.id = atdc.id"
+                + "inner join atendimentomotivo atm on atm.id = att.motivo"
+                + "left join atendimentopreventivo atp on att.id = atp.id"
+                + "left join atendimentoespecial ate on att.id = ate.id"
+                + "where att.ra = ':ra'"
+                + "order by data desc";
+
         return null;
     }
 }
