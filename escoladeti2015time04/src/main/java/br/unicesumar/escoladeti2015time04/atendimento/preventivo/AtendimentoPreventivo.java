@@ -10,8 +10,6 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,12 +20,6 @@ public class AtendimentoPreventivo extends Atendimento implements Serializable {
     @ColunaLocalizavel
     @Column(name = "numeroreprovacoes", nullable = false)
     private int numeroReprovacoes;
-
-    @ManyToOne
-    @ColunaListavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
-    @ColunaLocalizavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
-    @JoinColumn(name = "motivo", nullable = false)
-    private AtendimentoMotivo motivo;
 
     @ColunaListavel
     @ColunaLocalizavel
@@ -42,17 +34,15 @@ public class AtendimentoPreventivo extends Atendimento implements Serializable {
     public AtendimentoPreventivo() {
     }
 
-    public AtendimentoPreventivo(int numeroReprovacoes, AtendimentoMotivo motivo, String meioContato, String encaminhamento) {
+    public AtendimentoPreventivo(int numeroReprovacoes, String meioContato, String encaminhamento) {
         this.numeroReprovacoes = numeroReprovacoes;
-        this.motivo = motivo;
         this.meioContato = meioContato;
         this.encaminhamento = encaminhamento;
     }
 
     public AtendimentoPreventivo(int numeroReprovacoes, AtendimentoMotivo motivo, String meioContato, String encaminhamento, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
-        super(data, usuarioLogado, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
+        super(data, usuarioLogado, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, motivo, descricaoPublica, descricaoPrivada);
         this.numeroReprovacoes = numeroReprovacoes;
-        this.motivo = motivo;
         this.meioContato = meioContato;
         this.encaminhamento = encaminhamento;
     }
@@ -63,14 +53,6 @@ public class AtendimentoPreventivo extends Atendimento implements Serializable {
 
     public void setNumeroReprovacoes(int numeroReprovacoes) {
         this.numeroReprovacoes = numeroReprovacoes;
-    }
-
-    public AtendimentoMotivo getMotivo() {
-        return motivo;
-    }
-
-    public void setMotivo(AtendimentoMotivo motivo) {
-        this.motivo = motivo;
     }
 
     public String getMeioContato() {
@@ -113,7 +95,7 @@ public class AtendimentoPreventivo extends Atendimento implements Serializable {
 
     @Override
     public String toString() {
-        return "AtendimentoPreventivo{" + "numeroReprovacoes=" + numeroReprovacoes + ", motivo=" + motivo + ", meioContato=" + meioContato + ", encaminhamento=" + encaminhamento + '}';
+        return "AtendimentoPreventivo{" + "numeroReprovacoes=" + numeroReprovacoes + ", meioContato=" + meioContato + ", encaminhamento=" + encaminhamento + '}';
     }
 
 }
