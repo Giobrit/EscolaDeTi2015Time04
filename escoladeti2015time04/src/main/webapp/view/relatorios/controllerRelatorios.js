@@ -929,14 +929,17 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
     }
 
     $scope.gerarRelatorio = function () {
-        //Os graficos estão confusos!!!
-        console.log($scope.centroSelecionado.descricao);
+        var colunas = [];
+        //Os graficos estão confusos!!!        
         switch ($scope.tipoSelecionado.id) {
             case 1 ://Relatório geral
             {
                 $http.get("/relatorio/porcentro/relatorioCentroCursoAtendimentos/" + $scope.centroSelecionado.descricao).success(onSuccess).error(onError);
-                function onSuccess() {
-                    $scope.graficoRelatorioGeral(); //Grafico em colunas
+                function onSuccess(data) {
+                    console.log(data);
+                    colunas = ["Biomedicina", "Ciências Biológicas", "Educação Física", "Enfermagem", "Farmácia", "Fisioterapia", "Fonoaudiologia", "Medicina", "Nutrição", "Odontologia", "Psicologia", "Veterinária"];
+                    $scope.relatorioGeral = data;
+                    $scope.graficoRelatorioGeral($scope.relatorioGeral, colunas); //Grafico em colunas
                 }
                 break;
             }
@@ -960,124 +963,34 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
         document.getElementById('grafico3').innerHTML = "";
     }
 
-    function criarTabela(tipo) {
+    function criarTabela(tipo, relatorio, colunas) {
         var html = "";
         switch (tipo) {
             case "relatorioGeral":
                 {
-                    html += '<table class="table table-hover table-bordered">' +
+                    var htmlTCab = '<table class="table table-hover table-bordered">' +
                             '   <thead>' +
                             '       <th>Cursos</th>' +
                             '       <th>Atendimentos</th>' +
                             '       <th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>' +
                             '       <th colspan="2">Permanências</th>' +
                             '   </thead>' +
-                            '   <tbody>' +
-                            '       <tr>' +
-                            '           <td>Biomedicina</td>' +
-                            '           <td>382</td>' +
-                            '           <td>341</td>' +
-                            '           <td>89,2%</td>' +
-                            '           <td>41</td>' +
-                            '           <td>10,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Ciências Biológicas</td>' +
-                            '           <td>418</td>' +
-                            '           <td>361</td>' +
-                            '           <td>86,2%</td>' +
-                            '           <td>57</td>' +
-                            '           <td>13,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Educação Física</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Enfermagem</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Estética e Cosmética</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Farmácia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Fisioterapia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Fonoaudiologia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Medicina</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Nutrição</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Odontologia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Psicologia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Veterinária</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '   </tbody>' +
+                            '   <tbody>';
+
+                    var htmlTCorpo = '';
+                    for (var contador = 0; contador < colunas.length; contador++) {
+                        htmlTCorpo += retornaValorDaColuna(relatorio, colunas[contador]);
+//                        htmlTCorpo += '       <tr>' +
+//                                '           <td>Biomedicina</td>' +
+//                                '           <td>382</td>' +
+//                                '           <td>341</td>' +
+//                                '           <td>89,2%</td>' +
+//                                '           <td>41</td>' +
+//                                '           <td>10,73%</td>' +
+//                                '       </tr>';
+                    }
+
+                    var htmlTFinal = '   </tbody>' +
                             '   <tfoot>' +
                             '       <tr>' +
                             '           <td><b>TOTAL</b></td>' +
@@ -1090,6 +1003,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '   </tfoot>' +
                             '</table>';
                 }
+                document.getElementById('tabela').innerHTML = htmlTCorpo + htmlTCorpo + htmlTFinal;
                 break;
             case "relatorioPermanencia" :
             {
@@ -1235,12 +1149,31 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             }
         }
 
-        document.getElementById('tabela').innerHTML = html;
+//        document.getElementById('tabela').innerHTML = html;
+
+        function retornaValorDaColuna(relatorio, coluna) {
+            var tag = "";
+            for (var cont = 0; cont < relatorio.atendimentos.length; cont++) {
+                if (relatorio.atendimentos[cont].curso === coluna) {
+                    tag = '       <tr>' +
+                            '           <td>' + coluna + '</td>' +
+                            '           <td>' + relatorio.atendimentos[cont].atendimentos + '</td>' +
+                            '           <td>' + relatorio.trancamentosCancelamentosTransferencias + '</td>' +
+                            '           <td>' + ((relatorio.trancamentosCancelamentosTransferencias * 100) / relatorio.atendimentos) + '%</td>' +
+                            '           <td>' + relatorio.permanencias + '</td>' +
+                            '           <td>' + ((relatorio.permanencias * 100) / relatorio.atendimentos) + '%</td>' +
+                            '       </tr>';
+                }
+            }
+
+            return tag;
+        }
     }
 
-    $scope.graficoRelatorioGeral = function () {
+    $scope.graficoRelatorioGeral = function (relatorioGeral, colunas) {
         limpaGraficos();
-        criarTabela("relatorioGeral");
+
+        criarTabela("relatorioGeral", relatorioGeral, colunas);
 
         $(function () {
             $('#grafico1').highcharts({
