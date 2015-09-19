@@ -1,5 +1,8 @@
 package br.unicesumar.escoladeti2015time04.aluno;
 
+import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,7 @@ public class AlunoService {
         MapSqlParameterSource parans = new MapSqlParameterSource();
         parans.addValue(":ra", ra);
 
-        String queryAtendimentoDeixarOCurso = "select "
+        String queryAtendimentos = "select "
                 + "att.data, att.descricaopublica as descricao, atm.descricao as motivo,"
                 + "case"
                 + "when ate.id is not null then 'Atendimento Especial'"
@@ -32,6 +35,13 @@ public class AlunoService {
                 + "left join atendimentoespecial ate on att.id = ate.id"
                 + "where att.ra = ':ra'"
                 + "order by data desc";
+
+        Map<String, Object> retorno = new HashMap<String, Object>();
+
+        List<Map<String, Object>> atendimentos = jdbcTemplate.query(queryAtendimentos, new MapRowMapper());
+        retorno.put("atendimentos", atendimentos);
+
+        System.out.print(retorno.toString());
 
         return null;
     }
