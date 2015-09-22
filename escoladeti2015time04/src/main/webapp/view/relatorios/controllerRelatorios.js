@@ -935,7 +935,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             {
                 $http.get("/relatorio/porcentro/relatorioCentroCursoAtendimentos/" + $scope.centroSelecionado.descricao).success(onSuccess).error(onError);
                 function onSuccess(data) {
-                    console.log(data);                    
+                    console.log(data);
                     $scope.relatorioGeral = data;
                     $scope.graficoRelatorioGeral($scope.relatorioGeral); //Grafico em colunas
                 }
@@ -962,139 +962,245 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
     }
 
     function criarTabela(tipo, relatorio) {
+        var disciplinas = [];
+        armazenarValores(relatorio);
+        console.log(disciplinas[1].curso);
         var html = "";
         switch (tipo) {
             case "relatorioGeral":
-                {
-                    var htmlTCab = '<table class="table table-hover table-bordered">' +
-                            '   <thead>' +
-                            '       <th>Cursos</th>' +
-                            '       <th>Atendimentos</th>' +
-                            '       <th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>' +
-                            '       <th colspan="2">Permanências</th>' +
-                            '   </thead>' +
-                            '   <tbody>';
-
-                    var htmlTCorpo = '       <tr>' +
-                            '           <td>Biomedicina</td>' +
-                            '           <td>382</td>' +
-                            '           <td>341</td>' +
-                            '           <td>89,2%</td>' +
-                            '           <td>41</td>' +
-                            '           <td>10,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Ciências Biológicas</td>' +
-                            '           <td>418</td>' +
-                            '           <td>361</td>' +
-                            '           <td>86,2%</td>' +
-                            '           <td>57</td>' +
-                            '           <td>13,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Educação Física</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Enfermagem</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Estética e Cosmética</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Farmácia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Fisioterapia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Fonoaudiologia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Medicina</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Nutrição</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Odontologia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Psicologia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>' +
-                            '       <tr>' +
-                            '           <td>Veterinária</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
-                            '       </tr>';
-
-                    var htmlTFinal = '   </tbody>' +
-                            '   <tfoot>' +
-                            '       <tr>' +
-                            '           <td><b>TOTAL</b></td>' +
-                            '           <td><b>1164</b></td>' +
-                            '           <td><b>1007</b></td>' +
-                            '           <td><b>86,51%</b></td>' +
-                            '           <td><b>157</b></td>' +
-                            '           <td><b>13,49%</b></td>' +
-                            '       </tr>' +
-                            '   </tfoot>' +
-                            '</table>';
+            {
+                switch ($scope.centroSelecionado.descricao) {
+                    case "CBS":
+                    {
+                        criarHTMLTabela("CBS");
+                        break;
+                    }
+                    case "CETA":
+                    {
+                        criarHTMLTabela("CETA");
+                        break;
+                    }
+                    case "CHSA":
+                    {
+                        criarHTMLTabela("CHSA");
+                        break;
+                    }
                 }
-                document.getElementById('tabela').innerHTML = htmlTCab + htmlTCorpo + htmlTFinal;
-                break;
+
+                $(function () {
+                    $('#grafico1').highcharts({
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            type: 'category',
+                            labels: {
+                                rotation: -65,
+                                style: {
+                                    fontSize: '13px',
+                                    fontFamily: 'Verdana, sans-serif'
+                                }
+                            }},
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Atendimentos'
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.y}</b>'
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                                name: "Atendimentos",
+                                data: [
+                                    ['Biomedicina', 382],
+                                    ['Ciências Biológicas', 418],
+                                    ['Educação Física', 364],
+                                    ['Enfermagem', 364],
+                                    ['Estética e Cosmética', 364],
+                                    ['Farmácia', 364],
+                                    ['Fisioterapia', 364],
+                                    ['Fonoaudiologia', 364],
+                                    ['Medicina', 364],
+                                    ['Nutrição', 364],
+                                    ['Odontologia', 364],
+                                    ['Psicologia', 364],
+                                    ['Veterinária', 364]
+                                ]
+                            }],
+                        dataLabels: {
+                            enabled: true,
+                            rotation: -90,
+                            color: '#FFFFFF',
+                            align: 'right',
+                            format: '{point.y:.1f}', // one decimal
+                            y: 10, // 10 pixels down from the top
+                            style: {
+                                fontSize: '13px',
+                                fontFamily: 'Verdana, sans-serif'
+                            }
+                        }
+                    });
+
+                });
+                $(function () {
+
+                    $(document).ready(function () {
+
+                        // Build the chart
+                        $('#grafico2').highcharts({
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: ''
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: false
+                                    },
+                                    showInLegend: true
+                                }
+                            },
+                            series: [{
+                                    name: "Brands",
+                                    colorByPoint: true,
+                                    data: [{
+                                            name: "Biomedicina",
+                                            y: 341
+                                        }, {
+                                            name: "Ciências Biológicas",
+                                            y: 361
+                                        }, {
+                                            name: "Educação Física",
+                                            y: 305
+                                        }, {
+                                            name: "Enfermagem",
+                                            y: 305
+                                        }, {
+                                            name: "Estética e cosmética",
+                                            y: 305
+                                        }, {
+                                            name: "Farmácia",
+                                            y: 305
+                                        }, {
+                                            name: "Fisioterapia",
+                                            y: 305
+                                        }, {
+                                            name: "Fonoaudioterapia",
+                                            y: 305
+                                        }, {
+                                            name: "Medicina",
+                                            y: 305
+                                        }, {
+                                            name: "Psicologia",
+                                            y: 305
+                                        }, {
+                                            name: "Veterinaria",
+                                            y: 305
+                                        }]
+                                }]
+                        });
+                    });
+                });
+                $(function () {
+
+                    $(document).ready(function () {
+
+                        // Build the chart
+                        $('#grafico3').highcharts({
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: ''
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: false
+                                    },
+                                    showInLegend: true
+                                }
+                            },
+                            series: [{
+                                    name: "Brands",
+                                    colorByPoint: true,
+                                    data: [{
+                                            name: "Biomedicina",
+                                            y: 341
+                                        }, {
+                                            name: "Ciências Biológicas",
+                                            y: 361
+                                        }, {
+                                            name: "Educação Física",
+                                            y: 305
+                                        }, {
+                                            name: "Enfermagem",
+                                            y: 305
+                                        }, {
+                                            name: "Estética e cosmética",
+                                            y: 305
+                                        }, {
+                                            name: "Farmácia",
+                                            y: 305
+                                        }, {
+                                            name: "Fisioterapia",
+                                            y: 305
+                                        }, {
+                                            name: "Fonoaudioterapia",
+                                            y: 305
+                                        }, {
+                                            name: "Medicina",
+                                            y: 305
+                                        }, {
+                                            name: "Psicologia",
+                                            y: 305
+                                        }, {
+                                            name: "Veterinaria",
+                                            y: 305
+                                        }]
+                                }]
+                        });
+                    });
+                });
+
+            }
             case "relatorioPermanencia" :
             {
                 {
@@ -1238,7 +1344,423 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                 break;
             }
         }
+
+        function criarHTMLTabela(centro) {
+            var htmlTCab = '<table class="table table-hover table-bordered">' +
+                    '   <thead>' +
+                    '       <th>Cursos</th>' +
+                    '       <th>Atendimentos</th>' +
+                    '       <th colspan="2">Trancamentos/<br>Cancelamentos/<br>Transferencias</th>' +
+                    '       <th colspan="2">Permanências</th>' +
+                    '   </thead>' +
+                    '   <tbody>';
+
+            var htmlTCorpo = "";
+            switch (centro) {
+                case "CBS":
+                {
+                    htmlTCorpo = '       <tr>' +
+                            '           <td>Biomedicina</td>' +
+                            '           <td>382</td>' +
+                            '           <td>341</td>' +
+                            '           <td>89,2%</td>' +
+                            '           <td>41</td>' +
+                            '           <td>10,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Ciências Biológicas</td>' +
+                            '           <td>418</td>' +
+                            '           <td>361</td>' +
+                            '           <td>86,2%</td>' +
+                            '           <td>57</td>' +
+                            '           <td>13,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Educação Física</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Enfermagem</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Estética e Cosmética</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Farmácia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Fisioterapia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Fonoaudiologia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Medicina</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Nutrição</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Odontologia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Psicologia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Veterinária</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>';
+                    break;
+                }
+                case "CETA":
+                {
+                    htmlTCorpo = '       <tr>' +
+                            '           <td>Agronegócio</td>' +
+                            '           <td>382</td>' +
+                            '           <td>341</td>' +
+                            '           <td>89,2%</td>' +
+                            '           <td>41</td>' +
+                            '           <td>10,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Agronomia</td>' +
+                            '           <td>418</td>' +
+                            '           <td>361</td>' +
+                            '           <td>86,2%</td>' +
+                            '           <td>57</td>' +
+                            '           <td>13,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Anál. Des.de Sistemas</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Arquitetura e Urbanismo</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Automação Industrial</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Design de Interiores</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Eng.Amb.e Sanitária</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Engenharia Civil</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Eng.Controle e Autom.</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Engenharia de Produção</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Engenharia de Software</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Engenharia Elétrica</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Manutenção de Aeronaves</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Redes de Computadores</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Sistemas de Informação</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Sistemas para Internet</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>';
+                    break;
+                }
+                case "CHSA":
+                {
+                    htmlTCorpo = '       <tr>' +
+                            '           <td>Administração</td>' +
+                            '           <td>382</td>' +
+                            '           <td>341</td>' +
+                            '           <td>89,2%</td>' +
+                            '           <td>41</td>' +
+                            '           <td>10,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Artes Visuais</td>' +
+                            '           <td>418</td>' +
+                            '           <td>361</td>' +
+                            '           <td>86,2%</td>' +
+                            '           <td>57</td>' +
+                            '           <td>13,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Ciências Contábeis</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Comercio Exterior</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Direito</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Gastronomia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Gestão Comercial</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Gestão de Recursos Humanos</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Jornalismo</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Logística</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Moda</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Música</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Pedagogia</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Pilotagem Prof. de aeronaves</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Publicidade e Propaganda</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Serviço Social</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>' +
+                            '       <tr>' +
+                            '           <td>Publicidade e Propaganda</td>' +
+                            '           <td>364</td>' +
+                            '           <td>305</td>' +
+                            '           <td>83,2%</td>' +
+                            '           <td>59</td>' +
+                            '           <td>16,73%</td>' +
+                            '       </tr>';
+                    break;
+                }
+            }
+
+            var htmlTFinal = '   </tbody>' +
+                    '   <tfoot>' +
+                    '       <tr>' +
+                    '           <td><b>TOTAL</b></td>' +
+                    '           <td><b>1164</b></td>' +
+                    '           <td><b>1007</b></td>' +
+                    '           <td><b>86,51%</b></td>' +
+                    '           <td><b>157</b></td>' +
+                    '           <td><b>13,49%</b></td>' +
+                    '       </tr>' +
+                    '   </tfoot>' +
+                    '</table>';
+            document.getElementById('tabela').innerHTML = htmlTCab + htmlTCorpo + htmlTFinal;
+        }
         
+        function armazenarValores(relatorio) {
+            console.log(relatorio);
+            
+            for (var i = 0; i < relatorio.atendimentos.length; i++) {
+                disciplinas[i] = {'curso' : relatorio.atendimentos[i].curso ,'atendimentos' : relatorio.atendimentos[i].atendimentos};
+            }
+        }
     }
 
     $scope.graficoRelatorioGeral = function (relatorioGeral) {
@@ -1246,218 +1768,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
 
         criarTabela("relatorioGeral", relatorioGeral);
 
-        $(function () {
-            $('#grafico1').highcharts({
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'column'
-                },
-                title: {
-                    text: ''
-                },
-                legend: {
-                    enabled: false
-                },
-                xAxis: {
-                    type: 'category',
-                    labels: {
-                        rotation: -65,
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }},
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Atendimentos'
-                    }
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y}</b>'
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                        name: "Atendimentos",
-                        data: [
-                            ['Biomedicina', 382],
-                            ['Ciências Biológicas', 418],
-                            ['Educação Física', 364],
-                            ['Enfermagem', 364],
-                            ['Estética e Cosmética', 364],
-                            ['Farmácia', 364],
-                            ['Fisioterapia', 364],
-                            ['Fonoaudiologia', 364],
-                            ['Medicina', 364],
-                            ['Nutrição', 364],
-                            ['Odontologia', 364],
-                            ['Psicologia', 364],
-                            ['Veterinária', 364]
-                        ]
-                    }],
-                dataLabels: {
-                    enabled: true,
-                    rotation: -90,
-                    color: '#FFFFFF',
-                    align: 'right',
-                    format: '{point.y:.1f}', // one decimal
-                    y: 10, // 10 pixels down from the top
-                    style: {
-                        fontSize: '13px',
-                        fontFamily: 'Verdana, sans-serif'
-                    }
-                }
-            });
 
-        });
-        $(function () {
-
-            $(document).ready(function () {
-
-                // Build the chart
-                $('#grafico2').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: ''
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                            name: "Brands",
-                            colorByPoint: true,
-                            data: [{
-                                    name: "Biomedicina",
-                                    y: 341
-                                }, {
-                                    name: "Ciências Biológicas",
-                                    y: 361
-                                }, {
-                                    name: "Educação Física",
-                                    y: 305
-                                }, {
-                                    name: "Enfermagem",
-                                    y: 305
-                                }, {
-                                    name: "Estética e cosmética",
-                                    y: 305
-                                }, {
-                                    name: "Farmácia",
-                                    y: 305
-                                }, {
-                                    name: "Fisioterapia",
-                                    y: 305
-                                }, {
-                                    name: "Fonoaudioterapia",
-                                    y: 305
-                                }, {
-                                    name: "Medicina",
-                                    y: 305
-                                }, {
-                                    name: "Psicologia",
-                                    y: 305
-                                }, {
-                                    name: "Veterinaria",
-                                    y: 305
-                                }]
-                        }]
-                });
-            });
-        });
-        $(function () {
-
-            $(document).ready(function () {
-
-                // Build the chart
-                $('#grafico3').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: ''
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                            name: "Brands",
-                            colorByPoint: true,
-                            data: [{
-                                    name: "Biomedicina",
-                                    y: 341
-                                }, {
-                                    name: "Ciências Biológicas",
-                                    y: 361
-                                }, {
-                                    name: "Educação Física",
-                                    y: 305
-                                }, {
-                                    name: "Enfermagem",
-                                    y: 305
-                                }, {
-                                    name: "Estética e cosmética",
-                                    y: 305
-                                }, {
-                                    name: "Farmácia",
-                                    y: 305
-                                }, {
-                                    name: "Fisioterapia",
-                                    y: 305
-                                }, {
-                                    name: "Fonoaudioterapia",
-                                    y: 305
-                                }, {
-                                    name: "Medicina",
-                                    y: 305
-                                }, {
-                                    name: "Psicologia",
-                                    y: 305
-                                }, {
-                                    name: "Veterinaria",
-                                    y: 305
-                                }]
-                        }]
-                });
-            });
-        });
     };
 
     $scope.permanencia = function () {
