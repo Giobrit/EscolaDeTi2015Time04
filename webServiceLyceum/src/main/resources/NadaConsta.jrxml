@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NadaConsta" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4556d9cc-32c1-48dc-a11c-6fe4f7a4eb10">
 	<property name="ireport.zoom" value="1.5394743546921208"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="620"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -139,10 +139,10 @@ WHERE aluno.ra = $P{ra}]]>
 	</subDataset>
 	<subDataset name="Table Dataset 1" uuid="79864a47-2079-4bc6-b60b-4673511709fd"/>
 	<parameter name="ra" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["13097572"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="centro" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["Cesumar"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
@@ -170,7 +170,7 @@ FROM
      curso INNER JOIN aluno ON curso.id = aluno.idcurso
      INNER JOIN pendencia_aluno ON aluno.id = pendencia_aluno.aluno_id
      INNER JOIN turma ON aluno.idturma = turma.id
-     WHERE aluno.ra = $P{ra}]]>
+     WHERE aluno.ra = $P{ra} and curso.und = $P{centro}]]>
 	</queryString>
 	<field name="unidade" class="java.lang.String"/>
 	<field name="ra" class="java.lang.String"/>

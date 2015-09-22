@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<style name="Rel Zebrado" isDefault="true" mode="Opaque">
 		<conditionalStyle>
-			<conditionExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) != 0) ]]></conditionExpression>
+			<conditionExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) != 0)]]></conditionExpression>
 			<style backcolor="#E2E2E2"/>
 		</conditionalStyle>
 	</style>

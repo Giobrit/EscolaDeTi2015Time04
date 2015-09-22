@@ -69,10 +69,25 @@ WHERE
 		<field name="situacao_aluno" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/rodrigo/Área de Trabalho/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/home/rodrigo/repositorio/tcc/escoladeti2015time04/webServiceLyceum/src/main/java/br/unicesumar/webservicelyceum/aluno/relatorios/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="ra" class="java.lang.String">
 		<defaultValueExpression><![CDATA[13097572]]></defaultValueExpression>
+	</parameter>
+	<parameter name="serie" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
+	</parameter>
+	<parameter name="unidade" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Cesumar"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="curso" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Análise e Desenvolvimento de Sistemas"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="departamento" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Exatas"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="turma" class="java.lang.String">
+		<defaultValueExpression><![CDATA["ADSIS"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
@@ -268,9 +283,10 @@ WHERE
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="106" splitType="Stretch">
+		<band height="108" splitType="Stretch">
 			<subreport>
-				<reportElement x="2" y="0" width="747" height="100" uuid="9d2a2c30-9b67-4d8c-8760-0bf94f59335f"/>
+				<reportElement x="4" y="0" width="747" height="100" uuid="8d8d8fef-698c-4a86-9394-0370e522d750"/>
+				<subreportParameter name="ra"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "MediasFaltasDeAlunos_detail_disciplinas.jasper"]]></subreportExpression>
 			</subreport>
