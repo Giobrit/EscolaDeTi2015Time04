@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
-  
+    <changeSet author="Roney" id="1442531975012-0">
+        <dropColumn columnName="motivo" tableName="atendimentodeixarocurso"/>
+    </changeSet>
+    <changeSet author="Roney" id="1442531975012-1">
+        <dropColumn columnName="motivo" tableName="atendimentopreventivo"/>
+    </changeSet>
+    <changeSet author="Roney" id="1442531975012-2">
+        <dropColumn columnName="motivo" tableName="atendimentoespecial"/>
+    </changeSet>
+    <changeSet author="Roney" id="1442531975012-3">
+        <addColumn  tableName="atendimento">
+            <column name="motivo" type="BIGINT"></column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Roney" id="1442531975012-4">
+        <addForeignKeyConstraint baseColumnNames="motivo" baseTableName="atendimento" constraintName="fk_idMotivoDoAtendimento" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="atendimentomotivo"/>
+    </changeSet>
 </databaseChangeLog>

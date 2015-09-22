@@ -50,6 +50,9 @@
         adicionarRota($routeProvider, '/AtendimentoEspecial/form', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
         adicionarRota($routeProvider, '/AtendimentoEspecial/form/:id', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
         adicionarRota($routeProvider, '/AtendimentoEspecial/list', 'view/atendimentoEspecial/ListAtendimentoEspecial.html', 'controllerListAtendimentoEspecial');
+        //Rotas Relatorio Academico
+        adicionarRota($routeProvider, '/RelatorioAcademico/form', 'view/relatorioAcademico/relatorioAcademico.html', 'controllerRelatorioAcademico');
+        adicionarRota($routeProvider, '/RelatorioAcademico/form/:id', 'view/relatorioAcademico/relatorioAcademico.html', 'controllerRelatorioAcademico');
         //Rotas Relatorios
         adicionarRota($routeProvider, '/Relatorios/resumido', 'view/relatorios/relatorioResumido.html', 'controllerRelatorioResumido');
         adicionarRota($routeProvider, '/Relatorios/porCentro', 'view/relatorios/relatorioPorCentro.html', 'controllerRelatorioPorCentro');

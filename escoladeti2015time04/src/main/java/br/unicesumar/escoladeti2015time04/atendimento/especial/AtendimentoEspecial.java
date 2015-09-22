@@ -10,8 +10,6 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -32,18 +30,11 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
     @ColunaListavel(campoNaQuery = "CASE laudomedico WHEN true THEN 'Sim' ELSE 'Não' END", aliasNaQuery = "laudomedico")
     private boolean laudoMedico;
 
-    @ManyToOne
-    @JoinColumn(name = "motivo", nullable = false)
-    @ColunaListavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
-    @ColunaLocalizavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
-    private AtendimentoMotivo motivo;
-    
-
     @ColunaListavel
     @ColunaLocalizavel
     @Column(name = "encaminhadopara")
     private String encaminhadoPara;
-    
+
     @ColunaListavel
     @ColunaLocalizavel
     @Column(name = "solicitacao")
@@ -52,21 +43,19 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
     public AtendimentoEspecial() {
     }
 
-    public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, AtendimentoMotivo motivo, String encaminhadoPara, String solicitacao) {
+    public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, String encaminhadoPara, String solicitacao) {
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
         this.laudoMedico = laudoMedico;
-        this.motivo = motivo;
         this.encaminhadoPara = encaminhadoPara;
         this.solicitacao = solicitacao;
     }
 
     public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, AtendimentoMotivo motivo, String encaminhadoPara, String solicitacao, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
-        super(data, usuarioLogado, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
+        super(data, usuarioLogado, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, motivo, descricaoPublica, descricaoPrivada);
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
         this.laudoMedico = laudoMedico;
-        this.motivo = motivo;
         this.encaminhadoPara = encaminhadoPara;
         this.solicitacao = solicitacao;
     }
@@ -95,14 +84,6 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
         this.laudoMedico = laudoMedico;
     }
 
-    public AtendimentoMotivo getMotivo() {
-        return motivo;
-    }
-
-    public void setMotivo(AtendimentoMotivo motivo) {
-        this.motivo = motivo;
-    }
-
     public String getEncaminhadoPara() {
         return encaminhadoPara;
     }
@@ -118,7 +99,7 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
     public void setSolicitacao(String solicitacao) {
         this.solicitacao = solicitacao;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -143,6 +124,7 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
 
     @Override
     public String toString() {
-        return "AtendimentoEspecial{" + "protocolo=" + protocolo + ", coordenadorDiretor=" + coordenadorDiretor + ", laudoMedico=" + laudoMedico + /*", motivo=" + motivo + */", encaminhadoPara=" + encaminhadoPara + ", solicitacao=" + solicitacao + '}';
+        return "AtendimentoEspecial{" + "protocolo=" + protocolo + ", coordenadorDiretor=" + coordenadorDiretor + ", laudoMedico=" + laudoMedico + ", encaminhadoPara=" + encaminhadoPara + ", solicitacao=" + solicitacao + '}';
     }
+
 }
