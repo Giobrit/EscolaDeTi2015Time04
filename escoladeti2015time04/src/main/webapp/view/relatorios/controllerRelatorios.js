@@ -962,9 +962,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
     }
 
     function criarTabela(tipo, relatorio) {
-        var disciplinas = [];
-        armazenarValores(relatorio);
-        console.log(disciplinas[1].curso);
+
         var html = "";
         switch (tipo) {
             case "relatorioGeral":
@@ -1203,144 +1201,144 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             }
             case "relatorioPermanencia" :
             {
-                {
-                    html += '<table class="table table-hover table-bordered">' +
-                            '<thead> ' +
-                            '</thead>' +
-                            '<tbody>' +
-                            '    <tr>' +
-                            '        <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>' +
-                            '        <td><b>Justificativa apresentadas na solicitação</b></td>' +
-                            '        <td><b>Quantidade</b></td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
-                            '        <td style="text-align: center">7</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
-                            '        <td style="text-align: center">14</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>DOENÇA (pessoal ou familiar)</td>' +
-                            '        <td style="text-align: center">25</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
-                            '        <td style="text-align: center">286</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
-                            '        <td style="text-align: center">1</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
-                            '        <td style="text-align: center">7</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
-                            '        <td style="text-align: center">127</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
-                            '        <td style="text-align: center">76</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
-                            '        <td style="text-align: center">11</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
-                            '        <td style="text-align: center">177</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
-                            '        <td style="text-align: center">64</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
-                            '        <td style="text-align: center">213</td>' +
-                            '    </tr>' +
-                            '</tbody>' +
-                            '<tfoot>' +
-                            '    <tr>' +
-                            '        <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
-                            '        <td style="text-align: center"><b>1007</b></td>' +
-                            '    </tr>' +
-                            '</tfoot>' +
-                            '</table>';
-                }
+
+                html += '<table class="table table-hover table-bordered">' +
+                        '<thead> ' +
+                        '</thead>' +
+                        '<tbody>' +
+                        '    <tr>' +
+                        '        <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>' +
+                        '        <td><b>Justificativa apresentadas na solicitação</b></td>' +
+                        '        <td><b>Quantidade</b></td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
+                        '        <td style="text-align: center">7</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
+                        '        <td style="text-align: center">14</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>DOENÇA (pessoal ou familiar)</td>' +
+                        '        <td style="text-align: center">25</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
+                        '        <td style="text-align: center">286</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
+                        '        <td style="text-align: center">1</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
+                        '        <td style="text-align: center">7</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
+                        '        <td style="text-align: center">127</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
+                        '        <td style="text-align: center">76</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
+                        '        <td style="text-align: center">11</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
+                        '        <td style="text-align: center">177</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
+                        '        <td style="text-align: center">64</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
+                        '        <td style="text-align: center">213</td>' +
+                        '    </tr>' +
+                        '</tbody>' +
+                        '<tfoot>' +
+                        '    <tr>' +
+                        '        <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
+                        '        <td style="text-align: center"><b>1007</b></td>' +
+                        '    </tr>' +
+                        '</tfoot>' +
+                        '</table>';
+                document.getElementById('tabela').innerHTML = html;
                 break;
             }
             case  "relatorioMotivo" :
             {
-                {
-                    html += '<table class="table table-hover table-bordered">' +
-                            '<thead> ' +
-                            '</thead>' +
-                            '<tbody>' +
-                            '    <tr>' +
-                            '        <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>' +
-                            '        <td><b>Justificativa apresentadas na solicitação</b></td>' +
-                            '        <td><b>Quantidade</b></td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
-                            '        <td style="text-align: center">7</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
-                            '        <td style="text-align: center">14</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>DOENÇA (pessoal ou familiar)</td>' +
-                            '        <td style="text-align: center">25</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
-                            '        <td style="text-align: center">286</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
-                            '        <td style="text-align: center">1</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
-                            '        <td style="text-align: center">7</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
-                            '        <td style="text-align: center">127</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
-                            '        <td style="text-align: center">76</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
-                            '        <td style="text-align: center">11</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
-                            '        <td style="text-align: center">177</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
-                            '        <td style="text-align: center">64</td>' +
-                            '    </tr>' +
-                            '    <tr>' +
-                            '        <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
-                            '        <td style="text-align: center">213</td>' +
-                            '    </tr>' +
-                            '</tbody>' +
-                            '<tfoot>' +
-                            '    <tr>' +
-                            '        <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
-                            '        <td style="text-align: center"><b>1007</b></td>' +
-                            '    </tr>' +
-                            '</tfoot>' +
-                            '</table>';
-                }
+
+                html += '<table class="table table-hover table-bordered">' +
+                        '<thead> ' +
+                        '</thead>' +
+                        '<tbody>' +
+                        '    <tr>' +
+                        '        <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>' +
+                        '        <td><b>Justificativa apresentadas na solicitação</b></td>' +
+                        '        <td><b>Quantidade</b></td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
+                        '        <td style="text-align: center">7</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
+                        '        <td style="text-align: center">14</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>DOENÇA (pessoal ou familiar)</td>' +
+                        '        <td style="text-align: center">25</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
+                        '        <td style="text-align: center">286</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
+                        '        <td style="text-align: center">1</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
+                        '        <td style="text-align: center">7</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
+                        '        <td style="text-align: center">127</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
+                        '        <td style="text-align: center">76</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
+                        '        <td style="text-align: center">11</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
+                        '        <td style="text-align: center">177</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
+                        '        <td style="text-align: center">64</td>' +
+                        '    </tr>' +
+                        '    <tr>' +
+                        '        <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
+                        '        <td style="text-align: center">213</td>' +
+                        '    </tr>' +
+                        '</tbody>' +
+                        '<tfoot>' +
+                        '    <tr>' +
+                        '        <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
+                        '        <td style="text-align: center"><b>1007</b></td>' +
+                        '    </tr>' +
+                        '</tfoot>' +
+                        '</table>';
+                document.getElementById('tabela').innerHTML = html;
                 break;
             }
         }
@@ -1752,14 +1750,6 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     '   </tfoot>' +
                     '</table>';
             document.getElementById('tabela').innerHTML = htmlTCab + htmlTCorpo + htmlTFinal;
-        }
-        
-        function armazenarValores(relatorio) {
-            console.log(relatorio);
-            
-            for (var i = 0; i < relatorio.atendimentos.length; i++) {
-                disciplinas[i] = {'curso' : relatorio.atendimentos[i].curso ,'atendimentos' : relatorio.atendimentos[i].atendimentos};
-            }
         }
     }
 
