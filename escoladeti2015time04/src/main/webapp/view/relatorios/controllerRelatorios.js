@@ -935,15 +935,18 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             {
                 $http.get("/relatorio/porcentro/relatorioCentroCursoAtendimentos/" + $scope.centroSelecionado.descricao).success(onSuccess).error(onError);
                 function onSuccess(data) {
-                    console.log(data);
-                    $scope.relatorioGeral = data;
-                    $scope.graficoRelatorioGeral($scope.relatorioGeral); //Grafico em colunas
+                    limpaGraficos();
+                    criarTabela("relatorioGeral", data);
                 }
                 break;
             }
             case 2 ://Relatório de permanencia
             {
-                $scope.permanencia();
+                $http.get("/relatorio/porcentro/relatorioCentroResumoMotivos/" + $scope.centroSelecionado.descricao).success(onSuccess).error(onError);
+                function onSuccess(data) {
+                    limpaGraficos();
+                    criarTabela("relatorioResumoMotivos", data);
+                }
                 break;
             }
             case 3 ://Relatório de motivos por curso
@@ -962,7 +965,6 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
     }
 
     function criarTabela(tipo, relatorio) {
-
         var html = "";
         switch (tipo) {
             case "relatorioGeral":
@@ -970,17 +972,17 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                 switch ($scope.centroSelecionado.descricao) {
                     case "CBS":
                     {
-                        criarHTMLTabela("CBS");
+                        criarHTMLTabelaRelatorioGeral("CBS", relatorio);
                         break;
                     }
                     case "CETA":
                     {
-                        criarHTMLTabela("CETA");
+                        criarHTMLTabelaRelatorioGeral("CETA", relatorio);
                         break;
                     }
                     case "CHSA":
                     {
-                        criarHTMLTabela("CHSA");
+                        criarHTMLTabelaRelatorioGeral("CHSA", relatorio);
                         break;
                     }
                 }
@@ -1198,76 +1200,11 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     });
                 });
 
+                break;
             }
-            case "relatorioPermanencia" :
+            case "relatorioResumoMotivos" :
             {
-
-                html += '<table class="table table-hover table-bordered">' +
-                        '<thead> ' +
-                        '</thead>' +
-                        '<tbody>' +
-                        '    <tr>' +
-                        '        <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>' +
-                        '        <td><b>Justificativa apresentadas na solicitação</b></td>' +
-                        '        <td><b>Quantidade</b></td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
-                        '        <td style="text-align: center">7</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
-                        '        <td style="text-align: center">14</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>DOENÇA (pessoal ou familiar)</td>' +
-                        '        <td style="text-align: center">25</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
-                        '        <td style="text-align: center">286</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
-                        '        <td style="text-align: center">1</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
-                        '        <td style="text-align: center">7</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
-                        '        <td style="text-align: center">127</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
-                        '        <td style="text-align: center">76</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
-                        '        <td style="text-align: center">11</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
-                        '        <td style="text-align: center">177</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
-                        '        <td style="text-align: center">64</td>' +
-                        '    </tr>' +
-                        '    <tr>' +
-                        '        <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
-                        '        <td style="text-align: center">213</td>' +
-                        '    </tr>' +
-                        '</tbody>' +
-                        '<tfoot>' +
-                        '    <tr>' +
-                        '        <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
-                        '        <td style="text-align: center"><b>1007</b></td>' +
-                        '    </tr>' +
-                        '</tfoot>' +
-                        '</table>';
-                document.getElementById('tabela').innerHTML = html;
+                criarHTMLTabelaRelatorioResumoMotivo(relatorio);
                 break;
             }
             case  "relatorioMotivo" :
@@ -1343,7 +1280,8 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             }
         }
 
-        function criarHTMLTabela(centro) {
+        function criarHTMLTabelaRelatorioGeral(centro, relatorio) {
+            console.log(relatorio);
             var htmlTCab = '<table class="table table-hover table-bordered">' +
                     '   <thead>' +
                     '       <th>Cursos</th>' +
@@ -1751,93 +1689,253 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     '</table>';
             document.getElementById('tabela').innerHTML = htmlTCab + htmlTCorpo + htmlTFinal;
         }
-    }
+        
+        function criarHTMLTabelaRelatorioResumoMotivo(relatorio) {
+            var qtdeAprendizagemResumoMotivo = 0;
+            var qtdeGravidezResumoMotivo = 0;
+            var qtdeNotasBaixasResumoMotivo = 0;
+            var qtdeOutrosResumoMotivo = 0;
+            var qtdeDistanciaResumoMotivo = 0;
+            var qtdeDoencaResumoMotivo = 0;
+            var qtdeFinanceiroResumoMotivo = 0;
+            var qtdeMudancaDeCidadeResumoMotivo = 0;
+            var qtdeNaoIndentificacaoComOCursoResumoMotivo = 0;
+            var qtdeTrabalhoResumoMotivo = 0;
+            var qtdeTransferenciaResumoMotivo = 0;
+            var qtdeFrequenciaResumoMotivo = 0;
 
-    $scope.graficoRelatorioGeral = function (relatorioGeral) {
-        limpaGraficos();
+            for (var contador = 0; contador < relatorio.motivos.length; contador++) {
+                switch (relatorio.motivos[contador].motivo) {
+                    case "Aprendizagem" :
+                    {
+                        qtdeAprendizagemResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Gravidez" :
+                    {
+                        qtdeGravidezResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Notas baixas" :
+                    {
+                        qtdeNotasBaixasResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Outros" :
+                    {
+                        qtdeOutrosResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Distância" :
+                    {
+                        qtdeDistanciaResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Doença" :
+                    {
+                        qtdeDoencaResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Financeiro" :
+                    {
+                        qtdeFinanceiroResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Mudança de Cidade" :
+                    {
+                        qtdeMudancaDeCidadeResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Não Identificação com o Curso" :
+                    {
+                        qtdeNaoIndentificacaoComOCursoResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Trabalho" :
+                    {
+                        qtdeTrabalhoResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Transferência para outra IES" :
+                    {
+                        qtdeTransferenciaResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                    case "Frequência baixa" :
+                    {
+                        qtdeFrequenciaResumoMotivo = relatorio.motivos[contador].atendimentos;
+                        break;
+                    }
+                }
+            }
 
-        criarTabela("relatorioGeral", relatorioGeral);
+            //CRIAR TABELA3
+            var total = qtdeAprendizagemResumoMotivo +
+                    qtdeGravidezResumoMotivo +
+                    qtdeNotasBaixasResumoMotivo +
+                    qtdeOutrosResumoMotivo +
+                    qtdeDistanciaResumoMotivo +
+                    qtdeDoencaResumoMotivo +
+                    qtdeFinanceiroResumoMotivo +
+                    qtdeMudancaDeCidadeResumoMotivo +
+                    qtdeNaoIndentificacaoComOCursoResumoMotivo +
+                    qtdeTrabalhoResumoMotivo +
+                    qtdeTransferenciaResumoMotivo +
+                    qtdeFrequenciaResumoMotivo;
 
+            html += '<table class="table table-hover table-bordered">' +
+                    '<thead> ' +
+                    '</thead>' +
+                    '<tbody>' +
+                    '    <tr>' +
+                    '        <td rowspan="13" style="padding-top: 270px;"><b>Motivo</b></td>' +
+                    '        <td><b>Justificativa apresentadas na solicitação</b></td>' +
+                    '        <td><b>Quantidade</b></td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
+                    '        <td style="text-align: center">' + qtdeAprendizagemResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
+                    '        <td style="text-align: center">' + qtdeDistanciaResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>DOENÇA (pessoal ou familiar)</td>' +
+                    '        <td style="text-align: center">' + qtdeDoencaResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
+                    '        <td style="text-align: center">' + qtdeFinanceiroResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
+                    '        <td style="text-align: center">' + qtdeFrequenciaResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
+                    '        <td style="text-align: center">' + qtdeGravidezResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
+                    '        <td style="text-align: center">' + qtdeMudancaDeCidadeResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
+                    '        <td style="text-align: center">' + qtdeNaoIndentificacaoComOCursoResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
+                    '        <td style="text-align: center">' + qtdeNotasBaixasResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
+                    '        <td style="text-align: center">' + qtdeOutrosResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
+                    '        <td style="text-align: center">' + qtdeTrabalhoResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '    <tr>' +
+                    '        <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
+                    '        <td style="text-align: center">' + qtdeTransferenciaResumoMotivo + '</td>' +
+                    '    </tr>' +
+                    '</tbody>' +
+                    '<tfoot>' +
+                    '    <tr>' +
+                    '        <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
+                    '        <td style="text-align: center"><b>' + total + '</b></td>' +
+                    '    </tr>' +
+                    '</tfoot>' +
+                    '</table>';
+            document.getElementById('tabela').innerHTML = html;
 
-    };
+            $(function () {
 
-    $scope.permanencia = function () {
-        limpaGraficos();
-        criarTabela("relatorioPermanencia");
+                $(document).ready(function () {
 
-        $(function () {
-
-            $(document).ready(function () {
-
-                // Build the chart
-                $('#grafico1').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: ''
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                            name: "Percentual",
-                            colorByPoint: true,
-                            data: [{
-                                    name: "APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)",
-                                    y: 41
-                                }, {
-                                    name: "DISTÂNCIA (distância entre Insituição de Ensino e casa)",
-                                    y: 57
-                                }, {
-                                    name: "DOENÇA (pessoal ou familiar)",
-                                    y: 59
-                                }, {
-                                    name: "FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)",
-                                    y: 59
-                                }, {
-                                    name: "FREQUÊNCIA (igual ou maior que 5 faltas)",
-                                    y: 59
-                                }, {
-                                    name: "GRAVIDEZ (afastamento dos estudos para gestação)",
-                                    y: 59
-                                }, {
-                                    name: "MUDANÇA DE CIDADE (por trabalho ou pessoal)",
-                                    y: 59
-                                }, {
-                                    name: "NÃO IDENTIFICAÇÃO COM O CURSO ",
-                                    y: 59
-                                }, {
-                                    name: "NOTAS BAIXAS (abaixo da média 6,0)",
-                                    y: 59
-                                }, {
-                                    name: "TRABALHO (dificuldade em conciliar estudos com o trabalho)",
-                                    y: 59
-                                }, {
-                                    name: "TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)",
-                                    y: 59
-                                }]
-                        }]
+                    // Build the chart
+                    $('#grafico1').highcharts({
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                showInLegend: true
+                            }
+                        },
+                        series: [{
+                                name: "Brands",
+                                colorByPoint: true,
+                                data: [{
+                                        name: "Aprendizagem",
+                                        y: qtdeAprendizagemResumoMotivo
+                                    }, {
+                                        name: "Distância",
+                                        y: qtdeDistanciaResumoMotivo
+                                    },
+                                    {
+                                        name: "Doença",
+                                        y: qtdeDoencaResumoMotivo
+                                    },
+                                    {
+                                        name: "Financeiro",
+                                        y: qtdeFinanceiroResumoMotivo
+                                    },
+                                    {
+                                        name: "Frequência",
+                                        y: qtdeFrequenciaResumoMotivo
+                                    },
+                                    {
+                                        name: "Gravidez",
+                                        y: qtdeGravidezResumoMotivo
+                                    },
+                                    {
+                                        name: "Mudança de cidade",
+                                        y: qtdeMudancaDeCidadeResumoMotivo
+                                    },
+                                    {
+                                        name: "Não indentificação com o curso",
+                                        y: qtdeNaoIndentificacaoComOCursoResumoMotivo
+                                    },
+                                    {
+                                        name: "Notas baixas",
+                                        y: qtdeNotasBaixasResumoMotivo
+                                    },
+                                    {
+                                        name: "Outros",
+                                        y: qtdeOutrosResumoMotivo
+                                    },
+                                    {
+                                        name: "Trabalho",
+                                        y: qtdeTrabalhoResumoMotivo
+                                    }, {
+                                        name: "Transferencia para outra instituição",
+                                        y: qtdeTransferenciaResumoMotivo
+                                    }]
+                            }]
+                    });
                 });
             });
-        });
-    };
+        }
+    }
 
     $scope.resumoMotivo = function () {
         limpaGraficos();

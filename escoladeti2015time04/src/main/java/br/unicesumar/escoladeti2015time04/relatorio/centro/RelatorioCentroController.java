@@ -29,8 +29,8 @@ public class RelatorioCentroController {
         return service.getCentroMotivosPorCurso();
     }
     
-    @RequestMapping(value = "/relatorioCentroResumoMotivos", method = RequestMethod.GET)    
-    public Map<String,Object> listarCentroResumoMotivos(){
-        return service.getCentroResumoMotivos();
+    @RequestMapping(value = "/relatorioCentroResumoMotivos/{centro}", method = RequestMethod.GET)    
+    public Map<String,Object> listarCentroResumoMotivos(@PathVariable String centro){
+        return service.getCentroResumoMotivos(centro);
     }
 }
