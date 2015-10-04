@@ -90,21 +90,25 @@ public class RelatorioCentroService {
         return retorno;
     }
 
-    public Map<String, Object> getCentroMotivosPorCurso() {
-
-        String queryCentroMotivosPorCurso = "select count(*) as motivos "
+    public Map<String, Object> getCentroMotivosPorCurso(String centro, String curso) {        
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+        parans.addValue("centro", centro);
+        parans.addValue("curso", curso);
+        
+        String queryCentroMotivosPorCurso = "select atm.id as idMotivo, atm.descricao as motivo, count(*) as atendimentos "
                 + "from atendimento att "
-                + "inner join atendimentodeixarocurso atdc on att.id = atdc.id "
-                + "inner join deixarcursoobjetivo dco on dco.motivo = att.id "
+                + "inner join atendimentodeixarocurso atdc on atdc.id = att.id "
+                + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
+                + "inner join atendimentomotivo atm on atm.id = atdc.motivo "
                 + "where att.centro = :centro "
-                + "and att.curso = :curso "
-                + "group by att.centro, atdc.motivo ";
+                + "and UPPER(att.curso) = UPPER(:curso) "
+                + "group by att.centro, atm.id, atm.descricao";
 
         Map<String, Object> retorno = new HashMap<String, Object>();
 
-        List<Map<String, Object>> centroMotivos = jdbcTemplate.query(queryCentroMotivosPorCurso, new MapRowMapper());
+        List<Map<String, Object>> centroMotivos = jdbcTemplate.query(queryCentroMotivosPorCurso, parans, new MapRowMapper());
         retorno.put("centroMotivos", centroMotivos);
-
+        
         return retorno;
     }
 
