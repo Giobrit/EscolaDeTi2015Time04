@@ -19,42 +19,40 @@ public class RelatorioCentroService {
 
     public Map<String, Object> getCentroCursoAtendimento(String centro) {
         MapSqlParameterSource parans = new MapSqlParameterSource();
-        parans.addValue(":centro", centro);
+        parans.addValue("centro", centro);
 
-        String queryTotalAtenditmentos = "select count(*) as atendimentos"
-                + "from antedimento  att "
+        String queryTotalAtenditmentos = "select att.centro, att.curso, count(*) as atendimentos "
+                + "from atendimento  att "
                 + "inner join atendimentodeixarocurso atdc on att.id = atdc.id "
-                + "where centro = :centro"
-                + "group by att.curso ";
+                + "where centro = :centro "
+                + "group by att.centro, att.curso ";
 
-        String queryTrancamentosCancelamentosTransferencias = "select count(*)"
+        String queryTrancamentosCancelamentosTransferencias = "select att.centro, att.curso, count(*) "
                 + "as trancamentoscancelamentostransferencias "
                 + "from atendimento att "
                 + "inner join atendimentodeixarocurso atdc on att.id = atdc.id "
-                + "inner join deixarocursoobjetivo dco on dco.id = adct.objetivo "
+                + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
                 + "where dco.descricao in('Trancamento', 'Cancelamento', 'Tranferência') "
                 + "and  att.centro = :centro "
-                + "group by att.curso";
+                + "group by att.centro, att.curso";
 
-        String queryPermanencias = "select count(*) as permanencias "
+        String queryPermanencias = "select att.centro, att.curso, count(*) as permanencias "
                 + "from atendimento att "
                 + "inner join atendimentodeixarocurso atdc on atdc.id = att.id "
                 + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
-                + "where descricao = 'Permanencia' "
+                + "where dco.descricao = 'Permanência' "
                 + "and att.centro = :centro "
-                + "group by att.curso";
+                + "group by att.centro, att.curso";
         Map<String, Object> retorno = new HashMap<String, Object>();
 
-        List<Map<String, Object>> atendimentos = jdbcTemplate.query(queryTotalAtenditmentos, new MapRowMapper());
+        List<Map<String, Object>> atendimentos = jdbcTemplate.query(queryTotalAtenditmentos, parans, new MapRowMapper());
         retorno.put("atendimentos", atendimentos);
-        List<Map<String, Object>> trancamentosCancelamentosTransferencias = jdbcTemplate.query(queryTrancamentosCancelamentosTransferencias, new MapRowMapper());
+        List<Map<String, Object>> trancamentosCancelamentosTransferencias = jdbcTemplate.query(queryTrancamentosCancelamentosTransferencias, parans, new MapRowMapper());
         retorno.put("trancamentosCancelamentosTransferencias", trancamentosCancelamentosTransferencias);
-        List<Map<String, Object>> permanencias = jdbcTemplate.query(queryPermanencias, new MapRowMapper());
+        List<Map<String, Object>> permanencias = jdbcTemplate.query(queryPermanencias, parans, new MapRowMapper());
         retorno.put("permanencias", permanencias);
-
-        System.out.print(retorno.toString());
-
-        return null;
+        
+        return retorno;
     }
 
     public Map<String, Object> getCentroCursoAlunos() {
