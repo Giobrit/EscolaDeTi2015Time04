@@ -30,11 +30,11 @@ public class AlunoService {
                         + "bolsa.bolsa AS bolsa,"
                         + "aluno.reprovacao AS reprovacao"
                     + " FROM "
-                        + "curso INNER JOIN aluno ON curso.id = aluno.id_curso "
-                        + "INNER JOIN turma ON aluno.id_turma = turma.id "
-                        + "INNER JOIN aluno_bolsas ON aluno.id = aluno_bolsas.aluno_id "
-                        + "INNER JOIN bolsa ON aluno_bolsas.bolsas_id = bolsa.id "
-                        + "WHERE aluno.ra = :ra";
+                         +"curso INNER JOIN aluno ON curso.id = aluno.idcurso "
+                         +"INNER JOIN turma ON aluno.idturma = turma.id " 
+                         +"INNER JOIN alunobolsas ON aluno.id = alunobolsas.aluno_id "
+                         +"INNER JOIN bolsa ON alunobolsas.bolsas_id = bolsa.id "
+                         +"WHERE aluno.ra = :ra";
         
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("ra", ra);        
