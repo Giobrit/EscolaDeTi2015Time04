@@ -126,6 +126,16 @@ function controllerRelatorioResumido($scope, $http, growl) {
             totalTrancamentosCancelamentosTransferencias += trancamentosCancelamentosTransferencias[contador].trancamentoscancelamentostransferencias;
         }
 
+        var percentualCBS = ((qtdeTrancamentosCancelamentosTransferenciasCBS * 100) / qtdeAtendimentoCBS) || 0;
+        var percentualCETA = ((qtdeTrancamentosCancelamentosTransferenciasCETA * 100) / qtdeAtendimentoCETA) || 0;
+        var percentualCHSA = ((qtdeTrancamentosCancelamentosTransferenciasCHSA * 100) / qtdeAtendimentoCHSA) || 0;
+        var percentualPermanenciasCBS = ((qtdePermanenciasCBS * 100) / qtdeAtendimentoCBS) || 0;
+        var percentualPermanenciasCETA = ((qtdePermanenciasCETA * 100) / qtdeAtendimentoCETA) || 0;
+        var percentualPermanenciasCHSA = ((qtdePermanenciasCHSA * 100) / qtdeAtendimentoCHSA) || 0;
+
+        var totalPercentual = ((totalTrancamentosCancelamentosTransferencias * 100) / totalAtendimentos) || 0;
+        var totalPermanenciasPercentual = ((totalPermanencias * 100) / totalAtendimentos) || 0;
+
         //CRIAR TABELA1
         var htmlTagTable = '<table id="tabela1" class="table table-hover table-bordered">';
         var htmlTHead = '<thead>' +
@@ -139,25 +149,25 @@ function controllerRelatorioResumido($scope, $http, growl) {
                 '      <td>CBS - Saúde</td>' +
                 '      <td>' + qtdeAtendimentoCBS + '</td>' +
                 '      <td>' + qtdeTrancamentosCancelamentosTransferenciasCBS + '</td>' +
-                '      <td>' + ((qtdeTrancamentosCancelamentosTransferenciasCBS * 100) / qtdeAtendimentoCBS) + '%</td>' +
+                '      <td>' + percentualCBS.toFixed(2) + '%</td>' +
                 '      <td>' + qtdePermanenciasCBS + '</td>' +
-                '      <td>' + ((qtdePermanenciasCBS * 100) / qtdeAtendimentoCBS) + '%</td>' +
+                '      <td>' + percentualPermanenciasCBS.toFixed(2) + '%</td>' +
                 '   </tr>' +
                 '   <tr>' +
                 '      <td>CETA - Exatas</td>' +
                 '      <td>' + qtdeAtendimentoCETA + '</td>' +
                 '      <td>' + qtdeTrancamentosCancelamentosTransferenciasCETA + '</td>' +
-                '      <td>' + ((qtdeTrancamentosCancelamentosTransferenciasCETA * 100) / qtdeAtendimentoCETA) + '%</td>' +
+                '      <td>' + percentualCETA.toFixed(2) + '%</td>' +
                 '      <td>' + qtdePermanenciasCETA + '</td>' +
-                '      <td>' + ((qtdePermanenciasCETA * 100) / qtdeAtendimentoCETA) + '%</td>' +
+                '      <td>' + percentualPermanenciasCETA.toFixed(2) + '%</td>' +
                 '   </tr>' +
                 '   <tr>' +
                 '      <td>CHSA - Humanas</td>' +
                 '      <td>' + qtdeAtendimentoCHSA + '</td>' +
                 '      <td>' + qtdeTrancamentosCancelamentosTransferenciasCHSA + '</td>' +
-                '      <td>' + ((qtdeTrancamentosCancelamentosTransferenciasCHSA * 100) / qtdeAtendimentoCHSA) + '%</td>' +
+                '      <td>' + percentualCHSA.toFixed(2) + '%</td>' +
                 '      <td>' + qtdePermanenciasCHSA + '</td>' +
-                '      <td>' + ((qtdePermanenciasCHSA * 100) / qtdeAtendimentoCHSA) + '%</td>' +
+                '      <td>' + percentualPermanenciasCHSA.toFixed(2) + '%</td>' +
                 '   </tr>' +
                 '</tbody>';
         var htmlTagFoot = '<tfoot>' +
@@ -165,9 +175,9 @@ function controllerRelatorioResumido($scope, $http, growl) {
                 '      <td><b>TOTAL</b></td>' +
                 '      <td><b>' + totalAtendimentos + '</b></td>' +
                 '      <td><b>' + totalTrancamentosCancelamentosTransferencias + '</b></td>' +
-                '      <td><b>' + ((totalTrancamentosCancelamentosTransferencias * 100) / totalAtendimentos) + '%</b></td>' +
+                '      <td><b>' + totalPercentual.toFixed(2) + '%</b></td>' +
                 '      <td><b>' + totalPermanencias + '</b></td>' +
-                '      <td><b>' + ((totalPermanencias * 100) / totalAtendimentos) + '%</b></td>' +
+                '      <td><b>' + totalPermanenciasPercentual.toFixed(2) + '%</b></td>' +
                 '   </tr>' +
                 '</tfoot>';
         var htmlTagFechaTable = '</table>';
@@ -886,7 +896,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     {id: 11, descricao: "Odontologia"},
                     {id: 12, descricao: "Psicologia"},
                     {id: 13, descricao: "Veterinária"}];
-                
+
                 break;
             }
             case 2 ://CETA
@@ -929,7 +939,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     {id: 16, descricao: "Serviço Social"},
                     {id: 17, descricao: "Teologia"}];
                 break;
-            }            
+            }
         }
         ;
     };
@@ -938,7 +948,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
         $scope.getCursosRelatorio(centro);
     };
 
-    $scope.selecionouUmCurso = function (curso) {        
+    $scope.selecionouUmCurso = function (curso) {
     };
 
     $scope.selecionouUmTipo = function (tipo) {
@@ -988,8 +998,8 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                 break;
             }
             case 3 ://Relatório de motivos por curso
-            {                
-                $http.get("/relatorio/porcentro/relatorioCentroMotivosPorCurso/"+ $scope.centroSelecionado.descricao +"-"+ $scope.cursoSelecionado.descricao).success(onSuccess3).error(onError);
+            {
+                $http.get("/relatorio/porcentro/relatorioCentroMotivosPorCurso/" + $scope.centroSelecionado.descricao + "-" + $scope.cursoSelecionado.descricao).success(onSuccess3).error(onError);
                 function onSuccess3(data) {
                     limpaGraficos();
                     criarTabela("relatorioMotivosPorCurso", data);
@@ -1029,219 +1039,6 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     }
                 }
 
-                $(function () {
-                    $('#grafico1').highcharts({
-                        chart: {
-                            plotBackgroundColor: null,
-                            plotBorderWidth: null,
-                            plotShadow: false,
-                            type: 'column'
-                        },
-                        title: {
-                            text: ''
-                        },
-                        legend: {
-                            enabled: false
-                        },
-                        xAxis: {
-                            type: 'category',
-                            labels: {
-                                rotation: -65,
-                                style: {
-                                    fontSize: '13px',
-                                    fontFamily: 'Verdana, sans-serif'
-                                }
-                            }},
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Atendimentos'
-                            }
-                        },
-                        tooltip: {
-                            pointFormat: '{series.name}: <b>{point.y}</b>'
-                        },
-                        credits: {
-                            enabled: false
-                        },
-                        series: [{
-                                name: "Atendimentos",
-                                data: [
-                                    ['Biomedicina', 382],
-                                    ['Ciências Biológicas', 418],
-                                    ['Educação Física', 364],
-                                    ['Enfermagem', 364],
-                                    ['Estética e Cosmética', 364],
-                                    ['Farmácia', 364],
-                                    ['Fisioterapia', 364],
-                                    ['Fonoaudiologia', 364],
-                                    ['Medicina', 364],
-                                    ['Nutrição', 364],
-                                    ['Odontologia', 364],
-                                    ['Psicologia', 364],
-                                    ['Veterinária', 364]
-                                ]
-                            }],
-                        dataLabels: {
-                            enabled: true,
-                            rotation: -90,
-                            color: '#FFFFFF',
-                            align: 'right',
-                            format: '{point.y:.1f}', // one decimal
-                            y: 10, // 10 pixels down from the top
-                            style: {
-                                fontSize: '13px',
-                                fontFamily: 'Verdana, sans-serif'
-                            }
-                        }
-                    });
-
-                });
-                $(function () {
-
-                    $(document).ready(function () {
-
-                        // Build the chart
-                        $('#grafico2').highcharts({
-                            chart: {
-                                plotBackgroundColor: null,
-                                plotBorderWidth: null,
-                                plotShadow: false,
-                                type: 'pie'
-                            },
-                            title: {
-                                text: ''
-                            },
-                            credits: {
-                                enabled: false
-                            },
-                            tooltip: {
-                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                            },
-                            plotOptions: {
-                                pie: {
-                                    allowPointSelect: true,
-                                    cursor: 'pointer',
-                                    dataLabels: {
-                                        enabled: false
-                                    },
-                                    showInLegend: true
-                                }
-                            },
-                            series: [{
-                                    name: "Brands",
-                                    colorByPoint: true,
-                                    data: [{
-                                            name: "Biomedicina",
-                                            y: 341
-                                        }, {
-                                            name: "Ciências Biológicas",
-                                            y: 361
-                                        }, {
-                                            name: "Educação Física",
-                                            y: 305
-                                        }, {
-                                            name: "Enfermagem",
-                                            y: 305
-                                        }, {
-                                            name: "Estética e cosmética",
-                                            y: 305
-                                        }, {
-                                            name: "Farmácia",
-                                            y: 305
-                                        }, {
-                                            name: "Fisioterapia",
-                                            y: 305
-                                        }, {
-                                            name: "Fonoaudioterapia",
-                                            y: 305
-                                        }, {
-                                            name: "Medicina",
-                                            y: 305
-                                        }, {
-                                            name: "Psicologia",
-                                            y: 305
-                                        }, {
-                                            name: "Veterinaria",
-                                            y: 305
-                                        }]
-                                }]
-                        });
-                    });
-                });
-                $(function () {
-
-                    $(document).ready(function () {
-
-                        // Build the chart
-                        $('#grafico3').highcharts({
-                            chart: {
-                                plotBackgroundColor: null,
-                                plotBorderWidth: null,
-                                plotShadow: false,
-                                type: 'pie'
-                            },
-                            title: {
-                                text: ''
-                            },
-                            credits: {
-                                enabled: false
-                            },
-                            tooltip: {
-                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                            },
-                            plotOptions: {
-                                pie: {
-                                    allowPointSelect: true,
-                                    cursor: 'pointer',
-                                    dataLabels: {
-                                        enabled: false
-                                    },
-                                    showInLegend: true
-                                }
-                            },
-                            series: [{
-                                    name: "Brands",
-                                    colorByPoint: true,
-                                    data: [{
-                                            name: "Biomedicina",
-                                            y: 341
-                                        }, {
-                                            name: "Ciências Biológicas",
-                                            y: 361
-                                        }, {
-                                            name: "Educação Física",
-                                            y: 305
-                                        }, {
-                                            name: "Enfermagem",
-                                            y: 305
-                                        }, {
-                                            name: "Estética e cosmética",
-                                            y: 305
-                                        }, {
-                                            name: "Farmácia",
-                                            y: 305
-                                        }, {
-                                            name: "Fisioterapia",
-                                            y: 305
-                                        }, {
-                                            name: "Fonoaudioterapia",
-                                            y: 305
-                                        }, {
-                                            name: "Medicina",
-                                            y: 305
-                                        }, {
-                                            name: "Psicologia",
-                                            y: 305
-                                        }, {
-                                            name: "Veterinaria",
-                                            y: 305
-                                        }]
-                                }]
-                        });
-                    });
-                });
-
                 break;
             }
             case "relatorioResumoMotivos" :
@@ -1271,110 +1068,366 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             switch (centro) {
                 case "CBS":
                 {
+                    var biomedicina = objectFindByKey(relatorio.atendimentos, 'curso', 'Biomedicina');
+                    var cienciasBiologicas = objectFindByKey(relatorio.atendimentos, 'curso', 'Ciências Biológicas');
+                    var educacaoFisica = objectFindByKey(relatorio.atendimentos, 'curso', 'Educação Física');
+                    var enfermagem = objectFindByKey(relatorio.atendimentos, 'curso', 'Enfermagem');
+                    var esteticaCosmetica = objectFindByKey(relatorio.atendimentos, 'curso', 'Estética e Cosmética');
+                    var farmacia = objectFindByKey(relatorio.atendimentos, 'curso', 'Farmácia');
+                    var fisioterapia = objectFindByKey(relatorio.atendimentos, 'curso', 'Fisioterapia');
+                    var fonoaudiologia = objectFindByKey(relatorio.atendimentos, 'curso', 'Fonoaudiologia');
+                    var medicina = objectFindByKey(relatorio.atendimentos, 'curso', 'Medicina');
+                    var nutricao = objectFindByKey(relatorio.atendimentos, 'curso', 'Nutrição');
+                    var odontologia = objectFindByKey(relatorio.atendimentos, 'curso', 'Odontologia');
+                    var psicologia = objectFindByKey(relatorio.atendimentos, 'curso', 'Psicologia');
+                    var veterinaria = objectFindByKey(relatorio.atendimentos, 'curso', 'Veterinária');
+
+                    var biomedicinaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Biomedicina');
+                    var cienciasBiologicasPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Ciências Biológicas');
+                    var educacaoFisicaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Educação Física');
+                    var enfermagemPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Enfermagem');
+                    var esteticaCosmeticaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Estética e Cosmética');
+                    var farmaciaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Farmácia');
+                    var fisioterapiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Fisioterapia');
+                    var fonoaudiologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Fonoaudiologia');
+                    var medicinaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Medicina');
+                    var nutricaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Nutrição');
+                    var odontologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Odontologia');
+                    var psicologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Psicologia');
+                    var veterinariaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Veterinária');
+
+                    var biomedicinaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Biomedicina');
+                    var cienciasBiologicasTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Ciências Biológicas');
+                    var educacaoFisicaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Educação Física');
+                    var enfermagemTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Enfermagem');
+                    var esteticaCosmeticaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Estética e Cosmética');
+                    var farmaciaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Farmácia');
+                    var fisioterapiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Fisioterapia');
+                    var fonoaudiologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Fonoaudiologia');
+                    var medicinaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Medicina');
+                    var nutricaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Nutrição');
+                    var odontologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Odontologia');
+                    var psicologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Psicologia');
+                    var veterinariaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Veterinária');
+
                     htmlTCorpo = '       <tr>' +
                             '           <td>Biomedicina</td>' +
-                            '           <td>382</td>' +
-                            '           <td>341</td>' +
-                            '           <td>89,2%</td>' +
-                            '           <td>41</td>' +
-                            '           <td>10,73%</td>' +
+                            '           <td>' + (biomedicina.atendimentos || 0) + '</td>' +
+                            '           <td>' + (biomedicinaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((biomedicinaTCT.trancamentoscancelamentostransferencias * 100) / biomedicina.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (biomedicinaPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((biomedicinaPermanencia.permanencias * 100) / biomedicina.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Ciências Biológicas</td>' +
-                            '           <td>418</td>' +
-                            '           <td>361</td>' +
-                            '           <td>86,2%</td>' +
-                            '           <td>57</td>' +
-                            '           <td>13,73%</td>' +
+                            '           <td>' + (cienciasBiologicas.atendimentos || 0) + '</td>' +
+                            '           <td>' + (cienciasBiologicasTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((cienciasBiologicasTCT.trancamentoscancelamentostransferencias * 100) / cienciasBiologicas.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (cienciasBiologicasPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((cienciasBiologicasPermanencia.permanencias * 100) / cienciasBiologicas.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Educação Física</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (educacaoFisica.atendimentos || 0) + '</td>' +
+                            '           <td>' + (educacaoFisicaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((educacaoFisicaTCT.trancamentoscancelamentostransferencias * 100) / educacaoFisica.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (educacaoFisicaPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((educacaoFisicaPermanencia.permanencias * 100) / educacaoFisica.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Enfermagem</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (enfermagem.atendimentos || 0) + '</td>' +
+                            '           <td>' + (enfermagemTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((enfermagemTCT.trancamentoscancelamentostransferencias * 100) / enfermagem.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (enfermagemPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((enfermagemPermanencia.permanencias * 100) / enfermagem.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Estética e Cosmética</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (esteticaCosmetica.atendimentos || 0) + '</td>' +
+                            '           <td>' + (esteticaCosmeticaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((esteticaCosmeticaTCT.trancamentoscancelamentostransferencias * 100) / esteticaCosmetica.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (esteticaCosmeticaPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((esteticaCosmeticaPermanencia.permanencias * 100) / esteticaCosmetica.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Farmácia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (farmacia.atendimentos || 0) + '</td>' +
+                            '           <td>' + (farmaciaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((farmaciaTCT.trancamentoscancelamentostransferencias * 100) / farmacia.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (farmaciaPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((farmaciaPermanencia.permanencias * 100) / farmacia.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Fisioterapia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (fisioterapia.atendimentos || 0) + '</td>' +
+                            '           <td>' + (fisioterapiaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((fisioterapiaTCT.trancamentoscancelamentostransferencias * 100) / fisioterapia.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (fisioterapiaPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((fisioterapiaPermanencia.permanencias * 100) / fisioterapia.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Fonoaudiologia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (fonoaudiologia.atendimentos || 0) + '</td>' +
+                            '           <td>' + (fonoaudiologiaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((fonoaudiologiaTCT.trancamentoscancelamentostransferencias * 100) / fonoaudiologia.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (fonoaudiologiaPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((fonoaudiologiaPermanencia.permanencias * 100) / fonoaudiologia.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Medicina</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (medicina.atendimentos || 0) + '</td>' +
+                            '           <td>' + (medicinaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((medicinaTCT.trancamentoscancelamentostransferencias * 100) / medicina.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (medicinaPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((medicinaPermanencia.permanencias * 100) / medicina.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Nutrição</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (nutricao.atendimentos || 0) + '</td>' +
+                            '           <td>' + (nutricaoTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((nutricaoTCT.trancamentoscancelamentostransferencias * 100) / nutricao.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (nutricaoPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((nutricaoPermanencia.permanencias * 100) / nutricao.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Odontologia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (odontologia.atendimentos || 0) + '</td>' +
+                            '           <td>' + (odontologiaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((odontologiaTCT.trancamentoscancelamentostransferencias * 100) / odontologia.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (odontologiaPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((odontologiaPermanencia.permanencias * 100) / odontologia.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Psicologia</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (psicologia.atendimentos || 0) + '</td>' +
+                            '           <td>' + (psicologiaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((psicologiaTCT.trancamentoscancelamentostransferencias * 100) / psicologia.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (psicologiaPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((psicologiaPermanencia.permanencias * 100) / psicologia.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>' +
                             '       <tr>' +
                             '           <td>Veterinária</td>' +
-                            '           <td>364</td>' +
-                            '           <td>305</td>' +
-                            '           <td>83,2%</td>' +
-                            '           <td>59</td>' +
-                            '           <td>16,73%</td>' +
+                            '           <td>' + (veterinaria.atendimentos || 0) + '</td>' +
+                            '           <td>' + (veterinariaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
+                            '           <td>' + (((veterinariaTCT.trancamentoscancelamentostransferencias * 100) / veterinaria.atendimentos) || 0).toFixed(2) + '%</td>' +
+                            '           <td>' + (veterinariaPermanencia.permanencias || 0) + '</td>' +
+                            '           <td>' + (((veterinariaPermanencia.permanencias * 100) / veterinaria.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>';
+
+                    $(function () {
+                        $('#grafico1').highcharts({
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'column'
+                            },
+                            title: {
+                                text: ''
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            xAxis: {
+                                type: 'category',
+                                labels: {
+                                    rotation: -65,
+                                    style: {
+                                        fontSize: '13px',
+                                        fontFamily: 'Verdana, sans-serif'
+                                    }
+                                }},
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Atendimentos'
+                                }
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.y}</b>'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            series: [{
+                                    name: "Atendimentos",
+                                    data: [
+                                        ['Biomedicina', biomedicina.atendimentos],
+                                        ['Ciências Biológicas', cienciasBiologicas.atendimentos],
+                                        ['Educação Física', educacaoFisica.atendimentos],
+                                        ['Enfermagem', enfermagem.atendimentos],
+                                        ['Estética e Cosmética', esteticaCosmetica.atendimentos],
+                                        ['Farmácia', farmacia.atendimentos],
+                                        ['Fisioterapia', fisioterapia.atendimentos],
+                                        ['Fonoaudiologia', fonoaudiologia.atendimentos],
+                                        ['Medicina', medicina.atendimentos],
+                                        ['Nutrição', nutricao.atendimentos],
+                                        ['Odontologia', odontologia.atendimentos],
+                                        ['Psicologia', psicologia.atendimentos],
+                                        ['Veterinária', veterinaria.atendimentos]
+                                    ]
+                                }],
+                            dataLabels: {
+                                enabled: true,
+                                rotation: -90,
+                                color: '#FFFFFF',
+                                align: 'right',
+                                format: '{point.y:.1f}', // one decimal
+                                y: 10, // 10 pixels down from the top
+                                style: {
+                                    fontSize: '13px',
+                                    fontFamily: 'Verdana, sans-serif'
+                                }
+                            }
+                        });
+
+                    });
+                    $(function () {
+
+                        $(document).ready(function () {
+
+                            // Build the chart
+                            $('#grafico2').highcharts({
+                                chart: {
+                                    plotBackgroundColor: null,
+                                    plotBorderWidth: null,
+                                    plotShadow: false,
+                                    type: 'pie'
+                                },
+                                title: {
+                                    text: ''
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                tooltip: {
+                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: false
+                                        },
+                                        showInLegend: true
+                                    }
+                                },
+                                series: [{
+                                        name: "Brands",
+                                        colorByPoint: true,
+                                        data: [{
+                                                name: "Biomedicina",
+                                                y: 341
+                                            }, {
+                                                name: "Ciências Biológicas",
+                                                y: 361
+                                            }, {
+                                                name: "Educação Física",
+                                                y: 305
+                                            }, {
+                                                name: "Enfermagem",
+                                                y: 305
+                                            }, {
+                                                name: "Estética e cosmética",
+                                                y: 305
+                                            }, {
+                                                name: "Farmácia",
+                                                y: 305
+                                            }, {
+                                                name: "Fisioterapia",
+                                                y: 305
+                                            }, {
+                                                name: "Fonoaudioterapia",
+                                                y: 305
+                                            }, {
+                                                name: "Medicina",
+                                                y: 305
+                                            }, {
+                                                name: "Psicologia",
+                                                y: 305
+                                            }, {
+                                                name: "Veterinaria",
+                                                y: 305
+                                            }]
+                                    }]
+                            });
+                        });
+                    });
+                    $(function () {
+
+                        $(document).ready(function () {
+
+                            // Build the chart
+                            $('#grafico3').highcharts({
+                                chart: {
+                                    plotBackgroundColor: null,
+                                    plotBorderWidth: null,
+                                    plotShadow: false,
+                                    type: 'pie'
+                                },
+                                title: {
+                                    text: ''
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                tooltip: {
+                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: false
+                                        },
+                                        showInLegend: true
+                                    }
+                                },
+                                series: [{
+                                        name: "Brands",
+                                        colorByPoint: true,
+                                        data: [{
+                                                name: "Biomedicina",
+                                                y: 341
+                                            }, {
+                                                name: "Ciências Biológicas",
+                                                y: 361
+                                            }, {
+                                                name: "Educação Física",
+                                                y: 305
+                                            }, {
+                                                name: "Enfermagem",
+                                                y: 305
+                                            }, {
+                                                name: "Estética e cosmética",
+                                                y: 305
+                                            }, {
+                                                name: "Farmácia",
+                                                y: 305
+                                            }, {
+                                                name: "Fisioterapia",
+                                                y: 305
+                                            }, {
+                                                name: "Fonoaudioterapia",
+                                                y: 305
+                                            }, {
+                                                name: "Medicina",
+                                                y: 305
+                                            }, {
+                                                name: "Psicologia",
+                                                y: 305
+                                            }, {
+                                                name: "Veterinaria",
+                                                y: 305
+                                            }]
+                                    }]
+                            });
+                        });
+                    });
+
                     break;
                 }
                 case "CETA":
@@ -1665,7 +1718,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     '</table>';
             document.getElementById('tabela').innerHTML = htmlTCab + htmlTCorpo + htmlTFinal;
         }
-        
+
         function criarHTMLTabelaRelatorioResumoMotivo(relatorio) {
             var qtdeAprendizagemResumoMotivo = 0;
             var qtdeGravidezResumoMotivo = 0;
@@ -1679,7 +1732,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             var qtdeTrabalhoResumoMotivo = 0;
             var qtdeTransferenciaResumoMotivo = 0;
             var qtdeFrequenciaResumoMotivo = 0;
-            
+
             for (var contador = 0; contador < relatorio.motivos.length; contador++) {
                 switch (relatorio.motivos[contador].motivo) {
                     case "Aprendizagem" :
@@ -1910,7 +1963,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                 });
             });
         }
-        
+
         function criarHTMLTabelaRelatorioMotivoPorCurso(relatorio) {
             var qtdeAprendizagem = 0;
             var qtdeGravidez = 0;
@@ -1924,7 +1977,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             var qtdeTrabalho = 0;
             var qtdeTransferencia = 0;
             var qtdeFrequencia = 0;
-            
+
             for (var contador = 0; contador < relatorio.centroMotivos.length; contador++) {
                 switch (relatorio.centroMotivos[contador].motivo) {
                     case "Aprendizagem" :
@@ -2154,6 +2207,15 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     });
                 });
             });
+        }
+
+        function objectFindByKey(array, key, value) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i][key] === value) {
+                    return array[i];
+                }
+            }
+            return 0;
         }
     }
 
