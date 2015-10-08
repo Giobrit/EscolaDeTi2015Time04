@@ -87,29 +87,56 @@ public class Initializer {
     }
 
     private void gerandoRelatorios() {
-        try {
-            File raiz = new File(System.getProperty("user.home"));
+        System.out.println("Gerando relatórios!");
+        relatorioService.gerarRelatorioHistoricoGeral("13097572");
+        
+        geraRelHistoricoGeral();
+        geraRelNadaConsta();
+        geraRelMediaFaltas();        
+    }
 
-            //Gera relatório Historico Geral
-            File historicoGeral = new File(raiz, "HistoricoGeral.pdf");
-            OutputStream historicoGeralPDF = new FileOutputStream(historicoGeral);
+    private void geraRelHistoricoGeral() {
+        try {            
+            File historicoGeral = new File(getDiretorioBase(), "HistoricoGeral.pdf");
+            OutputStream historicoGeralPDF;
+            historicoGeralPDF = new FileOutputStream(historicoGeral);
+            
             JasperPrint printHistoricoGeral = relatorioService.gerarRelatorioHistoricoGeral("13097572");
             JasperExportManager.exportReportToPdfStream(printHistoricoGeral, historicoGeralPDF);
-
-            //Gera relatório NadaConsta
-            File nadaConsta = new File(raiz, "NadaConsta.pdf");
-            OutputStream nadaConstaPDF = new FileOutputStream(nadaConsta);
-            JasperPrint printNadaConsta = relatorioService.gerarRelatorioNadaConsta("13097572", "CETA");
+        } catch (FileNotFoundException | JRException ex) {
+            Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+    
+    private void geraRelNadaConsta() {
+        try {
+            File historicoGeral = new File(getDiretorioBase(), "NadaConsta.pdf");
+            OutputStream nadaConstaPDF = new FileOutputStream(historicoGeral);
+            
+            JasperPrint printNadaConsta = relatorioService.gerarRelatorioNadaConsta("13097572","CETA");
             JasperExportManager.exportReportToPdfStream(printNadaConsta, nadaConstaPDF);
-
-            //Gera relatório MediaFaltas
-            File mediaFaltas = new File(raiz, "MediaFaltas.pdf");
+        } catch (FileNotFoundException | JRException ex) {
+            Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+    
+    private void geraRelMediaFaltas() {
+        try {
+            File raiz = getDiretorioBase();
+            File mediaFaltas = new File(raiz, "NadaConsta.pdf");
             OutputStream mediaFaltasPDF = new FileOutputStream(mediaFaltas);
+            
             JasperPrint printMediaFaltas = relatorioService.gerarRelatorioMediaFaltas("13097572");
             JasperExportManager.exportReportToPdfStream(printMediaFaltas, mediaFaltasPDF);
-        } catch (JRException | FileNotFoundException ex) {
-            Logger.getLogger(RelatorioService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (FileNotFoundException | JRException ex) {
+            Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+
+    private File getDiretorioBase() {
+        //Gera relatório MediaFaltas
+        File raiz = new File(System.getProperty("user.home"));
+        return raiz;
     }
 
     private void inicializarDepartamento() {
