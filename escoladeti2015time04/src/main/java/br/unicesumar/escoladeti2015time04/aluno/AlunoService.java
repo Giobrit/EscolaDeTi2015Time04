@@ -26,7 +26,7 @@ public class AlunoService {
                 + "case "
                 + "when ate.id is not null then 'Atendimento Especial' "
                 + "when atdc.id is not null then 'Atendimento Deixar o Curso' "
-                + "when atp.id is not null then 'Atendimento Preventivo' end "
+                + "when atp.id is not null then 'Atendimento Preventivo' end  as nomeDoAtendimento "
                 + "from atendimento att "
                 + "left join atendimentodeixarocurso atdc on att.id = atdc.id "
                 + "inner join atendimentomotivo atm on atm.id = att.motivo "

@@ -2,8 +2,16 @@ AppModule.controller("controllerRelatorioAcademico", controllerRelatorioAcademic
 
 function controllerRelatorioAcademico($scope, $http, $routeParams, $location, growl, $timeout) {
 
-$scope.carregarAluno = function (ra) {
+    $scope.itensTimeline = [];
+    $scope.propriedadesItens = [];
+    
+    $scope.propriedadesItens["Atendimento Deixar o Curso"] = new itemTimeline("panel-primary","");
+    $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-info","");
+    $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default","");
+
+    $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
+            $scope.itensTimeline = [];
             setAtributosAluno({});
             return;
         }
@@ -12,14 +20,16 @@ $scope.carregarAluno = function (ra) {
 
         function onSuccess(data) {
             setAtributosAluno(data);
+            console.log(data);
+            carregaTimeline(ra);
         }
     };
 
     $scope.setMatriculado = function (data) {
         $scope.relatorioAcademico.matriculado = stringToBoolean(data);
-        
+
     };
-    
+
     function setAtributosAluno(aluno) {
         $scope.relatorioAcademico.nomeAluno = aluno.nome;
         $scope.relatorioAcademico.curso = aluno.curso;
@@ -31,4 +41,16 @@ $scope.carregarAluno = function (ra) {
         $scope.relatorioAcademico.matriculado = (aluno.matriculado);
         $scope.matriculadoSelecionado = aluno.matriculado;
     }
+
+    function carregaTimeline(ra) {
+        $http.get("/relatorioAcademico/aluno/" + ra).success(onSucess).error($scope.onError);
+
+        function onSucess(data) {
+            $scope.itensTimeline = data;
+        }
+    }
+
+    $scope.timestampToData = function (data) {
+        return timestampParaData(data);
+    };
 }
