@@ -5,7 +5,7 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
     $scope.itensTimeline = [];
     $scope.propriedadesItens = [];
     
-    $scope.propriedadesItens["Atendimento Deixar o Curso"] = new itemTimeline("panel-primary","");
+    $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary","");
     $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-info","");
     $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default","");
 

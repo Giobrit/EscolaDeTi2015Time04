@@ -22,19 +22,19 @@ public class AlunoService {
         parans.addValue("ra",  ra );
 
         String sql = "select "
-                + "att.data, att.descricaopublica as descricao, atm.descricao as motivo, "
+                + "att.data, att.descricaopublica as descricao, atm.descricao as motivo, us.nome, "
                 + "case "
                 + "when ate.id is not null then 'Atendimento Especial' "
-                + "when atdc.id is not null then 'Atendimento Deixar o Curso' "
+                + "when atdc.id is not null then 'Atendimento' "
                 + "when atp.id is not null then 'Atendimento Preventivo' end  as nomeDoAtendimento "
                 + "from atendimento att "
                 + "left join atendimentodeixarocurso atdc on att.id = atdc.id "
                 + "inner join atendimentomotivo atm on atm.id = att.motivo "
                 + "left join atendimentopreventivo atp on att.id = atp.id "
                 + "left join atendimentoespecial ate on att.id = ate.id "
+                + "left join usuario us on att.usuariologado = us.id "
                 + "where att.ra = :ra "
-                + "order by data desc ";
-
+                + "order by data desc";
         //Map<String, Object> retorno = new HashMap<String, Object>();
         List<Map<String, Object>> atendimentos = jdbcTemplate.query(sql, parans, new MapRowMapper());
         //retorno.put("atendimentos", atendimentos);

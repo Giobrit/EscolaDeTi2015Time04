@@ -130,7 +130,6 @@
                             </div>
                             <!-- /Separator -->
 
-                            <!-- Panel -->
                             <article class="panel {{propriedadesItens[item.nomedoatendimento].cor}}">
 
                                 <!-- Icon -->
@@ -141,18 +140,30 @@
 
                                 <!-- Heading -->
                                 <div class="panel-heading">
-                                    <h2 class="panel-title">{{item.motivo}}</h2>
+                                    <h2 class="panel-title">{{item.nomedoatendimento}}</h2>
                                 </div>
                                 <!-- /Heading -->
 
-                                <!-- body -->
+                                <!-- Body -->
                                 <div class="panel-body">
-                                    <small>{{item.descricao}}</small>
+                                    <div class="{{propriedadesItens[item.nomedoatendimento].cor}}">Atendente Responsável</div>
+                                    <small>{{item.nome}}</small>
                                 </div>
-                                <!-- /body -->
 
+                                <!-- /Body -->
+
+                                <!-- Body -->
+                                <div class="panel-body">
+                                    <small>Motivo: {{item.motivo}}</small>
+                                </div>
+                                <!-- /Body -->
+
+                                <!-- Footer -->
+                                <div class="panel-body">
+                                    <small>Descrição Atendimento: {{item.descricao}}</small>
+                                </div>
+                                <!-- /Footer -->
                             </article>
-                            <!-- /Panel -->
                         </div>
                     </div>
                     <!-- /Timeline -->
