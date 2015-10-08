@@ -11,7 +11,7 @@
                         <label>
                             <h4>Protocolo</h4>
                         </label>
-                        <input type="text" name="protocolo" class="form-control" ng-model="atendimentoEspecial.protocolo">
+                        <input type="text" name="protocolo" ng-class="{ 'has-error'  : formAtendimentoEspecial.protocolo.$invalid && !formAtendimentoEspecial.protocolo.$pristine}" class="form-control" ng-model="atendimentoEspecial.protocolo" required>
                     </div>
                     <div class="col-md-3" >
                         <label>
