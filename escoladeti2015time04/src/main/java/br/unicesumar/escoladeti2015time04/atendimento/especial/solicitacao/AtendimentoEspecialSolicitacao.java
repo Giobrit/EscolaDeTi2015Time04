@@ -3,6 +3,7 @@ package br.unicesumar.escoladeti2015time04.atendimento.especial.solicitacao;
 
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "atendimentoespecialsolicitacao")
-public class AtendimentoEspecialSolicitacao {
+public class AtendimentoEspecialSolicitacao implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -27,8 +28,7 @@ public class AtendimentoEspecialSolicitacao {
     public AtendimentoEspecialSolicitacao() {
     }
 
-    public AtendimentoEspecialSolicitacao(Long id, String descricao) {
-        this.id = id;
+    public AtendimentoEspecialSolicitacao(String descricao) {
         this.descricao = descricao;
     }
 
