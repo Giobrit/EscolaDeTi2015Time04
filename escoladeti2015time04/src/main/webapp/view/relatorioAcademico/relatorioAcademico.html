@@ -17,39 +17,31 @@
             </div>
             <div class="form-group formulario">
                 <img src="https://s3-sa-east-1.amazonaws.com/medias.ciranda.me/profiles/215/images/215_9e4aa1ed1aca22d514ce0cc0c65b8931f4bf25a6.jpg" alt="..." class="img-circle col-md-2">
-                <div class="col-md-6">
-                    <label>Nome:</label> 
-                    <span>{{relatorioAcademico.nomeAluno}}</span>
+                <div class="col-md-8">
+                     <h3><label>Nome:</label> {{relatorioAcademico.nomeAluno}}</h3>
                 </div>
-                <div class="col-md-5">
-                    <label>Curso:</label>
-                    <span>{{relatorioAcademico.curso}}</span>
+                <div class="col-md-4 formulario">                    
+                    <h3><label>Curso:</label> {{relatorioAcademico.curso}}</h3>
                 </div>
-                <div class="col-md-2">
-                    <label>Centro:</label>
-                    <span>{{relatorioAcademico.centro}}</span>
+                <div class="col-md-2 formulario">
+                    <h3><label>Centro:</label>{{relatorioAcademico.centro}}</h3>
                 </div>
-                <div class="col-md-1">
-                    <label>Série:</label>
-                    <span>{{relatorioAcademico.serieSemestre}}</span>
+                <div class="col-md-2 formulario">
+                     <h3><label>Série:</label> {{relatorioAcademico.serieSemestre}}</h3>
                 </div>
-                <div class="col-md-2">
-                    <label>Turno:</label>
-                    <span>{{relatorioAcademico.turno}}</span>
+                <div class="col-md-2 formulario">
+                     <h3><label>Turno:</label> {{relatorioAcademico.turno}}</h3>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-5">
-                    <label>Bolsa:</label>
-                    <span>{{relatorioAcademico.bolsaFinanciamento}}</span>
+                <div class="col-md-4 formulario">
+                     <h3><label>Bolsa:</label> {{relatorioAcademico.bolsaFinanciamento}}</h3>
                 </div>
-                <div class="col-md-2">
-                    <label>Reprovações:</label>
-                    <span>{{relatorioAcademico.numeroReprovacoes}}</span>
+                <div class="col-md-3 formulario">
+                     <h3><label>Reprovações:</label> {{relatorioAcademico.numeroReprovacoes}}</h3>
                 </div>
-                <div class="col-md-2">
-                    <label>Matriculado:</label>
-                    <span>{{relatorioAcademico.matriculado}}</span>
+                <div class="col-md-3 formulario">
+                     <h3><label>Matriculado:</label> {{relatorioAcademico.matriculado}}</h3>
                 </div>
             </div>
             <div class="form-group">
@@ -145,17 +137,33 @@
                                 <!-- /Heading -->
 
                                 <!-- Body -->
-                                <div class="panel-body">
-                                    <div class="{{propriedadesItens[item.nomedoatendimento].cor}}">Atendente Responsável</div>
-                                    <small>{{item.nome}}</small>
+                                <div class="row">
+                                    <div class="panel-body">
+                                        <div class="form-group col-md-4 {{propriedadesItens[item.nomedoatendimento].cor}}">
+                                            <h4><label>Atendente Responsável</label></h4>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-8">
+                                            <h5><small>{{item.nome}}</small></h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="panel-body">
+                                        <div class="form-group col-md-4">
+                                            <h5><label>Motivo</label></h5>
+                                        </div>
+
+                                        <div class="form-group col-md-8">
+                                            <h5><small> {{item.motivo}}</small></h5>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- /Body -->
 
                                 <!-- Body -->
-                                <div class="panel-body">
-                                    <small>Motivo: {{item.motivo}}</small>
-                                </div>
                                 <!-- /Body -->
 
                                 <!-- Footer -->
