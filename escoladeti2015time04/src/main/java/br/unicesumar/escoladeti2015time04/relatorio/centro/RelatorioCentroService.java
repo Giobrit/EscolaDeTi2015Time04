@@ -32,7 +32,7 @@ public class RelatorioCentroService {
                 + "from atendimento att "
                 + "inner join atendimentodeixarocurso atdc on att.id = atdc.id "
                 + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
-                + "where dco.descricao in('Trancamento', 'Cancelamento', 'Tranferência') "
+                + "where dco.descricao in('Trancamento', 'Cancelamento', 'Transferência') "
                 + "and  att.centro = :centro "
                 + "group by att.centro, att.curso";
 
@@ -66,7 +66,7 @@ public class RelatorioCentroService {
                 + "from alunos_atendimento_deixarocurso aad "
                 + "inner join atendimentodeixarocurso atdc on aad.id = atdc.id "
                 + "inner join deixarocursoobjetivo dco on dco.id = adct.objetivo "
-                + "where dco.descricao in('Trancamento', 'Cancelamento', 'Tranferência') "
+                + "where dco.descricao in('Trancamento', 'Cancelamento', 'Transferência') "
                 + "and  aad.centro = :centro "
                 + "group by aad.curso";
 
@@ -93,7 +93,7 @@ public class RelatorioCentroService {
     public Map<String, Object> getCentroMotivosPorCurso(String centro, String curso) {        
         MapSqlParameterSource parans = new MapSqlParameterSource();
         parans.addValue("centro", centro);
-        parans.addValue("curso", curso);
+        parans.addValue("curso", "%"+ curso +"%");
         
         String queryCentroMotivosPorCurso = "select atm.id as idMotivo, atm.descricao as motivo, count(*) as atendimentos "
                 + "from atendimento att "
@@ -101,11 +101,11 @@ public class RelatorioCentroService {
                 + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
                 + "inner join atendimentomotivo atm on atm.id = atdc.motivo "
                 + "where att.centro = :centro "
-                + "and UPPER(att.curso) = UPPER(:curso) "
+                + "and UPPER(att.curso) ILIKE UPPER(:curso) "
                 + "group by att.centro, atm.id, atm.descricao";
 
         Map<String, Object> retorno = new HashMap<String, Object>();
-
+        
         List<Map<String, Object>> centroMotivos = jdbcTemplate.query(queryCentroMotivosPorCurso, parans, new MapRowMapper());
         retorno.put("centroMotivos", centroMotivos);
         

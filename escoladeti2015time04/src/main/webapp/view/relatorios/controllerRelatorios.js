@@ -1001,7 +1001,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             {
                 $http.get("/relatorio/porcentro/relatorioCentroMotivosPorCurso/" + $scope.centroSelecionado.descricao + "-" + $scope.cursoSelecionado.descricao).success(onSuccess3).error(onError);
                 function onSuccess3(data) {
-                    limpaGraficos();
+                    limpaGraficos();                    
                     criarTabela("relatorioMotivosPorCurso", data);
                 }
                 break;
@@ -1216,7 +1216,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (veterinariaPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((veterinariaPermanencia.permanencias * 100) / veterinaria.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>';
-                    console.log(biomedicinaTCT.trancamentoscancelamentostransferencias);
+                    
                     $(function () {
                         $('#grafico1').highcharts({
                             chart: {
@@ -1652,7 +1652,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (sistemaInternetPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((sistemaInternetPermanencia.permanencias * 100) / sistemaInternet.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>';
-                    console.log(agronegocioTCT.trancamentoscancelamentostransferencias);
+                    
                     $(function () {
                         $('#grafico1').highcharts({
                             chart: {
@@ -2722,7 +2722,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             var qtdeTrabalho = 0;
             var qtdeTransferencia = 0;
             var qtdeFrequencia = 0;
-
+            
             for (var contador = 0; contador < relatorio.centroMotivos.length; contador++) {
                 switch (relatorio.centroMotivos[contador].motivo) {
                     case "Aprendizagem" :
