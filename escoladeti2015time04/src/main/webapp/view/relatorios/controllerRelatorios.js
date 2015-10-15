@@ -33,7 +33,7 @@ function controllerRelatorioResumido($scope, $http, growl) {
             $scope.armazenarDadosRelatorioMotivos(data);
         }
     };
- 
+
     $scope.armazenarDadosRelatorioResumoCursoAtendimentos = function (data) {
 
         $scope.atendimentos = data.atendimentos;
@@ -860,14 +860,11 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
         habilitaDesabilitaSelecaoPorCurso(true);
     };
 
-    $scope.centroSelecionado = {};
-
     $scope.getCentros = function () {
         $scope.centros = [];
         $scope.centros = [{id: 1, descricao: "CBS"},
             {id: 2, descricao: "CETA"},
             {id: 3, descricao: "CHSA"}];
-
     };
 
     $scope.getTipoRelatorio = function () {
@@ -875,7 +872,6 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
         $scope.tiposRelatorio = [{id: 1, descricao: "Relatório geral"},
             {id: 2, descricao: "Relatório de resumo motivos"},
             {id: 3, descricao: "Relatório de motivos por curso"}];
-
     };
 
     $scope.getCursosRelatorio = function (centro) {
@@ -948,9 +944,6 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
         $scope.getCursosRelatorio(centro);
     };
 
-    $scope.selecionouUmCurso = function (curso) {
-    };
-
     $scope.selecionouUmTipo = function (tipo) {
         habilitaDesabilitaSelecaoPorCurso(true);
         switch (tipo.id) {
@@ -977,34 +970,36 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
     }
 
     $scope.gerarRelatorio = function () {
-        //Os graficos estão confusos!!!        
-        switch ($scope.tipoSelecionado.id) {
-            case 1 ://Relatório geral
-            {
-                $http.get("/relatorio/porcentro/relatorioCentroCursoAtendimentos/" + $scope.centroSelecionado.descricao).success(onSuccess1).error(onError);
-                function onSuccess1(data) {
-                    limpaGraficos();
-                    criarTabela("relatorioGeral", data);
+        var gerarRelatorio = verificarFiltros();        
+        if (gerarRelatorio) {
+            switch ($scope.tipoSelecionado.id) {
+                case 1 ://Relatório geral
+                {                    
+                    $http.get("/relatorio/porcentro/relatorioCentroCursoAtendimentos/" + $scope.centroSelecionado.descricao).success(onSucess1).error(onError);
+                    function onSucess1(data) {
+                        limpaGraficos();
+                        criarTabela("relatorioGeral", data);
+                    }
+                    break;
                 }
-                break;
-            }
-            case 2 ://Relatório Resumo Motivos
-            {
-                $http.get("/relatorio/porcentro/relatorioCentroResumoMotivos/" + $scope.centroSelecionado.descricao).success(onSuccess2).error(onError);
-                function onSuccess2(data) {
-                    limpaGraficos();
-                    criarTabela("relatorioResumoMotivos", data);
+                case 2 ://Relatório Resumo Motivos
+                {                    
+                    $http.get("/relatorio/porcentro/relatorioCentroResumoMotivos/" + $scope.centroSelecionado.descricao).success(onSucess2).error(onError);
+                    function onSucess2(data) {
+                        limpaGraficos();
+                        criarTabela("relatorioResumoMotivos", data);
+                    }
+                    break;
                 }
-                break;
-            }
-            case 3 ://Relatório de motivos por curso
-            {
-                $http.get("/relatorio/porcentro/relatorioCentroMotivosPorCurso/" + $scope.centroSelecionado.descricao + "-" + $scope.cursoSelecionado.descricao).success(onSuccess3).error(onError);
-                function onSuccess3(data) {
-                    limpaGraficos();                    
-                    criarTabela("relatorioMotivosPorCurso", data);
+                case 3 ://Relatório de motivos por curso
+                {                    
+                    $http.get("/relatorio/porcentro/relatorioCentroMotivosPorCurso/" + $scope.centroSelecionado.descricao + "/" + $scope.cursoSelecionado.descricao).success(onSucess3).error(onError);
+                    function onSucess3(data) {
+                        limpaGraficos();
+                        criarTabela("relatorioMotivosPorCurso", data);
+                    }
+                    break;
                 }
-                break;
             }
         }
     };
@@ -1053,7 +1048,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             }
         }
 
-        function criarHTMLTabelaRelatorioGeral(centro, relatorio) {            
+        function criarHTMLTabelaRelatorioGeral(centro, relatorio) {
             var total = 0;
             var totalPermanencias = 0;
             var totalTCT = 0;
@@ -1216,7 +1211,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (veterinariaPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((veterinariaPermanencia.permanencias * 100) / veterinaria.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>';
-                    
+
                     $(function () {
                         $('#grafico1').highcharts({
                             chart: {
@@ -1430,8 +1425,8 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                         });
                     });
 
-                    total = (biomedicina.atendimentos || 0) + 
-                            (cienciasBiologicas.atendimentos || 0) + 
+                    total = (biomedicina.atendimentos || 0) +
+                            (cienciasBiologicas.atendimentos || 0) +
                             (educacaoFisica.atendimentos || 0) +
                             (enfermagem.atendimentos || 0) +
                             (esteticaCosmetica.atendimentos || 0) +
@@ -1456,8 +1451,8 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             (odontologiaPermanencia.permanencias || 0) +
                             (psicologiaPermanencia.permanencias || 0) +
                             (veterinariaPermanencia.permanencias || 0);
-                    totalTCT = (biomedicinaTCT.trancamentoscancelamentostransferencias || 0) + 
-                            (cienciasBiologicasTCT.trancamentoscancelamentostransferencias || 0) + 
+                    totalTCT = (biomedicinaTCT.trancamentoscancelamentostransferencias || 0) +
+                            (cienciasBiologicasTCT.trancamentoscancelamentostransferencias || 0) +
                             (educacaoFisicaTCT.trancamentoscancelamentostransferencias || 0) +
                             (enfermagemTCT.trancamentoscancelamentostransferencias || 0) +
                             (esteticaCosmeticaTCT.trancamentoscancelamentostransferencias || 0) +
@@ -1506,7 +1501,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     var redesPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Redes de Computadores');
                     var sistemaInformacaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Sistemas de Informação');
                     var sistemaInternetPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Sistemas para Internet');
-                    
+
                     var agronegocioTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Agronegócio');
                     var agronomiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Agronomia');
                     var adsTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Anál. Des.de Sistemas');
@@ -1523,7 +1518,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     var redesTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Redes de Computadores');
                     var sistemaInformacaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Sistemas de Informação');
                     var sistemaInternetTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Sistemas para Internet');
-                    
+
                     htmlTCorpo = '       <tr>' +
                             '           <td>Agronegócio</td>' +
                             '           <td>' + (agronegocio.atendimentos || 0) + '</td>' +
@@ -1627,7 +1622,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (((manuAeroTCT.trancamentoscancelamentostransferencias * 100) / manuAero.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '           <td>' + (manuAeroPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((manuAeroPermanencia.permanencias * 100) / manuAero.atendimentos) || 0).toFixed(2) + '%</td>' +
-                            '       </tr>'+
+                            '       </tr>' +
                             '       <tr>' +
                             '           <td>Redes de Computadores</td>' +
                             '           <td>' + (redes.atendimentos || 0) + '</td>' +
@@ -1635,7 +1630,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (((redesTCT.trancamentoscancelamentostransferencias * 100) / redes.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '           <td>' + (redesPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((redesPermanencia.permanencias * 100) / redes.atendimentos) || 0).toFixed(2) + '%</td>' +
-                            '       </tr>'+
+                            '       </tr>' +
                             '       <tr>' +
                             '           <td>Sistemas de Informação</td>' +
                             '           <td>' + (sistemaInformacao.atendimentos || 0) + '</td>' +
@@ -1643,7 +1638,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (((sistemaInformacaoTCT.trancamentoscancelamentostransferencias * 100) / sistemaInformacao.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '           <td>' + (sistemaInformacaoPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((sistemaInformacaoPermanencia.permanencias * 100) / sistemaInformacao.atendimentos) || 0).toFixed(2) + '%</td>' +
-                            '       </tr>'+
+                            '       </tr>' +
                             '       <tr>' +
                             '           <td>Sistemas para Internet</td>' +
                             '           <td>' + (sistemaInternet.atendimentos || 0) + '</td>' +
@@ -1652,7 +1647,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (sistemaInternetPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((sistemaInternetPermanencia.permanencias * 100) / sistemaInternet.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>';
-                    
+
                     $(function () {
                         $('#grafico1').highcharts({
                             chart: {
@@ -1899,8 +1894,8 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                         });
                     });
 
-                    total = (agronegocio.atendimentos || 0) + 
-                            (agronomia.atendimentos || 0) + 
+                    total = (agronegocio.atendimentos || 0) +
+                            (agronomia.atendimentos || 0) +
                             (ads.atendimentos || 0) +
                             (arquitetura.atendimentos || 0) +
                             (automacao.atendimentos || 0) +
@@ -1931,8 +1926,8 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             (redesPermanencia.permanencias || 0) +
                             (sistemaInformacaoPermanencia.permanencias || 0) +
                             (sistemaInternetPermanencia.permanencias || 0);
-                    totalTCT = (agronegocioTCT.trancamentoscancelamentostransferencias || 0) + 
-                            (agronomiaTCT.trancamentoscancelamentostransferencias || 0) + 
+                    totalTCT = (agronegocioTCT.trancamentoscancelamentostransferencias || 0) +
+                            (agronomiaTCT.trancamentoscancelamentostransferencias || 0) +
                             (adsTCT.trancamentoscancelamentostransferencias || 0) +
                             (arquiteturaTCT.trancamentoscancelamentostransferencias || 0) +
                             (automacaoTCT.trancamentoscancelamentostransferencias || 0) +
@@ -1946,17 +1941,17 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             (manuAeroTCT.trancamentoscancelamentostransferencias || 0) +
                             (redesTCT.trancamentoscancelamentostransferencias || 0) +
                             (sistemaInformacaoTCT.trancamentoscancelamentostransferencias || 0) +
-                            (sistemaInternetTCT.trancamentoscancelamentostransferencias || 0);                    
+                            (sistemaInternetTCT.trancamentoscancelamentostransferencias || 0);
                     break;
                 }
                 case "CHSA":
                 {
-                    var administracao  = objectFindByKey(relatorio.atendimentos, 'curso', 'Administração');
-                    var artesVisuais  = objectFindByKey(relatorio.atendimentos, 'curso', 'Artes Visuais');
+                    var administracao = objectFindByKey(relatorio.atendimentos, 'curso', 'Administração');
+                    var artesVisuais = objectFindByKey(relatorio.atendimentos, 'curso', 'Artes Visuais');
                     var cienciasContabeis = objectFindByKey(relatorio.atendimentos, 'curso', 'Ciências Contábeis');
                     var comercioExterior = objectFindByKey(relatorio.atendimentos, 'curso', 'Comercio Exterior');
                     var direito = objectFindByKey(relatorio.atendimentos, 'curso', 'Direito');
-                    var gastronomia  = objectFindByKey(relatorio.atendimentos, 'curso', 'Gastronomia');
+                    var gastronomia = objectFindByKey(relatorio.atendimentos, 'curso', 'Gastronomia');
                     var gestaoComercial = objectFindByKey(relatorio.atendimentos, 'curso', 'Gestão Comercial');
                     var gestaoRecursosHumanos = objectFindByKey(relatorio.atendimentos, 'curso', 'Gestão de Recursos Humanos');
                     var jornalismo = objectFindByKey(relatorio.atendimentos, 'curso', 'Jornalismo');
@@ -1968,13 +1963,13 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     var publicidadePropaganda = objectFindByKey(relatorio.atendimentos, 'curso', 'Publicidade e Propaganda');
                     var servicoSocial = objectFindByKey(relatorio.atendimentos, 'curso', 'Serviço Social');
                     var teologia = objectFindByKey(relatorio.atendimentos, 'curso', 'Teologia');
-                    
-                    var administracaoPermanencia  = objectFindByKey(relatorio.permanencias, 'curso', 'Administração');
-                    var artesVisuaisPermanencia  = objectFindByKey(relatorio.permanencias, 'curso', 'Artes Visuais');
+
+                    var administracaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Administração');
+                    var artesVisuaisPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Artes Visuais');
                     var cienciasContabeisPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Ciências Contábeis');
                     var comercioExteriorPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Comercio Exterior');
                     var direitoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Direito');
-                    var gastronomiaPermanencia  = objectFindByKey(relatorio.permanencias, 'curso', 'Gastronomia');
+                    var gastronomiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Gastronomia');
                     var gestaoComercialPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Gestão Comercial');
                     var gestaoRecursosHumanosPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Gestão de Recursos Humanos');
                     var jornalismoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Jornalismo');
@@ -1986,13 +1981,13 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     var publicidadePropagandaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Publicidade e Propaganda');
                     var servicoSocialPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Serviço Social');
                     var teologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Teologia');
-                    
-                    var administracaoTCT  = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Administração');
-                    var artesVisuaisTCT  = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Artes Visuais');
+
+                    var administracaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Administração');
+                    var artesVisuaisTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Artes Visuais');
                     var cienciasContabeisTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Ciências Contábeis');
                     var comercioExteriorTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Comercio Exterior');
                     var direitoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Direito');
-                    var gastronomiaTCT  = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Gastronomia');
+                    var gastronomiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Gastronomia');
                     var gestaoComercialTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Gestão Comercial');
                     var gestaoRecursosHumanosTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Gestão de Recursos Humanos');
                     var jornalismoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Jornalismo');
@@ -2004,7 +1999,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     var publicidadePropagandaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Publicidade e Propaganda');
                     var servicoSocialTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Serviço Social');
                     var teologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Teologia');
-                    
+
                     htmlTCorpo = '       <tr>' +
                             '           <td>Administração</td>' +
                             '           <td>' + (administracao.atendimentos || 0) + '</td>' +
@@ -2108,7 +2103,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (((pedagogiaTCT.trancamentoscancelamentostransferencias * 100) / pedagogia.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '           <td>' + (pedagogiaPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((pedagogiaPermanencia.permanencias * 100) / pedagogia.atendimentos) || 0).toFixed(2) + '%</td>' +
-                            '       </tr>'+
+                            '       </tr>' +
                             '       <tr>' +
                             '           <td>Pilotagem Prof. de aeronaves</td>' +
                             '           <td>' + (pilotagem.atendimentos || 0) + '</td>' +
@@ -2116,7 +2111,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (((pilotagemTCT.trancamentoscancelamentostransferencias * 100) / pilotagem.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '           <td>' + (pilotagemPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((pilotagemPermanencia.permanencias * 100) / pilotagem.atendimentos) || 0).toFixed(2) + '%</td>' +
-                            '       </tr>'+
+                            '       </tr>' +
                             '       <tr>' +
                             '           <td>Publicidade e Propaganda</td>' +
                             '           <td>' + (publicidadePropaganda.atendimentos || 0) + '</td>' +
@@ -2124,7 +2119,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (((publicidadePropagandaTCT.trancamentoscancelamentostransferencias * 100) / publicidadePropaganda.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '           <td>' + (publicidadePropagandaPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((publicidadePropagandaPermanencia.permanencias * 100) / publicidadePropaganda.atendimentos) || 0).toFixed(2) + '%</td>' +
-                            '       </tr>'+
+                            '       </tr>' +
                             '       <tr>' +
                             '           <td>Serviço Social</td>' +
                             '           <td>' + (servicoSocial.atendimentos || 0) + '</td>' +
@@ -2132,7 +2127,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (((servicoSocialTCT.trancamentoscancelamentostransferencias * 100) / servicoSocial.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '           <td>' + (servicoSocialPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((servicoSocialPermanencia.permanencias * 100) / servicoSocial.atendimentos) || 0).toFixed(2) + '%</td>' +
-                            '       </tr>'+
+                            '       </tr>' +
                             '           <td>Teologia</td>' +
                             '           <td>' + (teologia.atendimentos || 0) + '</td>' +
                             '           <td>' + (teologiaTCT.trancamentoscancelamentostransferencias || 0) + '</td>' +
@@ -2140,7 +2135,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             '           <td>' + (teologiaPermanencia.permanencias || 0) + '</td>' +
                             '           <td>' + (((teologiaPermanencia.permanencias * 100) / teologia.atendimentos) || 0).toFixed(2) + '%</td>' +
                             '       </tr>';
-                    
+
                     $(function () {
                         $('#grafico1').highcharts({
                             chart: {
@@ -2394,8 +2389,8 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                         });
                     });
 
-                    total = (administracao.atendimentos || 0) + 
-                            (artesVisuais.atendimentos || 0) + 
+                    total = (administracao.atendimentos || 0) +
+                            (artesVisuais.atendimentos || 0) +
                             (cienciasContabeis.atendimentos || 0) +
                             (comercioExterior.atendimentos || 0) +
                             (direito.atendimentos || 0) +
@@ -2409,10 +2404,10 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             (pedagogia.atendimentos || 0) +
                             (pilotagem.atendimentos || 0) +
                             (publicidadePropaganda.atendimentos || 0) +
-                            (servicoSocial.atendimentos || 0) + 
-                            (teologia.atendimentos || 0);                    
-                    totalPermanencias = (administracaoPermanencia.permanencias || 0) + 
-                            (artesVisuaisPermanencia.permanencias || 0) + 
+                            (servicoSocial.atendimentos || 0) +
+                            (teologia.atendimentos || 0);
+                    totalPermanencias = (administracaoPermanencia.permanencias || 0) +
+                            (artesVisuaisPermanencia.permanencias || 0) +
                             (cienciasContabeisPermanencia.permanencias || 0) +
                             (comercioExteriorPermanencia.permanencias || 0) +
                             (direitoPermanencia.permanencias || 0) +
@@ -2426,10 +2421,10 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             (pedagogiaPermanencia.permanencias || 0) +
                             (pilotagemPermanencia.permanencias || 0) +
                             (publicidadePropagandaPermanencia.permanencias || 0) +
-                            (servicoSocialPermanencia.permanencias || 0) + 
+                            (servicoSocialPermanencia.permanencias || 0) +
                             (teologiaPermanencia.permanencias || 0);
-                    totalTCT = (administracaoTCT.trancamentoscancelamentostransferencias || 0) + 
-                            (artesVisuaisTCT.trancamentoscancelamentostransferencias || 0) + 
+                    totalTCT = (administracaoTCT.trancamentoscancelamentostransferencias || 0) +
+                            (artesVisuaisTCT.trancamentoscancelamentostransferencias || 0) +
                             (cienciasContabeisTCT.trancamentoscancelamentostransferencias || 0) +
                             (comercioExteriorTCT.trancamentoscancelamentostransferencias || 0) +
                             (direitoTCT.trancamentoscancelamentostransferencias || 0) +
@@ -2443,8 +2438,8 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                             (pedagogiaTCT.trancamentoscancelamentostransferencias || 0) +
                             (pilotagemTCT.trancamentoscancelamentostransferencias || 0) +
                             (publicidadePropagandaTCT.trancamentoscancelamentostransferencias || 0) +
-                            (servicoSocialTCT.trancamentoscancelamentostransferencias || 0) + 
-                            (teologiaTCT.trancamentoscancelamentostransferencias || 0); 
+                            (servicoSocialTCT.trancamentoscancelamentostransferencias || 0) +
+                            (teologiaTCT.trancamentoscancelamentostransferencias || 0);
                     break;
                 }
             }
@@ -2454,10 +2449,10 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     '       <tr>' +
                     '           <td><b>TOTAL</b></td>' +
                     '           <td><b>' + (total || 0) + '</b></td>' +
-                    '           <td><b>'+ (totalTCT || 0) +'</b></td>' +
-                    '           <td><b>'+ (((totalTCT * 100) / total) || 0).toFixed(2) +'%</b></td>' +
+                    '           <td><b>' + (totalTCT || 0) + '</b></td>' +
+                    '           <td><b>' + (((totalTCT * 100) / total) || 0).toFixed(2) + '%</b></td>' +
                     '           <td><b>' + (totalPermanencias || 0) + '</b></td>' +
-                    '           <td><b>'+ (((totalPermanencias * 100) / total) || 0).toFixed(2) +'%</b></td>' +
+                    '           <td><b>' + (((totalPermanencias * 100) / total) || 0).toFixed(2) + '%</b></td>' +
                     '       </tr>' +
                     '   </tfoot>' +
                     '</table>';
@@ -2465,96 +2460,31 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
         }
 
         function criarHTMLTabelaRelatorioResumoMotivo(relatorio) {
-            var qtdeAprendizagemResumoMotivo = 0;
-            var qtdeGravidezResumoMotivo = 0;
-            var qtdeNotasBaixasResumoMotivo = 0;
-            var qtdeOutrosResumoMotivo = 0;
-            var qtdeDistanciaResumoMotivo = 0;
-            var qtdeDoencaResumoMotivo = 0;
-            var qtdeFinanceiroResumoMotivo = 0;
-            var qtdeMudancaDeCidadeResumoMotivo = 0;
-            var qtdeNaoIndentificacaoComOCursoResumoMotivo = 0;
-            var qtdeTrabalhoResumoMotivo = 0;
-            var qtdeTransferenciaResumoMotivo = 0;
-            var qtdeFrequenciaResumoMotivo = 0;
+            var qtdeAprendizagemResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Aprendizagem');
+            var qtdeGravidezResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Gravidez');
+            var qtdeNotasBaixasResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Notas baixas');
+            var qtdeOutrosResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Outros');
+            var qtdeDistanciaResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Distância');
+            var qtdeDoencaResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Doença');
+            var qtdeFinanceiroResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Financeiro');
+            var qtdeMudancaDeCidadeResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Mudança de Cidade');
+            var qtdeNaoIndentificacaoComOCursoResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Não Identificação com o Curso');
+            var qtdeTrabalhoResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Trabalho');
+            var qtdeTransferenciaResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Transferência para outra IES');
+            var qtdeFrequenciaResumoMotivo = objectFindByKey(relatorio.motivos, 'motivo', 'Frequência baixa');
 
-            for (var contador = 0; contador < relatorio.motivos.length; contador++) {
-                switch (relatorio.motivos[contador].motivo) {
-                    case "Aprendizagem" :
-                    {
-                        qtdeAprendizagemResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Gravidez" :
-                    {
-                        qtdeGravidezResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Notas baixas" :
-                    {
-                        qtdeNotasBaixasResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Outros" :
-                    {
-                        qtdeOutrosResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Distância" :
-                    {
-                        qtdeDistanciaResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Doença" :
-                    {
-                        qtdeDoencaResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Financeiro" :
-                    {
-                        qtdeFinanceiroResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Mudança de Cidade" :
-                    {
-                        qtdeMudancaDeCidadeResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Não Identificação com o Curso" :
-                    {
-                        qtdeNaoIndentificacaoComOCursoResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Trabalho" :
-                    {
-                        qtdeTrabalhoResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Transferência para outra IES" :
-                    {
-                        qtdeTransferenciaResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Frequência baixa" :
-                    {
-                        qtdeFrequenciaResumoMotivo = relatorio.motivos[contador].atendimentos;
-                        break;
-                    }
-                }
-            }
-
-            var total = qtdeAprendizagemResumoMotivo +
-                    qtdeGravidezResumoMotivo +
-                    qtdeNotasBaixasResumoMotivo +
-                    qtdeOutrosResumoMotivo +
-                    qtdeDistanciaResumoMotivo +
-                    qtdeDoencaResumoMotivo +
-                    qtdeFinanceiroResumoMotivo +
-                    qtdeMudancaDeCidadeResumoMotivo +
-                    qtdeNaoIndentificacaoComOCursoResumoMotivo +
-                    qtdeTrabalhoResumoMotivo +
-                    qtdeTransferenciaResumoMotivo +
-                    qtdeFrequenciaResumoMotivo;
+            var total = (qtdeAprendizagemResumoMotivo.atendimentos || 0) +
+                    (qtdeGravidezResumoMotivo.atendimentos || 0) +
+                    (qtdeNotasBaixasResumoMotivo.atendimentos || 0) +
+                    (qtdeOutrosResumoMotivo.atendimentos || 0) +
+                    (qtdeDistanciaResumoMotivo.atendimentos || 0) +
+                    (qtdeDoencaResumoMotivo.atendimentos || 0) +
+                    (qtdeFinanceiroResumoMotivo.atendimentos || 0) +
+                    (qtdeMudancaDeCidadeResumoMotivo.atendimentos || 0) +
+                    (qtdeNaoIndentificacaoComOCursoResumoMotivo.atendimentos || 0) +
+                    (qtdeTrabalhoResumoMotivo.atendimentos || 0) +
+                    (qtdeTransferenciaResumoMotivo.atendimentos || 0) +
+                    (qtdeFrequenciaResumoMotivo.atendimentos || 0);
 
             html += '<table class="table table-hover table-bordered">' +
                     '<thead> ' +
@@ -2567,57 +2497,57 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
-                    '        <td style="text-align: center">' + qtdeAprendizagemResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeAprendizagemResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
-                    '        <td style="text-align: center">' + qtdeDistanciaResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeDistanciaResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>DOENÇA (pessoal ou familiar)</td>' +
-                    '        <td style="text-align: center">' + qtdeDoencaResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeDoencaResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
-                    '        <td style="text-align: center">' + qtdeFinanceiroResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeFinanceiroResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
-                    '        <td style="text-align: center">' + qtdeFrequenciaResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeFrequenciaResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
-                    '        <td style="text-align: center">' + qtdeGravidezResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeGravidezResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
-                    '        <td style="text-align: center">' + qtdeMudancaDeCidadeResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeMudancaDeCidadeResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
-                    '        <td style="text-align: center">' + qtdeNaoIndentificacaoComOCursoResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeNaoIndentificacaoComOCursoResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
-                    '        <td style="text-align: center">' + qtdeNotasBaixasResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeNotasBaixasResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
-                    '        <td style="text-align: center">' + qtdeOutrosResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeOutrosResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
-                    '        <td style="text-align: center">' + qtdeTrabalhoResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeTrabalhoResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
-                    '        <td style="text-align: center">' + qtdeTransferenciaResumoMotivo + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeTransferenciaResumoMotivo.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '</tbody>' +
                     '<tfoot>' +
                     '    <tr>' +
                     '        <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
-                    '        <td style="text-align: center"><b>' + total + '</b></td>' +
+                    '        <td style="text-align: center"><b>' + (total || 0) + '</b></td>' +
                     '    </tr>' +
                     '</tfoot>' +
                     '</table>';
@@ -2659,49 +2589,49 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                                 colorByPoint: true,
                                 data: [{
                                         name: "Aprendizagem",
-                                        y: qtdeAprendizagemResumoMotivo
+                                        y: qtdeAprendizagemResumoMotivo.atendimentos || 0
                                     }, {
                                         name: "Distância",
-                                        y: qtdeDistanciaResumoMotivo
+                                        y: qtdeDistanciaResumoMotivo.atendimentos || 0
                                     },
                                     {
                                         name: "Doença",
-                                        y: qtdeDoencaResumoMotivo
+                                        y: qtdeDoencaResumoMotivo.atendimentos || 0
                                     },
                                     {
                                         name: "Financeiro",
-                                        y: qtdeFinanceiroResumoMotivo
+                                        y: qtdeFinanceiroResumoMotivo.atendimentos || 0
                                     },
                                     {
                                         name: "Frequência",
-                                        y: qtdeFrequenciaResumoMotivo
+                                        y: qtdeFrequenciaResumoMotivo.atendimentos || 0
                                     },
                                     {
                                         name: "Gravidez",
-                                        y: qtdeGravidezResumoMotivo
+                                        y: qtdeGravidezResumoMotivo.atendimentos || 0
                                     },
                                     {
                                         name: "Mudança de cidade",
-                                        y: qtdeMudancaDeCidadeResumoMotivo
+                                        y: qtdeMudancaDeCidadeResumoMotivo.atendimentos || 0
                                     },
                                     {
                                         name: "Não indentificação com o curso",
-                                        y: qtdeNaoIndentificacaoComOCursoResumoMotivo
+                                        y: qtdeNaoIndentificacaoComOCursoResumoMotivo.atendimentos || 0
                                     },
                                     {
                                         name: "Notas baixas",
-                                        y: qtdeNotasBaixasResumoMotivo
+                                        y: qtdeNotasBaixasResumoMotivo.atendimentos || 0
                                     },
                                     {
                                         name: "Outros",
-                                        y: qtdeOutrosResumoMotivo
+                                        y: qtdeOutrosResumoMotivo.atendimentos || 0
                                     },
                                     {
                                         name: "Trabalho",
-                                        y: qtdeTrabalhoResumoMotivo
+                                        y: qtdeTrabalhoResumoMotivo.atendimentos || 0
                                     }, {
                                         name: "Transferencia para outra instituição",
-                                        y: qtdeTransferenciaResumoMotivo
+                                        y: qtdeTransferenciaResumoMotivo.atendimentos || 0
                                     }]
                             }]
                     });
@@ -2710,96 +2640,32 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
         }
 
         function criarHTMLTabelaRelatorioMotivoPorCurso(relatorio) {
-            var qtdeAprendizagem = 0;
-            var qtdeGravidez = 0;
-            var qtdeNotasBaixas = 0;
-            var qtdeOutros = 0;
-            var qtdeDistancia = 0;
-            var qtdeDoenca = 0;
-            var qtdeFinanceiro = 0;
-            var qtdeMudancaDeCidade = 0;
-            var qtdeNaoIndentificacaoComOCurso = 0;
-            var qtdeTrabalho = 0;
-            var qtdeTransferencia = 0;
-            var qtdeFrequencia = 0;
-            
-            for (var contador = 0; contador < relatorio.centroMotivos.length; contador++) {
-                switch (relatorio.centroMotivos[contador].motivo) {
-                    case "Aprendizagem" :
-                    {
-                        qtdeAprendizagem = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Gravidez" :
-                    {
-                        qtdeGravidez = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Notas baixas" :
-                    {
-                        qtdeNotasBaixas = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Outros" :
-                    {
-                        qtdeOutros = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Distância" :
-                    {
-                        qtdeDistancia = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Doença" :
-                    {
-                        qtdeDoenca = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Financeiro" :
-                    {
-                        qtdeFinanceiro = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Mudança de Cidade" :
-                    {
-                        qtdeMudancaDeCidade = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Não Identificação com o Curso" :
-                    {
-                        qtdeNaoIndentificacaoComOCurso = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Trabalho" :
-                    {
-                        qtdeTrabalho = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Transferência para outra IES" :
-                    {
-                        qtdeTransferencia = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                    case "Frequência baixa" :
-                    {
-                        qtdeFrequencia = relatorio.centroMotivos[contador].atendimentos;
-                        break;
-                    }
-                }
-            }
 
-            var total = qtdeAprendizagem +
-                    qtdeGravidez +
-                    qtdeNotasBaixas +
-                    qtdeOutros +
-                    qtdeDistancia +
-                    qtdeDoenca +
-                    qtdeFinanceiro +
-                    qtdeMudancaDeCidade +
-                    qtdeNaoIndentificacaoComOCurso +
-                    qtdeTrabalho +
-                    qtdeTransferencia +
-                    qtdeFrequencia;
+            var qtdeAprendizagem = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Aprendizagem');
+            var qtdeGravidez = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Gravidez');
+            var qtdeNotasBaixas = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Notas baixas');
+            var qtdeOutros = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Outros');
+            var qtdeDistancia = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Distância');
+            var qtdeDoenca = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Doença');
+            var qtdeFinanceiro = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Financeiro');
+            var qtdeMudancaDeCidade = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Mudança de Cidade');
+            var qtdeNaoIndentificacaoComOCurso = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Não Identificação com o Curso');
+            var qtdeTrabalho = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Trabalho');
+            var qtdeTransferencia = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Transferência para outra IES');
+            var qtdeFrequencia = objectFindByKey(relatorio.centroMotivos, 'motivo', 'Frequência baixa');
+
+            var total = (qtdeAprendizagem.atendimentos || 0) +
+                    (qtdeGravidez.atendimentos || 0) +
+                    (qtdeNotasBaixas.atendimentos || 0) +
+                    (qtdeOutros.atendimentos || 0) +
+                    (qtdeDistancia.atendimentos || 0) +
+                    (qtdeDoenca.atendimentos || 0) +
+                    (qtdeFinanceiro.atendimentos || 0) +
+                    (qtdeMudancaDeCidade.atendimentos || 0) +
+                    (qtdeNaoIndentificacaoComOCurso.atendimentos || 0) +
+                    (qtdeTrabalho.atendimentos || 0) +
+                    (qtdeTransferencia.atendimentos || 0) +
+                    (qtdeFrequencia.atendimentos || 0);
 
             html += '<table class="table table-hover table-bordered">' +
                     '<thead> ' +
@@ -2812,57 +2678,57 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>APRENDIZAGEM (dificuldade no processo ensino-aprendizagem)</td>' +
-                    '        <td style="text-align: center">' + qtdeAprendizagem + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeAprendizagem.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>DISTÂNCIA (distância entre Insituição de Ensino e casa)</td>' +
-                    '        <td style="text-align: center">' + qtdeDistancia + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeDistancia.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>DOENÇA (pessoal ou familiar)</td>' +
-                    '        <td style="text-align: center">' + qtdeDoenca + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeDoenca.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>FINANCEIRO (FIES, CREDIN, PROUNE E PROMUBE)</td>' +
-                    '        <td style="text-align: center">' + qtdeFinanceiro + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeFinanceiro.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>FREQUÊNCIA (igual ou maior que 5 faltas)</td>' +
-                    '        <td style="text-align: center">' + qtdeFrequencia + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeFrequencia.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>GRAVIDEZ (afastamento dos estudos para gestação)</td>' +
-                    '        <td style="text-align: center">' + qtdeGravidez + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeGravidez.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>MUDANÇA DE CIDADE (por trabalho ou pessoal)</td>' +
-                    '        <td style="text-align: center">' + qtdeMudancaDeCidade + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeMudancaDeCidade.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>NÃO IDENTIFICAÇÃO COM O CURSO </td>' +
-                    '        <td style="text-align: center">' + qtdeNaoIndentificacaoComOCurso + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeNaoIndentificacaoComOCurso.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>NOTAS BAIXAS (abaixo da média 6,0) </td>' +
-                    '        <td style="text-align: center">' + qtdeNotasBaixas + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeNotasBaixas.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>OUTROS (familiares ou pessoais) - mencionar motivo </td>' +
-                    '        <td style="text-align: center">' + qtdeOutros + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeOutros.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>TRABALHO (dificuldade em conciliar estudos com o trabalho) </td>' +
-                    '        <td style="text-align: center">' + qtdeTrabalho + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeTrabalho.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '    <tr>' +
                     '        <td>TRANSFERÊNCIA PARA OUTRA IES (privada ou pública)</td>' +
-                    '        <td style="text-align: center">' + qtdeTransferencia + '</td>' +
+                    '        <td style="text-align: center">' + (qtdeTransferencia.atendimentos || 0) + '</td>' +
                     '    </tr>' +
                     '</tbody>' +
                     '<tfoot>' +
                     '    <tr>' +
                     '        <td colspan="2" style="text-align: center"><b>TOTAL</b></td>' +
-                    '        <td style="text-align: center"><b>' + total + '</b></td>' +
+                    '        <td style="text-align: center"><b>' + (total || 0) + '</b></td>' +
                     '    </tr>' +
                     '</tfoot>' +
                     '</table>';
@@ -2904,49 +2770,49 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                                 colorByPoint: true,
                                 data: [{
                                         name: "Aprendizagem",
-                                        y: qtdeAprendizagem
+                                        y: qtdeAprendizagem.atendimentos || 0
                                     }, {
                                         name: "Distância",
-                                        y: qtdeDistancia
+                                        y: qtdeDistancia.atendimentos || 0
                                     },
                                     {
                                         name: "Doença",
-                                        y: qtdeDoenca
+                                        y: qtdeDoenca.atendimentos || 0
                                     },
                                     {
                                         name: "Financeiro",
-                                        y: qtdeFinanceiro
+                                        y: qtdeFinanceiro.atendimentos || 0
                                     },
                                     {
                                         name: "Frequência",
-                                        y: qtdeFrequencia
+                                        y: qtdeFrequencia.atendimentos || 0
                                     },
                                     {
                                         name: "Gravidez",
-                                        y: qtdeGravidez
+                                        y: qtdeGravidez.atendimentos || 0
                                     },
                                     {
                                         name: "Mudança de cidade",
-                                        y: qtdeMudancaDeCidade
+                                        y: qtdeMudancaDeCidade.atendimentos || 0
                                     },
                                     {
                                         name: "Não indentificação com o curso",
-                                        y: qtdeNaoIndentificacaoComOCurso
+                                        y: qtdeNaoIndentificacaoComOCurso.atendimentos || 0
                                     },
                                     {
                                         name: "Notas baixas",
-                                        y: qtdeNotasBaixas
+                                        y: qtdeNotasBaixas.atendimentos || 0
                                     },
                                     {
                                         name: "Outros",
-                                        y: qtdeOutros
+                                        y: qtdeOutros.atendimentos || 0
                                     },
                                     {
                                         name: "Trabalho",
-                                        y: qtdeTrabalho
+                                        y: qtdeTrabalho.atendimentos || 0
                                     }, {
                                         name: "Transferencia para outra instituição",
-                                        y: qtdeTransferencia
+                                        y: qtdeTransferencia.atendimentos || 0
                                     }]
                             }]
                     });
@@ -2962,6 +2828,25 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             }
             return 0;
         }
+    }
+
+    function verificarFiltros() {
+        var retorno = true;
+        if (!$scope.centroSelecionado) {
+            growl.error("Informe um centro para a geração do relatório.");
+            retorno = false;
+        }
+
+        if (!$scope.tipoSelecionado) {
+            growl.error("Informe um tipo de relatório desejado.");
+            retorno = false;
+        }else{
+            if ($scope.tipoSelecionado.id === 3 && !$scope.cursoSelecionado) {
+                growl.error("Informe um curso para a geração do relatório.");
+                retorno = false;
+            }
+        }
+        return retorno;
     }
 
     function onError() {
