@@ -22,7 +22,7 @@ public class AlunoService {
         parans.addValue("ra",  ra );
 
         String sql = "select "
-                + "att.data, att.descricaopublica as descricao, atm.descricao as motivo, us.nome, "
+                + "att.data, left( att.descricaopublica, 144 ) as descricao, atm.descricao as motivo, us.nome, "
                 + "case "
                 + "when ate.id is not null then 'Atendimento Especial' "
                 + "when atdc.id is not null then 'Atendimento' "

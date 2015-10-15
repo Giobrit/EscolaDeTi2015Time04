@@ -99,7 +99,9 @@ public class Initializer {
         //Rotas Relatorio Academico
         final ItemAcesso iaAluno = new ItemAcesso("Aluno", iaMenu, true);
         itemAcessoService.add(iaAluno);
-        itemAcessoService.add(new ItemAcesso("Filtrar Aluno", "/RelatorioAcademico/form", iaAluno));
+        itemAcessoService.add(new ItemAcesso("Perfil", "/RelatorioAcademico/form", iaAluno));
+        itemAcessoService.add(new ItemAcesso("Linha do Tempo", "/RelatorioAcademico/timeline",iaAluno));
+        itemAcessoService.add(new ItemAcesso("Estatística", "/RelatorioAcademico/estatistica",iaAluno));
         //Rotas Sistema
         final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
         itemAcessoService.add(iaSistema);

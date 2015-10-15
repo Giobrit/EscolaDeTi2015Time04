@@ -53,6 +53,7 @@
         //Rotas Relatorio Academico
         adicionarRota($routeProvider, '/RelatorioAcademico/form', 'view/relatorioAcademico/relatorioAcademico.html', 'controllerRelatorioAcademico');
         adicionarRota($routeProvider, '/RelatorioAcademico/form/:id', 'view/relatorioAcademico/relatorioAcademico.html', 'controllerRelatorioAcademico');
+        adicionarRota($routeProvider, '/RelatorioAcademico/timeline','view/relatorioAcademico/timeline.html', 'controllerRelatorioAcademico');
         //Rotas Relatorios
         adicionarRota($routeProvider, '/Relatorios/resumido', 'view/relatorios/relatorioResumido.html', 'controllerRelatorioResumido');
         adicionarRota($routeProvider, '/Relatorios/porCentro', 'view/relatorios/relatorioPorCentro.html', 'controllerRelatorioPorCentro');
