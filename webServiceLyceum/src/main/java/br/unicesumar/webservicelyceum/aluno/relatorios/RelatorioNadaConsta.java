@@ -17,8 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RelatorioNadaConsta implements GeradorDeRelatorio{
     @Autowired
-    private DataSource dataSource;
-    
+    private DataSource dataSource;    
     private Connection connection;
     private JasperPrint impressao;
 

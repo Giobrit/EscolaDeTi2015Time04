@@ -86,8 +86,7 @@ public class Initializer {
         gerandoRelatorios();
     }
 
-    private void gerandoRelatorios() {
-        System.out.println("Gerando relatórios!");
+    private void gerandoRelatorios() {        
         relatorioService.gerarRelatorioHistoricoGeral("13097572");
         
         geraRelHistoricoGeral();
@@ -123,7 +122,7 @@ public class Initializer {
     private void geraRelMediaFaltas() {
         try {
             File raiz = getDiretorioBase();
-            File mediaFaltas = new File(raiz, "NadaConsta.pdf");
+            File mediaFaltas = new File(raiz, "MediaFaltasDeAluno.pdf");
             OutputStream mediaFaltasPDF = new FileOutputStream(mediaFaltas);
             
             JasperPrint printMediaFaltas = relatorioService.gerarRelatorioMediaFaltas("13097572");

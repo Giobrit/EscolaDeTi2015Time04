@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.transaction.Transactional;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,42 +15,47 @@ import org.springframework.stereotype.Component;
 public class RelatorioService {
 
     private JasperPrint impressao;
+    @Autowired
+    private RelatorioHistoricoGeral relatorioHistoricoGeral;
     
+    @Autowired
+    private RelatorioMediaFaltas relatorioMediaFaltas;
+    
+    @Autowired
+    private RelatorioNadaConsta relatorioNadaConsta;
 
-    public JasperPrint gerarRelatorioHistoricoGeral(String ra) {       
-        System.out.println("\n\n HISTORICO GERAL \n\n");
+    public JasperPrint gerarRelatorioHistoricoGeral(String ra) {        
         Map params = new HashMap();
         params.put("ra", ra);
-        
-        try {
-            impressao = new RelatorioHistoricoGeral().gerarRelatorio(params);
-        } catch (RelatoriosException ex) {
-            Logger.getLogger(RelatorioService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return impressao;
-    }
 
-    public JasperPrint gerarRelatorioMediaFaltas(String ra) {        
-        System.out.println("\n\n MEDIA FALTAS \n\n");
-        Map params = new HashMap();
-        params.put("ra", ra);
-        
         try {
-            impressao = new RelatorioMediaFaltas().gerarRelatorio(params);
+            impressao = relatorioHistoricoGeral.gerarRelatorio(params);
         } catch (RelatoriosException ex) {
             Logger.getLogger(RelatorioService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return impressao;
     }
     
-    public JasperPrint gerarRelatorioNadaConsta(String ra, String centro){
-        System.out.println("\n\n NADA CONSTA \n\n");
+
+    public JasperPrint gerarRelatorioMediaFaltas(String ra) {       
+        Map params = new HashMap();
+        params.put("ra", ra);
+
+        try {
+            impressao = relatorioMediaFaltas.gerarRelatorio(params);
+        } catch (RelatoriosException ex) {
+            Logger.getLogger(RelatorioService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return impressao;
+    }
+
+    public JasperPrint gerarRelatorioNadaConsta(String ra, String centro) {        
         Map params = new HashMap();
         params.put("ra", ra);
         params.put("centro", centro);
-        
+
         try {
-            impressao = new RelatorioNadaConsta().gerarRelatorio(params);
+            impressao = relatorioNadaConsta.gerarRelatorio(params);
         } catch (RelatoriosException ex) {
             Logger.getLogger(RelatorioService.class.getName()).log(Level.SEVERE, null, ex);
         }
