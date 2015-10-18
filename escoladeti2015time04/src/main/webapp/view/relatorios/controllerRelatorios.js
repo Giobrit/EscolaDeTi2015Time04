@@ -970,37 +970,40 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
     }
 
     $scope.gerarRelatorio = function () {
-        var gerarRelatorio = verificarFiltros();        
+        var gerarRelatorio = verificarFiltros();
         if (gerarRelatorio) {
             switch ($scope.tipoSelecionado.id) {
                 case 1 ://Relatório geral
-                {                    
+                {
                     $http.get("/relatorio/porcentro/relatorioCentroCursoAtendimentos/" + $scope.centroSelecionado.descricao).success(onSucess1).error(onError);
-                    function onSucess1(data) {
-                        limpaGraficos();
-                        criarTabela("relatorioGeral", data);
-                    }
                     break;
                 }
                 case 2 ://Relatório Resumo Motivos
-                {                    
+                {
                     $http.get("/relatorio/porcentro/relatorioCentroResumoMotivos/" + $scope.centroSelecionado.descricao).success(onSucess2).error(onError);
-                    function onSucess2(data) {
-                        limpaGraficos();
-                        criarTabela("relatorioResumoMotivos", data);
-                    }
                     break;
                 }
                 case 3 ://Relatório de motivos por curso
-                {                    
+                {
                     $http.get("/relatorio/porcentro/relatorioCentroMotivosPorCurso/" + $scope.centroSelecionado.descricao + "/" + $scope.cursoSelecionado.descricao).success(onSucess3).error(onError);
-                    function onSucess3(data) {
-                        limpaGraficos();
-                        criarTabela("relatorioMotivosPorCurso", data);
-                    }
                     break;
                 }
             }
+        }
+
+        function onSucess1(data) {
+            limpaGraficos();
+            criarTabela("relatorioGeral", data);
+        }
+
+        function onSucess2(data) {
+            limpaGraficos();
+            criarTabela("relatorioResumoMotivos", data);
+        }
+
+        function onSucess3(data) {
+            limpaGraficos();
+            criarTabela("relatorioMotivosPorCurso", data);
         }
     };
 
@@ -2840,7 +2843,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
         if (!$scope.tipoSelecionado) {
             growl.error("Informe um tipo de relatório desejado.");
             retorno = false;
-        }else{
+        } else {
             if ($scope.tipoSelecionado.id === 3 && !$scope.cursoSelecionado) {
                 growl.error("Informe um curso para a geração do relatório.");
                 retorno = false;
