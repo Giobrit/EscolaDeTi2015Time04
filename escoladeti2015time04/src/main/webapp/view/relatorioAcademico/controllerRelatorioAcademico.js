@@ -4,10 +4,10 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
 
     $scope.itensTimeline = [];
     $scope.propriedadesItens = [];
-    
-    $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary","");
-    $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-info","");
-    $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default","");
+
+    $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary", "");
+    $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-info", "");
+    $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default", "");
 
     $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
@@ -53,4 +53,8 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
     $scope.timestampToData = function (data) {
         return timestampParaData(data);
     };
+
+    $(function () {
+        $("#tabs").tabs();
+    });
 }
