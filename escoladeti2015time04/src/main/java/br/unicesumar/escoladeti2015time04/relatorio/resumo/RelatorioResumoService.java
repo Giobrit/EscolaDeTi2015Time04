@@ -27,7 +27,7 @@ public class RelatorioResumoService {
                 + "from atendimento att "
                 + "inner join atendimentodeixarocurso atdc on atdc.id = att.id "
                 + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
-                + "where dco.descricao in('Trancamento', 'Cancelamento', 'transferência') "
+                + "where dco.descricao in('Trancamento', 'Cancelamento', 'Transferência') "
                 + "group by att.centro, dco.descricao";
 
         String queryPermanencias = "select centro, dco.descricao, count(*) as permanencias "
@@ -59,7 +59,7 @@ public class RelatorioResumoService {
                 + "from atendimento att "
                 + "inner join atendimentodeixarocurso atdc on atdc.id = att.id "
                 + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
-                + "where dco.descricao in('Trancamento', 'Cancelamento', 'transferência') "
+                + "where dco.descricao in('Trancamento', 'Cancelamento', 'Transferência') "
                 + "group by att.centro, dco.descricao";
 
         String queryPermanencias = "select centro, dco.descricao, count(*) as permanencias "
@@ -74,7 +74,7 @@ public class RelatorioResumoService {
         List<Map<String, Object>> atendimentos = jdbcTemplate.query(queryTotalAtendimento, new MapRowMapper());
         retorno.put("atendimentos", atendimentos);
         List<Map<String, Object>> trancamentosCancelamentosTransferencias = jdbcTemplate.query(queryTrancamentosCancelamentosTransferencias, new MapRowMapper());
-            retorno.put("trancamentosCancelamentosTransferencias", trancamentosCancelamentosTransferencias);
+        retorno.put("trancamentosCancelamentosTransferencias", trancamentosCancelamentosTransferencias);
         List<Map<String, Object>> permanencias = jdbcTemplate.query(queryPermanencias, new MapRowMapper());
         retorno.put("permanencias", permanencias);
 

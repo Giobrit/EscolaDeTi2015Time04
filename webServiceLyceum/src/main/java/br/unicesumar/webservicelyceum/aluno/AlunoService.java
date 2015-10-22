@@ -12,7 +12,7 @@ class AlunoService {
             aluno.ra = "13002602";
             aluno.nome = "Giovanni De Ganello Dias";
             aluno.centro = "CETA";
-            aluno.curso = "ADS";
+            aluno.curso = "Anál. Des.de Sistemas";
             aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
@@ -22,7 +22,7 @@ class AlunoService {
             aluno.ra = "13097992";
             aluno.nome = "Renato Kenji Nakamura";
             aluno.centro = "CETA";
-            aluno.curso = "ADS";
+            aluno.curso = "Anál. Des.de Sistemas";
             aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
@@ -32,7 +32,7 @@ class AlunoService {
             aluno.ra = "13002702";
             aluno.nome = "Roney Cesar de Campos";
             aluno.centro = "CETA";
-            aluno.curso = "ADS";
+            aluno.curso = "Redes de Computadores";
             aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
@@ -42,7 +42,7 @@ class AlunoService {
             aluno.ra = "11002782";
             aluno.nome = "Luiz Gustavo Sabaine Fagundes";
             aluno.centro = "CETA";
-            aluno.curso = "SISIN";
+            aluno.curso = "Sistemas para Internet";
             aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
@@ -52,7 +52,7 @@ class AlunoService {
             aluno.ra = "13078102";
             aluno.nome = "Willian Zanuto Oliveira";
             aluno.centro = "CETA";
-            aluno.curso = "SISIN";
+            aluno.curso = "Sistemas para Internet";
             aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
@@ -62,7 +62,7 @@ class AlunoService {
             aluno.ra = "13089252";
             aluno.nome = "Filipe Martins Maldinado";
             aluno.centro = "CETA";
-            aluno.curso = "ADS";
+            aluno.curso = "Agronomia";
             aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
@@ -72,7 +72,7 @@ class AlunoService {
             aluno.ra = "13003052";
             aluno.nome = "Liz Regina Okuzono";
             aluno.centro = "CETA";
-            aluno.curso = "ADS";
+            aluno.curso = "Automação Industrial";
             aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
@@ -82,7 +82,7 @@ class AlunoService {
             aluno.ra = "13097572";
             aluno.nome = "Rodrigo Ferreira de Souza";
             aluno.centro = "CETA";
-            aluno.curso = "ADS";
+            aluno.curso = "Eng.Amb.e Sanitária";
             aluno.serie = "3";
             aluno.turno = "Noturno";
             aluno.matriculado = "Sim";
