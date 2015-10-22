@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("lyceum/aluno")
-public class AlunoController {
+public class AlunoFController {
 
     @Autowired
     private AlunoService service;
@@ -24,6 +24,11 @@ public class AlunoController {
     public Map<String, Object> pegarAluno(@PathVariable String ra) {
         final List<Map<String, Object>> aluno = service.pegarAluno(ra);
 
+        return aluno.get(0);
+    }
+
+    @RequestMapping(value = "/foto/{ra}", method = RequestMethod.GET)
+    public Byte[] pegarFotoAluno(@PathVariable String ra) {
         InputStream input = getClass().getClassLoader().getResourceAsStream("fotos/" + ra + ".jpg");
 
         byte[] bytesFotos = {};
@@ -31,12 +36,10 @@ public class AlunoController {
         try {
             bytesFotos = IOUtils.toByteArray(input);
         } catch (IOException ex) {
-            Logger.getLogger(AlunoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlunoFController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        aluno.get(0).put("bytesFoto", byteToByte(bytesFotos));
-
-        return aluno.get(0);
+        return byteToByte(bytesFotos);
     }
 
     private Byte[] byteToByte(byte[] array) {

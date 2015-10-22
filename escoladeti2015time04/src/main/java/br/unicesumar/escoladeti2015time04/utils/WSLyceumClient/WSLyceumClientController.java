@@ -7,8 +7,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,20 +27,25 @@ public class WSLyceumClientController {
     public AlunoAtendimentoDeixarOCurso findByAluno(@PathVariable Long ra) {
         AlunoAtendimentoDeixarOCurso aluno = restTemplate.getForObject("http://localhost:9097/lyceum/aluno/" + ra, AlunoAtendimentoDeixarOCurso.class);
 
-        try {
-            File file = new File("d:/foto.jpg");
-            file.createNewFile();
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-
-            fileOutputStream.write(parseByteTobyte(aluno.getBytesFoto()));
-            fileOutputStream.flush();
-            fileOutputStream.close();
-
-        } catch (IOException ex) {
-            Logger.getLogger(WSLyceumClientController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         return aluno;
+    }
+
+    @RequestMapping(value = "aluno/foto/{ra}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte [] findFotoByAluno(@PathVariable Long ra) {
+        Byte[] foto = restTemplate.getForObject("http://localhost:9097/lyceum/aluno/foto/" + ra, (new Byte[]{}).getClass());
+
+//        try {
+//            OutputStream outputStream = response.getOutputStream();
+//
+//            outputStream.write(parseByteTobyte(foto));
+//            outputStream.flush();
+//            outputStream.close();
+//
+//        } catch (IOException ex) {
+//            Logger.getLogger(WSLyceumClientController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        return parseByteTobyte(foto);
     }
 
     @RequestMapping("mediaFaltas/{ra}")
