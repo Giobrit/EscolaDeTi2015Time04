@@ -1,10 +1,14 @@
 package br.unicesumar.escoladeti2015time04.utils.WSLyceumClient;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,15 +24,29 @@ public class WSLyceumClientController {
     @RequestMapping(value = "aluno/{ra}", method = RequestMethod.GET)
     public AlunoAtendimentoDeixarOCurso findByAluno(@PathVariable Long ra) {
         AlunoAtendimentoDeixarOCurso aluno = restTemplate.getForObject("http://localhost:9097/lyceum/aluno/" + ra, AlunoAtendimentoDeixarOCurso.class);
+
+        try {
+            File file = new File("d:/foto.jpg");
+            file.createNewFile();
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+
+            fileOutputStream.write(parseByteTobyte(aluno.getBytesFoto()));
+            fileOutputStream.flush();
+            fileOutputStream.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(WSLyceumClientController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return aluno;
     }
-    
+
     @RequestMapping("mediaFaltas/{ra}")
     public void getRelatorioMediaFaltas(@PathVariable String ra, HttpServletResponse response) {
-        Byte[] printMediaFaltas = restTemplate.getForObject("http://localhost:9097/lyceum/relatorio/mediaFaltas/" + ra,(new Byte[]{}).getClass());
+        Byte[] printMediaFaltas = restTemplate.getForObject("http://localhost:9097/lyceum/relatorio/mediaFaltas/" + ra, (new Byte[]{}).getClass());
         try {
             response.setHeader("Content-Disponsition", "inline; filename=mediaFaltas.pdf");
-            
+
             OutputStream outputStream = response.getOutputStream();
             outputStream.write(parseByteTobyte(printMediaFaltas));
             outputStream.flush();
@@ -37,7 +55,6 @@ public class WSLyceumClientController {
             Logger.getLogger(WSLyceumClientController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     @RequestMapping("historicoGeral/{ra}")
     @SuppressWarnings("ConvertToTryWithResources")
@@ -45,16 +62,16 @@ public class WSLyceumClientController {
         Byte[] printHistoricoGeral = restTemplate.getForObject("http://localhost:9097/lyceum/relatorio/historicoGeral/" + ra, (new Byte[]{}).getClass());
         try {
             response.setHeader("Content-Disponsition", "inline; filename=historicoGeral.pdf");
-            
+
             OutputStream outputStream = response.getOutputStream();
             outputStream.write(parseByteTobyte(printHistoricoGeral));
             outputStream.flush();
             outputStream.close();
         } catch (IOException ex) {
             Logger.getLogger(WSLyceumClientController.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }
-    
+
     @RequestMapping("nadaConsta/{ra}/{centro}")
     @SuppressWarnings("ConvertToTryWithResources")
     public void getRelatorioNadaConsta(@PathVariable String ra, @PathVariable String centro, HttpServletResponse response) {
@@ -85,8 +102,6 @@ public class WSLyceumClientController {
         }
     }
 
-    
-    
     private byte[] parseByteTobyte(Byte[] array) {
         byte[] array2 = new byte[array.length];
         for (int i = 0; i < array.length; i++) {

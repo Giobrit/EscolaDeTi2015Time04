@@ -17,11 +17,12 @@ class AlunoAtendimentoDeixarOCurso {
     String matriculado;
     String bolsa;
     String reprovacao;
+    Byte[] bytesFoto;
 
     public AlunoAtendimentoDeixarOCurso() {
     }
 
-    public AlunoAtendimentoDeixarOCurso(String ra, String nome, String centro, String curso, String serie, String turno, String matriculado, String bolsa, String reprovacao) {
+    public AlunoAtendimentoDeixarOCurso(String ra, String nome, String centro, String curso, String serie, String turno, String matriculado, String bolsa, String reprovacao, Byte[] bytesFoto) {
         this.ra = ra;
         this.nome = nome;
         this.centro = centro;
@@ -31,6 +32,7 @@ class AlunoAtendimentoDeixarOCurso {
         this.matriculado = matriculado;
         this.bolsa = bolsa;
         this.reprovacao = reprovacao;
+        this.bytesFoto = bytesFoto;
     }
 
     public String getRa() {
@@ -103,6 +105,14 @@ class AlunoAtendimentoDeixarOCurso {
 
     public void setReprovacao(String reprovacao) {
         this.reprovacao = reprovacao;
+    }
+
+    public Byte[] getBytesFoto() {
+        return bytesFoto;
+    }
+
+    public void setBytesFoto(Byte[] bytesFotos) {
+        this.bytesFoto = bytesFotos;
     }
 
     @Override
