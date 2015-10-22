@@ -22,6 +22,7 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
         $scope.icones["Atendimento"] = "fa-comment-o";
         $scope.icones["Atendimento Preventivo"] = "fa-comment-o";
         $scope.icones["Atendimento Especial"] = "fa-comment-o";
+        $scope.icones["Aluno"] = "fa-user";
         $scope.icones["Relatórios"] = "fa-pencil-square-o";
         $scope.icones["Sistema"] = "fa-cogs";
 

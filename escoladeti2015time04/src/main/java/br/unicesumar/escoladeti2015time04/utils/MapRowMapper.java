@@ -22,7 +22,7 @@ public class MapRowMapper implements RowMapper<Map<String, Object>> {
                 retorno.put(metaData.getColumnLabel(i).toLowerCase(), rs.getObject(i));
             }
         } catch (Exception e) {
-            e.printStackTrace();;
+            e.printStackTrace();
         }
         return retorno;
     }

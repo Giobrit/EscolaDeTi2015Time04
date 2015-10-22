@@ -40,7 +40,7 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
         fromDoSelect = super.montarFromListar();
 
         fromDoSelect += " inner join atendimento a on a.id = atendimentoEspecial.id";
-        fromDoSelect += " inner join atendimentomotivo m on m.id = atendimentoEspecial.motivo";
+        fromDoSelect += " inner join atendimentomotivo m on m.id = a.motivo";
 
         return fromDoSelect + "  ";
     }

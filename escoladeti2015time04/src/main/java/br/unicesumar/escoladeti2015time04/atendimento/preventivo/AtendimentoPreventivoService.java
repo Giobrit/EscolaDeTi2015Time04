@@ -40,7 +40,7 @@ public class AtendimentoPreventivoService extends Service<AtendimentoPreventivo,
         fromDoSelect = super.montarFromListar();
 
         fromDoSelect += " inner join atendimento a on a.id = atendimentoPreventivo.id";
-        fromDoSelect += " inner join atendimentoMotivo m on m.id = atendimentoPreventivo.motivo";
+        fromDoSelect += " inner join atendimentoMotivo m on m.id = a.motivo";
 
         return fromDoSelect + "  ";
     }

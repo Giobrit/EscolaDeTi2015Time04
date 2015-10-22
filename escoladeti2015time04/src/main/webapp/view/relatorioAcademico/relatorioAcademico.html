@@ -1,0 +1,181 @@
+<form name="formRelatorioAcademico" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()">
+    <div class="formulario">
+        <div class="row titulo">
+            <h2>Dados Aluno</h2>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading" data-target="#demo1">
+
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label class="academico"><h3>RA:</h3></label>    
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="ra" ng-class="{ 'has-error'  : formRelatorioAcademico.ra.$invalid && !formRelatorioAcademico.ra.$pristine}" class="form-control" ng-model="relatorioAcademico.ra" ng-keyup="carregarAluno(relatorioAcademico.ra)" maxlength="8" required>
+                    </div>
+                </div>
+            </div>
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-1">Perfil</a></li>
+                    <li><a href="#tabs-2">Linha do tempo</a></li>
+                    <li><a href="#tabs-3">Estatísticas</a></li>
+                </ul>
+                <div id="tabs-1">
+                    <div style="font-size: 17px">
+                        <div class="form-group formulario">
+                            <img ng-src="lyceumClient/aluno/foto/{{raParaFoto}}" alt="" class="img-circle col-md-2">
+                            <div class="col-md-8">
+                                <label>Nome:</label> {{relatorioAcademico.nomeAluno}}
+                            </div>
+                            <div class="col-md-4 formulario">                    
+                                <label>Curso:</label> {{relatorioAcademico.curso}}
+                            </div>
+                            <div class="col-md-2 formulario">
+                                <label>Centro:</label>{{relatorioAcademico.centro}}
+                            </div>
+                            <div class="col-md-2 formulario">
+                                <label>Série:</label> {{relatorioAcademico.serieSemestre}}
+                            </div>
+                            <div class="col-md-2 formulario">
+                                <label>Turno:</label> {{relatorioAcademico.turno}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 formulario">
+                                <label>Bolsa:</label> {{relatorioAcademico.bolsaFinanciamento}}
+                            </div>
+                            <div class="col-md-3 formulario">
+                                <label>Reprovações:</label> {{relatorioAcademico.numeroReprovacoes}}
+                            </div>
+                            <div class="col-md-3 formulario">
+                                <label>Matriculado:</label> {{relatorioAcademico.matriculado}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 formulario">
+                            <h3>Relatórios</h3>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="btn-group-justified col-md-12 form-group formulario">
+                            <div class="btn-group col-md-12" role="group" style="font-size: 12px">
+                                <center>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-3">
+                                        <button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Médias e Faltas</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Histórico Geral</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Nada Consta</button>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabs-2">
+                    <div class="formulario">
+                        <div class="panel panel-info">
+                            <div class="panel-heading" data-target="#demo1">
+                                <center>
+                                    <div class="row" style="height: 58px">
+                                        <div class="form-group col-xs-2 col-md-1">
+                                            <span class="fa-stack fa-2x">
+                                                <i class="fa fa-circle fa-stack-2x text-info"></i>
+                                                <i class="fa fa-comment-o fa-stack-3x fa-inverse"></i>
+                                            </span>
+                                        </div> 
+                                        <div class="form-group col-xs-2 col-md-1">
+                                            <span class="fa-stack fa-2x">
+                                                <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                                <i class="fa fa-comment-o fa-stack-3x fa-inverse"></i>
+                                            </span>
+                                        </div> 
+                                        <div class="form-group col-xs-2 col-md-1">
+                                            <span class="fa-stack fa-2x">
+                                                <i class="fa fa-circle fa-stack-2x text-default"></i>
+                                                <i class="fa fa-comment-o fa-stack-3x fa-inverse"></i>
+                                            </span>
+                                        </div> 
+                                        <div class="form-group col-xs-2 col-md-4">
+                                        </div>    
+                                    </div>    
+                                </center>
+                            </div>    
+                            <div class="panel-body">
+                                <div class="row" >
+                                    <div class="col-md-12">
+                                        <!-- Timeline -->
+                                        <div ng-show="itensTimeline.length > 0" class="timeline">
+                                            <!-- Line component -->
+                                            <div class="line text-muted"></div>
+
+                                            <div ng-repeat="item in itensTimeline" style="padding-right: 20px">
+                                                <!-- Separator -->
+                                                <div class="separator text-muted" >
+                                                    <time>{{timestampToData(item.data)}}</time>
+                                                </div>
+                                                <!-- /Separator -->
+
+                                                <article class="panel {{propriedadesItens[item.nomedoatendimento].cor}}">
+
+                                                    <!-- Icon -->
+                                                    <div class="panel-heading icon">
+                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                    </div>
+                                                    <!-- /Icon -->
+
+                                                    <!-- Heading -->
+                                                    <div class="panel-heading">
+                                                        <h2 class="panel-title">{{item.nomedoatendimento}}</h2>
+                                                    </div>
+                                                    <!-- /Heading -->
+
+                                                    <!-- Body -->
+                                                    <div class="panel-body" style="font-size: 16px">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-3">
+                                                                <label>Atendente Responsável</label>
+                                                            </div>
+                                                            <div class="form-group col-md-8">
+                                                                <small>{{item.nome}}</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-3">
+                                                                <label>Motivo</label>
+                                                            </div>
+                                                            <div class="form-group col-md-8">
+                                                                <small> {{item.motivo}}</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-3">
+                                                                <b>Descrição Atendimento</b>
+                                                            </div>
+                                                            <div class="form-group col-md-8">
+                                                                <small>{{item.descricao}}</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabs-3">
+                    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+                    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
