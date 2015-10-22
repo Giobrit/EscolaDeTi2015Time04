@@ -1,5 +1,6 @@
 package br.unicesumar.escoladeti2015time04.atendimento;
 
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
@@ -79,6 +80,12 @@ public class Atendimento implements Serializable {
     @Column(name = "bolsafinanciamento", nullable = false)
     protected String bolsaFinanciamento;
 
+    @ManyToOne
+    @ColunaListavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
+    @ColunaLocalizavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
+    @JoinColumn(name = "motivo", nullable = false)
+    private AtendimentoMotivo motivo;
+
     @ColunaListavel
     @ColunaLocalizavel
     @Column(name = "descricaopublica", length = 1000, nullable = false)
@@ -91,7 +98,7 @@ public class Atendimento implements Serializable {
     public Atendimento() {
     }
 
-    public Atendimento(Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
+    public Atendimento(Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, AtendimentoMotivo motivo, String descricaoPublica, String descricaoPrivada) {
 
         this.data = data;
         this.usuarioLogado = usuarioLogado;
@@ -103,6 +110,7 @@ public class Atendimento implements Serializable {
         this.turno = turno;
         this.matriculado = matriculado;
         this.bolsaFinanciamento = bolsaFinanciamento;
+        this.motivo = motivo;
         this.descricaoPublica = descricaoPublica;
         this.descricaoPrivada = descricaoPrivada;
     }
@@ -212,6 +220,14 @@ public class Atendimento implements Serializable {
         this.bolsaFinanciamento = bolsaFinanciamento;
     }
 
+    public AtendimentoMotivo getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(AtendimentoMotivo motivo) {
+        this.motivo = motivo;
+    }
+
     public String getDescricaoPublica() {
         return descricaoPublica;
     }
@@ -252,6 +268,7 @@ public class Atendimento implements Serializable {
 
     @Override
     public String toString() {
-        return "Atendimento{" + "id=" + id + ", data=" + data + ", usuarioLogado=" + usuarioLogado + ", ra=" + ra + ", centro=" + centro + ", nomeAluno=" + nomeAluno + ", curso=" + curso + ", serieSemestre=" + serieSemestre + ", turno=" + turno + ", matriculado=" + matriculado + ", bolsaFinanciamento=" + bolsaFinanciamento + ", descricaoPublica=" + descricaoPublica + ", descricaoPrivada=" + descricaoPrivada + '}';
+        return "Atendimento{" + "id=" + id + ", data=" + data + ", usuarioLogado=" + usuarioLogado + ", ra=" + ra + ", centro=" + centro + ", nomeAluno=" + nomeAluno + ", curso=" + curso + ", serieSemestre=" + serieSemestre + ", turno=" + turno + ", matriculado=" + matriculado + ", bolsaFinanciamento=" + bolsaFinanciamento + ", motivo=" + motivo + ", descricaoPublica=" + descricaoPublica + ", descricaoPrivada=" + descricaoPrivada + '}';
     }
+
 }

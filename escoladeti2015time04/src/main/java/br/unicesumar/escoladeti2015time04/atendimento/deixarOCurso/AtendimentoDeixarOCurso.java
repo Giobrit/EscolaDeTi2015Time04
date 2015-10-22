@@ -1,9 +1,9 @@
 package br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso;
 
-import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
 import br.unicesumar.escoladeti2015time04.atendimento.Atendimento;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.*;
+import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
 import br.unicesumar.escoladeti2015time04.utils.service.ColunaLocalizavel;
 import java.io.Serializable;
@@ -40,12 +40,6 @@ public class AtendimentoDeixarOCurso extends Atendimento implements Serializable
     private int numeroReprovacoes;
 
     @ManyToOne
-    @ColunaListavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
-    @ColunaLocalizavel(campoNaQuery = "m.descricao", aliasNaQuery = "motivo")
-    @JoinColumn(name = "motivo", nullable = false)
-    private AtendimentoMotivo motivo;
-
-    @ManyToOne
     @ColunaListavel(campoNaQuery = "o.descricao", aliasNaQuery = "objetivo")
     @ColunaLocalizavel(campoNaQuery = "o.descricao", aliasNaQuery = "objetivo")
     @JoinColumn(name = "objetivo", nullable = false)
@@ -54,22 +48,20 @@ public class AtendimentoDeixarOCurso extends Atendimento implements Serializable
     public AtendimentoDeixarOCurso() {
     }
 
-    public AtendimentoDeixarOCurso(Long protocolo, String coordenadorDiretor, String transferencia, int numeroReprovacoes, AtendimentoMotivo motivo, DeixarOCursoObjetivo objetivo) {
+    public AtendimentoDeixarOCurso(Long protocolo, String coordenadorDiretor, String transferencia, int numeroReprovacoes, DeixarOCursoObjetivo objetivo) {
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
         this.transferencia = transferencia;
         this.numeroReprovacoes = numeroReprovacoes;
-        this.motivo = motivo;
         this.objetivo = objetivo;
     }
 
     public AtendimentoDeixarOCurso(Long protocolo, String coordenadorDiretor, String transferencia, int numeroReprovacoes, AtendimentoMotivo motivo, DeixarOCursoObjetivo objetivo, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
-        super(data, usuarioLogado, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
+        super(data, usuarioLogado, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, motivo, descricaoPublica, descricaoPrivada);
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
         this.transferencia = transferencia;
         this.numeroReprovacoes = numeroReprovacoes;
-        this.motivo = motivo;
         this.objetivo = objetivo;
     }
 
@@ -105,14 +97,6 @@ public class AtendimentoDeixarOCurso extends Atendimento implements Serializable
         this.numeroReprovacoes = numeroReprovacoes;
     }
 
-    public AtendimentoMotivo getMotivo() {
-        return motivo;
-    }
-
-    public void setMotivo(AtendimentoMotivo motivo) {
-        this.motivo = motivo;
-    }
-
     public DeixarOCursoObjetivo getObjetivo() {
         return objetivo;
     }
@@ -145,7 +129,7 @@ public class AtendimentoDeixarOCurso extends Atendimento implements Serializable
 
     @Override
     public String toString() {
-        return "AtendimentoDeixarOCurso{" + "protocolo=" + protocolo + ", coordenadorDiretor=" + coordenadorDiretor + ", transferencia=" + transferencia + ", numeroReprovacoes=" + numeroReprovacoes + ", motivo=" + motivo + ", objetivo=" + objetivo + '}';
+        return "AtendimentoDeixarOCurso{" + "protocolo=" + protocolo + ", coordenadorDiretor=" + coordenadorDiretor + ", transferencia=" + transferencia + ", numeroReprovacoes=" + numeroReprovacoes + ", objetivo=" + objetivo + '}';
     }
 
 }

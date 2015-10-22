@@ -96,6 +96,10 @@ public class Initializer {
         itemAcessoService.add(iaRelatorio);
         itemAcessoService.add(new ItemAcesso("Relatorio resumido", "/Relatorios/resumido", iaRelatorio));
         itemAcessoService.add(new ItemAcesso("Relatorio por centro", "/Relatorios/porCentro", iaRelatorio));
+        //Rotas Relatorio Academico
+        final ItemAcesso iaAluno = new ItemAcesso("Aluno", iaMenu, true);
+        itemAcessoService.add(iaAluno);
+        itemAcessoService.add(new ItemAcesso("Perfil", "/RelatorioAcademico/form", iaAluno));
         //Rotas Sistema
         final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
         itemAcessoService.add(iaSistema);
@@ -104,18 +108,17 @@ public class Initializer {
         itemAcessoService.add(new ItemAcesso(false, "Editar Motivo", "/AtendimentoMotivo/form/:id", iaSistema));
         itemAcessoService.add(new ItemAcesso("Listar Motivo", "/AtendimentoMotivo/list", iaSistema));
         //Permissoes Avulsas
-//            final ItemAcesso iaAvulsas = new ItemAcesso("Avulsas", iaMenu, true);
-//            itemAcessoService.add(iaAvulsas);
+        //final ItemAcesso iaAvulsas = new ItemAcesso("Avulsas", iaMenu, true);
+        //itemAcessoService.add(iaAvulsas);
         itemAcessoService.add(new ItemAcesso(false, "Aceso às Descrições Privadas dos Atendimentos", iaSistema));
-//            itemAcessoService.add(new ItemAcesso(false, "Aceso às Descrições Privadas dos Atendimentos Outros Centros", iaSistema));
-
+        //itemAcessoService.add(new ItemAcesso(false, "Aceso às Descrições Privadas dos Atendimentos Outros Centros", iaSistema));
     }
 
     private void inicializarPerfilAcessoAdministrador() {
         if (!perfilAcessoService.listar().isEmpty()) {
             return;
         }
-
+        
         perfilAcessoService.criar(new PerfilAcesso("Administrador", itemAcessoService.findAllSet()));
     }
 
@@ -130,16 +133,16 @@ public class Initializer {
         final Set<ItemAvulso> itensAvulsos = new HashSet<>();
         final Usuario usuario = new Usuario("Administrador", "admin", senha, email, perfisDeAcesso, itensAvulsos);
         itensAvulsos.add(new ItemAvulso(usuario, iaMenu, TipoItemAvulso.PERMISSAO));
-//                public ItemAvulso(Usuario usuario, ItemAcesso itemAcesso, TipoItemAvulso tipoItemAvulso) {
+        //public ItemAvulso(Usuario usuario, ItemAcesso itemAcesso, TipoItemAvulso tipoItemAvulso) {
 
         usuarioService.criar(usuario);
     }
 
     private void inicializarAtendimentoMotivo() {
-        if(!atendimentoMotivoService.listar().isEmpty()) {
+        if (!atendimentoMotivoService.listar().isEmpty()) {
             return;
         }
-        
+
         Set<AtendimentoDoMotivo> atendimentosDoMotivoDeixarOCurso = new HashSet<>();
         Set<AtendimentoDoMotivo> atendimentosDoMotivoPreventivo = new HashSet<>();
         Set<AtendimentoDoMotivo> atendimentosDoMotivoDeixarOCursoEPreventivo = new HashSet<>();
@@ -176,7 +179,7 @@ public class Initializer {
         if (!deixarOCursoObjetivoService.listar().isEmpty()) {
             return;
         }
-        
+
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Trancamento"));
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Transferência"));
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Transferência EAD"));
