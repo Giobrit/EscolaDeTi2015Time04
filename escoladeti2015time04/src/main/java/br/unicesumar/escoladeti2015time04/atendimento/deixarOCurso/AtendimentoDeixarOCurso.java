@@ -13,10 +13,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "atendimentodeixarocurso")
+@NamedNativeQuery(name = "AtendimentoDeixarOCurso.pegarAlgumaCoisa", query = "select * from where id = :id")
 public class AtendimentoDeixarOCurso extends Atendimento implements Serializable {
 
     @ColunaListavel
