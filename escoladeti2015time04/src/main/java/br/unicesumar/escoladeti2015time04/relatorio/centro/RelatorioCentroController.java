@@ -24,13 +24,13 @@ public class RelatorioCentroController {
         return service.getCentroCursoAlunos();
     } 
     
-    @RequestMapping(value = "/relatorioCentroMotivosPorCurso", method = RequestMethod.GET)    
-    public Map<String,Object> listarCentroMotivosPorCurso(){
-        return service.getCentroMotivosPorCurso();
+    @RequestMapping(value = "/relatorioCentroMotivosPorCurso/{centro}/{curso}", method = RequestMethod.GET)    
+    public Map<String,Object> listarCentroMotivosPorCurso(@PathVariable String centro, @PathVariable String curso){        
+        return service.getCentroMotivosPorCurso(centro, curso);
     }
     
-    @RequestMapping(value = "/relatorioCentroResumoMotivos", method = RequestMethod.GET)    
-    public Map<String,Object> listarCentroResumoMotivos(){
-        return service.getCentroResumoMotivos();
+    @RequestMapping(value = "/relatorioCentroResumoMotivos/{centro}", method = RequestMethod.GET)    
+    public Map<String,Object> listarCentroResumoMotivos(@PathVariable String centro){
+        return service.getCentroResumoMotivos(centro);
     }
 }

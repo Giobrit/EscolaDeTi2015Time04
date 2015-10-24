@@ -22,6 +22,7 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
             setAtributosAluno(data);
             console.log(data);
             carregaTimeline(ra);
+            $scope.raParaFoto = ra;
         }
     };
 

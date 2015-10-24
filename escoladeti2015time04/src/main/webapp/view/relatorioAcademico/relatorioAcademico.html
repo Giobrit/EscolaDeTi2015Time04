@@ -24,7 +24,7 @@
                 <div id="tabs-1">
                     <div style="font-size: 17px">
                         <div class="form-group formulario">
-                            <img src="https://s3-sa-east-1.amazonaws.com/medias.ciranda.me/profiles/215/images/215_9e4aa1ed1aca22d514ce0cc0c65b8931f4bf25a6.jpg" alt="..." class="img-circle col-md-2">
+                            <img ng-src="lyceumClient/aluno/foto/{{raParaFoto}}" alt="" class="img-circle col-md-2">
                             <div class="col-md-8">
                                 <label>Nome:</label> {{relatorioAcademico.nomeAluno}}
                             </div>
@@ -64,13 +64,16 @@
                                 <center>
                                     <div class="col-md-1"></div>
                                     <div class="col-md-3">
-                                        <button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Médias e Faltas</button>
+                                        <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Médias e Faltas</button>-->
+                                        <a class="btn btn-info" href="./lyceumClient/mediaFaltas/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom">Médias e Faltas</a>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Histórico Geral</button>
+                                        <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Histórico Geral</button>-->
+                                        <a class="btn btn-info" href="./lyceumClient/historicoGeral/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom">Histórico Geral</a>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Nada Consta</button>
+                                        <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Nada Consta</button>-->
+                                        <a class="btn btn-info" href="./lyceumClient/nadaConsta/{{relatorioAcademico.ra}}/{{relatorioAcademico.centro}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom">Nada Consta</a>
                                     </div>
                                 </center>
                             </div>
