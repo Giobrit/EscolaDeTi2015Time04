@@ -42,4 +42,24 @@ public class AlunoService {
         //System.out.print(retorno.toString());
         return atendimentos;
     }
+    
+    public List<Map<String, Object>> getRelatorioEstatistica(String ra) {
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+        parans.addValue("ra",  ra );
+
+        String sql = "select count(*) "
+                + "from atendimento att "
+                + "left join atendimentodeixarocurso atdc on att.id = atdc.id "
+                + "inner join atendimentomotivo atm on atm.id = att.motivo "
+                + "left join atendimentopreventivo atp on att.id = atp.id "
+                + "left join atendimentoespecial ate on att.id = ate.id "
+                + "left join usuario us on att.usuariologado = us.id "
+                + "where att.ra = :ra ";
+        //Map<String, Object> retorno = new HashMap<String, Object>();
+        List<Map<String, Object>> atendimentos = jdbcTemplate.query(sql, parans, new MapRowMapper());
+        //retorno.put("atendimentos", atendimentos);
+
+        //System.out.print(retorno.toString());
+        return atendimentos;
+    }
 }
