@@ -30,13 +30,17 @@ public class Disciplina implements Serializable{
     @Column(name = "cargahoraria")
     private double cargaHoraria;
     
+    @Column(name = "serie")
+    private Integer serie;
+    
     public Disciplina() {
     }
     
-    public Disciplina(String codigo, String nome, double cargaHoraria){
+    public Disciplina(String codigo, String nome, double cargaHoraria, Integer serie){
         this.codigo = codigo;
         this.nome = nome;        
         this.cargaHoraria = cargaHoraria;    
+        this.serie = serie;
     }
 
     public Long getId() {
@@ -70,6 +74,16 @@ public class Disciplina implements Serializable{
     public void setCargaHoraria(double cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
+
+    public Integer getSerie() {
+        return serie;
+    }
+
+    public void setSerie(Integer serie) {
+        this.serie = serie;
+    }
+    
+    
 
     @Override
     public int hashCode() {
