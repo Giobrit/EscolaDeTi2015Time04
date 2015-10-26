@@ -82,17 +82,13 @@ public class Initializer {
         inicializarNotasAlunos();
         inicializarDadosEnade();
         inicializarPendenciaAluno();
-
-        gerandoRelatorios();
     }
 
-    private void gerandoRelatorios() {        
-        relatorioService.gerarRelatorioHistoricoGeral("13097572");
-        
-        geraRelHistoricoGeral();
-        geraRelNadaConsta();
-        geraRelMediaFaltas();        
-    }
+//    private void gerandoRelatorios() {        
+//        geraRelHistoricoGeral();
+//        geraRelNadaConsta();
+//        geraRelMediaFaltas();        
+//    }
 
     private void geraRelHistoricoGeral() {
         try {            

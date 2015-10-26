@@ -26,7 +26,7 @@ public class RelatorioService {
 
     public JasperPrint gerarRelatorioHistoricoGeral(String ra) {        
         Map params = new HashMap();
-        params.put("ra", ra);
+        params.put("RA", ra);
 
         try {
             impressao = relatorioHistoricoGeral.gerarRelatorio(params);
