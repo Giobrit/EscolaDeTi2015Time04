@@ -28,8 +28,11 @@ import br.unicesumar.webservicelyceum.turma.TurmaSituacao;
 import br.unicesumar.webservicelyceum.turma.Turma;
 import br.unicesumar.webservicelyceum.turma.TurmaService;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
@@ -38,8 +41,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -86,50 +91,50 @@ public class Initializer {
 //        gerandoRelatorios();
     }
 
-    private void gerandoRelatorios() {        
+    private void gerandoRelatorios() {
         relatorioService.gerarRelatorioHistoricoGeral("13097572");
-        
+
         geraRelHistoricoGeral();
         geraRelNadaConsta();
-        geraRelMediaFaltas();        
+        geraRelMediaFaltas();
     }
 
     private void geraRelHistoricoGeral() {
-        try {            
+        try {
             File historicoGeral = new File(getDiretorioBase(), "HistoricoGeral.pdf");
             OutputStream historicoGeralPDF;
             historicoGeralPDF = new FileOutputStream(historicoGeral);
-            
+
             JasperPrint printHistoricoGeral = relatorioService.gerarRelatorioHistoricoGeral("13097572");
             JasperExportManager.exportReportToPdfStream(printHistoricoGeral, historicoGeralPDF);
         } catch (FileNotFoundException | JRException ex) {
             Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
-    
+
     private void geraRelNadaConsta() {
         try {
             File historicoGeral = new File(getDiretorioBase(), "NadaConsta.pdf");
             OutputStream nadaConstaPDF = new FileOutputStream(historicoGeral);
-            
-            JasperPrint printNadaConsta = relatorioService.gerarRelatorioNadaConsta("13097572","CETA");
+
+            JasperPrint printNadaConsta = relatorioService.gerarRelatorioNadaConsta("13097572", "CETA");
             JasperExportManager.exportReportToPdfStream(printNadaConsta, nadaConstaPDF);
         } catch (FileNotFoundException | JRException ex) {
             Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
-    
+
     private void geraRelMediaFaltas() {
         try {
             File raiz = getDiretorioBase();
             File mediaFaltas = new File(raiz, "MediaFaltasDeAluno.pdf");
             OutputStream mediaFaltasPDF = new FileOutputStream(mediaFaltas);
-            
+
             JasperPrint printMediaFaltas = relatorioService.gerarRelatorioMediaFaltas("13097572");
             JasperExportManager.exportReportToPdfStream(printMediaFaltas, mediaFaltasPDF);
         } catch (FileNotFoundException | JRException ex) {
             Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     private File getDiretorioBase() {
@@ -203,26 +208,26 @@ public class Initializer {
     }
 
     private void inicializarDisciplina() {
-        disciplinaService.criar(new Disciplina("NGER160_007", "algoritmos e lógica de programação", 160));
-        disciplinaService.criar(new Disciplina("NGER160_009", "fundamentos e arquitetura de computadores", 160));
-        disciplinaService.criar(new Disciplina("NGER160_008", "matemática para computação", 160));
-        disciplinaService.criar(new Disciplina("NGER160_004", "metodologia da pesquisa científica", 160));
-        disciplinaService.criar(new Disciplina("NGER160_052", "processos de negócio", 80));
-        disciplinaService.criar(new Disciplina("NGER160_050", "programação I", 80));
-        disciplinaService.criar(new Disciplina("NGER160_054", "sistemas operacionais", 80));
-        disciplinaService.criar(new Disciplina("NGER160_010", "banco de dados i", 160));
-        disciplinaService.criar(new Disciplina("NGER160_055", "design de interação", 80));
-        disciplinaService.criar(new Disciplina("NGER160_012", "engenharia de software i", 160));
-        disciplinaService.criar(new Disciplina("NGER160_013", "estrutura de dados", 160));
-        disciplinaService.criar(new Disciplina("NGER160_001", "formação sociocultural e ética", 80));
-        disciplinaService.criar(new Disciplina("NGER160_051", "fundamentos de redes de computadores", 160));
-        disciplinaService.criar(new Disciplina("NGER160_011", "programação ii", 160));
-        disciplinaService.criar(new Disciplina("NGER160_037", "programação avançada", 160));
-        disciplinaService.criar(new Disciplina("NGER160_038", "empreendedorismo", 80));
-        disciplinaService.criar(new Disciplina("NGER160_039", "projeto de sistemas", 80));
-        disciplinaService.criar(new Disciplina("NGER160_036", "projeto integrador - escola de ti", 320));
-        disciplinaService.criar(new Disciplina("NGER160_032", "gerenciamento de projetos", 80));
-        disciplinaService.criar(new Disciplina("NGER160_032", "tópicos especiais em ads", 80));
+        disciplinaService.criar(new Disciplina("NGER160_007", "algoritmos e lógica de programação", 160, 1));
+        disciplinaService.criar(new Disciplina("NGER160_009", "fundamentos e arquitetura de computadores", 160, 1));
+        disciplinaService.criar(new Disciplina("NGER160_008", "matemática para computação", 160, 1));
+        disciplinaService.criar(new Disciplina("NGER160_004", "metodologia da pesquisa científica", 160, 1));
+        disciplinaService.criar(new Disciplina("NGER160_052", "processos de negócio", 80, 1));
+        disciplinaService.criar(new Disciplina("NGER160_050", "programação I", 80, 1));
+        disciplinaService.criar(new Disciplina("NGER160_054", "sistemas operacionais", 80, 1));
+        disciplinaService.criar(new Disciplina("NGER160_010", "banco de dados i", 160, 2));
+        disciplinaService.criar(new Disciplina("NGER160_055", "design de interação", 80, 2));
+        disciplinaService.criar(new Disciplina("NGER160_012", "engenharia de software i", 160, 2));
+        disciplinaService.criar(new Disciplina("NGER160_013", "estrutura de dados", 160, 2));
+        disciplinaService.criar(new Disciplina("NGER160_001", "formação sociocultural e ética", 80, 2));
+        disciplinaService.criar(new Disciplina("NGER160_051", "fundamentos de redes de computadores", 160, 2));
+        disciplinaService.criar(new Disciplina("NGER160_011", "programação ii", 160, 2));
+        disciplinaService.criar(new Disciplina("NGER160_037", "programação avançada", 160, 3));
+        disciplinaService.criar(new Disciplina("NGER160_038", "empreendedorismo", 80, 3));
+        disciplinaService.criar(new Disciplina("NGER160_039", "projeto de sistemas", 80, 3));
+        disciplinaService.criar(new Disciplina("NGER160_036", "projeto integrador - escola de ti", 320, 3));
+        disciplinaService.criar(new Disciplina("NGER160_032", "gerenciamento de projetos", 80, 3));
+        disciplinaService.criar(new Disciplina("NGER160_032", "tópicos especiais em ads", 80, 3));
     }
 
     private void inicializarNotasAlunos() {
