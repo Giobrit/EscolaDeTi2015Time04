@@ -4,7 +4,8 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
 
     $scope.itensTimeline = [];
     $scope.propriedadesItens = [];
-
+    $scope.raParaFoto = {};
+    
     $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary", "");
     $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-success", "");
     $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default", "");

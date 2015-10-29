@@ -24,8 +24,8 @@
                 <div id="tabs-1">                    
                     <div style="font-size: 17px">
                         <div class="form-group ">                            
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/AWS_Simple_Icons_Non-Service_Specific_User.svg/2000px-AWS_Simple_Icons_Non-Service_Specific_User.svg.png" alt="" class="img-circle col-md-2">
-                            <img ng-src="lyceumClient/aluno/foto/{{raParaFoto}}" alt="" class="img-circle col-md-2">
+                            <img ng-show="{{!raParaFoto}}" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/AWS_Simple_Icons_Non-Service_Specific_User.svg/2000px-AWS_Simple_Icons_Non-Service_Specific_User.svg.png" alt="" class="img-circle col-md-2">
+                            <img ng-show="{{raParaFoto}}" ng-src="lyceumClient/aluno/foto/{{raParaFoto}}" alt="" class="img-circle col-md-2">
                         </div>
                         <div class="form-group">
                             <div class="col-md-10">
@@ -67,15 +67,12 @@
                                 <center>
                                     <div class="col-md-1"></div>
                                     <div class="col-md-3">
-                                        <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Médias e Faltas</button>-->
                                         <a class="btn btn-info" href="./lyceumClient/mediaFaltas/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Médias e Faltas</a>
                                     </div>
                                     <div class="col-md-3">
-                                        <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Histórico Geral</button>-->
                                         <a class="btn btn-info" href="./lyceumClient/historicoGeral/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Histórico Geral</a>
                                     </div>
                                     <div class="col-md-3">
-                                        <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Nada Consta</button>-->
                                         <a class="btn btn-info" href="./lyceumClient/nadaConsta/{{relatorioAcademico.ra}}/{{relatorioAcademico.centro}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Nada Consta</a>
                                     </div>
                                 </center>
