@@ -1,5 +1,6 @@
 package br.unicesumar.escoladeti2015time04.aluno;
 
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,7 @@ public class AlunoController {
     private AlunoService service;
     
     @RequestMapping(value = "/{ra}", method = RequestMethod.GET)    
-    public Map<String,Object> listarAtendimentosAluno(@PathVariable String ra){
+    public List<Map<String,Object>> listarAtendimentosAluno(@PathVariable String ra){
         return this.service.getAtendimentosAluno(ra);
     }
 }
