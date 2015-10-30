@@ -96,6 +96,12 @@ public class Initializer {
         itemAcessoService.add(iaRelatorio);
         itemAcessoService.add(new ItemAcesso("Relatorio resumido", "/Relatorios/resumido", iaRelatorio));
         itemAcessoService.add(new ItemAcesso("Relatorio por centro", "/Relatorios/porCentro", iaRelatorio));
+        //Rotas Materia Ensino Medio
+        final ItemAcesso iaMateria = new ItemAcesso("Matéria Ensino Médio", iaMenu, true);
+        itemAcessoService.add(iaMateria);
+        itemAcessoService.add(new ItemAcesso("Cadastrar Matéria", "/EnsinoMedio/form", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Atualizar Matérias", "/EnsinoMedio/atualizar", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Informações da Matéria", "/EnsinoMedio/informacoesMateria", iaMateria));
         //Rotas Sistema
         final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
         itemAcessoService.add(iaSistema);

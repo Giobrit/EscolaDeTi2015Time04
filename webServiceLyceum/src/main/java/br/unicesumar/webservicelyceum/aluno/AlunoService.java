@@ -88,6 +88,16 @@ class AlunoService {
             aluno.matriculado = "Sim";
             aluno.bolsa = "100% FIES";
             aluno.reprovacao = "0";
+        }else if (id == 13005702) {
+            aluno.ra = "13005702";
+            aluno.nome = "Gabriel Capel de Carvalho";
+            aluno.centro = "CETA";
+            aluno.curso = "SISIN";
+            aluno.serie = "3";
+            aluno.turno = "Noturno";
+            aluno.matriculado = "Sim";
+            aluno.bolsa = "NÃO";
+            aluno.reprovacao = "0";
         } else {
             throw new IllegalArgumentException("Aluno não encontrado!");
         }

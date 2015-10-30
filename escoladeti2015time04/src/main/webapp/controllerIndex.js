@@ -23,6 +23,7 @@ function controllerIndex($scope, $http, $cookies, $location, growl) {
         $scope.icones["Atendimento Preventivo"] = "fa-comment-o";
         $scope.icones["Atendimento Especial"] = "fa-comment-o";
         $scope.icones["Relatórios"] = "fa-pencil-square-o";
+        $scope.icones["Matéria Ensino Médio"] = "fa fa-history";
         $scope.icones["Sistema"] = "fa-cogs";
 
         var idUsuario = $cookies.get('login');
