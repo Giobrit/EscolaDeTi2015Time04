@@ -47,14 +47,12 @@ public class AlunoService {
         MapSqlParameterSource parans = new MapSqlParameterSource();
         parans.addValue("ra",  ra );
 
-        String sql = "select count(*) "
+        String sql = "select count(atdc.id) as atendimentoDeixarOCurso, count(atp.id) as atendimentoPreventivo, count(ate.id) as atendimentoEspecial "
                 + "from atendimento att "
-                + "left join atendimentodeixarocurso atdc on att.id = atdc.id "
-                + "inner join atendimentomotivo atm on atm.id = att.motivo "
-                + "left join atendimentopreventivo atp on att.id = atp.id "
-                + "left join atendimentoespecial ate on att.id = ate.id "
-                + "left join usuario us on att.usuariologado = us.id "
-                + "where att.ra = :ra ";
+                + "left join (select id from atendimentodeixarocurso) atdc on atdc.id = att.id "
+                + "left join (select id from atendimentopreventivo ) atp on atp.id = att.id "
+                + "left join (select id from atendimentoespecial ) ate on ate.id = att.id "
+                + "where att.ra = :ra";
         //Map<String, Object> retorno = new HashMap<String, Object>();
         List<Map<String, Object>> atendimentos = jdbcTemplate.query(sql, parans, new MapRowMapper());
         //retorno.put("atendimentos", atendimentos);

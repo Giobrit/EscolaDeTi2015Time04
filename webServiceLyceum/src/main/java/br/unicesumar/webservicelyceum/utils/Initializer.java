@@ -88,7 +88,7 @@ public class Initializer {
         inicializarDadosEnade();
         inicializarPendenciaAluno();
 
-//        gerandoRelatorios();
+  //      gerandoRelatorios();
     }
 
     private void gerandoRelatorios() {
