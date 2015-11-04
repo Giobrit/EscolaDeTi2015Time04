@@ -20,35 +20,38 @@
                     <li><a href="#tabs-1">Perfil</a></li>
                     <li><a href="#tabs-2">Linha do tempo</a></li>
                     <li><a href="#tabs-3">Estatísticas</a></li>
-                </ul>
-                <div id="tabs-1">
+                </ul>                
+                <div id="tabs-1">                    
                     <div style="font-size: 17px">
-                        <div class="form-group formulario">
+                        <div class="form-group ">                            
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/AWS_Simple_Icons_Non-Service_Specific_User.svg/2000px-AWS_Simple_Icons_Non-Service_Specific_User.svg.png" alt="" class="img-circle col-md-2">
                             <img ng-src="lyceumClient/aluno/foto/{{raParaFoto}}" alt="" class="img-circle col-md-2">
-                            <div class="col-md-8">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
                                 <label>Nome:</label> {{relatorioAcademico.nomeAluno}}
                             </div>
-                            <div class="col-md-4 formulario">                    
+                            <div class="col-md-10 ">                    
                                 <label>Curso:</label> {{relatorioAcademico.curso}}
                             </div>
-                            <div class="col-md-2 formulario">
+                            <div class="col-md-2 ">
                                 <label>Centro:</label>{{relatorioAcademico.centro}}
                             </div>
-                            <div class="col-md-2 formulario">
+                            <div class="col-md-2 ">
                                 <label>Série:</label> {{relatorioAcademico.serieSemestre}}
                             </div>
-                            <div class="col-md-2 formulario">
+                            <div class="col-md-2 ">
                                 <label>Turno:</label> {{relatorioAcademico.turno}}
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-4 formulario">
-                                <label>Bolsa:</label> {{relatorioAcademico.bolsaFinanciamento}}
-                            </div>
-                            <div class="col-md-3 formulario">
+                            <div class="col-md-4 ">
                                 <label>Reprovações:</label> {{relatorioAcademico.numeroReprovacoes}}
                             </div>
-                            <div class="col-md-3 formulario">
+                            <div class="col-md-6 ">
+                                <label>Bolsa:</label> {{relatorioAcademico.bolsaFinanciamento}}
+                            </div>
+                            <div class="col-md-3 ">
                                 <label>Matriculado:</label> {{relatorioAcademico.matriculado}}
                             </div>
                         </div>
@@ -65,15 +68,15 @@
                                     <div class="col-md-1"></div>
                                     <div class="col-md-3">
                                         <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Médias e Faltas</button>-->
-                                        <a class="btn btn-info" href="./lyceumClient/mediaFaltas/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom">Médias e Faltas</a>
+                                        <a class="btn btn-info" href="./lyceumClient/mediaFaltas/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Médias e Faltas</a>
                                     </div>
                                     <div class="col-md-3">
                                         <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Histórico Geral</button>-->
-                                        <a class="btn btn-info" href="./lyceumClient/historicoGeral/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom">Histórico Geral</a>
+                                        <a class="btn btn-info" href="./lyceumClient/historicoGeral/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Histórico Geral</a>
                                     </div>
                                     <div class="col-md-3">
                                         <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Nada Consta</button>-->
-                                        <a class="btn btn-info" href="./lyceumClient/nadaConsta/{{relatorioAcademico.ra}}/{{relatorioAcademico.centro}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom">Nada Consta</a>
+                                        <a class="btn btn-info" href="./lyceumClient/nadaConsta/{{relatorioAcademico.ra}}/{{relatorioAcademico.centro}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Nada Consta</a>
                                     </div>
                                 </center>
                             </div>
@@ -86,27 +89,39 @@
                             <div class="panel-heading" data-target="#demo1">
                                 <center>
                                     <div class="row" style="height: 58px">
-                                        <div class="form-group col-xs-2 col-md-1">
-                                            <span class="fa-stack fa-2x">
-                                                <i class="fa fa-circle fa-stack-2x text-info"></i>
-                                                <i class="fa fa-comment-o fa-stack-3x fa-inverse"></i>
-                                            </span>
-                                        </div> 
-                                        <div class="form-group col-xs-2 col-md-1">
-                                            <span class="fa-stack fa-2x">
-                                                <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                                <i class="fa fa-comment-o fa-stack-3x fa-inverse"></i>
-                                            </span>
-                                        </div> 
-                                        <div class="form-group col-xs-2 col-md-1">
-                                            <span class="fa-stack fa-2x">
-                                                <i class="fa fa-circle fa-stack-2x text-default"></i>
-                                                <i class="fa fa-comment-o fa-stack-3x fa-inverse"></i>
-                                            </span>
-                                        </div> 
-                                        <div class="form-group col-xs-2 col-md-4">
-                                        </div>    
-                                    </div>    
+                                        <div class="form-group col-xs-3 col-md-3">	
+                                            <div class="timeline">
+                                                <article class="panel panel-primary panel-outline">
+                                                    <div class="panel-heading icon">	
+                                                        <i class="fa fa-comment-o"></i>	
+
+                                                    </div>	
+                                                </article>
+                                                <span>Atendimento</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-3 col-md-4">	
+                                            <div class="timeline">
+                                                <article class="panel panel-success panel-outline">
+                                                    <div class="panel-heading icon">	
+                                                        <i class="fa fa-comment-o"></i>	
+                                                    </div>	
+                                                </article>
+                                                <span>Atendimento Preventivo</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-3 col-md-4">	
+                                            <div class="timeline">
+                                                <article class="panel panel-default panel-outline">
+                                                    <div class="panel-heading icon">	
+                                                        <i class="fa fa-comment-o"></i>	
+                                                    </div>	
+                                                </article>
+                                                <span>Atendimento Especial</span>
+                                            </div>
+                                        </div>
+                                    </div>   
+
                                 </center>
                             </div>    
                             <div class="panel-body">
@@ -128,7 +143,7 @@
 
                                                     <!-- Icon -->
                                                     <div class="panel-heading icon">
-                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                        <i class="fa fa-comment-o"></i>
                                                     </div>
                                                     <!-- /Icon -->
 
