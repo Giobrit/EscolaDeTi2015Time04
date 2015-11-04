@@ -899,7 +899,7 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             {
                 $scope.cursos = [{id: 1, descricao: "Agronegócio"},
                     {id: 2, descricao: "Agronomia"},
-                    {id: 3, descricao: "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas"},
+                    {id: 3, descricao: "Anál. Des.de Sistemas"},
                     {id: 4, descricao: "Arquitetura e Urbanismo"},
                     {id: 5, descricao: "Automação Industrial"},
                     {id: 6, descricao: "Design de Interiores"},
@@ -1068,47 +1068,47 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
             switch (centro) {
                 case "CBS":
                 {
-                    var biomedicina = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Biomedicina');
-                    var cienciasBiologicas = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Ciências Biológicas');
-                    var educacaoFisica = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Educação Física');
-                    var enfermagem = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Enfermagem');
-                    var esteticaCosmetica = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Estética e Cosmética');
-                    var farmacia = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Farmácia');
-                    var fisioterapia = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Fisioterapia');
-                    var fonoaudiologia = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Fonoaudiologia');
-                    var medicina = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Medicina');
-                    var nutricao = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Nutrição');
-                    var odontologia = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Odontologia');
-                    var psicologia = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Psicologia');
-                    var veterinaria = objectFindByKey(relatorio.atendimentos, 'curso', 'CBS - Veterinária');
+                    var biomedicina = objectFindByKey(relatorio.atendimentos, 'curso', 'Biomedicina');
+                    var cienciasBiologicas = objectFindByKey(relatorio.atendimentos, 'curso', 'Ciências Biológicas');
+                    var educacaoFisica = objectFindByKey(relatorio.atendimentos, 'curso', 'Educação Física');
+                    var enfermagem = objectFindByKey(relatorio.atendimentos, 'curso', 'Enfermagem');
+                    var esteticaCosmetica = objectFindByKey(relatorio.atendimentos, 'curso', 'Estética e Cosmética');
+                    var farmacia = objectFindByKey(relatorio.atendimentos, 'curso', 'Farmácia');
+                    var fisioterapia = objectFindByKey(relatorio.atendimentos, 'curso', 'Fisioterapia');
+                    var fonoaudiologia = objectFindByKey(relatorio.atendimentos, 'curso', 'Fonoaudiologia');
+                    var medicina = objectFindByKey(relatorio.atendimentos, 'curso', 'Medicina');
+                    var nutricao = objectFindByKey(relatorio.atendimentos, 'curso', 'Nutrição');
+                    var odontologia = objectFindByKey(relatorio.atendimentos, 'curso', 'Odontologia');
+                    var psicologia = objectFindByKey(relatorio.atendimentos, 'curso', 'Psicologia');
+                    var veterinaria = objectFindByKey(relatorio.atendimentos, 'curso', 'Veterinária');
 
-                    var biomedicinaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Biomedicina');
-                    var cienciasBiologicasPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Ciências Biológicas');
-                    var educacaoFisicaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Educação Física');
-                    var enfermagemPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Enfermagem');
-                    var esteticaCosmeticaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Estética e Cosmética');
-                    var farmaciaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Farmácia');
-                    var fisioterapiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Fisioterapia');
-                    var fonoaudiologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Fonoaudiologia');
-                    var medicinaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Medicina');
-                    var nutricaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Nutrição');
-                    var odontologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Odontologia');
-                    var psicologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Psicologia');
-                    var veterinariaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CBS - Veterinária');
+                    var biomedicinaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Biomedicina');
+                    var cienciasBiologicasPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Ciências Biológicas');
+                    var educacaoFisicaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Educação Física');
+                    var enfermagemPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Enfermagem');
+                    var esteticaCosmeticaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Estética e Cosmética');
+                    var farmaciaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Farmácia');
+                    var fisioterapiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Fisioterapia');
+                    var fonoaudiologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Fonoaudiologia');
+                    var medicinaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Medicina');
+                    var nutricaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Nutrição');
+                    var odontologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Odontologia');
+                    var psicologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Psicologia');
+                    var veterinariaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Veterinária');
 
-                    var biomedicinaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Biomedicina');
-                    var cienciasBiologicasTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Ciências Biológicas');
-                    var educacaoFisicaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Educação Física');
-                    var enfermagemTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Enfermagem');
-                    var esteticaCosmeticaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Estética e Cosmética');
-                    var farmaciaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Farmácia');
-                    var fisioterapiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Fisioterapia');
-                    var fonoaudiologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Fonoaudiologia');
-                    var medicinaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Medicina');
-                    var nutricaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Nutrição');
-                    var odontologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Odontologia');
-                    var psicologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Psicologia');
-                    var veterinariaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CBS - Veterinária');
+                    var biomedicinaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Biomedicina');
+                    var cienciasBiologicasTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Ciências Biológicas');
+                    var educacaoFisicaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Educação Física');
+                    var enfermagemTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Enfermagem');
+                    var esteticaCosmeticaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Estética e Cosmética');
+                    var farmaciaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Farmácia');
+                    var fisioterapiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Fisioterapia');
+                    var fonoaudiologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Fonoaudiologia');
+                    var medicinaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Medicina');
+                    var nutricaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Nutrição');
+                    var odontologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Odontologia');
+                    var psicologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Psicologia');
+                    var veterinariaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Veterinária');
 
                     htmlTCorpo = '       <tr>' +
                             '           <td>Biomedicina</td>' +
@@ -1471,56 +1471,56 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                 }
                 case "CETA":
                 {
-                    var agronegocio = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Agronegócio');
-                    var agronomia = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Agronomia');
-                    var ads = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Superior de Tecnologia em Análise e Desenvolvimento de Sistemas');
-                    var arquitetura = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Arquitetura e Urbanismo');
-                    var automacao = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Automação Industrial');
-                    var design = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Design de Interiores');
-                    var engAmbiental = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Eng.Amb.e Sanitária');
-                    var engenhariaCivil = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Engenharia Civil');
-                    var engControleAutom = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Eng.Controle e Autom.');
-                    var engProducao = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Engenharia de Produção');
-                    var engSoftware = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Engenharia de Software');
-                    var engEletrica = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Engenharia Elétrica');
-                    var manuAero = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Manutenção de Aeronaves');
-                    var redes = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Redes de Computadores');
-                    var sistemaInformacao = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Sistemas de Informação');
-                    var sistemaInternet = objectFindByKey(relatorio.atendimentos, 'curso', 'CETA - Superior de Tecnologia de Sistemas para Internet');
+                    var agronegocio = objectFindByKey(relatorio.atendimentos, 'curso', 'Agronegócio');
+                    var agronomia = objectFindByKey(relatorio.atendimentos, 'curso', 'Agronomia');
+                    var ads = objectFindByKey(relatorio.atendimentos, 'curso', 'Anál. Des.de Sistemas');
+                    var arquitetura = objectFindByKey(relatorio.atendimentos, 'curso', 'Arquitetura e Urbanismo');
+                    var automacao = objectFindByKey(relatorio.atendimentos, 'curso', 'Automação Industrial');
+                    var design = objectFindByKey(relatorio.atendimentos, 'curso', 'Design de Interiores');
+                    var engAmbiental = objectFindByKey(relatorio.atendimentos, 'curso', 'Eng.Amb.e Sanitária');
+                    var engenhariaCivil = objectFindByKey(relatorio.atendimentos, 'curso', 'Engenharia Civil');
+                    var engControleAutom = objectFindByKey(relatorio.atendimentos, 'curso', 'Eng.Controle e Autom.');
+                    var engProducao = objectFindByKey(relatorio.atendimentos, 'curso', 'Engenharia de Produção');
+                    var engSoftware = objectFindByKey(relatorio.atendimentos, 'curso', 'Engenharia de Software');
+                    var engEletrica = objectFindByKey(relatorio.atendimentos, 'curso', 'Engenharia Elétrica');
+                    var manuAero = objectFindByKey(relatorio.atendimentos, 'curso', 'Manutenção de Aeronaves');
+                    var redes = objectFindByKey(relatorio.atendimentos, 'curso', 'Redes de Computadores');
+                    var sistemaInformacao = objectFindByKey(relatorio.atendimentos, 'curso', 'Sistemas de Informação');
+                    var sistemaInternet = objectFindByKey(relatorio.atendimentos, 'curso', 'Sistemas para Internet');
 
-                    var agronegocioPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Agronegócio');
-                    var agronomiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Agronomia');
-                    var adsPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Superior de Tecnologia em Análise e Desenvolvimento de Sistemas');
-                    var arquiteturaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Arquitetura e Urbanismo');
-                    var automacaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Automação Industrial');
-                    var designPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Design de Interiores');
-                    var engAmbientalPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Eng.Amb.e Sanitária');
-                    var engenhariaCivilPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Engenharia Civil');
-                    var engControleAutomPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Eng.Controle e Autom.');
-                    var engProducaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Engenharia de Produção');
-                    var engSoftwarePermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Engenharia de Software');
-                    var engEletricaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Engenharia Elétrica');
-                    var manuAeroPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Manutenção de Aeronaves');
-                    var redesPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Redes de Computadores');
-                    var sistemaInformacaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Sistemas de Informação');
-                    var sistemaInternetPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CETA - Superior de Tecnologia de Sistemas para Internet');
+                    var agronegocioPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Agronegócio');
+                    var agronomiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Agronomia');
+                    var adsPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Anál. Des.de Sistemas');
+                    var arquiteturaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Arquitetura e Urbanismo');
+                    var automacaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Automação Industrial');
+                    var designPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Design de Interiores');
+                    var engAmbientalPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Eng.Amb.e Sanitária');
+                    var engenhariaCivilPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Engenharia Civil');
+                    var engControleAutomPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Eng.Controle e Autom.');
+                    var engProducaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Engenharia de Produção');
+                    var engSoftwarePermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Engenharia de Software');
+                    var engEletricaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Engenharia Elétrica');
+                    var manuAeroPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Manutenção de Aeronaves');
+                    var redesPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Redes de Computadores');
+                    var sistemaInformacaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Sistemas de Informação');
+                    var sistemaInternetPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Sistemas para Internet');
 
-                    var agronegocioTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Agronegócio');
-                    var agronomiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Agronomia');
-                    var adsTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Superior de Tecnologia em Análise e Desenvolvimento de Sistemas');
-                    var arquiteturaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Arquitetura e Urbanismo');
-                    var automacaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Automação Industrial');
-                    var designTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Design de Interiores');
-                    var engAmbientalTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Eng.Amb.e Sanitária');
-                    var engenhariaCivilTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Engenharia Civil');
-                    var engControleAutomTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Eng.Controle e Autom.');
-                    var engProducaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Engenharia de Produção');
-                    var engSoftwareTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Engenharia de Software');
-                    var engEletricaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Engenharia Elétrica');
-                    var manuAeroTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Manutenção de Aeronaves');
-                    var redesTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Redes de Computadores');
-                    var sistemaInformacaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Sistemas de Informação');
-                    var sistemaInternetTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CETA - Superior de Tecnologia de Sistemas para Internet');
+                    var agronegocioTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Agronegócio');
+                    var agronomiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Agronomia');
+                    var adsTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Anál. Des.de Sistemas');
+                    var arquiteturaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Arquitetura e Urbanismo');
+                    var automacaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Automação Industrial');
+                    var designTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Design de Interiores');
+                    var engAmbientalTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Eng.Amb.e Sanitária');
+                    var engenhariaCivilTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Engenharia Civil');
+                    var engControleAutomTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Eng.Controle e Autom.');
+                    var engProducaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Engenharia de Produção');
+                    var engSoftwareTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Engenharia de Software');
+                    var engEletricaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Engenharia Elétrica');
+                    var manuAeroTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Manutenção de Aeronaves');
+                    var redesTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Redes de Computadores');
+                    var sistemaInformacaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Sistemas de Informação');
+                    var sistemaInternetTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Sistemas para Internet');
 
                     htmlTCorpo = '       <tr>' +
                             '           <td>Agronegócio</td>' +
@@ -1949,59 +1949,59 @@ function controllerRelatorioPorCentro($scope, $http, growl) {
                 }
                 case "CHSA":
                 {
-                    var administracao = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Administração');
-                    var artesVisuais = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Artes Visuais');
-                    var cienciasContabeis = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Ciências Contábeis');
-                    var comercioExterior = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Comercio Exterior');
-                    var direito = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Direito');
-                    var gastronomia = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Gastronomia');
-                    var gestaoComercial = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Gestão Comercial');
-                    var gestaoRecursosHumanos = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Gestão de Recursos Humanos');
-                    var jornalismo = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Jornalismo');
-                    var logistica = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Logística');
-                    var moda = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Moda');
-                    var musica = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Música');
-                    var pedagogia = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Pedagogia');
-                    var pilotagem = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Pilotagem Prof. de aeronaves');
-                    var publicidadePropaganda = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Publicidade e Propaganda');
-                    var servicoSocial = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Serviço Social');
-                    var teologia = objectFindByKey(relatorio.atendimentos, 'curso', 'CHSA - Teologia');
+                    var administracao = objectFindByKey(relatorio.atendimentos, 'curso', 'Administração');
+                    var artesVisuais = objectFindByKey(relatorio.atendimentos, 'curso', 'Artes Visuais');
+                    var cienciasContabeis = objectFindByKey(relatorio.atendimentos, 'curso', 'Ciências Contábeis');
+                    var comercioExterior = objectFindByKey(relatorio.atendimentos, 'curso', 'Comercio Exterior');
+                    var direito = objectFindByKey(relatorio.atendimentos, 'curso', 'Direito');
+                    var gastronomia = objectFindByKey(relatorio.atendimentos, 'curso', 'Gastronomia');
+                    var gestaoComercial = objectFindByKey(relatorio.atendimentos, 'curso', 'Gestão Comercial');
+                    var gestaoRecursosHumanos = objectFindByKey(relatorio.atendimentos, 'curso', 'Gestão de Recursos Humanos');
+                    var jornalismo = objectFindByKey(relatorio.atendimentos, 'curso', 'Jornalismo');
+                    var logistica = objectFindByKey(relatorio.atendimentos, 'curso', 'Logística');
+                    var moda = objectFindByKey(relatorio.atendimentos, 'curso', 'Moda');
+                    var musica = objectFindByKey(relatorio.atendimentos, 'curso', 'Música');
+                    var pedagogia = objectFindByKey(relatorio.atendimentos, 'curso', 'Pedagogia');
+                    var pilotagem = objectFindByKey(relatorio.atendimentos, 'curso', 'Pilotagem Prof. de aeronaves');
+                    var publicidadePropaganda = objectFindByKey(relatorio.atendimentos, 'curso', 'Publicidade e Propaganda');
+                    var servicoSocial = objectFindByKey(relatorio.atendimentos, 'curso', 'Serviço Social');
+                    var teologia = objectFindByKey(relatorio.atendimentos, 'curso', 'Teologia');
 
-                    var administracaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Administração');
-                    var artesVisuaisPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Artes Visuais');
-                    var cienciasContabeisPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Ciências Contábeis');
-                    var comercioExteriorPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Comercio Exterior');
-                    var direitoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Direito');
-                    var gastronomiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Gastronomia');
-                    var gestaoComercialPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Gestão Comercial');
-                    var gestaoRecursosHumanosPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Gestão de Recursos Humanos');
-                    var jornalismoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Jornalismo');
-                    var logisticaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Logística');
-                    var modaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Moda');
-                    var musicaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Música');
-                    var pedagogiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Pedagogia');
-                    var pilotagemPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Pilotagem Prof. de aeronaves');
-                    var publicidadePropagandaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Publicidade e Propaganda');
-                    var servicoSocialPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Serviço Social');
-                    var teologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'CHSA - Teologia');
+                    var administracaoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Administração');
+                    var artesVisuaisPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Artes Visuais');
+                    var cienciasContabeisPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Ciências Contábeis');
+                    var comercioExteriorPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Comercio Exterior');
+                    var direitoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Direito');
+                    var gastronomiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Gastronomia');
+                    var gestaoComercialPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Gestão Comercial');
+                    var gestaoRecursosHumanosPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Gestão de Recursos Humanos');
+                    var jornalismoPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Jornalismo');
+                    var logisticaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Logística');
+                    var modaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Moda');
+                    var musicaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Música');
+                    var pedagogiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Pedagogia');
+                    var pilotagemPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Pilotagem Prof. de aeronaves');
+                    var publicidadePropagandaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Publicidade e Propaganda');
+                    var servicoSocialPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Serviço Social');
+                    var teologiaPermanencia = objectFindByKey(relatorio.permanencias, 'curso', 'Teologia');
 
-                    var administracaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Administração');
-                    var artesVisuaisTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Artes Visuais');
-                    var cienciasContabeisTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Ciências Contábeis');
-                    var comercioExteriorTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Comercio Exterior');
-                    var direitoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Direito');
-                    var gastronomiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Gastronomia');
-                    var gestaoComercialTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Gestão Comercial');
-                    var gestaoRecursosHumanosTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Gestão de Recursos Humanos');
-                    var jornalismoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Jornalismo');
-                    var logisticaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Logística');
-                    var modaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Moda');
-                    var musicaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Música');
-                    var pedagogiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Pedagogia');
-                    var pilotagemTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Pilotagem Prof. de aeronaves');
-                    var publicidadePropagandaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Publicidade e Propaganda');
-                    var servicoSocialTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Serviço Social');
-                    var teologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'CHSA - Teologia');
+                    var administracaoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Administração');
+                    var artesVisuaisTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Artes Visuais');
+                    var cienciasContabeisTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Ciências Contábeis');
+                    var comercioExteriorTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Comercio Exterior');
+                    var direitoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Direito');
+                    var gastronomiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Gastronomia');
+                    var gestaoComercialTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Gestão Comercial');
+                    var gestaoRecursosHumanosTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Gestão de Recursos Humanos');
+                    var jornalismoTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Jornalismo');
+                    var logisticaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Logística');
+                    var modaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Moda');
+                    var musicaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Música');
+                    var pedagogiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Pedagogia');
+                    var pilotagemTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Pilotagem Prof. de aeronaves');
+                    var publicidadePropagandaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Publicidade e Propaganda');
+                    var servicoSocialTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Serviço Social');
+                    var teologiaTCT = objectFindByKey(relatorio.trancamentosCancelamentosTransferencias, 'curso', 'Teologia');
 
                     htmlTCorpo = '       <tr>' +
                             '           <td>Administração</td>' +
