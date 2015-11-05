@@ -23,9 +23,8 @@
                 </ul>                
                 <div id="tabs-1">                    
                     <div style="font-size: 17px">
-                        <div class="form-group ">                            
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/AWS_Simple_Icons_Non-Service_Specific_User.svg/2000px-AWS_Simple_Icons_Non-Service_Specific_User.svg.png" alt="" class="img-circle col-md-2">
-                            <img ng-src="lyceumClient/aluno/foto/{{raParaFoto}}" alt="" class="img-circle col-md-2">
+                        <div class="form-group ">  
+                            <img ng-src="{{raParaFoto}}" alt="" class="img-circle col-md-2">
                         </div>
                         <div class="form-group">
                             <div class="col-md-10">
@@ -67,7 +66,6 @@
                                 <center>
                                     <div class="col-md-1"></div>
                                     <div class="col-md-3">
-
                                         <a class="btn btn-info" href="./lyceumClient/mediaFaltas/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Médias e Faltas</a>
                                     </div>
                                     <div class="col-md-3">
@@ -92,7 +90,6 @@
                                                 <article class="panel panel-primary panel-outline">
                                                     <div class="panel-heading icon">	
                                                         <i class="fa fa-comment-o"></i>	
-
                                                     </div>	
                                                 </article>
                                                 <span>Atendimento</span>
@@ -198,16 +195,9 @@
                                 </center>
                             </div>
                             <div class="formulario form-group">
-                                <center><h4>Quantidade de Atendimentos</h4></center>
                                 <div id="demo2" class="panel-body collapse in">
-                                    <div class="col-md-6">
-                                        <table id="tabela01" class="table table-hover table-bordered">                        
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="col-md-6">
-                                            <div id="pie" style="min-width: 500px; height: 450px; max-width: 600px; margin: 0 auto; margin-top: 150px"></div>
-                                        </div>
+                                    <div class="col-md-12">
+                                        <div id="pie4" style="min-width: 800px; height: 450px; max-width: 800px; margin: 0 auto; margin-top: 10px"></div>
                                     </div>
                                 </div>
                             </div>
@@ -215,4 +205,4 @@
                     </div>
                 </div>
             </div>
-</form>
+            </form>

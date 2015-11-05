@@ -60,5 +60,55 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
 
     $(function () {
         $("#tabs").tabs();
+        $(document).ready(function () {
+
+            // Build the chart
+            $('#pie4').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Registros de Atendimentos'
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                        name: "Brands",
+                        colorByPoint: true,
+                        data: [{
+                                name: "Atendimento",
+                                y: 56.33
+                            }, {
+                                name: "Atendimento Preventivo",
+                                y: 24.03,
+                                sliced: true,
+                                selected: true
+                            }, {
+                                name: "Atendimento Especial",
+                                y: 10.38
+                            }]
+                    }]
+            });
+        });
     });
 }
