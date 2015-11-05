@@ -1,7 +1,7 @@
 package br.unicesumar.escoladeti2015time04.aluno;
 
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.transaction.Transactional;
@@ -17,23 +17,39 @@ public class AlunoService {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public List<Map<String, Object>> getAtendimentosAluno(String ra) {
+    public List<Map<String, Object>> getAtendimentosAluno(String ra, List<FiltroLinhaTempo> filtros) {
         MapSqlParameterSource parans = new MapSqlParameterSource();
-        parans.addValue("ra",  ra );
+
+        parans.addValue("ra", ra);
+
+        String caseQuery = " ";
+        String innerJoin = " ";
+        String where = " ";
+
+        for (Iterator<FiltroLinhaTempo> it = filtros.iterator(); it.hasNext();) {
+            FiltroLinhaTempo filtro = it.next();
+
+            caseQuery += filtro.getCase() + " ";
+            innerJoin += filtro.getInnerJoin() + " ";
+            where += filtro.getWhere();
+
+            if (it.hasNext()) {
+                where += " or ";
+            }
+        }
 
         String sql = "select "
                 + "att.data, left( att.descricaopublica, 144 ) as descricao, atm.descricao as motivo, us.nome, "
                 + "case "
-                + "when ate.id is not null then 'Atendimento Especial' "
-                + "when atdc.id is not null then 'Atendimento' "
-                + "when atp.id is not null then 'Atendimento Preventivo' end  as nomeDoAtendimento "
+                + caseQuery
+                + " end  as nomeDoAtendimento "
                 + "from atendimento att "
-                + "left join atendimentodeixarocurso atdc on att.id = atdc.id "
+                + innerJoin
                 + "inner join atendimentomotivo atm on atm.id = att.motivo "
-                + "left join atendimentopreventivo atp on att.id = atp.id "
-                + "left join atendimentoespecial ate on att.id = ate.id "
                 + "left join usuario us on att.usuariologado = us.id "
-                + "where att.ra = :ra "
+                + "where att.ra = :ra and ("
+                + where
+                + ")"
                 + "order by data desc";
         //Map<String, Object> retorno = new HashMap<String, Object>();
         List<Map<String, Object>> atendimentos = jdbcTemplate.query(sql, parans, new MapRowMapper());
