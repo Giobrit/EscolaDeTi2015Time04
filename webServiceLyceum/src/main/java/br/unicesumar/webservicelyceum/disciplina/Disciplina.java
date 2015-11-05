@@ -83,9 +83,8 @@ public class Disciplina implements Serializable{
         this.serie = serie;
     }
 
-    
-    
-    @Override    public int hashCode() {
+    @Override
+    public int hashCode() {
         int hash = 7;
         hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
