@@ -7,9 +7,9 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
     $scope.relatorioAcademico = {ra: ""};
     $scope.raParaFoto = "../../bibliotecas/img/user.png";
 
-    $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary", "");
-    $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-danger", "");
-    $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default", "");
+    $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary", "", {nome: "AtendimentoDeixarOCurso", exibir: true});
+    $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-danger", "", {nome: "AtendimentoPreventivo", exibir: true});
+    $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default", "", {nome: "AtendimentoEspecial", exibir: true});
 
     $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
@@ -47,12 +47,41 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
     }
 
     function carregaTimeline(ra) {
-        $http.get("/relatorioAcademico/aluno/" + ra).success(onSucess).error($scope.onError);
+        $http.post("/relatorioAcademico/aluno", getRequisicaoLinhaDoTempo()).success(onSucess).error($scope.onError);
 
         function onSucess(data) {
             $scope.itensTimeline = data;
         }
     }
+
+    function getRequisicaoLinhaDoTempo() {
+        var requisicaoLinhaDoTempo = {};
+        requisicaoLinhaDoTempo.ra = $scope.relatorioAcademico.ra;
+        requisicaoLinhaDoTempo.filtrosLinhaTempo = [];
+
+
+        var filtroAtendimento = $scope.propriedadesItens["Atendimento"].filtroLinhaTempo;
+        var filtroAtendimentoPreventivo = $scope.propriedadesItens["Atendimento Preventivo"].filtroLinhaTempo;
+        var filtroAtendimentoEspecial = $scope.propriedadesItens["Atendimento Especial"].filtroLinhaTempo;
+
+        if (filtroAtendimento.exibir) {
+            requisicaoLinhaDoTempo.filtrosLinhaTempo.push(filtroAtendimento);
+        }
+        if (filtroAtendimentoPreventivo.exibir) {
+            requisicaoLinhaDoTempo.filtrosLinhaTempo.push(filtroAtendimentoPreventivo);
+        }
+        if (filtroAtendimentoEspecial.exibir) {
+            requisicaoLinhaDoTempo.filtrosLinhaTempo.push(filtroAtendimentoEspecial);
+        }
+
+//        requisicaoLinhaDoTempo.filtrosLinhaTempo.put();
+        return requisicaoLinhaDoTempo;
+    }
+
+    $scope.setExibirElemento = function (elemento) {
+        $scope.propriedadesItens[elemento].filtroLinhaTempo.exibir = !$scope.propriedadesItens[elemento].filtroLinhaTempo.exibir;
+        carregaTimeline();
+    };
 
     $scope.timestampToData = function (data) {
         return timestampParaData(data);
