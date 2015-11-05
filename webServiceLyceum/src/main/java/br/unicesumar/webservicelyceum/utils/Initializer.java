@@ -28,11 +28,8 @@ import br.unicesumar.webservicelyceum.turma.TurmaSituacao;
 import br.unicesumar.webservicelyceum.turma.Turma;
 import br.unicesumar.webservicelyceum.turma.TurmaService;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
@@ -41,10 +38,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -87,56 +82,6 @@ public class Initializer {
         inicializarNotasAlunos();
         inicializarDadosEnade();
         inicializarPendenciaAluno();
-    }
-
-    private void gerandoRelatorios() {
-        relatorioService.gerarRelatorioHistoricoGeral("13097572");
-
-        geraRelHistoricoGeral();
-        geraRelNadaConsta();
-        geraRelMediaFaltas();
-    }
-//    private void gerandoRelatorios() {        
-//        geraRelHistoricoGeral();
-//        geraRelNadaConsta();
-//        geraRelMediaFaltas();        
-//    }
-    private void geraRelHistoricoGeral() {
-        try {
-            File historicoGeral = new File(getDiretorioBase(), "HistoricoGeral.pdf");
-            OutputStream historicoGeralPDF;
-            historicoGeralPDF = new FileOutputStream(historicoGeral);
-
-            JasperPrint printHistoricoGeral = relatorioService.gerarRelatorioHistoricoGeral("13097572");
-            JasperExportManager.exportReportToPdfStream(printHistoricoGeral, historicoGeralPDF);
-        } catch (FileNotFoundException | JRException ex) {
-            Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void geraRelNadaConsta() {
-        try {
-            File historicoGeral = new File(getDiretorioBase(), "NadaConsta.pdf");
-            OutputStream nadaConstaPDF = new FileOutputStream(historicoGeral);
-
-            JasperPrint printNadaConsta = relatorioService.gerarRelatorioNadaConsta("13097572", "CETA");
-            JasperExportManager.exportReportToPdfStream(printNadaConsta, nadaConstaPDF);
-        } catch (FileNotFoundException | JRException ex) {
-            Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void geraRelMediaFaltas() {
-        try {
-            File raiz = getDiretorioBase();
-            File mediaFaltas = new File(raiz, "MediaFaltasDeAluno.pdf");
-            OutputStream mediaFaltasPDF = new FileOutputStream(mediaFaltas);
-
-            JasperPrint printMediaFaltas = relatorioService.gerarRelatorioMediaFaltas("13097572");
-            JasperExportManager.exportReportToPdfStream(printMediaFaltas, mediaFaltasPDF);
-        } catch (FileNotFoundException | JRException ex) {
-            Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private File getDiretorioBase() {

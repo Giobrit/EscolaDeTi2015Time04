@@ -1,6 +1,5 @@
 package br.unicesumar.webservicelyceum.disciplina;
 
-import br.unicesumar.webservicelyceum.turma.Turma;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -8,38 +7,37 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "disciplina")
 @SuppressWarnings("PersistenceUnitPresent")
-public class Disciplina implements Serializable{
+public class Disciplina implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "id")    
+    @Column(name = "id")
     private Long id;
-    
+
     @Column(name = "codigo")
     private String codigo;
-    
+
     @Column(name = "nome")
     private String nome;
-    
+
     @Column(name = "cargahoraria")
     private double cargaHoraria;
-    
+
     @Column(name = "serie")
     private Integer serie;
-    
+
     public Disciplina() {
     }
-    
-    public Disciplina(String codigo, String nome, double cargaHoraria, Integer serie){
+
+    public Disciplina(String codigo, String nome, double cargaHoraria, Integer serie) {
         this.codigo = codigo;
-        this.nome = nome;        
-        this.cargaHoraria = cargaHoraria;    
+        this.nome = nome;
+        this.cargaHoraria = cargaHoraria;
         this.serie = serie;
     }
 
@@ -110,6 +108,4 @@ public class Disciplina implements Serializable{
         return "Disciplina{" + "id=" + id + ", codigo=" + codigo + ", nome=" + nome + ",  cargaHoraria=" + cargaHoraria + '}';
     }
 
-    
-       
 }
