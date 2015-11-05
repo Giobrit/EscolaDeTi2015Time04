@@ -1,6 +1,7 @@
 package br.unicesumar.escoladeti2015time04.aluno;
 
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,10 @@ public class AlunoService {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public List<Map<String, Object>> getAtendimentosAluno(String ra, List<FiltroLinhaTempo> filtros) {
+        if (filtros.size() == 0) {
+            return new ArrayList<Map<String, Object>>();
+        }
+        
         MapSqlParameterSource parans = new MapSqlParameterSource();
 
         parans.addValue("ra", ra);
