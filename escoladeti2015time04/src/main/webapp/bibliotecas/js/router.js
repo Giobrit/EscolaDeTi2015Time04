@@ -56,7 +56,11 @@
         //Rotas Relatorios
         adicionarRota($routeProvider, '/Relatorios/resumido', 'view/relatorios/relatorioResumido.html', 'controllerRelatorioResumido');
         adicionarRota($routeProvider, '/Relatorios/porCentro', 'view/relatorios/relatorioPorCentro.html', 'controllerRelatorioPorCentro');
-
+        //Rotas Materia Ensino Medio
+        adicionarRota($routeProvider, '/EnsinoMedio/form', 'view/resumoEscolar/cadastroMateriaEnsinoMedio.html', 'controllerFormMateria');
+        adicionarRota($routeProvider, '/EnsinoMedio/atualizar', 'view/resumoEscolar/atualizarMateriaEnsinoMedio.html', 'controllerAlualizarMateria');
+        adicionarRota($routeProvider, '/EnsinoMedio/informacoesMateria', 'view/resumoEscolar/informacoesDaMateria.html', 'controllerInformacoesMateria');
+        
         //verificar se é possível separar as rotas em módulos
 
         $locationProvider.html5Mode(false);

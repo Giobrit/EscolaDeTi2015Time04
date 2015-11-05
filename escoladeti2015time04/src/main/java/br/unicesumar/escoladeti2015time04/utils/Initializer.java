@@ -100,6 +100,12 @@ public class Initializer {
         final ItemAcesso iaAluno = new ItemAcesso("Aluno", iaMenu, true);
         itemAcessoService.add(iaAluno);
         itemAcessoService.add(new ItemAcesso("Perfil", "/RelatorioAcademico/form", iaAluno));
+        //Rotas Materia Ensino Medio
+        final ItemAcesso iaMateria = new ItemAcesso("Matéria Ensino Médio", iaMenu, true);
+        itemAcessoService.add(iaMateria);
+        itemAcessoService.add(new ItemAcesso("Cadastrar Matéria", "/EnsinoMedio/form", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Atualizar Matérias", "/EnsinoMedio/atualizar", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Informações da Matéria", "/EnsinoMedio/informacoesMateria", iaMateria));
         //Rotas Sistema
         final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
         itemAcessoService.add(iaSistema);
