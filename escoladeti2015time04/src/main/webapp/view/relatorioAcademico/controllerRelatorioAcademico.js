@@ -7,9 +7,9 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
     $scope.relatorioAcademico = {ra: ""};
     $scope.raParaFoto = "../../bibliotecas/img/user.png";
 
-    $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary", "", {nome: "AtendimentoDeixarOCurso", exibir: true});
-    $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-danger", "", {nome: "AtendimentoPreventivo", exibir: true});
-    $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default", "", {nome: "AtendimentoEspecial", exibir: true});
+    $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary", "", {nome: "AtendimentoDeixarOCurso", exibir: true}, 1);
+    $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-danger", "", {nome: "AtendimentoPreventivo", exibir: true}, 1);
+    $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default", "", {nome: "AtendimentoEspecial", exibir: true}, 1);
 
     $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
@@ -59,7 +59,6 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
         requisicaoLinhaDoTempo.ra = $scope.relatorioAcademico.ra;
         requisicaoLinhaDoTempo.filtrosLinhaTempo = [];
 
-
         var filtroAtendimento = $scope.propriedadesItens["Atendimento"].filtroLinhaTempo;
         var filtroAtendimentoPreventivo = $scope.propriedadesItens["Atendimento Preventivo"].filtroLinhaTempo;
         var filtroAtendimentoEspecial = $scope.propriedadesItens["Atendimento Especial"].filtroLinhaTempo;
@@ -80,6 +79,7 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
 
     $scope.setExibirElemento = function (elemento) {
         $scope.propriedadesItens[elemento].filtroLinhaTempo.exibir = !$scope.propriedadesItens[elemento].filtroLinhaTempo.exibir;
+        $scope.propriedadesItens[elemento].opacidade = $scope.propriedadesItens[elemento].opacidade === 1 ? 0.4 : 1;
         carregaTimeline();
     };
 
