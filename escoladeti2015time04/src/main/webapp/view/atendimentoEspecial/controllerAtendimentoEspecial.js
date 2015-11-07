@@ -97,6 +97,18 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             }
         }
     };
+    
+    $scope.getCamposInseridos = function (campo, valor) {
+        if (valor.length < 3) {
+            return;
+        }
+
+        return $http.get("/atendimento/especial/typeAHead/" + campo + "/" + valor).then(onSuccess);
+
+        function onSuccess(result) {
+            return result.data;
+        }
+    };
 
     $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
