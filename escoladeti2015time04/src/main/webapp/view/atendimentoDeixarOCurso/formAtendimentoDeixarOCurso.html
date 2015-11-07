@@ -47,9 +47,7 @@
                             <h4>Aluno</h4>
                         </label>
                         <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoDeixarOCurso.nomeAluno.$invalid && !formAtendimentoDeixarOCurso.nomeAluno.$pristine}">
-                            <input type="text" name="nomeAluno" placeholder="Informe o nome do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.nomeAluno" ng-minlength="2" ng-maxlength="79"  maxlength="80" required>
-                            <p ng-show="formAtendimentoDeixarOCurso.nomeAluno.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
-                            <p ng-show="formAtendimentoDeixarOCurso.nomeAluno.$error.maxlength" class="help-block">Nome no máximo 80 caracteres.</p>
+                            <input type="text" name="nomeAluno" placeholder="Informe o nome do aluno" class="form-control" ng-model="atendimentoDeixarOCurso.nomeAluno" disabled>
                         </div>
                     </div>
                 </div>
