@@ -1,6 +1,7 @@
 package br.unicesumar.escoladeti2015time04.atendimento.especial;
 
 import br.unicesumar.escoladeti2015time04.atendimento.AtendimentoCommandInserir;
+import br.unicesumar.escoladeti2015time04.atendimento.especial.solicitacao.EspecialSolicitacao;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
 
     private String encaminhadoPara;
     
-    private String solicitacao;
+    private EspecialSolicitacao solicitacao;
 
     public AtendimentoEspecialCommandInserir(
             @JsonProperty("data") Date data,
@@ -37,7 +38,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
             @JsonProperty("coordenadorDiretor") String coordenadorDiretor,
             @JsonProperty("laudoMedico") boolean laudoMedico,
             @JsonProperty("encaminhadoPara") String encaminhadoPara,
-            @JsonProperty("solicitacao") String solicitacao,            
+            @JsonProperty("solicitacao") EspecialSolicitacao solicitacao,            
             @JsonProperty("idMotivo") Long idMotivo) {
         super(data, usuario, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
         this.protocolo = protocolo;
@@ -88,11 +89,13 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
         this.encaminhadoPara = encaminhadoPara;
     }
 
-    public String getSolicitacao() {
+    public EspecialSolicitacao getSolicitacao() {
         return solicitacao;
     }
 
-    public void setSolicitacao(String solicitacao) {
+    public void setSolicitacao(EspecialSolicitacao solicitacao) {
         this.solicitacao = solicitacao;
     }
+
+    
 }

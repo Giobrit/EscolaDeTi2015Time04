@@ -1,6 +1,7 @@
 package br.unicesumar.escoladeti2015time04.atendimento.especial;
 
 import br.unicesumar.escoladeti2015time04.atendimento.Atendimento;
+import br.unicesumar.escoladeti2015time04.atendimento.especial.solicitacao.EspecialSolicitacao;
 import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
 import br.unicesumar.escoladeti2015time04.utils.listagem.ColunaListavel;
 import br.unicesumar.escoladeti2015time04.usuario.Usuario;
@@ -10,6 +11,8 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -35,15 +38,16 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
     @Column(name = "encaminhadopara")
     private String encaminhadoPara;
 
-    @ColunaListavel
-    @ColunaLocalizavel
-    @Column(name = "solicitacao")
-    private String solicitacao;
+    @ManyToOne
+    @ColunaListavel(campoNaQuery = "s.descricao", aliasNaQuery = "solicitacao")
+    @ColunaLocalizavel(campoNaQuery = "s.descricao", aliasNaQuery = "solicitacao")
+    @JoinColumn(name = "solicitacao", nullable = false)
+    private EspecialSolicitacao solicitacao;
 
     public AtendimentoEspecial() {
     }
 
-    public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, String encaminhadoPara, String solicitacao) {
+    public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, String encaminhadoPara, EspecialSolicitacao solicitacao) {
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
         this.laudoMedico = laudoMedico;
@@ -51,7 +55,7 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
         this.solicitacao = solicitacao;
     }
 
-    public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, AtendimentoMotivo motivo, String encaminhadoPara, String solicitacao, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
+    public AtendimentoEspecial(Long protocolo, String coordenadorDiretor, boolean laudoMedico, AtendimentoMotivo motivo, String encaminhadoPara, EspecialSolicitacao solicitacao, Date data, Usuario usuarioLogado, String ra, String centro, String nomeAluno, String curso, int serieSemestre, String turno, Boolean matriculado, String bolsaFinanciamento, String descricaoPublica, String descricaoPrivada) {
         super(data, usuarioLogado, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, motivo, descricaoPublica, descricaoPrivada);
         this.protocolo = protocolo;
         this.coordenadorDiretor = coordenadorDiretor;
@@ -92,11 +96,11 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
         this.encaminhadoPara = encaminhadoPara;
     }
 
-    public String getSolicitacao() {
+    public EspecialSolicitacao getSolicitacao() {
         return solicitacao;
     }
 
-    public void setSolicitacao(String solicitacao) {
+    public void setSolicitacao(EspecialSolicitacao solicitacao) {
         this.solicitacao = solicitacao;
     }
 

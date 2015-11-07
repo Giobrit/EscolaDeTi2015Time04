@@ -41,6 +41,8 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
 
         fromDoSelect += " inner join atendimento a on a.id = atendimentoEspecial.id";
         fromDoSelect += " inner join atendimentomotivo m on m.id = a.motivo";
+        fromDoSelect += " inner join especialsolicitacao s on s.id = atendimentoEspecial.solicitacao";
+        
 
         return fromDoSelect + "  ";
     }

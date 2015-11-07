@@ -5,7 +5,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         ra: ""
     };
     $scope.example13model = [];
-    
+
     $scope.init = function () {
 
         $scope.limparTela();
@@ -53,7 +53,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $scope.atendimentoEspecial.curso = data.curso;
             $scope.atendimentoEspecial.centro = data.centro;
             $scope.atendimentoEspecial.serieSemestre = "" + data.seriesemestre;
-            ;
+            
             $scope.atendimentoEspecial.turno = data.turno;
             $scope.atendimentoEspecial.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoEspecial.laudoMedico = data.laudomedico;
@@ -97,7 +97,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             }
         }
     };
-    
+
     $scope.getCamposInseridos = function (campo, valor) {
         if (valor.length < 3) {
             return;
@@ -164,8 +164,15 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     ];
 
     $scope.example13settings = {
-        smartButtonMaxItems: 2
-        
+        smartButtonMaxItems: 5,
+        smartButtonTextConverter: function (itemText, originalItem) {
+            if (itemText.length >= 10) {
+                return itemText.substring(0,8) + "...";
+            }
+
+            return itemText;
+        }
+
     };
 
     function restaurarTela() {

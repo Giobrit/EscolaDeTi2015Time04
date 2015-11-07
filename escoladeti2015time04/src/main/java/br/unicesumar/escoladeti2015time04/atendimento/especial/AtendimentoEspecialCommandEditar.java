@@ -1,6 +1,7 @@
 package br.unicesumar.escoladeti2015time04.atendimento.especial;
 
 import br.unicesumar.escoladeti2015time04.atendimento.AtendimentoCommandEditar;
+import br.unicesumar.escoladeti2015time04.atendimento.especial.solicitacao.EspecialSolicitacao;
 import br.unicesumar.escoladeti2015time04.utils.service.AtributoCommand;
 import br.unicesumar.escoladeti2015time04.utils.service.CommandEditar;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,7 +28,7 @@ public class AtendimentoEspecialCommandEditar extends AtendimentoCommandEditar {
     private String encaminhadoPara;
 
     @AtributoCommand
-    private String solicitacao;
+    private EspecialSolicitacao solicitacao;
 
     public AtendimentoEspecialCommandEditar(
             @JsonProperty("id") Long id,
@@ -46,7 +47,7 @@ public class AtendimentoEspecialCommandEditar extends AtendimentoCommandEditar {
             @JsonProperty("coordenadorDiretor") String coordenadorDiretor,
             @JsonProperty("laudoMedico") boolean laudoMedico,
             @JsonProperty("encaminhadoPara") String encaminhadoPara,
-            @JsonProperty("solicitacao") String solicitacao,
+            @JsonProperty("solicitacao") EspecialSolicitacao solicitacao,
             @JsonProperty("idMotivo") Long idMotivo) {
         this.id = id;
         this.data = data;
@@ -112,11 +113,13 @@ public class AtendimentoEspecialCommandEditar extends AtendimentoCommandEditar {
         this.encaminhadoPara = encaminhadoPara;
     }
 
-    public String getSolicitacao() {
+    public EspecialSolicitacao getSolicitacao() {
         return solicitacao;
     }
 
-    public void setSolicitacao(String solicitacao) {
+    public void setSolicitacao(EspecialSolicitacao solicitacao) {
         this.solicitacao = solicitacao;
     }
+
+    
 }
