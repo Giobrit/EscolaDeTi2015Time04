@@ -100,24 +100,20 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
                     type: 'pie'
                 },
                 title: {
-                    text: 'Registros de Atendimentos'
+                    text: 'Resumo motivos'
                 },
                 credits: {
                     enabled: false
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    pointFormat: '<b>{point.percentage:.1f}%</b>'
                 },
                 plotOptions: {
                     pie: {
                         allowPointSelect: true,
                         cursor: 'pointer',
                         dataLabels: {
-                            enabled: false,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
+                            enabled: false
                         },
                         showInLegend: true
                     }
@@ -126,87 +122,55 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
                         name: "Brands",
                         colorByPoint: true,
                         data: [{
-                                name: "Atendimento",
-                                y: 56.33
+                                name: "Aprendizagem",
+                                y: 27.21
                             }, {
-                                name: "Atendimento Preventivo",
-                                y: 24.03,
-                                sliced: true,
-                                selected: true
+                                name: "Distância",
+                                y: 27.21
+                            },
+                            {
+                                name: "Doença",
+                                y: 27.21
+                            },
+                            {
+                                name: "Financeiro",
+                                y: 23.01
+                            },
+                            {
+                                name: "Frequência",
+                                y: 24.02
+                            },
+                            {
+                                name: "Gravidez",
+                                y: 10.02
+                            },
+                            {
+                                name: "Mudança de cidade",
+                                y: 5.04
+                            },
+                            {
+                                name: "Não indentificação com o curso",
+                                y: 6.01
+                            },
+                            {
+                                name: "Notas baixas",
+                                y: 7.08
+                                        
+                            },
+                            {
+                                name: "Outros",
+                                y: 2.01
+                            },
+                            {
+                                name: "Trabalho",
+                                y: 4.03
                             }, {
-                                name: "Atendimento Especial",
-                                y: 10.38
+                                name: "Transferencia para outra instituição",
+                                y: 6.07
                             }]
                     }]
             });
         });
     });
-    $(function () {
-        $('#container').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Quantidade de Atendimentos'
-            },
-            credits: {
-                enabled: false
-            },
-            xAxis: {
-                categories: [
-                    'Atendimento',
-                    'Atedimento Preventivo',
-                    'Atendimento Especial'
-                ]
-            },
-            yAxis: [{
-                    min: 0,
-                    title: {
-                        text: 'Atendimento'
-                    }
-                }, {
-                    title: {
-                        text: 'Profit (millions)'
-                    },
-                    opposite: true
-                }],
-            legend: {
-                shadow: false
-            },
-            tooltip: {
-                shared: true
-            },
-            plotOptions: {
-                column: {
-                    grouping: false,
-                    shadow: false,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                    name: 'Atendimento',
-                    color: 'rgba(165,170,217,1)',
-                    data: [150, 73, 20],
-                    pointPadding: 0.3,
-                    pointPlacement: -0.2
-                }, {
-                    name: 'Atendimento Preventivo',
-                    color: 'rgba(126,86,134,.9)',
-                    data: [140, 90, 40],
-                    pointPadding: 0.4,
-                    pointPlacement: -0.2
-                }, {
-                    name: 'Atendimento Especial',
-                    color: 'rgba(248,161,63,1)',
-                    data: [183.6, 178.8, 198.5],
-                    tooltip: {
-                        valuePrefix: '$',
-                        valueSuffix: ' M'
-                    },
-                    pointPadding: 0.3,
-                    pointPlacement: 0.2,
-                    yAxis: 1
-                }]
-        });
-    });
+
 }
