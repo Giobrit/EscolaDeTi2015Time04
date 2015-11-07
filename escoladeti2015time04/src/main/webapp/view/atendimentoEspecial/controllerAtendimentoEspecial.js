@@ -164,14 +164,8 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     ];
 
     $scope.example13settings = {
-        smartButtonMaxItems: 5,
-        smartButtonTextConverter: function (itemText, originalItem) {
-            if (itemText === 'Jhon') {
-                return 'Jhonny!';
-            }
-
-            return itemText;
-        }
+        smartButtonMaxItems: 2
+        
     };
 
     function restaurarTela() {

@@ -115,13 +115,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <label>
-                            <h4>Solicitação</h4>
-                        </label>
-                        <div ng-dropdown-multiselect="" options="example13data" selected-model="example13model" extra-settings="example13settings"></div>
-                        <!--<input type="text" name="solicitacao" ng-class="{ 'has-error'  : formAtendimentoEspecial.solicitacao.$invalid && !formAtendimentoEspecial.solicitacao.$pristine}" placeholder="Solicitação" class="form-control" ng-model="atendimentoEspecial.solicitacao" required>-->
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label>
+                                <h4>Solicitação</h4>
+                            </label>
+                        </div>       
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <div ng-dropdown-multiselect="" style="width: 100%" options="example13data" selected-model="example13model" extra-settings="example13settings"></div>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="tooltip, btn btn-primary" title="Nova Solicitação"><i class="fa fa-plus-square-o fa-2x"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -169,27 +179,28 @@
                         <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoPublica.$invalid && !formAtendimentoEspecial.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPublica" required></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="panel-body">
-                <div class="row form-group">
-                    <div class="col-md-12" data-toggle="collapse" data-target="#demo4" ng-show="exibirDescricaoPrivada()">
-                        <label>
-                            <h4>Descrição Privada</h4>
-                        </label>
-                        <!--<button type="button" class="btn btn-danger"><span class="fa fa-unlock-alt" aria-hidden="true"></span></button>-->
-                        <button type="button" class="btn btn-success"><span class="fa fa-lock" aria-hidden="true"></span></button>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-12" data-toggle="collapse" data-target="#demo4" ng-show="exibirDescricaoPrivada()">
+                            <label>
+                                <h4>Descrição Privada</h4>
+                            </label>
+                            <!--<button type="button" class="btn btn-danger"><span class="fa fa-unlock-alt" aria-hidden="true"></span></button>-->
+                            <button type="button" class="btn btn-success"><span class="fa fa-lock" aria-hidden="true"></span></button>
+                        </div>
                     </div>
+                    <textarea id="demo4" class="form-control panel-body collapse" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPrivada"></textarea>
                 </div>
-                <textarea id="demo4" class="form-control panel-body collapse" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPrivada"></textarea>
             </div>
-        </div>
+        </div>        
+        <div class="row">	
+            <div class="col-md-12">
+                <div class="col-md-offset-7 pull-right">
+                    <a type="button" href="#/AtendimentoEspecial/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
+                    <button type="submit" ng-click="salvar()" ng-disabled="(formAtendimentoEspecial.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
+                </div>
+            </div>	
+        </div>	  
     </div>        
-    <div class="row">	
-        <div class="col-md-12">
-            <div class="col-md-offset-7 pull-right">
-                <a type="button" href="#/AtendimentoEspecial/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
-                <button type="submit" ng-click="salvar()" ng-disabled="(formAtendimentoEspecial.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
-            </div>
-        </div>	
-    </div>	    
 </form>
