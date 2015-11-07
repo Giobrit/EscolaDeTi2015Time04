@@ -131,7 +131,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
 
         $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error($scope.onError);
 
-        function onSuccess(data) {
+        function onSuccess(data) {            
             setAtributosAluno(data);
         }
     };
@@ -144,7 +144,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.atendimentoDeixarOCurso.idMotivo = data.id;
     };
 
-    $scope.setMatriculado = function (data) {
+    $scope.setMatriculado = function (data) {        
         $scope.atendimentoDeixarOCurso.matriculado = stringToBoolean(data);
     };
 
@@ -155,7 +155,7 @@ function controllerFormAtendimentoDeixarOCurso($scope, $http, $routeParams, $loc
         $scope.atendimentoDeixarOCurso.serieSemestre = aluno.serie;
         $scope.atendimentoDeixarOCurso.turno = aluno.turno;
         $scope.atendimentoDeixarOCurso.bolsaFinanciamento = aluno.bolsa;
-        $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;
+        $scope.atendimentoDeixarOCurso.numeroReprovacoes = aluno.reprovacao;         
         $scope.atendimentoDeixarOCurso.matriculado = stringToBoolean(aluno.matriculado);
         $scope.matriculadoSelecionado = aluno.matriculado;
     }

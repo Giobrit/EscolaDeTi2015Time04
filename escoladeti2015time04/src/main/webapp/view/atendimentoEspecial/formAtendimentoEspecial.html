@@ -103,7 +103,7 @@
                             <h4>Matriculado</h4>
                         </label>
                         <div class="form-group">
-                             <div toggle-switch class="switch-primary" ng-model="atendimentoEspecial.matriculado"></div> 
+                            <div toggle-switch class="switch-primary" ng-model="atendimentoEspecial.matriculado"></div> 
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -134,7 +134,7 @@
                             <label>
                                 <h4>Encaminhado para</h4>
                             </label>
-                        </div>
+                        </div>    
                         <div class="col-md-6">
                             <label>
                                 <h4>Motivo</h4>
@@ -145,8 +145,10 @@
                 <div class="row">
                     <div class="form-group">
                         <div class="col-md-6">
-                            <input type="text" name="encaminhadoPara" ng-class="{ 'has-error'  : formAtendimentoEspecial.encaminhadoPara.$invalid && !formAtendimentoEspecial.encaminhadoPara.$pristine}" placeholder="Informe para onde será encaminhado" class="form-control" ng-model="atendimentoEspecial.encaminhadoPara" required>
-                        </div>
+                            <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoEspecial.encaminhadoPara.$invalid && !formAtendimentoEspecial.encaminhadoPara.$pristine}">
+                                <input type="text" name="encaminhadoPara"  placeholder="Informe para onde será encaminhado" class="form-control" ng-model="atendimentoEspecial.encaminhadoPara" data-animation="am-flip-x" bs-options="encaminhadoPara for encaminhadoPara in getCamposInseridos('encaminhadoPara', $viewValue)" bs-typeahead>
+                            </div>
+                        </div>    
                         <div class="col-md-5">
                             <div class="form-group">
                                 <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : formAtendimentoEspecial.motivo.$invalid && !formAtendimentoEspecial.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
@@ -155,7 +157,7 @@
                         </div>
                         <div class="col-md-1">
                             <button ng-click="cadastrarOutraTela('/AtendimentoMotivo/form')" type="button" class="tooltip, btn btn-primary" title="Novo Motivo"><i class="fa fa-plus-square-o fa-2x"></i></button>
-                        </div>    
+                        </div>      
                     </div>
                 </div>
 

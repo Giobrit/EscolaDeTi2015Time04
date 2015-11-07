@@ -15,7 +15,7 @@ public class AlunoController {
     @Autowired
     private AlunoService service;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public List<Map<String, Object>> listarAtendimentosAluno(@RequestBody RequisicaoLinhaDoTempo requisicaoLinhaDoTempo) {
         return this.service.getAtendimentosAluno(requisicaoLinhaDoTempo.getRa(), requisicaoLinhaDoTempo.getFiltrosLinhaTempo());
     }

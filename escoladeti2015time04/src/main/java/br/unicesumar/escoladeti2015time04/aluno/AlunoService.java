@@ -1,6 +1,7 @@
 package br.unicesumar.escoladeti2015time04.aluno;
 
 import br.unicesumar.escoladeti2015time04.utils.MapRowMapper;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -18,20 +19,24 @@ public class AlunoService {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public List<Map<String, Object>> getAtendimentosAluno(String ra, List<FiltroLinhaTempo> filtros) {
+        if (filtros.size() == 0) {
+            return new ArrayList<Map<String, Object>>();
+        }
+        
         MapSqlParameterSource parans = new MapSqlParameterSource();
 
         parans.addValue("ra", ra);
 
         String caseQuery = " ";
         String innerJoin = " ";
-        String where = "false or ";
+        String where = " ";
 
         for (Iterator<FiltroLinhaTempo> it = filtros.iterator(); it.hasNext();) {
             FiltroLinhaTempo filtro = it.next();
 
             caseQuery += filtro.getCase() + " ";
             innerJoin += filtro.getInnerJoin() + " ";
-            where = filtro.getWhere();
+            where += filtro.getWhere();
 
             if (it.hasNext()) {
                 where += " or ";
@@ -47,7 +52,7 @@ public class AlunoService {
                 + innerJoin
                 + "inner join atendimentomotivo atm on atm.id = att.motivo "
                 + "left join usuario us on att.usuariologado = us.id "
-                + "where att.ra = :ra ("
+                + "where att.ra = :ra and ("
                 + where
                 + ")"
                 + "order by data desc";
