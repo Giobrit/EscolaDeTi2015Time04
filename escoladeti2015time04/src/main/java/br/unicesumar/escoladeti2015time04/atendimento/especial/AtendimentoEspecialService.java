@@ -41,7 +41,8 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
 
         fromDoSelect += " inner join atendimento a on a.id = atendimentoEspecial.id";
         fromDoSelect += " inner join atendimentomotivo m on m.id = a.motivo";
-        fromDoSelect += " inner join especialsolicitacao s on s.id = atendimentoEspecial.solicitacao";
+        fromDoSelect += " inner join atendimentoespecial_especialsolicitacao attsoli on attsoli.idatendimentoespecial = atendimentoEspecial.id";
+        fromDoSelect += " inner join especialsolicitacao s on s.id = attsoli.idespecialsolicitacao";
         
 
         return fromDoSelect + "  ";
@@ -61,7 +62,7 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
                 commandInserir.getCoordenadorDiretor(),
                 commandInserir.isLaudoMedico(), motivo,
                 commandInserir.getEncaminhadoPara(),
-                commandInserir.getSolicitacao(),
+                commandInserir.getSolicitacoes(),
                 commandInserir.getData(), usuario,
                 commandInserir.getRa(),
                 commandInserir.getCentro(),
@@ -100,7 +101,7 @@ public class AtendimentoEspecialService extends Service<AtendimentoEspecial, Ate
         atendimentoEspecial.setMotivo(motivo);
         atendimentoEspecial.setLaudoMedico(command.isLaudoMedico());
         atendimentoEspecial.setEncaminhadoPara(command.getEncaminhadoPara());
-        atendimentoEspecial.setSolicitacao(command.getSolicitacao());
+        atendimentoEspecial.setSolicitacoes(command.getSolicitacoes());
 
         repository.save(atendimentoEspecial);
 

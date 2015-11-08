@@ -4,6 +4,7 @@ import br.unicesumar.escoladeti2015time04.atendimento.AtendimentoCommandInserir;
 import br.unicesumar.escoladeti2015time04.atendimento.especial.solicitacao.EspecialSolicitacao;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Column;
 
 public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir {
@@ -18,8 +19,8 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
     private Long idMotivo;
 
     private String encaminhadoPara;
-    
-    private EspecialSolicitacao solicitacao;
+
+    private Set<EspecialSolicitacao> solicitacoes;
 
     public AtendimentoEspecialCommandInserir(
             @JsonProperty("data") Date data,
@@ -38,7 +39,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
             @JsonProperty("coordenadorDiretor") String coordenadorDiretor,
             @JsonProperty("laudoMedico") boolean laudoMedico,
             @JsonProperty("encaminhadoPara") String encaminhadoPara,
-            @JsonProperty("solicitacao") EspecialSolicitacao solicitacao,            
+            @JsonProperty("solicitacao") Set<EspecialSolicitacao> solicitacoes,
             @JsonProperty("idMotivo") Long idMotivo) {
         super(data, usuario, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
         this.protocolo = protocolo;
@@ -46,7 +47,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
         this.laudoMedico = laudoMedico;
         this.idMotivo = idMotivo;
         this.encaminhadoPara = encaminhadoPara;
-        this.solicitacao = solicitacao;        
+        this.solicitacoes = solicitacoes;
     }
 
     public Long getProtocolo() {
@@ -89,13 +90,12 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
         this.encaminhadoPara = encaminhadoPara;
     }
 
-    public EspecialSolicitacao getSolicitacao() {
-        return solicitacao;
+    public Set<EspecialSolicitacao> getSolicitacoes() {
+        return solicitacoes;
     }
 
-    public void setSolicitacao(EspecialSolicitacao solicitacao) {
-        this.solicitacao = solicitacao;
+    public void setSolicitacoes(Set<EspecialSolicitacao> solicitacoes) {
+        this.solicitacoes = solicitacoes;
     }
 
-    
 }
