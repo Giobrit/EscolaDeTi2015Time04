@@ -4,14 +4,16 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     $scope.atendimentoEspecial = {
         ra: ""
     };
-    $scope.example13model = [];
+    
+    $scope.solicitacoesSelecionadas = [];
+    $scope.solicitacoes = [];
 
     $scope.init = function () {
 
         $scope.limparTela();
 
         idEditando = $routeParams.id;
-        $scope.preencherListDeMotivo();
+        $scope.preencherListDeSolicitacoes();
 
     };
 
@@ -23,6 +25,8 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     $scope.salvar = function () {
         $scope.atendimentoEspecial.usuario = $scope.usuarioLogado.id;
         $scope.atendimentoEspecial.data = prepararDataParaSalvar($scope.dataEspecial, $scope.horaEspecial);
+        
+        $scope.atendimentoEspecial.solicitacoes = getIdSolicitacoes();
 
         if ($scope.editando) {
             $http.put("/atendimento/especial", $scope.atendimentoEspecial).success(onSuccess).error($scope.onError);
@@ -35,6 +39,14 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $location.path("/AtendimentoEspecial/list");
         }
     };
+    
+    function getIdSolicitacoes() {
+        var idsSolicitacoes = [];
+        $scope.solicitacoesSelecionadas.forEach(function(solicitacao){
+            idsSolicitacoes.push(solicitacao.id);
+        });
+        return idsSolicitacoes;
+    }
 
     function success() {
         growl.success("<b>Atendimento " + ($scope.editando === true ? "editado" : "salvo") + " com sucesso</b>");
@@ -97,6 +109,15 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             }
         }
     };
+    
+    $scope.preencherListDeSolicitacoes = function () {
+        $http.get("atendimento/especial/solicitacao/listarAtivos").success(onSuccess).error($scope.onError);
+        
+        function onSuccess(data) {
+            $scope.solicitacoes = data.itens;
+            $scope.preencherListDeMotivo();
+        }
+    };
 
     $scope.getCamposInseridos = function (campo, valor) {
         if (valor.length < 3) {
@@ -148,22 +169,23 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         $scope.matriculadoSelecionado = aluno.matriculado;
     }
 
-    $scope.example13data = [
-        {id: 1, label: "Ledor"},
-        {id: 2, label: "Escriba"},
-        {id: 3, label: "Ampliação dos textos entregues (e da avaliação)"},
-        {id: 4, label: "Intérprete de Libras"},
-        {id: 5, label: "Sintetizador de voz"},
-        {id: 6, label: "Reglete"},
-        {id: 7, label: "Sorobã"},
-        {id: 8, label: "Livro didático adaptado"},
-        {id: 9, label: "Livro falado"},
-        {id: 10, label: "Tecnologias Assistivas"},
-        {id: 11, label: "Prazo estendido para elaboração de prova"},
-        {id: 12, label: "Outro(s)"},
-    ];
+   
+        
+//        {id: 1, label: "Ledor"},
+//        {id: 2, label: "Escriba"},
+//        {id: 3, label: "Ampliação dos textos entregues (e da avaliação)"},
+//        {id: 4, label: "Intérprete de Libras"},
+//        {id: 5, label: "Sintetizador de voz"},
+//        {id: 6, label: "Reglete"},
+//        {id: 7, label: "Sorobã"},
+//        {id: 8, label: "Livro didático adaptado"},
+//        {id: 9, label: "Livro falado"},
+//        {id: 10, label: "Tecnologias Assistivas"},
+//        {id: 11, label: "Prazo estendido para elaboração de prova"},
+//        {id: 12, label: "Outro(s)"},
+    
 
-    $scope.example13settings = {
+    $scope.configMultiselect = {
         smartButtonMaxItems: 5,
         smartButtonTextConverter: function (itemText, originalItem) {
             if (itemText.length >= 10) {
@@ -171,8 +193,8 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             }
 
             return itemText;
-        }
-
+        },
+        displayProp: 'descricao'
     };
 
     function restaurarTela() {
@@ -238,7 +260,6 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
                 {label: "Bolsa", colunaOrdenacao: "bolsaFinanciamento", propriedadeItem: "bolsaFinanciamento", checked: false},
                 {label: "Matriculado", colunaOrdenacao: "matriculado", propriedadeItem: "matriculado", checked: false},
                 {label: "Laudo Médico", colunaOrdenacao: "laudoMedico", propriedadeItem: "laudoMedico", checked: true},
-                {label: "Solicitação", colunaOrdenacao: "solicitacao", propriedadeItem: "solicitacao", checked: false},
                 {label: "Encaminhado Para", colunaOrdenacao: "encaminhadoPara", propriedadeItem: "encaminhadoPara", checked: true},
                 {label: "Motivo", colunaOrdenacao: "motivo", propriedadeItem: "motivo", checked: true},
                 {label: "Descrição", colunaOrdenacao: "descricaoPublica", propriedadeItem: "descricaoPublica", checked: true}

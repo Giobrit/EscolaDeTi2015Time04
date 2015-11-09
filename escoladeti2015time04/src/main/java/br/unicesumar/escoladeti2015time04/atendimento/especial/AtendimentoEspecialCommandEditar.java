@@ -29,7 +29,7 @@ public class AtendimentoEspecialCommandEditar extends AtendimentoCommandEditar {
     private String encaminhadoPara;
 
     @AtributoCommand
-    private Set<EspecialSolicitacao> solicitacoes;
+    private Set<Long> solicitacoes;
 
     public AtendimentoEspecialCommandEditar(
             @JsonProperty("id") Long id,
@@ -48,7 +48,7 @@ public class AtendimentoEspecialCommandEditar extends AtendimentoCommandEditar {
             @JsonProperty("coordenadorDiretor") String coordenadorDiretor,
             @JsonProperty("laudoMedico") boolean laudoMedico,
             @JsonProperty("encaminhadoPara") String encaminhadoPara,
-            @JsonProperty("solicitacao") Set<EspecialSolicitacao> solicitacoes,
+            @JsonProperty("solicitacoes") Set<Long> solicitacoes,
             @JsonProperty("idMotivo") Long idMotivo) {
         this.id = id;
         this.data = data;
@@ -114,11 +114,11 @@ public class AtendimentoEspecialCommandEditar extends AtendimentoCommandEditar {
         this.encaminhadoPara = encaminhadoPara;
     }
 
-    public Set<EspecialSolicitacao> getSolicitacoes() {
+    public Set<Long> getSolicitacoes() {
         return solicitacoes;
     }
 
-    public void setSolicitacoes(Set<EspecialSolicitacao> solicitacoes) {
+    public void setSolicitacoes(Set<Long> solicitacoes) {
         this.solicitacoes = solicitacoes;
     }
 

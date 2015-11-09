@@ -41,8 +41,6 @@ public class AtendimentoEspecial extends Atendimento implements Serializable {
     private String encaminhadoPara;
 
     @ManyToMany
-    @ColunaListavel(campoNaQuery = "s.descricao", aliasNaQuery = "solicitacao")
-    @ColunaLocalizavel(campoNaQuery = "s.descricao", aliasNaQuery = "solicitacao")
     @JoinTable(
             name = "atendimentoespecial_especialsolicitacao",
             joinColumns = {

@@ -20,7 +20,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
 
     private String encaminhadoPara;
 
-    private Set<EspecialSolicitacao> solicitacoes;
+    private Set<Long> solicitacoes;
 
     public AtendimentoEspecialCommandInserir(
             @JsonProperty("data") Date data,
@@ -39,7 +39,7 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
             @JsonProperty("coordenadorDiretor") String coordenadorDiretor,
             @JsonProperty("laudoMedico") boolean laudoMedico,
             @JsonProperty("encaminhadoPara") String encaminhadoPara,
-            @JsonProperty("solicitacao") Set<EspecialSolicitacao> solicitacoes,
+            @JsonProperty("solicitacoes") Set<Long> solicitacoes,
             @JsonProperty("idMotivo") Long idMotivo) {
         super(data, usuario, ra, centro, nomeAluno, curso, serieSemestre, turno, matriculado, bolsaFinanciamento, descricaoPublica, descricaoPrivada);
         this.protocolo = protocolo;
@@ -90,11 +90,11 @@ public class AtendimentoEspecialCommandInserir extends AtendimentoCommandInserir
         this.encaminhadoPara = encaminhadoPara;
     }
 
-    public Set<EspecialSolicitacao> getSolicitacoes() {
+    public Set<Long> getSolicitacoes() {
         return solicitacoes;
     }
 
-    public void setSolicitacoes(Set<EspecialSolicitacao> solicitacoes) {
+    public void setSolicitacoes(Set<Long> solicitacoes) {
         this.solicitacoes = solicitacoes;
     }
 
