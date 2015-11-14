@@ -22,7 +22,7 @@ public class AlunoService {
         if (filtros.size() == 0) {
             return new ArrayList<Map<String, Object>>();
         }
-        
+
         MapSqlParameterSource parans = new MapSqlParameterSource();
 
         parans.addValue("ra", ra);
@@ -63,10 +63,10 @@ public class AlunoService {
         //System.out.print(retorno.toString());
         return atendimentos;
     }
-    
+
     public List<Map<String, Object>> getRelatorioEstatistica(String ra) {
         MapSqlParameterSource parans = new MapSqlParameterSource();
-        parans.addValue("ra",  ra );
+        parans.addValue("ra", ra);
 
         String sql = "select count(atdc.id) as atendimentoDeixarOCurso, count(atp.id) as atendimentoPreventivo, count(ate.id) as atendimentoEspecial "
                 + "from atendimento att "
@@ -74,6 +74,25 @@ public class AlunoService {
                 + "left join (select id from atendimentopreventivo ) atp on atp.id = att.id "
                 + "left join (select id from atendimentoespecial ) ate on ate.id = att.id "
                 + "where att.ra = :ra";
+        //Map<String, Object> retorno = new HashMap<String, Object>();
+        List<Map<String, Object>> atendimentos = jdbcTemplate.query(sql, parans, new MapRowMapper());
+        //retorno.put("atendimentos", atendimentos);
+
+        //System.out.print(retorno.toString());
+        return atendimentos;
+    }
+
+    public List<Map<String, Object>> getRelatorioMotivo(String ra) {
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+        parans.addValue("ra", ra);
+
+        String sql = "select "
+                + " atm.descricao, "
+                + " count(atm.id) as quantidade "
+                + "from atendimento att "
+                + "inner join atendimentomotivo atm on atm.id = motivo "
+                + "where att.ra = '13078102' "
+                + "group by atm.id ";
         //Map<String, Object> retorno = new HashMap<String, Object>();
         List<Map<String, Object>> atendimentos = jdbcTemplate.query(sql, parans, new MapRowMapper());
         //retorno.put("atendimentos", atendimentos);
