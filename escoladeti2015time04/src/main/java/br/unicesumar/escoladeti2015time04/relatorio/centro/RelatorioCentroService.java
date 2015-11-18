@@ -100,7 +100,7 @@ public class RelatorioCentroService {
                 + "from atendimento att "
                 + "inner join atendimentodeixarocurso atdc on atdc.id = att.id "
                 + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
-                + "inner join atendimentomotivo atm on atm.id = atdc.motivo "
+                + "inner join atendimentomotivo atm on atm.id = att.motivo "
                 + "where att.centro = :centro "
                 + "and UPPER(att.curso) ILIKE UPPER(:curso) "
                 + "group by att.centro, atm.id, atm.descricao";
@@ -121,7 +121,7 @@ public class RelatorioCentroService {
                 + "from atendimento att "
                 + "inner join atendimentodeixarocurso atdc on atdc.id = att.id "
                 + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
-                + "inner join atendimentomotivo atm on atm.id = atdc.motivo "
+                + "inner join atendimentomotivo atm on atm.id = att.motivo "
                 + "where att.centro = :centro "
                 + "group by att.centro, atm.id, atm.descricao";
 

@@ -5,7 +5,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         ra: ""
     };
     $scope.example13model = [];
-
+    
     $scope.init = function () {
 
         $scope.limparTela();
@@ -70,7 +70,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
 
             selecionaMotivoNaTela(data.motivo);
             $scope.setMotivo($scope.motivoSelecionado);
-            
+
             restaurarTela();
         }
     };
@@ -162,7 +162,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         }
     };
 
- function restaurarTela() {
+    function restaurarTela() {
         if (!$scope.pilhaTelas) {
             return;
         }
