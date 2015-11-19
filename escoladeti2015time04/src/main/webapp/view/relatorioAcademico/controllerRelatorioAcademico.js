@@ -1,7 +1,6 @@
 AppModule.controller("controllerRelatorioAcademico", controllerRelatorioAcademico);
 
 function controllerRelatorioAcademico($scope, $http, $routeParams, $location, growl, $timeout) {
-
     $scope.itensTimeline = [];
     $scope.propriedadesItens = [];
     $scope.relatorioAcademico = {ra: ""};
@@ -25,6 +24,7 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
             setAtributosAluno(data);
             console.log(data);
             carregaTimeline(ra);
+            getMotivos(ra);
             $scope.raParaFoto = "lyceumClient/aluno/foto/" + ra;
         }
     };
@@ -87,8 +87,15 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
         return timestampParaData(data);
     };
 
-    $(function () {
+    carregaRelatorioMotivo();
+
+    function carregaRelatorioMotivo(motivosDoAluno) {
         $("#tabs").tabs();
+        
+        if (!motivosDoAluno) {
+            return
+        }
+
         $(document).ready(function () {
 
             // Build the chart
@@ -121,56 +128,20 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
                 series: [{
                         name: "Brands",
                         colorByPoint: true,
-                        data: [{
-                                name: "Aprendizagem",
-                                y: 27.21
-                            }, {
-                                name: "Distância",
-                                y: 27.21
-                            },
-                            {
-                                name: "Doença",
-                                y: 27.21
-                            },
-                            {
-                                name: "Financeiro",
-                                y: 23.01
-                            },
-                            {
-                                name: "Frequência",
-                                y: 24.02
-                            },
-                            {
-                                name: "Gravidez",
-                                y: 10.02
-                            },
-                            {
-                                name: "Mudança de cidade",
-                                y: 5.04
-                            },
-                            {
-                                name: "Não indentificação com o curso",
-                                y: 6.01
-                            },
-                            {
-                                name: "Notas baixas",
-                                y: 7.08
-                                        
-                            },
-                            {
-                                name: "Outros",
-                                y: 2.01
-                            },
-                            {
-                                name: "Trabalho",
-                                y: 4.03
-                            }, {
-                                name: "Transferencia para outra instituição",
-                                y: 6.07
-                            }]
+                        data: motivosDoAluno
                     }]
             });
         });
-    });
+    }
+
+    function getMotivos(ra) {
+        
+
+        return $http.get("/relatorioAcademico/aluno/" + ra).success(onSuccess).error($scope.onError);
+
+        function onSuccess(result) {
+            carregaRelatorioMotivo(result);
+        }
+    }
 
 }
