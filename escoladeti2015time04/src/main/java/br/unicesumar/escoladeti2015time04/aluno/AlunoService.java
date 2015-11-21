@@ -98,7 +98,7 @@ public class AlunoService {
                 + " count(atm.id) as quantidade "
                 + " from atendimento att "
                 + " inner join atendimentomotivo atm on atm.id = motivo "
-                + " where att.ra = '13002602'";
+                + " where att.ra = :ra";
 
 //Map<String, Object> retorno = new HashMap<String, Object>();
         List<Map<String, Object>> atendimentos = jdbcTemplate.query(sql, parans, new MapRowMapper());
