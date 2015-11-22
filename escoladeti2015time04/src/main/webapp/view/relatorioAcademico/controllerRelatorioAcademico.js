@@ -5,7 +5,8 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
     $scope.propriedadesItens = [];
     $scope.relatorioAcademico = {ra: ""};
     $scope.raParaFoto = "../../bibliotecas/img/user.png";
-
+    $scope.quantidadeAtendimentosDoAluno = {};
+            
     $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary", "", {nome: "AtendimentoDeixarOCurso", exibir: true}, 1);
     $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-danger", "", {nome: "AtendimentoPreventivo", exibir: true}, 1);
     $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default", "", {nome: "AtendimentoEspecial", exibir: true}, 1);
@@ -21,6 +22,7 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
         $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
+            getRelatorioEstatistica(ra);
             setAtributosAluno(data);
             console.log(data);
             carregaTimeline(ra);
@@ -145,5 +147,13 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
             carregaRelatorioMotivo(result);
         }
     }
-
+    
+    
+    function getRelatorioEstatistica(ra){
+        return $http.get("/relatorioAcademico/aluno/quantidade/" + ra).success(onSuccess).error($scope.onError);
+        
+        function onSuccess(result){
+            $scope.quantidadeAtendimentosDoAluno = result;
+        }
+    }
 }
