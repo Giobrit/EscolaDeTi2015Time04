@@ -6,16 +6,17 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
     $scope.relatorioAcademico = {ra: ""};
     $scope.raParaFoto = "../../bibliotecas/img/user.png";
     $scope.quantidadeAtendimentosDoAluno = {};
-            
+
     $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary", "", {nome: "AtendimentoDeixarOCurso", exibir: true}, 1);
     $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-danger", "", {nome: "AtendimentoPreventivo", exibir: true}, 1);
     $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default", "", {nome: "AtendimentoEspecial", exibir: true}, 1);
+    
+    limparTela();
+
 
     $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
-            $scope.itensTimeline = [];
-            setAtributosAluno({});
-            $scope.raParaFoto = "../../bibliotecas/img/user.png";
+            limparTela();
             return;
         }
 
@@ -95,7 +96,6 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
 
     function carregaRelatorioMotivo(motivosDoAluno) {
         if (!motivosDoAluno) {
-            $scope.exibeRelatorioMotivo = false;
             return;
         }
         $scope.exibeRelatorioMotivo = true;
@@ -147,13 +147,30 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
             carregaRelatorioMotivo(result);
         }
     }
-    
-    
-    function getRelatorioEstatistica(ra){
+
+
+    function getRelatorioEstatistica(ra) {
         return $http.get("/relatorioAcademico/aluno/quantidade/" + ra).success(onSuccess).error($scope.onError);
-        
-        function onSuccess(result){
+
+        function onSuccess(result) {
             $scope.quantidadeAtendimentosDoAluno = result;
         }
     }
+
+    function inicializarQuantidadeDeAtendimentos() {
+        $scope.quantidadeAtendimentosDoAluno = {
+            atendimentodeixarocurso: 0,
+            atendimentopreventivo: 0,
+            atendimentoespecial: 0,
+            total: 0
+        }
+    }
+    function limparTela() {
+        $scope.exibeRelatorioMotivo = false;
+        $scope.itensTimeline = [];
+        setAtributosAluno({});
+        $scope.raParaFoto = "../../bibliotecas/img/user.png";
+        inicializarQuantidadeDeAtendimentos();
+    }
+
 }
