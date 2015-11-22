@@ -25,4 +25,9 @@ public class AlunoController {
     public List<Map<String, Object>> motivos(@PathVariable String ra) {
         return this.service.getRelatorioMotivo(ra);
     }
+    
+    @RequestMapping(value="/quantidade/{ra}", method = RequestMethod.GET)
+    public Map<String, Object> quantidadeAtendimento(@PathVariable String ra){
+        return this.service.getRelatorioEstatistica(ra);
+    }
 }
