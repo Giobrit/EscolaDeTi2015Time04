@@ -89,12 +89,14 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
 
     carregaRelatorioMotivo();
 
+    $("#tabs").tabs();
+
     function carregaRelatorioMotivo(motivosDoAluno) {
-        $("#tabs").tabs();
-        
         if (!motivosDoAluno) {
-            return
+            $scope.exibeRelatorioMotivo = false;
+            return;
         }
+        $scope.exibeRelatorioMotivo = true;
 
         $(document).ready(function () {
 
@@ -135,7 +137,7 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
     }
 
     function getMotivos(ra) {
-        
+
 
         return $http.get("/relatorioAcademico/aluno/" + ra).success(onSuccess).error($scope.onError);
 
