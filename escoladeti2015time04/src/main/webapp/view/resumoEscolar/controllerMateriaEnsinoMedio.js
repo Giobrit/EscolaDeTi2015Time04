@@ -1,5 +1,7 @@
 AppModule.controller("controllerFormMateria", controllerFormMateria);
 
+AppModule.controller("controllerListaMaterias", controllerListaMaterias);
+
 AppModule.controller("controllerAlualizarMateria", controllerAlualizarMateria);
 
 AppModule.controller("controllerInformacoesMateria", controllerInformacoesMateria);
@@ -261,4 +263,33 @@ function controllerInformacoesMateria($scope, $http) {
     };
 
 
+}
+
+function controllerListaMaterias($scope){
+    
+    $scope.paginaAtual = 1;
+    $scope.numeroItensPorPagina = 5;
+    
+     $scope.alterarPagina = function () {
+        $scope.listar();
+    };
+    
+    $scope.materias = {
+        opcoes: [
+            {id: 1, nome: 'BIOLOGIA'},
+            {id: 2, nome: 'EDUCAÇÃO ARTISTICA'},
+            {id: 3, nome: 'FILOSOFIA'},
+            {id: 4, nome: 'FÍSICA'},
+            {id: 5, nome: 'GEOGRAFIA'},
+            {id: 6, nome: 'HISTÓRIA'},
+            {id: 7, nome: 'INGLÊS'},
+            {id: 8, nome: 'MATEMATICA'},
+            {id: 9, nome: 'PORTUGUÊS'},
+            {id: 10, nome: 'QUÍMICA'},
+            {id: 11, nome: 'SOCIOLOGIA'}
+        ]
+
+    };
+    
+    
 }

@@ -58,6 +58,7 @@
         adicionarRota($routeProvider, '/Relatorios/porCentro', 'view/relatorios/relatorioPorCentro.html', 'controllerRelatorioPorCentro');
         //Rotas Materia Ensino Medio
         adicionarRota($routeProvider, '/EnsinoMedio/form', 'view/resumoEscolar/cadastroMateriaEnsinoMedio.html', 'controllerFormMateria');
+        adicionarRota($routeProvider, '/EnsinoMedio/list', 'view/resumoEscolar/listaMateriasEnsinoMedio.html', 'controllerListaMaterias');
         adicionarRota($routeProvider, '/EnsinoMedio/atualizar', 'view/resumoEscolar/atualizarMateriaEnsinoMedio.html', 'controllerAlualizarMateria');
         adicionarRota($routeProvider, '/EnsinoMedio/informacoesMateria', 'view/resumoEscolar/informacoesDaMateria.html', 'controllerInformacoesMateria');
         
