@@ -17,16 +17,16 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <input name="ra" ng-model="controler.ra" type="text" class="form-control" placeholder="Insira seu RA" ng-keyup="carregarAluno(controler.ra)"/>
+                            <input name="ra" ng-model="ra" type="text" class="form-control" placeholder="Insira seu RA" ng-keyup="carregarAluno(ra)"/>
                         </div>
                         <div class="col-md-5">
-                            <h5 name="nome" ng-model="controler.nome">{{nome}}</h5>
+                            <input name="nome" ng-model="nome" type="text" class="form-control" disabled/>
                         </div>
                         <div class="col-md-4">
                             <input type="curso" class="form-control" placeholder="Insira a Carga Horária do Curso" />
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="formulario row">
                         <div class="col-md-12">
                             <table class="table">
                                 <thead>
@@ -51,7 +51,7 @@
                                             <input type="text" class="form-control" placeholder="Insira a nota da matéria" />
                                         </td>
                                         <td class="col-md-1">
-                                            <button class="btn btn-danger" ng-click="remover()"><span class="glyphicon glyphicon-trash"></span></button>
+                                            <button class="btn btn-danger" ng-click="remover(materiaDoAluno)"><span class="glyphicon glyphicon-trash"></span></button>
                                         </td>
                                     </tr>
                                 </tbody>

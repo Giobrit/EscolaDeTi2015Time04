@@ -238,12 +238,13 @@ function controllerInformacoesMateria($scope, $http) {
     };
     
     $scope.remover = function (materiaDoAluno) {
+        if (!materiaDoAluno.materiaSelecionada) {
+            return;
+        }
+        
         var index = $scope.materiasDoAluno.indexOf(materiaDoAluno);
         $scope.materiasDoAluno.splice(index, 1);
         
-        if ($scope.materiasDoAluno.length === 0) {
-            adicionaNovaMateriaDoAluno();
-        }
     };
     
     $scope.carregarAluno = function (ra) {
