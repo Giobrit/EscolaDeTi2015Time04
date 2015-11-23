@@ -124,8 +124,8 @@ function controllerFormMateria($scope) {
 
 }
 
-function controllerAlualizarMateria($scope){
-    
+function controllerAlualizarMateria($scope) {
+
     $scope.materias = {
         opcoes: [
             {id: 1, nome: 'BIOLOGIA'},
@@ -197,7 +197,7 @@ function controllerAlualizarMateria($scope){
 
 }
 
-function controllerInformacoesMateria($scope, $http){
+function controllerInformacoesMateria($scope, $http) {
     $scope.controler = {};
     $scope.materias = {
         opcoes: [
@@ -215,24 +215,50 @@ function controllerInformacoesMateria($scope, $http){
         ]
 
     };
-    
-    function setAtributosAluno(data){
-        $scope.controler.nome = data.nome; 
+
+    $scope.materiasDoAluno = [];
+    $scope.materiasNaoSelecionadas = $scope.materias;
+
+    $scope.init = function () {
+        adicionaNovaMateriaDoAluno();
+    };
+
+    function adicionaNovaMateriaDoAluno() {
+        $scope.materiasDoAluno.push({
+            materiaSelecionada: undefined,
+            cargaHoraria: "",
+            nota: ""
+        });
     }
+
+    $scope.alterarMateriaSelecionada = function (materiaDoAluno) {
+        if (materiaDoAluno.materiaSelecionada && $scope.materiasDoAluno[$scope.materiasDoAluno.length - 1].materiaSelecionada) {
+            adicionaNovaMateriaDoAluno();
+        }
+    };
     
-     $scope.carregarAluno = function (ra) {
+    $scope.remover = function (materiaDoAluno) {
+        var index = $scope.materiasDoAluno.indexOf(materiaDoAluno);
+        $scope.materiasDoAluno.splice(index, 1);
         
-         if (ra.length !== 8) {
-            setAtributosAluno({});
+        if ($scope.materiasDoAluno.length === 0) {
+            adicionaNovaMateriaDoAluno();
+        }
+    };
+    
+    $scope.carregarAluno = function (ra) {
+
+        if (ra.length !== 8) {
+            $scope.nome = "";
             return;
         }
 
         $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
-            setAtributosAluno(data);
+            $scope.nome = data.nome;
         }
     };
-    
-    
+
+
 }

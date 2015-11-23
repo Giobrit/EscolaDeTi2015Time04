@@ -20,7 +20,7 @@
                             <input name="ra" ng-model="controler.ra" type="text" class="form-control" placeholder="Insira seu RA" ng-keyup="carregarAluno(controler.ra)"/>
                         </div>
                         <div class="col-md-5">
-                            <h5 name="nome" ng-model="controler.nome">{{controler.nome}}</h5>
+                            <h5 name="nome" ng-model="controler.nome">{{nome}}</h5>
                         </div>
                         <div class="col-md-4">
                             <input type="curso" class="form-control" placeholder="Insira a Carga Horária do Curso" />
@@ -38,10 +38,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr ng-repeat="materiaDoAluno in materiasDoAluno">
                                         <td class="col-md-4">
-                                            <select name="materias" class="form-control">
-                                                <option ng-repeat="m in materias.opcoes" value="{{m.id}}">{{m.nome}}</option>
+                                            <select name="materias" ng-change="alterarMateriaSelecionada(materiaDoAluno)" ng-model="materiaDoAluno.materiaSelecionada" ng-options="materia.nome for materia in materiasNaoSelecionadas.opcoes" class="form-control">
+                                                <!--<option ng-repeat="m in materias.opcoes" value="{{m.id}}">{{m.nome}}</option>-->
                                             </select>
                                         </td>
                                         <td class="col-md-4">

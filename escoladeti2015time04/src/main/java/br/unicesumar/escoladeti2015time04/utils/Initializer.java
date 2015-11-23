@@ -101,7 +101,7 @@ public class Initializer {
         itemAcessoService.add(iaAluno);
         itemAcessoService.add(new ItemAcesso("Perfil", "/RelatorioAcademico/form", iaAluno));
         //Rotas Materia Ensino Medio
-        final ItemAcesso iaMateria = new ItemAcesso("Matéria Ensino Médio", iaMenu, true);
+        final ItemAcesso iaMateria = new ItemAcesso("Histórico Ensino Médio", iaMenu, true);
         itemAcessoService.add(iaMateria);
         itemAcessoService.add(new ItemAcesso("Cadastrar Matéria", "/EnsinoMedio/form", iaMateria));
         itemAcessoService.add(new ItemAcesso("Atualizar Matérias", "/EnsinoMedio/atualizar", iaMateria));
