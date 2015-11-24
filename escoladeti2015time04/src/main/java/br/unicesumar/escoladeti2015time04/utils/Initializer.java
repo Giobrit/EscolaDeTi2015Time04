@@ -103,10 +103,10 @@ public class Initializer {
         //Rotas Materia Ensino Medio
         final ItemAcesso iaMateria = new ItemAcesso("Histórico Ensino Médio", iaMenu, true);
         itemAcessoService.add(iaMateria);
-        itemAcessoService.add(new ItemAcesso("Cadastrar Matéria", "/EnsinoMedio/form", iaMateria));
-        itemAcessoService.add(new ItemAcesso("Lista de Matérias", "/EnsinoMedio/list", iaMateria));
-        itemAcessoService.add(new ItemAcesso("Atualizar Matérias", "/EnsinoMedio/atualizar", iaMateria));
-        itemAcessoService.add(new ItemAcesso("Informações da Matéria", "/EnsinoMedio/informacoesMateria", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Cadastrar Matéria do E.M.", "/EnsinoMedio/form", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Lista de Matérias E.M.", "/EnsinoMedio/list", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Atualizar Matérias E.M", "/EnsinoMedio/atualizar", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Cadastro de Histórico do E.M.", "/EnsinoMedio/informacoesMateria", iaMateria));
         //Rotas Sistema
         final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
         itemAcessoService.add(iaSistema);

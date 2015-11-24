@@ -22,7 +22,7 @@ public class AlunoService {
         if (filtros.size() == 0) {
             return new ArrayList<Map<String, Object>>();
         }
-        
+
         MapSqlParameterSource parans = new MapSqlParameterSource();
 
         parans.addValue("ra", ra);
@@ -59,6 +59,56 @@ public class AlunoService {
         //Map<String, Object> retorno = new HashMap<String, Object>();
         List<Map<String, Object>> atendimentos = jdbcTemplate.query(sql, parans, new MapRowMapper());
         //retorno.put("atendimentos", atendimentos);
+
+        //System.out.print(retorno.toString());
+        return atendimentos;
+    }
+
+    public Map<String, Object> getRelatorioEstatistica(String ra) {
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+        parans.addValue("ra", ra);
+
+        String sql = "select count(att.id) as total, count(atdc.id) as atendimentoDeixarOCurso, count(atp.id) as atendimentoPreventivo, count(ate.id) as atendimentoEspecial "
+                + "from atendimento att "
+                + "left join atendimentodeixarocurso atdc on atdc.id = att.id "
+                + "left join atendimentopreventivo atp on atp.id = att.id "
+                + "left join atendimentoespecial ate on ate.id = att.id "
+                + "where att.ra = :ra";
+        //Map<String, Object> retorno = new HashMap<String, Object>();
+        Map<String, Object> atendimentos = jdbcTemplate.queryForMap(sql, parans);
+        //retorno.put("atendimentos", atendimentos);
+
+        //System.out.print(retorno.toString());
+        return atendimentos;
+    }
+
+    public List<Map<String, Object>> getRelatorioMotivo(String ra) {
+        MapSqlParameterSource parans = new MapSqlParameterSource();
+        parans.addValue("ra", ra);
+
+        String sql = "select "
+                + " atm.descricao as name, "
+                + " count(atm.id) as y "
+                + "from atendimento att "
+                + "inner join atendimentomotivo atm on atm.id = motivo "
+                + "where att.ra = :ra "
+                + "group by atm.id ";
+
+        String sqlQuantidadeTotal = "select"
+                + " count(atm.id) as quantidade "
+                + " from atendimento att "
+                + " inner join atendimentomotivo atm on atm.id = motivo "
+                + " where att.ra = :ra";
+
+//Map<String, Object> retorno = new HashMap<String, Object>();
+        List<Map<String, Object>> atendimentos = jdbcTemplate.query(sql, parans, new MapRowMapper());
+        Long numeroTotalAtendimentosAluno = jdbcTemplate.queryForObject(sqlQuantidadeTotal, parans, Long.class);
+        //retorno.put("atendimentos", atendimentos);
+
+        for (Map<String, Object> atendimento : atendimentos) {
+            atendimento.put("y", 100 * (Long) atendimento.get("y"));
+            atendimento.put("y", (Long) atendimento.get("y") / numeroTotalAtendimentosAluno);
+        }
 
         //System.out.print(retorno.toString());
         return atendimentos;

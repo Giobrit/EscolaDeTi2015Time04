@@ -61,7 +61,6 @@
         adicionarRota($routeProvider, '/EnsinoMedio/list', 'view/resumoEscolar/listaMateriasEnsinoMedio.html', 'controllerListaMaterias');
         adicionarRota($routeProvider, '/EnsinoMedio/atualizar', 'view/resumoEscolar/atualizarMateriaEnsinoMedio.html', 'controllerAlualizarMateria');
         adicionarRota($routeProvider, '/EnsinoMedio/informacoesMateria', 'view/resumoEscolar/informacoesDaMateria.html', 'controllerInformacoesMateria');
-        
         //verificar se é possível separar as rotas em módulos
 
         $locationProvider.html5Mode(false);

@@ -82,6 +82,55 @@ public class Initializer {
         inicializarNotasAlunos();
         inicializarDadosEnade();
         inicializarPendenciaAluno();
+
+
+       gerandoRelatorios();
+    }
+
+    private void gerandoRelatorios() {
+        relatorioService.gerarRelatorioHistoricoGeral("13097572");
+
+        geraRelHistoricoGeral();
+        geraRelNadaConsta();
+        geraRelMediaFaltas();
+    }
+
+    private void geraRelHistoricoGeral() {
+        try {
+            File historicoGeral = new File(getDiretorioBase(), "HistoricoGeral.pdf");
+            OutputStream historicoGeralPDF;
+            historicoGeralPDF = new FileOutputStream(historicoGeral);
+
+            JasperPrint printHistoricoGeral = relatorioService.gerarRelatorioHistoricoGeral("13097572");
+            JasperExportManager.exportReportToPdfStream(printHistoricoGeral, historicoGeralPDF);
+        } catch (FileNotFoundException | JRException ex) {
+            Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void geraRelNadaConsta() {
+        try {
+            File historicoGeral = new File(getDiretorioBase(), "NadaConsta.pdf");
+            OutputStream nadaConstaPDF = new FileOutputStream(historicoGeral);
+
+            JasperPrint printNadaConsta = relatorioService.gerarRelatorioNadaConsta("13097572", "CETA");
+            JasperExportManager.exportReportToPdfStream(printNadaConsta, nadaConstaPDF);
+        } catch (FileNotFoundException | JRException ex) {
+            Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void geraRelMediaFaltas() {
+        try {
+            File raiz = getDiretorioBase();
+            File mediaFaltas = new File(raiz, "MediaFaltasDeAluno.pdf");
+            OutputStream mediaFaltasPDF = new FileOutputStream(mediaFaltas);
+
+            JasperPrint printMediaFaltas = relatorioService.gerarRelatorioMediaFaltas("13097572");
+            JasperExportManager.exportReportToPdfStream(printMediaFaltas, mediaFaltasPDF);
+        } catch (FileNotFoundException | JRException ex) {
+            Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private File getDiretorioBase() {
@@ -224,6 +273,7 @@ public class Initializer {
         disciplinaService.criar(new Disciplina("NGER160_036", "projeto integrador - escola de ti", 320, 3));
         disciplinaService.criar(new Disciplina("NGER160_032", "gerenciamento de projetos", 80, 3));
         disciplinaService.criar(new Disciplina("NGER160_032", "tópicos especiais em ads", 80, 3));
+
     }
 
     private void inicializarNotasAlunos() {
@@ -334,7 +384,7 @@ public class Initializer {
             enadeService.criar(new DadosEnade(aluno, ano, "Não", false, false));
         }
     }
-
+    
     private void inicializarAlunoDisciplina() {
         List<Aluno> alunos = alunoService.buscarTodos();
         List<Disciplina> disciplinas = disciplinaService.buscarTodos();

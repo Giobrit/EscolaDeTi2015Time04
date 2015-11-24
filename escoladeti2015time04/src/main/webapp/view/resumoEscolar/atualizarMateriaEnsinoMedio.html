@@ -15,7 +15,9 @@
                         <div class="col-md-10">
                             <div class="col-md-offset-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" ng-model="curso.nome" placeholder="Nome da Curso"/>
+                                    <select name="co" ng-model="curso" ng-options="curso in cursos" class="form-control">
+                                        <option ng-repeat="m in materias.opcoes" value="{{m.id}}">{{m.nome}}</option>
+                                    </select>
                                 </div>    
                             </div>    
                         </div>

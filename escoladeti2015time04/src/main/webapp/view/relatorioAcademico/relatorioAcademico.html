@@ -64,14 +64,13 @@
                         <div class="btn-group-justified col-md-12 form-group formulario">
                             <div class="btn-group col-md-12" role="group" style="font-size: 12px">
                                 <center>
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <a class="btn btn-info" href="./lyceumClient/mediaFaltas/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Médias e Faltas</a>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <a class="btn btn-info" href="./lyceumClient/historicoGeral/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Histórico Geral</a>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <a class="btn btn-info" href="./lyceumClient/nadaConsta/{{relatorioAcademico.ra}}/{{relatorioAcademico.centro}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Nada Consta</a>
                                     </div>
                                 </center>
@@ -80,7 +79,7 @@
                     </div>
                 </div>
                 <div id="tabs-2">
-                    <div class="formulario">
+                    <div class="">
                         <div class="panel panel-info">
                             <div class="panel-heading" data-target="#demo1">
                                 <center>
@@ -185,10 +184,56 @@
                     </div>
                 </div>
                 <div id="tabs-3">
-                    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-                    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+                    <div class="form-group">
+                        <div class="panel panel-info">
+                            <div class="panel-heading" data-target="#demo1">
+                                <center>
+                                    <div class="row">
+                                        <span>Estatística do Aluno</span>
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="form-group">
+                                <div id="demo2" class="panel-body collapse in">
+                                    <div ng-show="exibeRelatorioMotivo" class="col-md-12 pull-left">
+                                        <div id="pie4" style="min-width: 500px; height: 450px; max-width: 500px; margin: 0 auto; margin-top: 10px"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 pull-right">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                    <th>Atendimentos</th>
+                                                    <th>Quantidade</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Atendimento</td>
+                                                            <td>{{quantidadeAtendimentosDoAluno.atendimentodeixarocurso}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Atendimento Preventivo</td>
+                                                            <td>{{quantidadeAtendimentosDoAluno.atendimentopreventivo}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Atendimento Especial</td>
+                                                            <td>{{quantidadeAtendimentosDoAluno.atendimentoespecial}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td><b>TOTAL</b></td>
+                                                            <td><b>{{quantidadeAtendimentosDoAluno.total}}</b></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</form>
+            </form>

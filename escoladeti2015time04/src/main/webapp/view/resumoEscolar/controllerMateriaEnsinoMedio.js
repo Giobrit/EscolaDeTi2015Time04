@@ -145,6 +145,56 @@ function controllerAlualizarMateria($scope) {
 
     };
 
+    $scope.curso = {};
+    $scope.cursos = [
+        "Biomedicina",
+        "Ciências Biológicas",
+        "Educação Física",
+        "Enfermagem",
+        "Estética e Cosmética",
+        "Farmácia",
+        "Fisioterapia",
+        "Fonoaudiologia",
+        "Medicina",
+        "Nutrição",
+        "Odontologia",
+        "Psicologia",
+        "Veterinária",
+        "Agronegócio",
+        "Agronomia",
+        "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas",
+        "Arquitetura e Urbanismo",
+        "Automação Industrial",
+        "Design de Interiores",
+        "Eng.Amb.e Sanitária",
+        "Engenharia Civil",
+        "Eng.Controle e Autom.",
+        "Engenharia de Produção",
+        "Engenharia de Software",
+        "Engenharia Elétrica",
+        "Manutenção de Aeronaves",
+        "Redes de Computadores",
+        "Sistemas de Informação"
+                , "Superior de Tecnologia de Sistemas para Internet"
+                , "Administração"
+                , "Artes Visuais"
+                , "Ciências Contábeis"
+                , "Comercio Exterior"
+                , "Direito"
+                , "Gastronomia"
+                , "Gestão Comercial"
+                , "Gestão de Recursos Humanos"
+                , "Jornalismo"
+                , "Logística"
+                , "Moda"
+                , "Música"
+                , "Pedagogia"
+                , "Pilotagem Prof. de aeronaves"
+                , "Publicidade e Propaganda"
+                , "Serviço Social"
+                , "Teologia"
+    ];
+
     $scope.salvar = function () {
         alert("oi");
     };
@@ -238,17 +288,17 @@ function controllerInformacoesMateria($scope, $http) {
             adicionaNovaMateriaDoAluno();
         }
     };
-    
+
     $scope.remover = function (materiaDoAluno) {
         if (!materiaDoAluno.materiaSelecionada) {
             return;
         }
-        
+
         var index = $scope.materiasDoAluno.indexOf(materiaDoAluno);
         $scope.materiasDoAluno.splice(index, 1);
-        
+
     };
-    
+
     $scope.carregarAluno = function (ra) {
 
         if (ra.length !== 8) {
@@ -266,15 +316,15 @@ function controllerInformacoesMateria($scope, $http) {
 
 }
 
-function controllerListaMaterias($scope){
-    
+function controllerListaMaterias($scope) {
+
     $scope.paginaAtual = 1;
     $scope.numeroItensPorPagina = 5;
-    
-     $scope.alterarPagina = function () {
+
+    $scope.alterarPagina = function () {
         $scope.listar();
     };
-    
+
     $scope.materias = {
         opcoes: [
             {id: 1, nome: 'BIOLOGIA'},
@@ -291,6 +341,6 @@ function controllerListaMaterias($scope){
         ]
 
     };
-    
-    
+
+
 }

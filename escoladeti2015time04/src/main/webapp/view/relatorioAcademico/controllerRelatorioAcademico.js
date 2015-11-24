@@ -1,30 +1,33 @@
 AppModule.controller("controllerRelatorioAcademico", controllerRelatorioAcademico);
 
 function controllerRelatorioAcademico($scope, $http, $routeParams, $location, growl, $timeout) {
-
     $scope.itensTimeline = [];
     $scope.propriedadesItens = [];
     $scope.relatorioAcademico = {ra: ""};
     $scope.raParaFoto = "../../bibliotecas/img/user.png";
+    $scope.quantidadeAtendimentosDoAluno = {};
 
     $scope.propriedadesItens["Atendimento"] = new itemTimeline("panel-primary", "", {nome: "AtendimentoDeixarOCurso", exibir: true}, 1);
     $scope.propriedadesItens["Atendimento Preventivo"] = new itemTimeline("panel-danger", "", {nome: "AtendimentoPreventivo", exibir: true}, 1);
     $scope.propriedadesItens["Atendimento Especial"] = new itemTimeline("panel-default", "", {nome: "AtendimentoEspecial", exibir: true}, 1);
+    
+    limparTela();
+
 
     $scope.carregarAluno = function (ra) {
         if (ra.length !== 8) {
-            $scope.itensTimeline = [];
-            setAtributosAluno({});
-            $scope.raParaFoto = "../../bibliotecas/img/user.png";
+            limparTela();
             return;
         }
 
         $http.get("/lyceumClient/aluno/" + ra).success(onSuccess).error($scope.onError);
 
         function onSuccess(data) {
+            getRelatorioEstatistica(ra);
             setAtributosAluno(data);
             console.log(data);
             carregaTimeline(ra);
+            getMotivos(ra);
             $scope.raParaFoto = "lyceumClient/aluno/foto/" + ra;
         }
     };
@@ -87,7 +90,87 @@ function controllerRelatorioAcademico($scope, $http, $routeParams, $location, gr
         return timestampParaData(data);
     };
 
-    $(function () {
-        $("#tabs").tabs();
-    });
+    carregaRelatorioMotivo();
+
+    $("#tabs").tabs();
+
+    function carregaRelatorioMotivo(motivosDoAluno) {
+        if (!motivosDoAluno) {
+            return;
+        }
+        $scope.exibeRelatorioMotivo = true;
+
+        $(document).ready(function () {
+
+            // Build the chart
+            $('#pie4').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Resumo motivos'
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: '<b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                        name: "Brands",
+                        colorByPoint: true,
+                        data: motivosDoAluno
+                    }]
+            });
+        });
+    }
+
+    function getMotivos(ra) {
+
+
+        return $http.get("/relatorioAcademico/aluno/" + ra).success(onSuccess).error($scope.onError);
+
+        function onSuccess(result) {
+            carregaRelatorioMotivo(result);
+        }
+    }
+
+
+    function getRelatorioEstatistica(ra) {
+        return $http.get("/relatorioAcademico/aluno/quantidade/" + ra).success(onSuccess).error($scope.onError);
+
+        function onSuccess(result) {
+            $scope.quantidadeAtendimentosDoAluno = result;
+        }
+    }
+
+    function inicializarQuantidadeDeAtendimentos() {
+        $scope.quantidadeAtendimentosDoAluno = {
+            atendimentodeixarocurso: 0,
+            atendimentopreventivo: 0,
+            atendimentoespecial: 0,
+            total: 0
+        }
+    }
+    function limparTela() {
+        $scope.exibeRelatorioMotivo = false;
+        $scope.itensTimeline = [];
+        setAtributosAluno({});
+        $scope.raParaFoto = "../../bibliotecas/img/user.png";
+        inicializarQuantidadeDeAtendimentos();
+    }
+
 }
