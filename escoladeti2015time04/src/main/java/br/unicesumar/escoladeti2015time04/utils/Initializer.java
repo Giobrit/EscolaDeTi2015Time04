@@ -91,6 +91,10 @@ public class Initializer {
         itemAcessoService.add(new ItemAcesso("Cadastrar Especial", "/AtendimentoEspecial/form", iaAtendimentoEspecial));
         itemAcessoService.add(new ItemAcesso(false, "Editar Especial", "/AtendimentoEspecial/form/:id", iaAtendimentoEspecial));
         itemAcessoService.add(new ItemAcesso("Listar Especial", "/AtendimentoEspecial/list", iaAtendimentoEspecial));
+        //Rotas Atendimento Especial Solicitacão
+        itemAcessoService.add(new ItemAcesso(false,"Cadastrar Solicitacão", "/AtendimentoEspecial/Solicitacao/form", iaAtendimentoEspecial));
+        itemAcessoService.add(new ItemAcesso(false,"Editar Solicitacão", "/AtendimentoEspecial/Solicitacao/form/:id", iaAtendimentoEspecial));
+        itemAcessoService.add(new ItemAcesso("Listar Solicitacão", "/AtendimentoEspecial/Solicitacao/list", iaAtendimentoEspecial));
         //Rotas Relatórios
         final ItemAcesso iaRelatorio = new ItemAcesso("Relatórios", iaMenu, true);
         itemAcessoService.add(iaRelatorio);

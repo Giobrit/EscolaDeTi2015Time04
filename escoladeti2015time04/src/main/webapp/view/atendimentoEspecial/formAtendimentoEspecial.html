@@ -44,10 +44,8 @@
                         <label>
                             <h4>Aluno</h4>
                         </label>
-                        <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoEspecial.nomeAluno.$invalid && !formAtendimentoEspecial.nomeAluno.$pristine}">
-                            <input type="text" name="nomeAluno" placeholder="Informe o nome do aluno" class="form-control" ng-model="atendimentoEspecial.nomeAluno" ng-minlength="2" ng-maxlength="79"  maxlength="80" required>
-                            <p ng-show="formAtendimentoEspecial.nomeAluno.$error.minlength" class="help-block">Nome no mínimo 2 caracteres.</p>
-                            <p ng-show="formAtendimentoEspecial.nomeAluno.$error.maxlength" class="help-block">Nome no máximo 80 caracteres.</p>
+                        <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoEspecial.nomeAluno.$invalid && !formAtendimentoEspecial.nomeAluno.$pristine}" >
+                            <input type="text" name="nomeAluno" placeholder="Informe o nome do aluno" class="form-control" ng-model="atendimentoEspecial.nomeAluno" disabled>
                         </div>
                     </div>
                 </div>
@@ -115,15 +113,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <label>
-                            <h4>Solicitação</h4>
-                        </label>
-                        <div ng-dropdown-multiselect="" options="example13data" selected-model="example13model" extra-settings="example13settings"></div>
-                        <!--<input type="text" name="solicitacao" ng-class="{ 'has-error'  : formAtendimentoEspecial.solicitacao.$invalid && !formAtendimentoEspecial.solicitacao.$pristine}" placeholder="Solicitação" class="form-control" ng-model="atendimentoEspecial.solicitacao" required>-->
-                    </div>
-                </div>
             </div>
 
             <div class="panel-heading" data-toggle="collapse" data-target="#demo3"><h3>Dados do Atendimento<span class="glyphicon glyphicon-edit pull-right" aria-hidden="true"></span></h3></div>
@@ -132,7 +121,7 @@
                     <div class="form-group">
                         <div class="col-md-6">
                             <label>
-                                <h4>Encaminhado para</h4>
+                                <h4>Solicitação</h4>
                             </label>
                         </div>    
                         <div class="col-md-6">
@@ -144,11 +133,12 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-md-6">
-                            <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoEspecial.encaminhadoPara.$invalid && !formAtendimentoEspecial.encaminhadoPara.$pristine}">
-                                <input type="text" name="encaminhadoPara"  placeholder="Informe para onde será encaminhado" class="form-control" ng-model="atendimentoEspecial.encaminhadoPara" data-animation="am-flip-x" bs-options="encaminhadoPara for encaminhadoPara in getCamposInseridos('encaminhadoPara', $viewValue)" bs-typeahead>
-                            </div>
-                        </div>    
+                        <div class="col-md-5">
+                            <div ng-dropdown-multiselect=""  options="solicitacoes" selected-model="solicitacoesSelecionadas" extra-settings="configMultiselect"></div>
+                        </div>
+                        <div class="col-md-1">
+                            <button ng-click="cadastrarOutraTela('/AtendimentoEspecial/Solicitacao/form')" type="button" class="tooltip, btn btn-primary" title="Nova Solicitação"><i class="fa fa-plus-square-o fa-2x"></i></button>
+                        </div>
                         <div class="col-md-5">
                             <div class="form-group">
                                 <select class="form-control" id="sel1" name="motivo" ng-class="{ 'has-error'  : formAtendimentoEspecial.motivo.$invalid && !formAtendimentoEspecial.motivo.$pristine}" ng-change="setMotivo(motivoSelecionado)" ng-model="motivoSelecionado" ng-options="m.descricao for m in motivos" required>
@@ -161,6 +151,20 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>
+                                <h4>Encaminhado para</h4>
+                            </label>
+
+                            <div class="form-group" ng-class="{ 'has-error'  : formAtendimentoEspecial.encaminhadoPara.$invalid && !formAtendimentoEspecial.encaminhadoPara.$pristine}">
+                                <input type="text" name="encaminhadoPara"  placeholder="Informe para onde será encaminhado" class="form-control" ng-model="atendimentoEspecial.encaminhadoPara" data-animation="am-flip-x" bs-options="encaminhadoPara for encaminhadoPara in getCamposInseridos('encaminhadoPara', $viewValue)" bs-typeahead>
+                            </div>
+                        </div>       
+                    </div>
+                </div>
+
                 <div class="row form-group">
                     <div class="col-md-12">
                         <label>
@@ -169,27 +173,28 @@
                         <textarea class="form-control" name="descricaoPublica" ng-class="{ 'has-error'  : formAtendimentoEspecial.descricaoPublica.$invalid && !formAtendimentoEspecial.descricaoPublica.$pristine}" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPublica" required></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="panel-body">
-                <div class="row form-group">
-                    <div class="col-md-12" data-toggle="collapse" data-target="#demo4" ng-show="exibirDescricaoPrivada()">
-                        <label>
-                            <h4>Descrição Privada</h4>
-                        </label>
-                        <!--<button type="button" class="btn btn-danger"><span class="fa fa-unlock-alt" aria-hidden="true"></span></button>-->
-                        <button type="button" class="btn btn-success"><span class="fa fa-lock" aria-hidden="true"></span></button>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-12" data-toggle="collapse" data-target="#demo4" ng-show="exibirDescricaoPrivada()">
+                            <label>
+                                <h4>Descrição Privada</h4>
+                            </label>
+                            <!--<button type="button" class="btn btn-danger"><span class="fa fa-unlock-alt" aria-hidden="true"></span></button>-->
+                            <button type="button" class="btn btn-success"><span class="fa fa-lock" aria-hidden="true"></span></button>
+                        </div>
                     </div>
+                    <textarea id="demo4" class="form-control panel-body collapse" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPrivada"></textarea>
                 </div>
-                <textarea id="demo4" class="form-control panel-body collapse" name="descricaoPrivada" rows="5" id="comment" ng-model="atendimentoEspecial.descricaoPrivada"></textarea>
             </div>
-        </div>
+        </div>        
+        <div class="row">	
+            <div class="col-md-12">
+                <div class="col-md-offset-7 pull-right">
+                    <a type="button" href="#/AtendimentoEspecial/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
+                    <button type="submit" ng-click="salvar()" ng-disabled="(formAtendimentoEspecial.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
+                </div>
+            </div>	
+        </div>	  
     </div>        
-    <div class="row">	
-        <div class="col-md-12">
-            <div class="col-md-offset-7 pull-right">
-                <a type="button" href="#/AtendimentoEspecial/list" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Cancelar as alterações" >Cancelar</a>
-                <button type="submit" ng-click="salvar()" ng-disabled="(formAtendimentoEspecial.$invalid && !editando)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Salvar as alterações" >Salvar</button>
-            </div>
-        </div>	
-    </div>	    
 </form>

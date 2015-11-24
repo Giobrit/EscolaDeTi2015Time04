@@ -4,14 +4,16 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
     $scope.atendimentoEspecial = {
         ra: ""
     };
-    $scope.example13model = [];
-    
+
+    $scope.solicitacoesSelecionadas = [];
+    $scope.solicitacoes = [];
+
     $scope.init = function () {
 
         $scope.limparTela();
 
         idEditando = $routeParams.id;
-        $scope.preencherListDeMotivo();
+        $scope.preencherListDeSolicitacoes();
 
     };
 
@@ -24,6 +26,8 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         $scope.atendimentoEspecial.usuario = $scope.usuarioLogado.id;
         $scope.atendimentoEspecial.data = prepararDataParaSalvar($scope.dataEspecial, $scope.horaEspecial);
 
+        $scope.atendimentoEspecial.solicitacoes = getIdSolicitacoes();
+
         if ($scope.editando) {
             $http.put("/atendimento/especial", $scope.atendimentoEspecial).success(onSuccess).error($scope.onError);
         } else {
@@ -35,6 +39,14 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $location.path("/AtendimentoEspecial/list");
         }
     };
+
+    function getIdSolicitacoes() {
+        var idsSolicitacoes = [];
+        $scope.solicitacoesSelecionadas.forEach(function (solicitacao) {
+            idsSolicitacoes.push(solicitacao.id);
+        });
+        return idsSolicitacoes;
+    }
 
     function success() {
         growl.success("<b>Atendimento " + ($scope.editando === true ? "editado" : "salvo") + " com sucesso</b>");
@@ -53,14 +65,13 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             $scope.atendimentoEspecial.curso = data.curso;
             $scope.atendimentoEspecial.centro = data.centro;
             $scope.atendimentoEspecial.serieSemestre = "" + data.seriesemestre;
-            ;
+
             $scope.atendimentoEspecial.turno = data.turno;
             $scope.atendimentoEspecial.bolsaFinanciamento = data.bolsafinanciamento;
             $scope.atendimentoEspecial.laudoMedico = data.laudomedico;
             $scope.atendimentoEspecial.encaminhadoPara = data.encaminhadopara;
             $scope.atendimentoEspecial.descricaoPublica = data.descricaopublica;
             $scope.atendimentoEspecial.descricaoPrivada = data.descricaoprivada;
-            $scope.atendimentoEspecial.solicitacao = data.solicitacao;
             $scope.dataEspecial = timestampParaData(data.data);
             $scope.horaEspecial = new Date(data.data);
             $scope.atendimentoEspecial.matriculado = data.matriculado;
@@ -71,9 +82,20 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             selecionaMotivoNaTela(data.motivo);
             $scope.setMotivo($scope.motivoSelecionado);
 
+            selecionaSolicitacaoNaTela(data.solicitacoes);
+
             restaurarTela();
         }
     };
+
+    function selecionaSolicitacaoNaTela(solicitacoes) {
+        solicitacoes.forEach(paraCada);
+        function paraCada(solicitacao) {
+
+            $scope.solicitacoesSelecionadas.push(solicitacao);
+        }
+    }
+
 
     function selecionaMotivoNaTela(descricao) {
         $scope.motivos.forEach(paraCada);
@@ -95,6 +117,27 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             } else {
                 restaurarTela();
             }
+        }
+    };
+
+    $scope.preencherListDeSolicitacoes = function () {
+        $http.get("atendimento/especial/solicitacao/listarAtivos").success(onSuccess).error($scope.onError);
+
+        function onSuccess(data) {
+            $scope.solicitacoes = data.itens;
+            $scope.preencherListDeMotivo();
+        }
+    };
+
+    $scope.getCamposInseridos = function (campo, valor) {
+        if (valor.length < 3) {
+            return;
+        }
+
+        return $http.get("/atendimento/especial/typeAHead/" + campo + "/" + valor).then(onSuccess);
+
+        function onSuccess(result) {
+            return result.data;
         }
     };
 
@@ -122,7 +165,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
 
     $scope.setLaudoMedico = function (data) {
         $scope.atendimentoEspecial.laudoMedico = stringToBoolean(data);
-    }
+    };
 
     function setAtributosAluno(aluno) {
         $scope.atendimentoEspecial.nomeAluno = aluno.nome;
@@ -136,30 +179,32 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         $scope.matriculadoSelecionado = aluno.matriculado;
     }
 
-    $scope.example13data = [
-        {id: 1, label: "Ledor"},
-        {id: 2, label: "Escriba"},
-        {id: 3, label: "Ampliação dos textos entregues (e da avaliação)"},
-        {id: 4, label: "Intérprete de Libras"},
-        {id: 5, label: "Sintetizador de voz"},
-        {id: 6, label: "Reglete"},
-        {id: 7, label: "Sorobã"},
-        {id: 8, label: "Livro didático adaptado"},
-        {id: 9, label: "Livro falado"},
-        {id: 10, label: "Tecnologias Assistivas"},
-        {id: 11, label: "Prazo estendido para elaboração de prova"},
-        {id: 12, label: "Outro(s)"},
-    ];
 
-    $scope.example13settings = {
+
+//        {id: 1, label: "Ledor"},
+//        {id: 2, label: "Escriba"},
+//        {id: 3, label: "Ampliação dos textos entregues (e da avaliação)"},
+//        {id: 4, label: "Intérprete de Libras"},
+//        {id: 5, label: "Sintetizador de voz"},
+//        {id: 6, label: "Reglete"},
+//        {id: 7, label: "Sorobã"},
+//        {id: 8, label: "Livro didático adaptado"},
+//        {id: 9, label: "Livro falado"},
+//        {id: 10, label: "Tecnologias Assistivas"},
+//        {id: 11, label: "Prazo estendido para elaboração de prova"},
+//        {id: 12, label: "Outro(s)"},
+
+
+    $scope.configMultiselect = {
         smartButtonMaxItems: 5,
         smartButtonTextConverter: function (itemText, originalItem) {
-            if (itemText === 'Jhon') {
-                return 'Jhonny!';
+            if (itemText.length >= 10) {
+                return itemText.substring(0, 8) + "...";
             }
 
             return itemText;
-        }
+        },
+        displayProp: 'descricao'
     };
 
     function restaurarTela() {
@@ -172,6 +217,9 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         $scope.horaEspecial = $scope.pilhaTelas.horaEspecial;
         if ($scope.pilhaTelas.motivoSelecionado) {
             selecionaMotivoNaTela($scope.pilhaTelas.motivoSelecionado.descricao);
+        }
+        if ($scope.pilhaTelas.solicitacoesSelecionadas) {
+            selecionaSolicitacaoNaTela($scope.pilhaTelas.solicitacoesSelecionadas.descricao);
         }
         if (typeof $scope.pilhaTelas.atendimentoEspecial.matriculado !== "undefined") {
             $scope.matriculadoSelecionado = booleanToString($scope.pilhaTelas.atendimentoEspecial.matriculado);
@@ -194,6 +242,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
         var objeto = {};
         objeto.atendimentoEspecial = $scope.atendimentoEspecial;
         objeto.motivoSelecionado = $scope.motivoSelecionado;
+        objeto.solicitacoesSelecionadas = $scope.solicitacoesSelecionadas;
         objeto.dataEspecial = $scope.dataEspecial;
         objeto.horaEspecial = $scope.horaEspecial;
         objeto.path = $location.path();
@@ -225,7 +274,6 @@ function controllerListAtendimentoEspecial($scope, $http, growl) {
                 {label: "Bolsa", colunaOrdenacao: "bolsaFinanciamento", propriedadeItem: "bolsaFinanciamento", checked: false},
                 {label: "Matriculado", colunaOrdenacao: "matriculado", propriedadeItem: "matriculado", checked: false},
                 {label: "Laudo Médico", colunaOrdenacao: "laudoMedico", propriedadeItem: "laudoMedico", checked: true},
-                {label: "Solicitação", colunaOrdenacao: "solicitacao", propriedadeItem: "solicitacao", checked: false},
                 {label: "Encaminhado Para", colunaOrdenacao: "encaminhadoPara", propriedadeItem: "encaminhadoPara", checked: true},
                 {label: "Motivo", colunaOrdenacao: "motivo", propriedadeItem: "motivo", checked: true},
                 {label: "Descrição", colunaOrdenacao: "descricaoPublica", propriedadeItem: "descricaoPublica", checked: true}
