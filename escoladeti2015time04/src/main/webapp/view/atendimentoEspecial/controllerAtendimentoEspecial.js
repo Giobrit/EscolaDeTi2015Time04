@@ -219,7 +219,7 @@ function controllerFormAtendimentoEspecial($scope, $http, $routeParams, $locatio
             selecionaMotivoNaTela($scope.pilhaTelas.motivoSelecionado.descricao);
         }
         if ($scope.pilhaTelas.solicitacoesSelecionadas) {
-            selecionaSolicitacaoNaTela($scope.pilhaTelas.solicitacoesSelecionadas.descricao);
+            selecionaSolicitacaoNaTela($scope.pilhaTelas.solicitacoesSelecionadas);
         }
         if (typeof $scope.pilhaTelas.atendimentoEspecial.matriculado !== "undefined") {
             $scope.matriculadoSelecionado = booleanToString($scope.pilhaTelas.atendimentoEspecial.matriculado);
