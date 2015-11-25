@@ -1,7 +1,7 @@
 <form name="atualizarMateriaEnsinoMedio" class="pull-right col-md-10 col-sm-10 col-lg-10 col-xs-10" novalidate ng-init="init()">
     <div class="formulario">
         <div class="panel panel-info">
-            <div class="panel-heading" data-toggle="collapse" data-target="#demo"><h3>Cadastro Curso Unicesumar</h3></div>
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo"><h3>Vincular Matéria Ensino Médio ao Curso</h3></div>
             <div id="demo" class="panel-body collapse in">
                 <div class="panel-body">
                     <div class="row">
@@ -15,8 +15,8 @@
                         <div class="col-md-10">
                             <div class="col-md-offset-2">
                                 <div class="form-group">
-                                    <select name="co" ng-model="curso" ng-options="curso in cursos" class="form-control">
-                                        <option ng-repeat="m in materias.opcoes" value="{{m.id}}">{{m.nome}}</option>
+                                    <select ng-model="cursoSelecionado" ng-options="curso.nome for curso in cursos" class="form-control">
+                                        <!--<option ng-repeat="m in materias.opcoes" value="{{m.id}}">{{m.nome}}</option>-->
                                     </select>
                                 </div>    
                             </div>    

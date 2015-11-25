@@ -64,7 +64,7 @@ function controllerFormMateria($scope) {
     };
 
     $scope.salvar = function () {
-        alert("oi")
+//        alert("oi")
     };
 
     $scope.cursosDaMateria = [];
@@ -145,58 +145,61 @@ function controllerAlualizarMateria($scope) {
 
     };
 
-    $scope.curso = {};
+    $scope.cursoSelecionado = {};   
+
     $scope.cursos = [
-        "Biomedicina",
-        "Ciências Biológicas",
-        "Educação Física",
-        "Enfermagem",
-        "Estética e Cosmética",
-        "Farmácia",
-        "Fisioterapia",
-        "Fonoaudiologia",
-        "Medicina",
-        "Nutrição",
-        "Odontologia",
-        "Psicologia",
-        "Veterinária",
-        "Agronegócio",
-        "Agronomia",
-        "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas",
-        "Arquitetura e Urbanismo",
-        "Automação Industrial",
-        "Design de Interiores",
-        "Eng.Amb.e Sanitária",
-        "Engenharia Civil",
-        "Eng.Controle e Autom.",
-        "Engenharia de Produção",
-        "Engenharia de Software",
-        "Engenharia Elétrica",
-        "Manutenção de Aeronaves",
-        "Redes de Computadores",
-        "Sistemas de Informação"
-                , "Superior de Tecnologia de Sistemas para Internet"
-                , "Administração"
-                , "Artes Visuais"
-                , "Ciências Contábeis"
-                , "Comercio Exterior"
-                , "Direito"
-                , "Gastronomia"
-                , "Gestão Comercial"
-                , "Gestão de Recursos Humanos"
-                , "Jornalismo"
-                , "Logística"
-                , "Moda"
-                , "Música"
-                , "Pedagogia"
-                , "Pilotagem Prof. de aeronaves"
-                , "Publicidade e Propaganda"
-                , "Serviço Social"
-                , "Teologia"
-    ];
+            {id: 1, nome: 'ADMINISTRAÇÃO'},
+            {id: 2, nome: 'AGRONEGÓCIO'},
+            {id: 3, nome: 'AGRONOMIA'},
+            {id: 4, nome: 'ANÁLISE E DESENVOLVIMENTO DE SISTEMAS'},
+            {id: 5, nome: 'ARQUITETURA E URBANISMO'},
+            {id: 6, nome: 'ARTES VISUAIS'},
+            {id: 7, nome: 'AUTOMAÇÃO INDUSTRIAL'},
+            {id: 8, nome: 'BIOMEDICINA'},
+            {id: 9, nome: 'CIÊNCIAS BIOLÓGICAS'},
+            {id: 10, nome: 'CIÊNCIAS CONTÁBEIS'},
+            {id: 11, nome: 'COMÉRCIO EXTERIOR'},
+            {id: 12, nome: 'DESIGN DE INTERIORES'},
+            {id: 13, nome: 'DIREITO'},
+            {id: 14, nome: 'EDUCAÇÃO FÍSICA'},
+            {id: 15, nome: 'ENGENHARIA AMBIENTAL e SANITÁRIA'},
+            {id: 16, nome: 'ENGENHARIA CIVIL'},
+            {id: 17, nome: 'ENGENHARIA DE CONTROLE DE AUTOMAÇÃO'},
+            {id: 18, nome: 'ENGENHARIA DE PRODUÇÃO'},
+            {id: 19, nome: 'ENGENHARIA DE SOFTWARE'},
+            {id: 20, nome: 'ENGENHARIA ELÉTRICA'},
+            {id: 21, nome: 'ENGENHARIA MECÂNIA'},
+            {id: 22, nome: 'ENGENHARIA QUÍMICA '},
+            {id: 23, nome: 'ESTÉTICA E COSMÉTICA'},
+            {id: 24, nome: 'FARMÁCIA'},
+            {id: 25, nome: 'FISIOTERAPIA'},
+            {id: 26, nome: 'FONOAUDIOLOGIA'},
+            {id: 27, nome: 'GASTRONOMIA'},
+            {id: 28, nome: 'GESTÃO COMERCIAL(VAREJO)'},
+            {id: 29, nome: 'GESTÃO de PRODUÇÃO INDUSTRIAL '},
+            {id: 30, nome: 'GESTÃO DE RECURSOS HUMANOS'},
+            {id: 31, nome: 'JORNALISMO'},
+            {id: 32, nome: 'LOGÍSTICA'},
+            {id: 33, nome: 'MANUTENÇÃO DE AERONAVES'},
+            {id: 34, nome: 'MEDICINA'},
+            {id: 35, nome: 'MEDICINA VETERINÁRIA'},
+            {id: 36, nome: 'MODA'},
+            {id: 38, nome: 'MÚSICA'},
+            {id: 39, nome: 'NUTRIÇÃO'},
+            {id: 40, nome: 'ODONTOLOGIA'},
+            {id: 41, nome: 'PEDAGOGIA'},
+            {id: 42, nome: 'PILOTAGEM PROFISSIONAL DE AERONAVES'},
+            {id: 43, nome: 'PROCESSOS GERENCIAIS '},
+            {id: 44, nome: 'PSICOLOGIA'},
+            {id: 45, nome: 'PUBLICIDADE E PROPAGANDA'},
+            {id: 46, nome: 'REDES DE COMPUTADORES'},
+            {id: 47, nome: 'SERVIÇO SOCIAL'},
+            {id: 48, nome: 'SISTEMAS PARA INTERNET'},
+            {id: 49, nome: 'TEOLOGIA'}
+        ];
 
     $scope.salvar = function () {
-        alert("oi");
+//        alert("oi");
     };
 
     $scope.materiasDoCurso = [];
