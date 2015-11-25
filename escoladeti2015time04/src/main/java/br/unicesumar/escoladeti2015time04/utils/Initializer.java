@@ -37,6 +37,7 @@ public class Initializer {
     private EspecialSolicitacaoService especialSolicitacaoService;
     @Autowired
     private DeixarOCursoObjetivoService deixarOCursoObjetivoService;
+
     private ItemAcesso iaMenu;
 
     @PostConstruct
@@ -97,8 +98,8 @@ public class Initializer {
         itemAcessoService.add(new ItemAcesso(false, "Editar Especial", "/AtendimentoEspecial/form/:id", iaAtendimentoEspecial));
         itemAcessoService.add(new ItemAcesso("Listar Especial", "/AtendimentoEspecial/list", iaAtendimentoEspecial));
         //Rotas Atendimento Especial Solicitacão
-        itemAcessoService.add(new ItemAcesso(false,"Cadastrar Solicitacão", "/AtendimentoEspecial/Solicitacao/form", iaAtendimentoEspecial));
-        itemAcessoService.add(new ItemAcesso(false,"Editar Solicitacão", "/AtendimentoEspecial/Solicitacao/form/:id", iaAtendimentoEspecial));
+        itemAcessoService.add(new ItemAcesso(false, "Cadastrar Solicitacão", "/AtendimentoEspecial/Solicitacao/form", iaAtendimentoEspecial));
+        itemAcessoService.add(new ItemAcesso(false, "Editar Solicitacão", "/AtendimentoEspecial/Solicitacao/form/:id", iaAtendimentoEspecial));
         itemAcessoService.add(new ItemAcesso("Listar Solicitacão", "/AtendimentoEspecial/Solicitacao/list", iaAtendimentoEspecial));
         //Rotas Relatórios
         final ItemAcesso iaRelatorio = new ItemAcesso("Relatórios", iaMenu, true);
@@ -134,7 +135,7 @@ public class Initializer {
         if (!perfilAcessoService.listar().isEmpty()) {
             return;
         }
-        
+
         perfilAcessoService.criar(new PerfilAcesso("Administrador", itemAcessoService.findAllSet()));
     }
 
@@ -203,12 +204,12 @@ public class Initializer {
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Permanência"));
 
     }
-    
+
     private void inicializarSolicitacoes() {
-        if(!especialSolicitacaoService.listar().isEmpty()) {
+        if (!especialSolicitacaoService.listar().isEmpty()) {
             return;
         }
-        
+
         especialSolicitacaoService.criar(new EspecialSolicitacao("Ledor"));
         especialSolicitacaoService.criar(new EspecialSolicitacao("Escriba"));
         especialSolicitacaoService.criar(new EspecialSolicitacao("Ampliação dos textos entregues (e da avaliação)"));
@@ -220,7 +221,7 @@ public class Initializer {
         especialSolicitacaoService.criar(new EspecialSolicitacao("Livro falado"));
         especialSolicitacaoService.criar(new EspecialSolicitacao("Tecnologias Assistivas"));
         especialSolicitacaoService.criar(new EspecialSolicitacao("Prazo estendido para elaboração de prova"));
-        
+
     }
-    
+
 }

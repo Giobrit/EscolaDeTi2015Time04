@@ -83,8 +83,7 @@ public class Initializer {
         inicializarDadosEnade();
         inicializarPendenciaAluno();
 
-
-       gerandoRelatorios();
+        gerandoRelatorios();
     }
 
     private void gerandoRelatorios() {
@@ -273,7 +272,6 @@ public class Initializer {
         disciplinaService.criar(new Disciplina("NGER160_036", "projeto integrador - escola de ti", 320, 3));
         disciplinaService.criar(new Disciplina("NGER160_032", "gerenciamento de projetos", 80, 3));
         disciplinaService.criar(new Disciplina("NGER160_032", "tópicos especiais em ads", 80, 3));
-
     }
 
     private void inicializarNotasAlunos() {
@@ -384,7 +382,7 @@ public class Initializer {
             enadeService.criar(new DadosEnade(aluno, ano, "Não", false, false));
         }
     }
-    
+
     private void inicializarAlunoDisciplina() {
         List<Aluno> alunos = alunoService.buscarTodos();
         List<Disciplina> disciplinas = disciplinaService.buscarTodos();
