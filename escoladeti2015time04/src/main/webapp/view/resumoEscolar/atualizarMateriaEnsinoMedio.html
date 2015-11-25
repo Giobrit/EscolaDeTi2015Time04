@@ -1,0 +1,85 @@
+<form name="atualizarMateriaEnsinoMedio" class="pull-right col-md-10 col-sm-10 col-lg-10 col-xs-10" novalidate ng-init="init()">
+    <div class="formulario">
+        <div class="panel panel-info">
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo"><h3>Vincular Matéria Ensino Médio ao Curso</h3></div>
+            <div id="demo" class="panel-body collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="col-md-offset-2">
+                                <h4>Nome do Curso</h4>
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="col-md-offset-2">
+                                <div class="form-group">
+                                    <select ng-model="cursoSelecionado" ng-options="curso.nome for curso in cursos" class="form-control">
+                                        <!--<option ng-repeat="m in materias.opcoes" value="{{m.id}}">{{m.nome}}</option>-->
+                                    </select>
+                                </div>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo1" ><h3>Matérias a ser vinculadas com o curso</h3></div>
+            <div id="demo1" class="panel-body collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">  
+                            <div class="form-group"> 
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <th>Matérias</th>
+                                    </thead>
+                                    <tbody>
+                                    <td>
+                                        <select name="materias" id="materias" multiple style="height: 120px; width: 100%" class="form-control" ng-model="materiasSelecionadas">
+                                            <option ng-repeat="m in materias.opcoes" style="padding: 3px;" value="{{m.id}}">{{m.nome}}</option>                                            
+                                        </select>
+                                    </td>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </div>
+                        <div class="col-md-1">
+                            <br>
+                            <button class="btn btn-info" ng-click="passarTodos()"><span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span></button>
+                            <button class="btn btn-info" ng-click="passarSelecionado()"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+                            <button class="btn btn-info" ng-click="voltarSelecionado()"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
+                            <button class="btn btn-info" ng-click="voltarTodos()"><span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="col-md-5">  
+                            <div class="form-group"> 
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <th>Matérias vinculadas</th>
+                                    </thead>
+                                    <tbody>
+                                    <td>
+                                        <select id="selecionado" multiple style="height: 120px; width: 100%" class="form-control" ng-model="materiasSelecionadas">
+                                            <option ng-repeat="mc in materiasDoCurso" value="{{mc.id}}">{{mc.nome}}</option>
+                                        </select>
+                                    </td>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-4 pull-right">
+                    <div class="col-md-offset-7">
+                        <button class="btn btn-danger" ng-click="cancelar()">Cancelar</button>
+                        <button class="btn btn-success" ng-click="salvar()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

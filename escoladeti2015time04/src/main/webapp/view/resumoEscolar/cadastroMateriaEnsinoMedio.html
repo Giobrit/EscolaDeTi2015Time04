@@ -1,0 +1,83 @@
+<form name="cadastroMateriaEnsinoMedio" class="pull-right col-md-10 col-sm-10 col-lg-10 col-xs-10" novalidate ng-init="init()">
+    <div class="formulario">
+        <div class="panel panel-info">
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo"><h3>Cadastro Matéria Ensino Médio</h3></div>
+            <div id="demo" class="panel-body collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="col-md-offset-2">
+                                <h4>Nome da Matéria</h4>
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="col-md-offset-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" ng-model="materia.nome" placeholder="Nome da Matéria"/>
+                                </div>    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo1" ><h3>Defina as matérias</h3></div>
+            <div id="demo1" class="panel-body collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">  
+                            <div class="form-group"> 
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <th>Cursos</th>
+                                    </thead>
+                                    <tbody>
+                                    <td>
+                                        <select name="cursos" id="cursos" multiple style="height: 120px; width: 100%" class="form-control" ng-model="cursosSelecionados">
+                                            <option ng-repeat="c in curso.opcoes" style="padding: 3px;" value="{{c.id}}">{{c.nome}}</option>                                            
+                                        </select>
+                                    </td>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </div>
+                        <div class="col-md-1">
+                            <br>
+                            <button class="btn btn-info" ng-click="passarTodos()"><span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span></button>
+                            <button class="btn btn-info" ng-click="passarSelecionado()"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+                            <button class="btn btn-info" ng-click="voltarSelecionado()"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
+                            <button class="btn btn-info" ng-click="voltarTodos()"><span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="col-md-5">  
+                            <div class="form-group"> 
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <th>Cursos vinculados</th>
+                                    </thead>
+                                    <tbody>
+                                    <td>
+                                        <select id="selecionado" multiple style="height: 120px; width: 100%" class="form-control" ng-model="cursosSelecionados">
+                                            <option ng-repeat="cs in cursosDaMateria" value="{{cs.id}}">{{cs.nome}}</option>
+                                        </select>
+                                    </td>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-4 pull-right">
+                    <div class="col-md-offset-7">
+                        <button class="btn btn-danger" ng-click="cancelar()">Cancelar</button>
+                        <button class="btn btn-success" ng-click="salvar()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

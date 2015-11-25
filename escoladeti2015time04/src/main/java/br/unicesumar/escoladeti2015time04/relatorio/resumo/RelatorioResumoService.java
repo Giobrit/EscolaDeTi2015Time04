@@ -86,7 +86,7 @@ public class RelatorioResumoService {
                 + "from atendimento att "
                 + "inner join atendimentodeixarocurso atdc on atdc.id = att.id "
                 + "inner join deixarocursoobjetivo dco on dco.id = atdc.objetivo "
-                + "inner join atendimentomotivo atm on atm.id = atdc.motivo "
+                + "inner join atendimentomotivo atm on atm.id = att.motivo "
                 + "where dco.descricao = 'Permanência' "
                 + "group by att.centro, atm.id, atm.descricao";
 
@@ -102,7 +102,7 @@ public class RelatorioResumoService {
         String queryMotivos = "select atm.id as idMotivo, atm.descricao as motivo, count(*) as atendimentos "
                 + "from atendimento att "
                 + "inner join atendimentodeixarocurso atdc on atdc.id = att.id "
-                + "inner join atendimentomotivo atm on atm.id = atdc.motivo "
+                + "inner join atendimentomotivo atm on atm.id = att.motivo "
                 + "group by att.centro, atm.id, atm.descricao";
 
         Map<String, Object> retorno = new HashMap<String, Object>();

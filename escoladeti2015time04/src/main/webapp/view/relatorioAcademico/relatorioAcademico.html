@@ -20,35 +20,37 @@
                     <li><a href="#tabs-1">Perfil</a></li>
                     <li><a href="#tabs-2">Linha do tempo</a></li>
                     <li><a href="#tabs-3">Estatísticas</a></li>
-                </ul>
-                <div id="tabs-1">
+                </ul>                
+                <div id="tabs-1">                    
                     <div style="font-size: 17px">
-                        <div class="form-group formulario">
-                            <img ng-src="lyceumClient/aluno/foto/{{raParaFoto}}" alt="" class="img-circle col-md-2">
-                            <div class="col-md-8">
+                        <div class="form-group ">  
+                            <img ng-src="{{raParaFoto}}" alt="" class="img-circle col-md-2 col-sm-3 col-xs-3">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
                                 <label>Nome:</label> {{relatorioAcademico.nomeAluno}}
                             </div>
-                            <div class="col-md-4 formulario">                    
+                            <div class="col-md-10 ">                    
                                 <label>Curso:</label> {{relatorioAcademico.curso}}
                             </div>
-                            <div class="col-md-2 formulario">
+                            <div class="col-md-2 ">
                                 <label>Centro:</label>{{relatorioAcademico.centro}}
                             </div>
-                            <div class="col-md-2 formulario">
+                            <div class="col-md-2 ">
                                 <label>Série:</label> {{relatorioAcademico.serieSemestre}}
                             </div>
-                            <div class="col-md-2 formulario">
+                            <div class="col-md-2 ">
                                 <label>Turno:</label> {{relatorioAcademico.turno}}
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-4 formulario">
-                                <label>Bolsa:</label> {{relatorioAcademico.bolsaFinanciamento}}
-                            </div>
-                            <div class="col-md-3 formulario">
+                            <div class="col-md-4 ">
                                 <label>Reprovações:</label> {{relatorioAcademico.numeroReprovacoes}}
                             </div>
-                            <div class="col-md-3 formulario">
+                            <div class="col-md-6 ">
+                                <label>Bolsa:</label> {{relatorioAcademico.bolsaFinanciamento}}
+                            </div>
+                            <div class="col-md-3 ">
                                 <label>Matriculado:</label> {{relatorioAcademico.matriculado}}
                             </div>
                         </div>
@@ -62,18 +64,14 @@
                         <div class="btn-group-justified col-md-12 form-group formulario">
                             <div class="btn-group col-md-12" role="group" style="font-size: 12px">
                                 <center>
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-3">
-                                        <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Médias e Faltas</button>-->
-                                        <a class="btn btn-info" href="./lyceumClient/mediaFaltas/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom">Médias e Faltas</a>
+                                    <div class="col-md-4">
+                                        <a class="btn btn-info" href="./lyceumClient/mediaFaltas/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Médias e Faltas</a>
                                     </div>
-                                    <div class="col-md-3">
-                                        <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Histórico Geral</button>-->
-                                        <a class="btn btn-info" href="./lyceumClient/historicoGeral/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom">Histórico Geral</a>
+                                    <div class="col-md-4">
+                                        <a class="btn btn-info" href="./lyceumClient/historicoGeral/{{relatorioAcademico.ra}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Histórico Geral</a>
                                     </div>
-                                    <div class="col-md-3">
-                                        <!--<button type="buttton" ng-click="" class="btn btn-info" data-toggle="tooltip" data-placement="bottom">Nada Consta</button>-->
-                                        <a class="btn btn-info" href="./lyceumClient/nadaConsta/{{relatorioAcademico.ra}}/{{relatorioAcademico.centro}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom">Nada Consta</a>
+                                    <div class="col-md-4">
+                                        <a class="btn btn-info" href="./lyceumClient/nadaConsta/{{relatorioAcademico.ra}}/{{relatorioAcademico.centro}}"  target="_blank" title="Imprimir formulários" data-toggle="tooltip" data-placement="bottom" style="color: white">Nada Consta</a>
                                     </div>
                                 </center>
                             </div>
@@ -81,32 +79,43 @@
                     </div>
                 </div>
                 <div id="tabs-2">
-                    <div class="formulario">
+                    <div class="">
                         <div class="panel panel-info">
                             <div class="panel-heading" data-target="#demo1">
                                 <center>
                                     <div class="row" style="height: 58px">
-                                        <div class="form-group col-xs-2 col-md-1">
-                                            <span class="fa-stack fa-2x">
-                                                <i class="fa fa-circle fa-stack-2x text-info"></i>
-                                                <i class="fa fa-comment-o fa-stack-3x fa-inverse"></i>
-                                            </span>
-                                        </div> 
-                                        <div class="form-group col-xs-2 col-md-1">
-                                            <span class="fa-stack fa-2x">
-                                                <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                                <i class="fa fa-comment-o fa-stack-3x fa-inverse"></i>
-                                            </span>
-                                        </div> 
-                                        <div class="form-group col-xs-2 col-md-1">
-                                            <span class="fa-stack fa-2x">
-                                                <i class="fa fa-circle fa-stack-2x text-default"></i>
-                                                <i class="fa fa-comment-o fa-stack-3x fa-inverse"></i>
-                                            </span>
-                                        </div> 
-                                        <div class="form-group col-xs-2 col-md-4">
-                                        </div>    
-                                    </div>    
+                                        <div class="form-group col-xs-3 col-md-4" ng-click="setExibirElemento('Atendimento')">
+                                            <div class="timeline">
+                                                <article class="panel panel-primary panel-outline" style="opacity: {{propriedadesItens['Atendimento'].opacidade}}">
+                                                    <div class="panel-heading icon">	
+                                                        <i class="fa fa-comment-o"></i>	
+                                                    </div>	
+                                                </article>
+                                                <span>Atendimento</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-3 col-md-4" ng-click="setExibirElemento('Atendimento Preventivo')">	
+                                            <div class="timeline">
+                                                <article class="panel panel-danger panel-outline" style="opacity: {{propriedadesItens['Atendimento Preventivo'].opacidade}}">
+                                                    <div class="panel-heading icon">	
+                                                        <i class="fa fa-comment-o"></i>	
+                                                    </div>	
+                                                </article>
+                                                <span>Atendimento Preventivo</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-3 col-md-4" ng-click="setExibirElemento('Atendimento Especial')" style="opacity: {{propriedadesItens['Atendimento Especial'].opacidade}}">	
+                                            <div class="timeline">
+                                                <article class="panel panel-default panel-outline">
+                                                    <div class="panel-heading icon">	
+                                                        <i class="fa fa-comment-o"></i>	
+                                                    </div>	
+                                                </article>
+                                                <span>Atendimento Especial</span>
+                                            </div>
+                                        </div>
+                                    </div>   
+
                                 </center>
                             </div>    
                             <div class="panel-body">
@@ -128,7 +137,7 @@
 
                                                     <!-- Icon -->
                                                     <div class="panel-heading icon">
-                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                        <i class="fa fa-comment-o"></i>
                                                     </div>
                                                     <!-- /Icon -->
 
@@ -175,10 +184,56 @@
                     </div>
                 </div>
                 <div id="tabs-3">
-                    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-                    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+                    <div class="form-group">
+                        <div class="panel panel-info">
+                            <div class="panel-heading" data-target="#demo1">
+                                <center>
+                                    <div class="row">
+                                        <span>Estatística do Aluno</span>
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="form-group">
+                                <div id="demo2" class="panel-body collapse in">
+                                    <div ng-show="exibeRelatorioMotivo" class="col-md-12 pull-left">
+                                        <div id="pie4" style="min-width: 500px; height: 450px; max-width: 500px; margin: 0 auto; margin-top: 10px"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 pull-right">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                    <th>Atendimentos</th>
+                                                    <th>Quantidade</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Atendimento</td>
+                                                            <td>{{quantidadeAtendimentosDoAluno.atendimentodeixarocurso}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Atendimento Preventivo</td>
+                                                            <td>{{quantidadeAtendimentosDoAluno.atendimentopreventivo}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Atendimento Especial</td>
+                                                            <td>{{quantidadeAtendimentosDoAluno.atendimentoespecial}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td><b>TOTAL</b></td>
+                                                            <td><b>{{quantidadeAtendimentosDoAluno.total}}</b></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</form>
+            </form>

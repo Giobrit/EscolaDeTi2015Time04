@@ -4,6 +4,8 @@ import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivo;
 import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoMotivoService;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivo;
 import br.unicesumar.escoladeti2015time04.atendimento.deixarOCurso.objetivo.DeixarOCursoObjetivoService;
+import br.unicesumar.escoladeti2015time04.atendimento.especial.solicitacao.EspecialSolicitacao;
+import br.unicesumar.escoladeti2015time04.atendimento.especial.solicitacao.EspecialSolicitacaoService;
 import br.unicesumar.escoladeti2015time04.atendimento.motivo.AtendimentoDoMotivo;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcesso;
 import br.unicesumar.escoladeti2015time04.itemAcesso.ItemAcessoService;
@@ -32,6 +34,8 @@ public class Initializer {
     @Autowired
     private AtendimentoMotivoService atendimentoMotivoService;
     @Autowired
+    private EspecialSolicitacaoService especialSolicitacaoService;
+    @Autowired
     private DeixarOCursoObjetivoService deixarOCursoObjetivoService;
     private ItemAcesso iaMenu;
 
@@ -42,6 +46,7 @@ public class Initializer {
         inicializarAdministrador();
         inicializarAtendimentoMotivo();
         inicializarAtendimentoDeixarOCursoObjetivo();
+        inicializarSolicitacoes();
     }
 
     private void inicializarItensAcesso() {
@@ -91,6 +96,10 @@ public class Initializer {
         itemAcessoService.add(new ItemAcesso("Cadastrar Especial", "/AtendimentoEspecial/form", iaAtendimentoEspecial));
         itemAcessoService.add(new ItemAcesso(false, "Editar Especial", "/AtendimentoEspecial/form/:id", iaAtendimentoEspecial));
         itemAcessoService.add(new ItemAcesso("Listar Especial", "/AtendimentoEspecial/list", iaAtendimentoEspecial));
+        //Rotas Atendimento Especial Solicitacão
+        itemAcessoService.add(new ItemAcesso(false,"Cadastrar Solicitacão", "/AtendimentoEspecial/Solicitacao/form", iaAtendimentoEspecial));
+        itemAcessoService.add(new ItemAcesso(false,"Editar Solicitacão", "/AtendimentoEspecial/Solicitacao/form/:id", iaAtendimentoEspecial));
+        itemAcessoService.add(new ItemAcesso("Listar Solicitacão", "/AtendimentoEspecial/Solicitacao/list", iaAtendimentoEspecial));
         //Rotas Relatórios
         final ItemAcesso iaRelatorio = new ItemAcesso("Relatórios", iaMenu, true);
         itemAcessoService.add(iaRelatorio);
@@ -100,6 +109,13 @@ public class Initializer {
         final ItemAcesso iaAluno = new ItemAcesso("Aluno", iaMenu, true);
         itemAcessoService.add(iaAluno);
         itemAcessoService.add(new ItemAcesso("Perfil", "/RelatorioAcademico/form", iaAluno));
+        //Rotas Materia Ensino Medio
+        final ItemAcesso iaMateria = new ItemAcesso("Histórico Ensino Médio", iaMenu, true);
+        itemAcessoService.add(iaMateria);
+        itemAcessoService.add(new ItemAcesso("Cadastrar Matéria do E.M.", "/EnsinoMedio/form", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Lista de Matérias E.M.", "/EnsinoMedio/list", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Atualizar Matérias E.M", "/EnsinoMedio/atualizar", iaMateria));
+        itemAcessoService.add(new ItemAcesso("Cadastro de Histórico do E.M.", "/EnsinoMedio/informacoesMateria", iaMateria));
         //Rotas Sistema
         final ItemAcesso iaSistema = new ItemAcesso("Sistema", iaMenu, true);
         itemAcessoService.add(iaSistema);
@@ -187,4 +203,24 @@ public class Initializer {
         deixarOCursoObjetivoService.criar(new DeixarOCursoObjetivo("Permanência"));
 
     }
+    
+    private void inicializarSolicitacoes() {
+        if(!especialSolicitacaoService.listar().isEmpty()) {
+            return;
+        }
+        
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Ledor"));
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Escriba"));
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Ampliação dos textos entregues (e da avaliação)"));
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Intérprete de Libras"));
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Sintetizador de voz"));
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Reglete"));
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Sorobã"));
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Livro didático adaptado"));
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Livro falado"));
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Tecnologias Assistivas"));
+        especialSolicitacaoService.criar(new EspecialSolicitacao("Prazo estendido para elaboração de prova"));
+        
+    }
+    
 }

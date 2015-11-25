@@ -82,50 +82,55 @@ public class Initializer {
         inicializarNotasAlunos();
         inicializarDadosEnade();
         inicializarPendenciaAluno();
+
+
+       gerandoRelatorios();
     }
 
-//    private void gerandoRelatorios() {        
-//        geraRelHistoricoGeral();
-//        geraRelNadaConsta();
-//        geraRelMediaFaltas();        
-//    }
+    private void gerandoRelatorios() {
+        relatorioService.gerarRelatorioHistoricoGeral("13097572");
+
+        geraRelHistoricoGeral();
+        geraRelNadaConsta();
+        geraRelMediaFaltas();
+    }
 
     private void geraRelHistoricoGeral() {
-        try {            
+        try {
             File historicoGeral = new File(getDiretorioBase(), "HistoricoGeral.pdf");
             OutputStream historicoGeralPDF;
             historicoGeralPDF = new FileOutputStream(historicoGeral);
-            
+
             JasperPrint printHistoricoGeral = relatorioService.gerarRelatorioHistoricoGeral("13097572");
             JasperExportManager.exportReportToPdfStream(printHistoricoGeral, historicoGeralPDF);
         } catch (FileNotFoundException | JRException ex) {
             Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
-    
+
     private void geraRelNadaConsta() {
         try {
             File historicoGeral = new File(getDiretorioBase(), "NadaConsta.pdf");
             OutputStream nadaConstaPDF = new FileOutputStream(historicoGeral);
-            
-            JasperPrint printNadaConsta = relatorioService.gerarRelatorioNadaConsta("13097572","CETA");
+
+            JasperPrint printNadaConsta = relatorioService.gerarRelatorioNadaConsta("13097572", "CETA");
             JasperExportManager.exportReportToPdfStream(printNadaConsta, nadaConstaPDF);
         } catch (FileNotFoundException | JRException ex) {
             Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
-    
+
     private void geraRelMediaFaltas() {
         try {
             File raiz = getDiretorioBase();
             File mediaFaltas = new File(raiz, "MediaFaltasDeAluno.pdf");
             OutputStream mediaFaltasPDF = new FileOutputStream(mediaFaltas);
-            
+
             JasperPrint printMediaFaltas = relatorioService.gerarRelatorioMediaFaltas("13097572");
             JasperExportManager.exportReportToPdfStream(printMediaFaltas, mediaFaltasPDF);
         } catch (FileNotFoundException | JRException ex) {
             Logger.getLogger(Initializer.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     private File getDiretorioBase() {
@@ -136,6 +141,8 @@ public class Initializer {
 
     private void inicializarDepartamento() {
         departamentoService.criarDepartamento(new Departamento("CETA", "Ciências Exatas, Tecnológicas e Agrárias"));
+        departamentoService.criarDepartamento(new Departamento("CBS", "Saúde, Saúde"));
+        departamentoService.criarDepartamento(new Departamento("CHSA", "Humanas, Humanas"));
     }
 
     private void inicializarPendenciaAluno() {
@@ -161,8 +168,55 @@ public class Initializer {
     }
 
     private void inicializarCurso() {
-        cursoService.criar(new Curso("CST_ADSIS", "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
-        cursoService.criar(new Curso("CST_SISIN", "Superior de Tecnologia de Sistemas para Internet", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        //CBS
+        cursoService.criar(new Curso("CBS", "Biomedicina", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Ciências Biológicas", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Educação Física", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Enfermagem", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Estética e Cosmética", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Farmácia", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Fisioterapia", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Fonoaudiologia", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Medicina", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Nutrição", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Odontologia", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Psicologia", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        cursoService.criar(new Curso("CBS", "Veterinária", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(2L)));
+        //CETA
+        cursoService.criar(new Curso("CETA", "Agronegócio", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Agronomia", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Superior de Tecnologia em Análise e Desenvolvimento de Sistemas", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Arquitetura e Urbanismo", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Automação Industrial", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Design de Interiores", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Eng.Amb.e Sanitária", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Engenharia Civil", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Eng.Controle e Autom.", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Engenharia de Produção", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Engenharia de Software", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Engenharia Elétrica", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Manutenção de Aeronaves", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Redes de Computadores", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Sistemas de Informação", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        cursoService.criar(new Curso("CETA", "Superior de Tecnologia de Sistemas para Internet", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(1L)));
+        //CHSA
+        cursoService.criar(new Curso("CHSA", "Administração", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Artes Visuais", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Ciências Contábeis", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Comercio Exterior", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Direito", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Gastronomia", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Gestão Comercial", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Gestão de Recursos Humanos", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Jornalismo", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Logística", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Moda", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Música", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Pedagogia", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Pilotagem Prof. de aeronaves", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Publicidade e Propaganda", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Serviço Social", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
+        cursoService.criar(new Curso("CHSA", "Teologia", "Cesumar - Centro Universitário de Maringá", "Cesumar", departamentoService.buscarDepartamento(3L)));
     }
 
     private void inicializarAluno() {
@@ -172,14 +226,14 @@ public class Initializer {
         List<Bolsa> bolsas = bolsaService.buscarTodos();
         List<Turma> turmas = turmaService.buscarTodos();
 
-        alunoService.criar(new Aluno("13002602", "Giovanni De Ganello Dias", "CETA", "SIM", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L), turmas.get(2), bolsas, "Não", "Matriculado"));
-        alunoService.criar(new Aluno("13097992", "Renato Kenji", "CETA", "SIM", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L), turmas.get(2), bolsas, "Não", "Matriculado"));
-        alunoService.criar(new Aluno("13002702", "Roney Cesar de Campos ", "CETA", "SIM", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L), turmas.get(2), bolsas, "Não", "Matriculado"));
-        alunoService.criar(new Aluno("11002782", "Luiz Gustavo Sabaine Fagundes", "CETA", "SIM", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(2L), turmas.get(5), bolsas, "Não", "Matriculado"));
-        alunoService.criar(new Aluno("13078102", "Willian Zanuto Oliveira", "CETA", "SIM", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(2L), turmas.get(5), bolsas, "Não", "Matriculado"));
-        alunoService.criar(new Aluno("13089252", "Filipe Martins Maldonado", "CETA", "SIM", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L), turmas.get(2), bolsas, "Não", "Matriculado"));
-        alunoService.criar(new Aluno("13003052", "Liz Regina Okuzono", "CETA", "SIM", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L), turmas.get(2), bolsas, "Não", "Matriculado"));
-        alunoService.criar(new Aluno("13097572", "Rodrigo Ferreira de Souza", "CETA", "SIM", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L), turmas.get(2), bolsas, "Não", "Matriculado"));
+        alunoService.criar(new Aluno("13002602", "Giovanni De Ganello Dias", "CBS", "Não", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(1L), turmas.get(2), bolsas, "Não", "Matriculado"));
+        alunoService.criar(new Aluno("13097992", "Renato Kenji Nakamura", "CBS", "Sim", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(9L), turmas.get(2), bolsas, "Não", "Matriculado"));
+        alunoService.criar(new Aluno("13002702", "Roney Cesar de Campos ", "CETA", "Sim", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(16L), turmas.get(2), bolsas, "Não", "Matriculado"));
+        alunoService.criar(new Aluno("11002782", "Luiz Gustavo Sabaine Fagundes", "CETA", "Não", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(28L), turmas.get(5), bolsas, "Não", "Matriculado"));
+        alunoService.criar(new Aluno("13078102", "Willian Zanuto Oliveira", "CHSA", "Sim", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(43L), turmas.get(5), bolsas, "Não", "Matriculado"));
+        alunoService.criar(new Aluno("13089252", "Filipe Martins Maldonado", "CETA", "Sim", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(16L), turmas.get(2), bolsas, "Não", "Matriculado"));
+        alunoService.criar(new Aluno("13003052", "Liz Regina Okuzono", "CETA", "Sim", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(16L), turmas.get(2), bolsas, "Não", "Matriculado"));
+        alunoService.criar(new Aluno("13097572", "Rodrigo Ferreira de Souza", "CHSA", "Sim", 0, "Noturno", anoInicio, AlunoSituacao.ATIVO, cursoService.buscar(34L), turmas.get(2), bolsas, "Não", "Matriculado"));
     }
 
     private void inicializarTurma() {
@@ -199,26 +253,27 @@ public class Initializer {
     }
 
     private void inicializarDisciplina() {
-        disciplinaService.criar(new Disciplina("NGER160_007", "algoritmos e lógica de programação", 160,1));
-        disciplinaService.criar(new Disciplina("NGER160_009", "fundamentos e arquitetura de computadores", 160,1));
-        disciplinaService.criar(new Disciplina("NGER160_008", "matemática para computação", 160,1));
-        disciplinaService.criar(new Disciplina("NGER160_004", "metodologia da pesquisa científica", 160,1));
-        disciplinaService.criar(new Disciplina("NGER160_052", "processos de negócio", 80,1));
-        disciplinaService.criar(new Disciplina("NGER160_050", "programação I", 80,1));
-        disciplinaService.criar(new Disciplina("NGER160_054", "sistemas operacionais", 80,1));
-        disciplinaService.criar(new Disciplina("NGER160_010", "banco de dados i", 160,2));
-        disciplinaService.criar(new Disciplina("NGER160_055", "design de interação", 80,2));
-        disciplinaService.criar(new Disciplina("NGER160_012", "engenharia de software i", 160,2));
-        disciplinaService.criar(new Disciplina("NGER160_013", "estrutura de dados", 160,2));
-        disciplinaService.criar(new Disciplina("NGER160_001", "formação sociocultural e ética", 80,2));
-        disciplinaService.criar(new Disciplina("NGER160_051", "fundamentos de redes de computadores", 160,2));
-        disciplinaService.criar(new Disciplina("NGER160_011", "programação ii", 160,2));
-        disciplinaService.criar(new Disciplina("NGER160_037", "programação avançada", 160,3));
-        disciplinaService.criar(new Disciplina("NGER160_038", "empreendedorismo", 80,3));
-        disciplinaService.criar(new Disciplina("NGER160_039", "projeto de sistemas", 80,3));
-        disciplinaService.criar(new Disciplina("NGER160_036", "projeto integrador - escola de ti", 320,3));
-        disciplinaService.criar(new Disciplina("NGER160_032", "gerenciamento de projetos", 80,3));
-        disciplinaService.criar(new Disciplina("NGER160_032", "tópicos especiais em ads", 80,3));
+        disciplinaService.criar(new Disciplina("NGER160_007", "algoritmos e lógica de programação", 160, 1));
+        disciplinaService.criar(new Disciplina("NGER160_009", "fundamentos e arquitetura de computadores", 160, 1));
+        disciplinaService.criar(new Disciplina("NGER160_008", "matemática para computação", 160, 1));
+        disciplinaService.criar(new Disciplina("NGER160_004", "metodologia da pesquisa científica", 160, 1));
+        disciplinaService.criar(new Disciplina("NGER160_052", "processos de negócio", 80, 1));
+        disciplinaService.criar(new Disciplina("NGER160_050", "programação I", 80, 1));
+        disciplinaService.criar(new Disciplina("NGER160_054", "sistemas operacionais", 80, 1));
+        disciplinaService.criar(new Disciplina("NGER160_010", "banco de dados i", 160, 2));
+        disciplinaService.criar(new Disciplina("NGER160_055", "design de interação", 80, 2));
+        disciplinaService.criar(new Disciplina("NGER160_012", "engenharia de software i", 160, 2));
+        disciplinaService.criar(new Disciplina("NGER160_013", "estrutura de dados", 160, 2));
+        disciplinaService.criar(new Disciplina("NGER160_001", "formação sociocultural e ética", 80, 2));
+        disciplinaService.criar(new Disciplina("NGER160_051", "fundamentos de redes de computadores", 160, 2));
+        disciplinaService.criar(new Disciplina("NGER160_011", "programação ii", 160, 2));
+        disciplinaService.criar(new Disciplina("NGER160_037", "programação avançada", 160, 3));
+        disciplinaService.criar(new Disciplina("NGER160_038", "empreendedorismo", 80, 3));
+        disciplinaService.criar(new Disciplina("NGER160_039", "projeto de sistemas", 80, 3));
+        disciplinaService.criar(new Disciplina("NGER160_036", "projeto integrador - escola de ti", 320, 3));
+        disciplinaService.criar(new Disciplina("NGER160_032", "gerenciamento de projetos", 80, 3));
+        disciplinaService.criar(new Disciplina("NGER160_032", "tópicos especiais em ads", 80, 3));
+
     }
 
     private void inicializarNotasAlunos() {
@@ -329,7 +384,7 @@ public class Initializer {
             enadeService.criar(new DadosEnade(aluno, ano, "Não", false, false));
         }
     }
-
+    
     private void inicializarAlunoDisciplina() {
         List<Aluno> alunos = alunoService.buscarTodos();
         List<Disciplina> disciplinas = disciplinaService.buscarTodos();

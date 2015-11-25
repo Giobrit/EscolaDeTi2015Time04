@@ -2,7 +2,7 @@
     margin-bottom: -2px;
 }
 .fixed-table .header-fixed {
-  position: absolute;
+  position: relative;
   top: 0px;
   z-index: 1020; /* 10 less than .navbar-fixed to prevent any overlap */
   border-bottom: 2px solid #d5d5d5;
@@ -16,17 +16,17 @@
 }
 .fixed-table th{
   padding: 0px;
-  line-height: 18px;
+  line-height: 20px;
   text-align: left;
 }
 .fixed-table .table-content{
   display:block;
   position: relative;
-  height: 100px; /*FIX THE HEIGHT YOU NEED*/
+  height: 250px; /*FIX THE HEIGHT YOU NEED*/
   overflow-y: auto;
 }
 .fixed-table .header-copy{
-  position:absolute;
+  position:relative;
   top:0;
   left:0;
 }
