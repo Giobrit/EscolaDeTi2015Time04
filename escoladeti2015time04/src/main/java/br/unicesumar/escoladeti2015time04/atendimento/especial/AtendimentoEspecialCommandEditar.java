@@ -1,10 +1,12 @@
 package br.unicesumar.escoladeti2015time04.atendimento.especial;
 
 import br.unicesumar.escoladeti2015time04.atendimento.AtendimentoCommandEditar;
+import br.unicesumar.escoladeti2015time04.atendimento.especial.solicitacao.EspecialSolicitacao;
 import br.unicesumar.escoladeti2015time04.utils.service.AtributoCommand;
 import br.unicesumar.escoladeti2015time04.utils.service.CommandEditar;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Column;
 
 @CommandEditar
@@ -27,7 +29,7 @@ public class AtendimentoEspecialCommandEditar extends AtendimentoCommandEditar {
     private String encaminhadoPara;
 
     @AtributoCommand
-    private String solicitacao;
+    private Set<Long> solicitacoes;
 
     public AtendimentoEspecialCommandEditar(
             @JsonProperty("id") Long id,
@@ -46,7 +48,7 @@ public class AtendimentoEspecialCommandEditar extends AtendimentoCommandEditar {
             @JsonProperty("coordenadorDiretor") String coordenadorDiretor,
             @JsonProperty("laudoMedico") boolean laudoMedico,
             @JsonProperty("encaminhadoPara") String encaminhadoPara,
-            @JsonProperty("solicitacao") String solicitacao,
+            @JsonProperty("solicitacoes") Set<Long> solicitacoes,
             @JsonProperty("idMotivo") Long idMotivo) {
         this.id = id;
         this.data = data;
@@ -64,11 +66,11 @@ public class AtendimentoEspecialCommandEditar extends AtendimentoCommandEditar {
         this.coordenadorDiretor = coordenadorDiretor;
         this.laudoMedico = laudoMedico;
         this.encaminhadoPara = encaminhadoPara;
-        this.solicitacao = solicitacao;
+        this.solicitacoes = solicitacoes;
         this.idMotivo = idMotivo;
     }
-    
-    public Long getId(){
+
+    public Long getId() {
         return this.id;
     }
 
@@ -112,11 +114,12 @@ public class AtendimentoEspecialCommandEditar extends AtendimentoCommandEditar {
         this.encaminhadoPara = encaminhadoPara;
     }
 
-    public String getSolicitacao() {
-        return solicitacao;
+    public Set<Long> getSolicitacoes() {
+        return solicitacoes;
     }
 
-    public void setSolicitacao(String solicitacao) {
-        this.solicitacao = solicitacao;
+    public void setSolicitacoes(Set<Long> solicitacoes) {
+        this.solicitacoes = solicitacoes;
     }
+
 }

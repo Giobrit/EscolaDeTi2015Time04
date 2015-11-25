@@ -1,0 +1,73 @@
+<form name="informacoesDaMateria" class="pull-right col-md-10 col-sm-10 col-lg-10 col-xs-10" novalidate ng-init="init()">
+    <div class="formulario">
+        <div class="panel panel-info">
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo"><h3>Cadastro de Histórico do Ensino Médio</h3></div>
+            <div id="demo" class="panel-body collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4>Ra: </h4>
+                        </div>
+                        <div class="col-md-5">
+                            <h4>Nome:</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Carga Horária do Curso</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input name="ra" ng-model="ra" type="text" class="form-control" placeholder="Insira seu RA" ng-keyup="carregarAluno(ra)"/>
+                        </div>
+                        <div class="col-md-5">
+                            <input name="nome" ng-model="nome" type="text" class="form-control" disabled/>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="curso" class="form-control" placeholder="Insira a Carga Horária do Curso" />
+                        </div>
+                    </div>
+                    <div class="formulario row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome da Matéra</th>
+                                        <th>Carga Horária da Matéria</th>
+                                        <th>Nota</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="materiaDoAluno in materiasDoAluno">
+                                        <td class="col-md-4">
+                                            <select name="materias" ng-change="alterarMateriaSelecionada(materiaDoAluno)" ng-model="materiaDoAluno.materiaSelecionada" ng-options="materia.nome for materia in materiasNaoSelecionadas.opcoes" class="form-control">
+                                                <!--<option ng-repeat="m in materias.opcoes" value="{{m.id}}">{{m.nome}}</option>-->
+                                            </select>
+                                        </td>
+                                        <td class="col-md-4">
+                                            <input type="text" class="form-control" name="cargaHorariaMateria" placeholder="Insira a Carga Horária da Matéria" />
+                                        </td>
+                                        <td class="col-md-3">
+                                            <input type="text" class="form-control" placeholder="Insira a nota da matéria" />
+                                        </td>
+                                        <td class="col-md-1">
+                                            <button class="btn btn-danger" ng-click="remover(materiaDoAluno)"><span class="glyphicon glyphicon-trash"></span></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 pull-right">
+                <div class="col-md-offset-7">
+                    <button class="btn btn-danger" ng-click="cancelar()">Cancelar</button>
+                    <button class="btn btn-success" ng-click="salvar()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

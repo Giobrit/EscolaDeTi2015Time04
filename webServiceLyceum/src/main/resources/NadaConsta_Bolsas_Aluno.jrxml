@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NadaConsta_Bolsas_Aluno" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="17eedccf-f720-42fd-b2f9-935bed2b33b0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUB_RA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     CONCAT('Data:',bolsa.datainicio,
+     ' - Período:',bolsa.fim,
+     ' - Valor:',bolsa.valor,
+     ' - Bolsa:',bolsa.bolsa,
+     ' - Irmãos:',bolsa.irmaos
+     ) AS BOLSA
+FROM
+     aluno INNER JOIN alunobolsas ON aluno.id = alunobolsas.aluno_id
+     INNER JOIN  bolsa ON alunobolsas.bolsas_id = bolsa.id
+WHERE aluno.ra = $P{SUB_RA}]]>
+	</queryString>
+	<field name="bolsa" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="430" height="28" uuid="ed95edf4-c49c-4892-a52a-9bfd5e7592d4"/>
+				<textFieldExpression><![CDATA[$F{bolsa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

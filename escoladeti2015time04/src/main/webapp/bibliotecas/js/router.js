@@ -50,13 +50,21 @@
         adicionarRota($routeProvider, '/AtendimentoEspecial/form', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
         adicionarRota($routeProvider, '/AtendimentoEspecial/form/:id', 'view/atendimentoEspecial/formAtendimentoEspecial.html', 'controllerFormAtendimentoEspecial');
         adicionarRota($routeProvider, '/AtendimentoEspecial/list', 'view/atendimentoEspecial/ListAtendimentoEspecial.html', 'controllerListAtendimentoEspecial');
+        //Rotas Atendimento Especial Solicitação
+        adicionarRota($routeProvider, '/AtendimentoEspecial/Solicitacao/list', 'view/atendimentoEspecial/solicitacao/listagemSolicitacao.html', 'controllerListSolicitacaoEspecial');
+        adicionarRota($routeProvider, '/AtendimentoEspecial/Solicitacao/form', 'view/atendimentoEspecial/solicitacao/cadastroSolicitacao.html', 'controllerFormSolicitacaoEspecial');
+        adicionarRota($routeProvider, '/AtendimentoEspecial/Solicitacao/form/:id', 'view/atendimentoEspecial/solicitacao/cadastroSolicitacao.html', 'controllerFormSolicitacaoEspecial');
         //Rotas Relatorio Academico
         adicionarRota($routeProvider, '/RelatorioAcademico/form', 'view/relatorioAcademico/relatorioAcademico.html', 'controllerRelatorioAcademico');
         adicionarRota($routeProvider, '/RelatorioAcademico/form/:id', 'view/relatorioAcademico/relatorioAcademico.html', 'controllerRelatorioAcademico');
         //Rotas Relatorios
         adicionarRota($routeProvider, '/Relatorios/resumido', 'view/relatorios/relatorioResumido.html', 'controllerRelatorioResumido');
         adicionarRota($routeProvider, '/Relatorios/porCentro', 'view/relatorios/relatorioPorCentro.html', 'controllerRelatorioPorCentro');
-
+        //Rotas Materia Ensino Medio
+        adicionarRota($routeProvider, '/EnsinoMedio/form', 'view/resumoEscolar/cadastroMateriaEnsinoMedio.html', 'controllerFormMateria');
+        adicionarRota($routeProvider, '/EnsinoMedio/list', 'view/resumoEscolar/listaMateriasEnsinoMedio.html', 'controllerListaMaterias');
+        adicionarRota($routeProvider, '/EnsinoMedio/atualizar', 'view/resumoEscolar/atualizarMateriaEnsinoMedio.html', 'controllerAlualizarMateria');
+        adicionarRota($routeProvider, '/EnsinoMedio/informacoesMateria', 'view/resumoEscolar/informacoesDaMateria.html', 'controllerInformacoesMateria');
         //verificar se é possível separar as rotas em módulos
 
         $locationProvider.html5Mode(false);

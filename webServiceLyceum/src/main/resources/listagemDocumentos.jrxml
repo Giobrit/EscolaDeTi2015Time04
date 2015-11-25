@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listagemDocumentos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48511dfb-1406-4ec8-8a5b-c8d938018a30">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="clienteDe" class="java.lang.Integer"/>
+	<parameter name="clienteAte" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT caixa.codigo CD_CAXA,
+   cliente.id CD_CLIENTE,
+   cliente.nome NM_CLIENTE,
+   cliente.cnpj CNPJ,
+   tipo.nome TIPO,
+   documento.nome NM_DOCUMENTO,
+   documento.observacao OBSERVACAO,
+   documento.dt_entrada DT_ENTRADA
+FROM arquivojm.caixa caixa,
+    arquivojm.cliente cliente,
+    arquivojm.documento documento,
+    arquivojm.tipo_documento tipo
+WHERE
+   caixa.cliente = cliente.id
+   AND documento.cliente = caixa.cliente
+   AND documento.caixa = caixa.codigo
+   AND tipo.id = documento.tipo_documento
+   AND cliente.id BETWEEN $P{clienteDe} AND $P{clienteAte}
+ORDER BY caixa.codigo]]>
+	</queryString>
+	<field name="CD_CAXA" class="java.lang.Integer"/>
+	<field name="CD_CLIENTE" class="java.lang.Integer"/>
+	<field name="NM_CLIENTE" class="java.lang.String"/>
+	<field name="CNPJ" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TIPO" class="java.lang.String"/>
+	<field name="NM_DOCUMENTO" class="java.lang.String"/>
+	<field name="OBSERVACAO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DT_ENTRADA" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="grupoCliente">
+		<groupExpression><![CDATA[$F{CD_CLIENTE}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<rectangle>
+					<reportElement x="0" y="1" width="555" height="32" backcolor="#000000" uuid="f654b7e1-d23b-4808-aed5-2c3c8a23f5a9"/>
+				</rectangle>
+				<textField>
+					<reportElement x="362" y="8" width="175" height="20" forecolor="#FFFFFF" uuid="94df9faf-0211-4fae-8ee8-0cac30595490"/>
+					<textElement>
+						<font fontName="Trebuchet MS" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CD_CLIENTE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="65" y="8" width="237" height="20" forecolor="#FFFFFF" uuid="73f6dd56-7f62-45ed-9769-268d35ccb55a"/>
+					<textElement>
+						<font fontName="Trebuchet MS" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NM_CLIENTE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="5" y="8" width="60" height="20" forecolor="#FFFFFF" uuid="c09b183a-b1f2-4eef-8c5a-b1cbdbf9b785"/>
+					<textElement>
+						<font fontName="Trebuchet MS" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cliente:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="322" y="8" width="40" height="20" forecolor="#FFFFFF" uuid="3f104255-f2f7-44ed-aeba-4199215dd3e4"/>
+					<textElement>
+						<font fontName="Trebuchet MS" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CNPJ:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="grupoCaixa">
+		<groupExpression><![CDATA[$F{CD_CAXA}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="29" forecolor="#B7AEAE" backcolor="#B7AEAE" uuid="31732bd8-ff3d-4ac4-ba3e-71c8b65e0bf0"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="8" y="6" width="57" height="20" uuid="49625b99-643c-477a-8e9d-23b86c87e4bb"/>
+					<textElement>
+						<font fontName="Trebuchet MS" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Caixa:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="65" y="6" width="100" height="20" uuid="f375d824-aa2e-43e2-b0f3-e47c500ce183"/>
+					<textElement>
+						<font fontName="Trebuchet MS" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CD_CAXA}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="35">
+				<textField evaluationTime="Report">
+					<reportElement x="111" y="11" width="112" height="20" uuid="aa12fba9-859b-4a4c-a7a0-fefb5b0fc903"/>
+					<textElement>
+						<font fontName="Trebuchet MS"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{grupoCaixa_COUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="11" width="111" height="20" uuid="42e67820-274b-4350-b710-10442451c8d5"/>
+					<textElement>
+						<font fontName="Trebuchet MS" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total de Documentos:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="3" width="555" height="1" uuid="9965046c-d09a-43f6-9d7c-aa9b3248a983"/>
+					<graphicElement>
+						<pen lineWidth="1.75"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#6073F7" uuid="7e2be54c-aa39-4e27-950a-dde9074ddaf8"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="137" y="33" width="275" height="31" forecolor="#FFFFFF" uuid="deb5428b-aac2-45d5-a0bf-5596fe084084"/>
+				<textElement textAlignment="Center">
+					<font fontName="Trebuchet MS" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE DOCUMENTOS]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="464" y="1" width="88" height="20" forecolor="#FFFFFF" uuid="b5a2077c-da88-4c42-9a48-03ecd1202223"/>
+				<textElement>
+					<font fontName="Trebuchet MS" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="24" width="555" height="1" forecolor="#FFFFFF" uuid="10cba2e2-71a2-44d3-8225-aee887a8f4cf"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="422" y="1" width="39" height="20" forecolor="#FFFFFF" uuid="945d0124-7578-4bbf-9e9e-ecc2ea47fc1e"/>
+				<textElement>
+					<font fontName="Trebuchet MS" size="12"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="9" width="164" height="20" forecolor="#412E2E" uuid="a8b272c2-ff83-4a12-9781-dfeabd5508f5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="9" width="115" height="20" forecolor="#412E2E" uuid="865b6a51-1510-4667-8e41-84cc65869d5a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="9" width="100" height="20" forecolor="#412E2E" uuid="d6c55578-aac1-4bb9-b062-bc8ec43debfc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENTRADA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="424" y="9" width="131" height="20" forecolor="#412E2E" uuid="57715693-7ac5-4353-a32c-634c6e15ab59"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBSERVAÇÃO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="27" width="555" height="1" uuid="637b6914-adde-4bc0-9f90-3619f839d6f5"/>
+				<graphicElement>
+					<pen lineWidth="1.75"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="8" y="6" width="160" height="20" uuid="868c8bfd-e205-475a-84a4-fbf135770921"/>
+				<textElement>
+					<font fontName="Trebuchet MS"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NM_DOCUMENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="6" width="115" height="20" uuid="507f3fdf-3f70-4cc7-9a16-87fb15eb73f3"/>
+				<textElement>
+					<font fontName="Trebuchet MS"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="312" y="6" width="100" height="20" uuid="04ce10a7-05e4-4b49-82de-265b45093cf3"/>
+				<textElement>
+					<font fontName="Trebuchet MS"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DT_ENTRADA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="424" y="6" width="131" height="20" uuid="43e30a6f-0126-4dbc-a2cf-c6a04b001cba"/>
+				<textElement>
+					<font fontName="Trebuchet MS"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OBSERVACAO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="376" y="10" width="116" height="20" uuid="f724a53b-5c13-4a08-be35-bce2e5dc9fe8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Trebuchet MS" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="497" y="10" width="54" height="20" uuid="a118de4d-83c9-402a-b12c-ed7b7726e81a"/>
+				<textElement>
+					<font fontName="Trebuchet MS" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="2" width="555" height="1" uuid="7dbdc0d0-135c-4770-9848-995230c835b7"/>
+				<graphicElement>
+					<pen lineWidth="1.75"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>
