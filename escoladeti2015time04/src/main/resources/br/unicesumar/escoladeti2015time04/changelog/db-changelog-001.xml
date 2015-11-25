@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+    <changeSet author="Giovanni (generated)" id="1447015565710-1">
+        <createTable tableName="aluno_atendimento_deixarocurso">
+            <column name="ra" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bolsa" type="VARCHAR(255)"/>
+            <column name="bytes_foto" type="BYTEA"/>
+            <column name="centro" type="VARCHAR(255)"/>
+            <column name="curso" type="VARCHAR(255)"/>
+            <column name="matriculado" type="VARCHAR(255)"/>
+            <column name="nome" type="VARCHAR(255)"/>
+            <column name="reprovacao" type="VARCHAR(255)"/>
+            <column name="serie" type="VARCHAR(255)"/>
+            <column name="turno" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-2">
+        <createTable tableName="atendimento">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bolsafinanciamento" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="centro" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="curso" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricaoprivada" type="VARCHAR(1000)"/>
+            <column name="descricaopublica" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="matriculado" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nomealuno" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ra" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="seriesemestre" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="turno" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="motivo" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="usuariologado" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-3">
+        <createTable tableName="atendimentodeixarocurso">
+            <column name="coordenadordiretor" type="VARCHAR(255)"/>
+            <column name="numeroreprovacoes" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="protocolo" type="BIGINT"/>
+            <column name="transferencia" type="VARCHAR(255)"/>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="objetivo" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-4">
+        <createTable tableName="atendimentodomotivo">
+            <column name="atendimentomotivoid" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="atendimentodomotivo" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-5">
+        <createTable tableName="atendimentoespecial">
+            <column name="coordenadordiretor" type="VARCHAR(255)"/>
+            <column name="encaminhadopara" type="VARCHAR(255)"/>
+            <column name="laudomedico" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="protocolo" type="BIGINT"/>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-6">
+        <createTable tableName="atendimentoespecial_especialsolicitacao">
+            <column name="idatendimentoespecial" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="idespecialsolicitacao" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-7">
+        <createTable tableName="atendimentomotivo">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-8">
+        <createTable tableName="atendimentopreventivo">
+            <column name="encaminhamento" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meiocontato" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="numeroreprovacoes" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-9">
+        <createTable tableName="deixarocursoobjetivo">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-10">
+        <createTable tableName="especialsolicitacao">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-11">
+        <createTable tableName="hibernate_sequences">
+            <column name="sequence_name" type="VARCHAR(255)"/>
+            <column name="sequence_next_hi_value" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-12">
+        <createTable tableName="itemacesso">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="grupo" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nomenu" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rota" type="VARCHAR(255)"/>
+            <column name="superior" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-13">
+        <createTable tableName="itemavulso">
+            <column name="iditemacesso" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="idusuario" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tipoitemavulso" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-14">
+        <createTable tableName="perfilacesso">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nome" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-15">
+        <createTable tableName="perfilacesso_itemacesso">
+            <column name="idperfilacesso" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="iditemacesso" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-16">
+        <createTable tableName="usuario">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="login" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nome" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="senha" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-17">
+        <createTable tableName="usuario_perfildeacesso">
+            <column name="idusuario" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="idperfilacesso" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-18">
+        <addPrimaryKey columnNames="ra" constraintName="aluno_atendimento_deixarocurso_pkey" tableName="aluno_atendimento_deixarocurso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-19">
+        <addPrimaryKey columnNames="id" constraintName="atendimento_pkey" tableName="atendimento"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-20">
+        <addPrimaryKey columnNames="id" constraintName="atendimentodeixarocurso_pkey" tableName="atendimentodeixarocurso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-21">
+        <addPrimaryKey columnNames="atendimentomotivoid, atendimentodomotivo" constraintName="atendimentodomotivo_pkey" tableName="atendimentodomotivo"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-22">
+        <addPrimaryKey columnNames="idatendimentoespecial, idespecialsolicitacao" constraintName="atendimentoespecial_especialsolicitacao_pkey" tableName="atendimentoespecial_especialsolicitacao"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-23">
+        <addPrimaryKey columnNames="id" constraintName="atendimentoespecial_pkey" tableName="atendimentoespecial"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-24">
+        <addPrimaryKey columnNames="id" constraintName="atendimentomotivo_pkey" tableName="atendimentomotivo"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-25">
+        <addPrimaryKey columnNames="id" constraintName="atendimentopreventivo_pkey" tableName="atendimentopreventivo"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-26">
+        <addPrimaryKey columnNames="id" constraintName="deixarocursoobjetivo_pkey" tableName="deixarocursoobjetivo"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-27">
+        <addPrimaryKey columnNames="id" constraintName="especialsolicitacao_pkey" tableName="especialsolicitacao"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-28">
+        <addPrimaryKey columnNames="id" constraintName="itemacesso_pkey" tableName="itemacesso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-29">
+        <addPrimaryKey columnNames="iditemacesso, idusuario" constraintName="itemavulso_pkey" tableName="itemavulso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-30">
+        <addPrimaryKey columnNames="idperfilacesso, iditemacesso" constraintName="perfilacesso_itemacesso_pkey" tableName="perfilacesso_itemacesso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-31">
+        <addPrimaryKey columnNames="id" constraintName="perfilacesso_pkey" tableName="perfilacesso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-32">
+        <addPrimaryKey columnNames="idusuario, idperfilacesso" constraintName="usuario_perfildeacesso_pkey" tableName="usuario_perfildeacesso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-33">
+        <addPrimaryKey columnNames="id" constraintName="usuario_pkey" tableName="usuario"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-34">
+        <addUniqueConstraint columnNames="email" constraintName="uk_5171l57faosmj8myawaucatdw" deferrable="false" disabled="false" initiallyDeferred="false" tableName="usuario"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-35">
+        <addUniqueConstraint columnNames="rota" constraintName="uk_8mpqounqq4gj6d5xkd2g2cpri" deferrable="false" disabled="false" initiallyDeferred="false" tableName="itemacesso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-36">
+        <addUniqueConstraint columnNames="descricao" constraintName="uk_ev963oqprthrtkm7dwfhjqrcb" deferrable="false" disabled="false" initiallyDeferred="false" tableName="itemacesso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-37">
+        <addUniqueConstraint columnNames="descricao" constraintName="uk_n2xxt5e5ugyslf96e4juht00w" deferrable="false" disabled="false" initiallyDeferred="false" tableName="especialsolicitacao"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-38">
+        <addUniqueConstraint columnNames="login" constraintName="uk_pm3f4m4fqv89oeeeac4tbe2f4" deferrable="false" disabled="false" initiallyDeferred="false" tableName="usuario"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-39">
+        <addUniqueConstraint columnNames="descricao" constraintName="uk_q6l4xuwdrhiyqrfvh7hq6g64h" deferrable="false" disabled="false" initiallyDeferred="false" tableName="atendimentomotivo"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-40">
+        <addUniqueConstraint columnNames="descricao" constraintName="uk_qrg90vo3cs9pbfwbhysfdtf3n" deferrable="false" disabled="false" initiallyDeferred="false" tableName="deixarocursoobjetivo"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-41">
+        <addForeignKeyConstraint baseColumnNames="idatendimentoespecial" baseTableName="atendimentoespecial_especialsolicitacao" constraintName="fk_14rkp9ho74fj0v2fbp3xc4853" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="atendimentoespecial"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-42">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="atendimentoespecial" constraintName="fk_2no5uddvka7ynj2ommom6qo44" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="atendimento"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-43">
+        <addForeignKeyConstraint baseColumnNames="idusuario" baseTableName="usuario_perfildeacesso" constraintName="fk_2sfkmd9pwoca9ugbpwnisni6p" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="usuario"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-44">
+        <addForeignKeyConstraint baseColumnNames="idperfilacesso" baseTableName="perfilacesso_itemacesso" constraintName="fk_4o90laf2dxlccu6d0pt27u7b3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="perfilacesso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-45">
+        <addForeignKeyConstraint baseColumnNames="usuariologado" baseTableName="atendimento" constraintName="fk_4q9k2n3jo91u4dn4mgtkdmruq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="usuario"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-46">
+        <addForeignKeyConstraint baseColumnNames="idespecialsolicitacao" baseTableName="atendimentoespecial_especialsolicitacao" constraintName="fk_4sj8gvlm5rqir6jrty1e5paxj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="especialsolicitacao"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-47">
+        <addForeignKeyConstraint baseColumnNames="iditemacesso" baseTableName="itemavulso" constraintName="fk_8klh1wsv2q17v6n6yahmg3shx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="itemacesso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-48">
+        <addForeignKeyConstraint baseColumnNames="iditemacesso" baseTableName="perfilacesso_itemacesso" constraintName="fk_do47fcphh2hwntbxvkheyt7xt" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="itemacesso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-49">
+        <addForeignKeyConstraint baseColumnNames="motivo" baseTableName="atendimento" constraintName="fk_h33v2lbiwwrstcvvrkehcoqwu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="atendimentomotivo"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-50">
+        <addForeignKeyConstraint baseColumnNames="idperfilacesso" baseTableName="usuario_perfildeacesso" constraintName="fk_i0b4dav5q32t1yxkk2vgcdojj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="perfilacesso"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-51">
+        <addForeignKeyConstraint baseColumnNames="idusuario" baseTableName="itemavulso" constraintName="fk_j2k7qlwwb6m2p4i7v480airt4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="usuario"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-52">
+        <addForeignKeyConstraint baseColumnNames="atendimentomotivoid" baseTableName="atendimentodomotivo" constraintName="fk_k77dle6te50aowykkeuud2rj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="atendimentomotivo"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-53">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="atendimentopreventivo" constraintName="fk_nsi8jcll0qhwerd0i2rdxi9kl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="atendimento"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-54">
+        <addForeignKeyConstraint baseColumnNames="objetivo" baseTableName="atendimentodeixarocurso" constraintName="fk_of2iqwkr730uom11cdhwx4auc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="deixarocursoobjetivo"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-55">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="atendimentodeixarocurso" constraintName="fk_q4oaecrrptmwcsk70d98ql6ch" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="atendimento"/>
+    </changeSet>
+    <changeSet author="Giovanni (generated)" id="1447015565710-56">
+        <addForeignKeyConstraint baseColumnNames="superior" baseTableName="itemacesso" constraintName="fk_rvxusn87yx0lcrjh6tnce8tjp" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="itemacesso"/>
+    </changeSet>
+</databaseChangeLog>

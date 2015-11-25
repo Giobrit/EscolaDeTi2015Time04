@@ -1,0 +1,74 @@
+<form name="formObjetivo" class="col-md-10 col-sm-10 col-lg-10 col-xs-10 pull-right" novalidate ng-init="init()" >
+    <div class="formulario" ng-init="init()">
+        <div class="panel panel-info">
+            <div class="panel-heading"><h3>Lista de Objetivo<span class="glyphicon glyphicon-th-list pull-right" aria-hidden="true"></span></h3></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <a href="#/AtendimentoDeixarOCurso/Objetivo/form" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Adicionar novo objetivo">Adicionar Novo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group">
+                            <input type="text" name="nome" ng-change="listar()" placeholder="Informe o dado a ser pesquisado" class="form-control" ng-model="pesquisa" ng-maxlength="100" />                        
+                        </div>	
+                    </div>
+                    <div class="col-md-1">
+                        <div class="pull-right">
+                            <input type="number" id="itensPorPagina" name="itensPorPagina" class="form-control" ng-model="numeroItensPorPagina" min="1" max="99" data-toggle="tooltip" data-placement="bottom" data-animation="am-flip-x" title="Itens por página">
+                        </div>    
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <table class="table table-hover table-condensed table-bordered table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th ng-click="alterarOrdenacao('descricao')" class="col-md-10">
+                                            <i class="fa fa-circle-o" aria-hidden="true" ng-show="colunaOrdenacao !== 'descricao'"></i>
+                                            <i class="fa fa-arrow-circle-o-up" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'descricao'"></i>
+                                            <i class="fa fa-arrow-circle-o-down" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'descricao'"></i>
+                                            Descrição
+                                        </th>                                        
+                                        <th ng-click="alterarOrdenacao('status')" class="col-md-1">
+                                            <i class="fa fa-circle-o" aria-hidden="true" ng-show="colunaOrdenacao !== 'status'"></i>
+                                            <i class="fa fa-arrow-circle-o-up" aria-hidden="true" ng-show="ordenacaoCrescente && colunaOrdenacao === 'status'"></i>
+                                            <i class="fa fa-arrow-circle-o-down" aria-hidden="true" ng-show="!ordenacaoCrescente && colunaOrdenacao === 'status'"></i>
+                                            Ação
+                                        </th>
+                                        <th class="col-md-1">Opção</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="o in objetivos | itemsPerPage: numeroItensPorPagina" total-items="totalRegistros" current-page="paginaAtual">
+                                        <td>{{o.descricao}}</td>                                        
+                                        <td>
+                                            <button type="button" class="btn btn-success botaoAlterarStatus" ng-show="o.status === 'INATIVO'" ng-click="alterarStatus(o)">Ativar</button>
+                                            <button type="button" class="btn btn-danger botaoAlterarStatus" ng-show="o.status === 'ATIVO'" ng-click="alterarStatus(o)">Inativar</button>
+                                        </td>
+                                        <td>
+                                            <span>                                                
+                                                <a href="#/AtendimentoDeixarOCurso/Objetivo/form/{{o.id}}" type="button" class="tooltip, btn btn-warning botaoEditar" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <dir-pagination-controls boundary-links="true" on-page-change="alterarPagina()" template-url="view/atendimentoDeixarOCurso/objetivo/paginacao.html"></dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</form>

@@ -1,0 +1,13 @@
+<form class="menuLogin" ng-init="init()">
+    <div class="card signin-card clearfix">
+        <div id="cc_iframe_parent"></div>
+        <img class="profile-img" src="../../bibliotecas/img/logotipo.png">
+        <p class="profile-name"></p>
+        <label  class="hidden-label" for="Email">E-mail</label>
+        <input  id="Email" name="Email" ng-model="login.loginOuEmail" type="text" placeholder=" Login ou E-mail" value="" spellcheck="false" class="">
+
+        <label  class="hidden-label" for="Passwd">Senha</label>
+        <input  id="Passwd" name="Passwd" ng-model="login.senha" type="password" placeholder=" Senha"  class="">
+        <input id="signIn" name="signIn" ng-click="logar()" class="rc-button rc-button-submit" type="submit" value="Fazer login">
+    </div>
+</form>

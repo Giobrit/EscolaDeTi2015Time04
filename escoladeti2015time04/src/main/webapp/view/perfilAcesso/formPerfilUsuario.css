@@ -1,0 +1,16 @@
+@media(min-width: 1000px){
+    .teste{
+        margin-left: 40px;
+    }    
+}
+
+@media(min-width: 1360px){
+    .teste2{
+        margin-left: 905px;
+    }
+}
+@media(max-width: 1360px){
+    .teste2{
+        margin-left: 120px;
+    }
+}
